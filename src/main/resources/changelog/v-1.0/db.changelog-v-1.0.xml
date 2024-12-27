@@ -5,4 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
+    <include file="2024-12-27-01-create-employees-table.xml"
+             relativeToChangelogFile="true"/>
+
 </databaseChangeLog>

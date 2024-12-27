@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="create-employee-table" author="Roman Gulyako">
+        <createTable tableName="employees">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="surname" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="patronymic" type="VARCHAR(255)"/>
+            <column name="birthday" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="residence_city" type="VARCHAR(255)"/>
+            <column name="residence_street" type="VARCHAR(255)"/>
+            <column name="residence_house" type="VARCHAR(255)"/>
+            <column name="residence_apartment" type="INT"/>
+            <column name="phone" type="VARCHAR(255)"/>
+            <column name="is_fired" type="BIT" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="DATETIME(6)"/>
+            <column name="update_date" type="DATETIME(6)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
