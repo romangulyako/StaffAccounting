@@ -62,4 +62,11 @@ public abstract class DAO<T> implements IDAO<T> {
             }
         }));
     }
+
+    @Override
+    public void close() {
+        if (this.em.isOpen()) {
+            this.em.close();
+        }
+    }
 }

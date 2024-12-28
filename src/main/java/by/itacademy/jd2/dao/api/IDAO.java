@@ -9,4 +9,5 @@ public interface IDAO<T> {
     T get(Serializable id);
     List<T> getAll();
     boolean delete(Serializable id);
+    void close();
 }

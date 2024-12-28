@@ -13,15 +13,9 @@ public class HibernateUtil {
         return ENTITY_MANAGER;
     }
 
-    public static void closeEntityManagerFactory() {
+    public static void close() {
         if (ENTITY_MANAGER_FACTORY.isOpen()) {
             ENTITY_MANAGER_FACTORY.close();
-        }
-    }
-
-    public static void closeEntityManager(EntityManager entityManager) {
-        if (entityManager.isOpen()) {
-            entityManager.close();
         }
     }
 }
