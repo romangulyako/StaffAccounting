@@ -1,4 +1,4 @@
-package by.itacademy.jd2.service;
+package by.itacademy.jd2.service.impl;
 
 import by.itacademy.jd2.converter.EmployeeConverter;
 import by.itacademy.jd2.dao.api.EmployeeDAO;
@@ -50,5 +50,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeDAO.getAll().stream()
                 .map(EmployeeConverter::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void closeDao() {
+        this.employeeDAO.close();
     }
 }
