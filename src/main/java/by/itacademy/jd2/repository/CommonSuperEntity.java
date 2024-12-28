@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 public class CommonSuperEntity {
     @CreationTimestamp
-    @Column(name = "create_date")
+    @Column(updatable = false, name = "create_date")
     private LocalDateTime createDate;
 
     @UpdateTimestamp
