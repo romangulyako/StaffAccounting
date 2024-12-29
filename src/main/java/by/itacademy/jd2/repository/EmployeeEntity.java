@@ -8,15 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Embedded;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
+import javax.persistence.*;
 
 @Builder
 @Data
@@ -47,4 +39,7 @@ public class EmployeeEntity extends CommonSuperEntity {
 
     @Column(name = "is_fired")
     private boolean isFired;
+
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
+    private PassportEntity passport;
 }
