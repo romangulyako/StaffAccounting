@@ -11,21 +11,36 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public class EmployeeConverter {
     public static EmployeeEntity toEntity(EmployeeDTO employeeDTO) {
-        return EmployeeEntity.builder()
-                .id(employeeDTO.getId())
-                .personData(employeeDTO.getPersonData())
-                .homeAddress(employeeDTO.getHomeAddress())
-                .phone(employeeDTO.getPhone())
-                .build();
+        if (employeeDTO != null) {
+            EmployeeEntity employeeEntity = EmployeeEntity.builder()
+                    .id(employeeDTO.getId())
+                    .personData(employeeDTO.getPersonData())
+                    .homeAddress(employeeDTO.getHomeAddress())
+                    .phone(employeeDTO.getPhone())
+                    .passport(PassportConverter.toEntity(employeeDTO.getPassport()))
+                    .build();
+            if (employeeEntity.getPassport() != null) {
+                employeeEntity.getPassport().setEmployee(employeeEntity);
+            }
+
+            return employeeEntity;
+        }
+
+        return null;
     }
 
     public static EmployeeDTO toDTO(EmployeeEntity employeeEntity) {
-        return EmployeeDTO.builder()
-                .id(employeeEntity.getId())
-                .personData(employeeEntity.getPersonData())
-                .homeAddress(employeeEntity.getHomeAddress())
-                .phone(employeeEntity.getPhone())
-                .build();
+        if (employeeEntity != null) {
+            return EmployeeDTO.builder()
+                    .id(employeeEntity.getId())
+                    .personData(employeeEntity.getPersonData())
+                    .homeAddress(employeeEntity.getHomeAddress())
+                    .phone(employeeEntity.getPhone())
+                    .passport(PassportConverter.toDTO(employeeEntity.getPassport()))
+                    .build();
+        }
+
+        return null;
     }
 
     public static EmployeeDTO fromHttpRequest(HttpServletRequest req) throws NumberFormatException {
@@ -41,7 +56,7 @@ public class EmployeeConverter {
                         .city(ServletUtil.getParam(req, ConstantParamAndAttribute.RESIDENCE_CITY))
                         .street(ServletUtil.getParam(req, ConstantParamAndAttribute.RESIDENCE_STREET))
                         .house(ServletUtil.getParam(req, ConstantParamAndAttribute.RESIDENCE_HOUSE))
-                        .apartment(Integer.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.RESIDENCE_APARTMENT)))
+                        .apartment(ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.RESIDENCE_APARTMENT)))
                         .build())
                 .phone(ServletUtil.getParam(req, ConstantParamAndAttribute.PHONE))
                 .build();

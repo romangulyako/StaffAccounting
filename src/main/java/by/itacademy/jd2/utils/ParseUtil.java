@@ -13,6 +13,12 @@ public class ParseUtil {
                 .orElse(null);
     }
 
+    public static Integer parseInt(String input) throws NumberFormatException {
+        return Optional.ofNullable(input)
+                .map(Integer::parseInt)
+                .orElse(null);
+    }
+
     public static Date parseDate(String input) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(input, formatter);
