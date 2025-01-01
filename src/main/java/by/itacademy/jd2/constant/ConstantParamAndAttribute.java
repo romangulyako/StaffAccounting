@@ -14,4 +14,15 @@ public class ConstantParamAndAttribute {
     public static String LIST_EMPLOYEES = "list_employees";
     public static String EMPLOYEE = "employee";
     public static String ERROR = "errorMessage";
+    public static String SERIES = "series";
+    public static String NUMBER = "number";
+    public static String IDENTIFICATION_NUMBER = "identification_number";
+    public static String REGISTRATION_CITY = "registration_city";
+    public static String REGISTRATION_STREET = "registration_street";
+    public static String REGISTRATION_HOUSE = "registration_house";
+    public static String REGISTRATION_APARTMENT = "registration_apartment";
+    public static String DATE_ISSUE = "date_issue";
+    public static String DATE_END_ACTION = "date_end_action";
+    public static String PUBLISHER = "publisher";
+    public static String PASSPORT = "passport";
 }
