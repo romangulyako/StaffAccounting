@@ -11,4 +11,8 @@ public class ConstantAction {
     public static final String ADD_PASSPORT = "add_passport";
     public static final String UPDATE_PASSPORT = "update_passport";
     public static final String DELETE_PASSPORT = "delete_passport";
+    public static final String RELATIVES = "relatives";
+    public static final String ADD_RELATIVE = "add_relative";
+    public static final String UPDATE_RELATIVE = "update_relative";
+    public static final String DELETE_RELATIVE = "delete_relative";
 }
