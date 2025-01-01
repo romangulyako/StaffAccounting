@@ -40,6 +40,9 @@ public class EmployeeEntity extends CommonSuperEntity {
     @Column(name = "is_fired")
     private boolean isFired;
 
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "employee",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            orphanRemoval = true)
     private PassportEntity passport;
 }
