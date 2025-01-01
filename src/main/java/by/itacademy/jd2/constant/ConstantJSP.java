@@ -9,5 +9,9 @@ public class ConstantJSP {
     public static final String PASSPORT_PAGE = "/passport/passport.jsp";
     public static final String ADD_PASSPORT_PAGE = "/passport/add_passport.jsp";
     public static final String UPDATE_PASSPORT_PAGE = "/passport/update_passport.jsp";
+    public static final String RELATIVES_PAGE = "/relatives/relatives.jsp";
+    public static final String ADD_RELATIVE_PAGE = "/relatives/add_relative.jsp";
+    public static final String UPDATE_RELATIVE_PAGE = "/relatives/update_relative.jsp";
+
 }
 

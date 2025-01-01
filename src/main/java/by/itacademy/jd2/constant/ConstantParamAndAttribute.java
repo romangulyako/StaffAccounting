@@ -25,4 +25,6 @@ public class ConstantParamAndAttribute {
     public static String DATE_END_ACTION = "date_end_action";
     public static String PUBLISHER = "publisher";
     public static String PASSPORT = "passport";
+    public static String EMPLOYEE_ID = "employee_id";
+    public static String TYPE_KINSHIP = "type_kinship";
 }
