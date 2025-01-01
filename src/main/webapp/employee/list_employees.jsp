@@ -2,7 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantAction" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Сотрудники</title>
@@ -37,6 +37,7 @@
             font-size: 16px;
             transition: background-color 0.3s;
         }
+
         .button-add {
             background-color: #259925;
             color: #ffffff;
@@ -46,15 +47,6 @@
             background-color: #218721;
         }
 
-        .button-edit {
-            background-color: #efc92d;
-            color: #000000;
-        }
-
-        .button-edit:hover {
-            background-color: #dfb61a;
-        }
-
         .button-delete {
             background-color: #e41c1c;
             color: #ffffff;
@@ -62,6 +54,15 @@
 
         .button-delete:hover {
             background-color: #cd1313;
+        }
+
+        .button-show {
+            background-color: #3258ea;
+            color: #ffffff;
+        }
+
+        .button-show:hover {
+            background-color: #2246cf;
         }
 
         table {
@@ -118,13 +119,13 @@
                 <td><%= employee.getPhone() %>
                 </td>
                 <td>
-                    <form name="update_employee"
+                    <form name="employee"
                           method="get"
-                          action="<%= ConstantAction.UPDATE_EMPLOYEE %>">
-                        <button class="button-edit"
+                          action="<%= ConstantAction.EMPLOYEE %>">
+                        <button class="button-show"
                                 name="<%= ConstantParamAndAttribute.ID %>"
                                 value="<%= employee.getId() %>">
-                            Изменить
+                            Просмотреть
                         </button>
                     </form>
                 </td>
@@ -146,13 +147,12 @@
         </table>
     </div>
     <div>
-        <form name="add_employee" method="get" action="<%= ConstantAction.ADD_EMPLOYEE %>">
+        <form name="add_employee"
+              method="get"
+              action="<%= ConstantAction.ADD_EMPLOYEE %>">
             <button class="button-add">Добавить нового сотрудника</button>
         </form>
     </div>
-
-
-
 </div>
 </body>
 </html>
