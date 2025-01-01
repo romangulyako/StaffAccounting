@@ -9,5 +9,7 @@
              relativeToChangelogFile="true"/>
     <include file="2024-12-29-02-create-passport-table.xml"
              relativeToChangelogFile="true"/>
+    <include file="2025-01-01-03-create-relatives-table.xml"
+             relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
