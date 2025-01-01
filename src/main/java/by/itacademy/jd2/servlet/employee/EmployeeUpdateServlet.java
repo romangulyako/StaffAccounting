@@ -1,4 +1,4 @@
-package by.itacademy.jd2.servlet;
+package by.itacademy.jd2.servlet.employee;
 
 import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
