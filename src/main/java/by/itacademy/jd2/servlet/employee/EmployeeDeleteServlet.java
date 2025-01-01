@@ -1,12 +1,12 @@
-package by.itacademy.jd2.servlet;
+package by.itacademy.jd2.servlet.employee;
 
 import by.itacademy.jd2.constant.ConstantAction;
-import by.itacademy.jd2.constant.ConstantJSP;
-import by.itacademy.jd2.converter.EmployeeConverter;
-import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
+import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.service.api.EmployeeService;
+import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
 import by.itacademy.jd2.utils.HibernateUtil;
-import jakarta.servlet.RequestDispatcher;
+import by.itacademy.jd2.utils.ParseUtil;
+import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,21 +15,13 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "employeeAddServlet", value = "/add_employee")
-public class EmployeeAddServlet extends HttpServlet {
+@WebServlet(name = "employeeDeleteServlet", value = "/delete_employee")
+public class EmployeeDeleteServlet extends HttpServlet {
     private final EmployeeService employeeService = new EmployeeServiceImpl();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = getServletContext()
-                .getRequestDispatcher(ConstantJSP.ADD_EMPLOYEE_PAGE);
-        requestDispatcher.forward(req, resp);
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        employeeService.addEmployee(EmployeeConverter.fromHttpRequest(req));
-
+        employeeService.deleteEmployee(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
         resp.sendRedirect(ConstantAction.LIST_EMPLOYEES);
     }
 

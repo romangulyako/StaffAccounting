@@ -1,4 +1,4 @@
-package by.itacademy.jd2.servlet;
+package by.itacademy.jd2.servlet.employee;
 
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;

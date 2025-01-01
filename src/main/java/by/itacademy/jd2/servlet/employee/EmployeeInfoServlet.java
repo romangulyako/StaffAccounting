@@ -1,4 +1,4 @@
-package by.itacademy.jd2.servlet;
+package by.itacademy.jd2.servlet.employee;
 
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
@@ -8,7 +8,6 @@ import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
 import by.itacademy.jd2.utils.HibernateUtil;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
