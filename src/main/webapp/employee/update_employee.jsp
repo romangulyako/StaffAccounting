@@ -144,7 +144,7 @@
             <button type="submit">Сохранить</button>
         </div>
         <div class="form-group">
-            <a href=<%= ConstantAction.LIST_EMPLOYEES %>> Вернуться к списку сотрудников </a><br/>
+            <a href=<%= ConstantAction.LIST_EMPLOYEES %>> Вернуться к списку сотрудников </a>
         </div>
     </form>
 </div>
