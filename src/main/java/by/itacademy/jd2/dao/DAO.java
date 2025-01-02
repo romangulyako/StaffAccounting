@@ -17,6 +17,10 @@ public abstract class DAO<T> implements IDAO<T> {
         this.clazz = clazz;
     }
 
+    protected EntityManager getEntityManager() {
+        return this.em;
+    }
+
     @Override
     public T save(T entity) {
         return ExecutorUtil.executeHibernate(this.em, em -> {

@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Builder
 @Data
@@ -45,4 +47,10 @@ public class EmployeeEntity extends CommonSuperEntity {
             fetch = FetchType.EAGER,
             orphanRemoval = true)
     private PassportEntity passport;
+
+    @OneToMany(mappedBy = "employee",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<RelativeEntity> relatives = new HashSet<>();
 }
