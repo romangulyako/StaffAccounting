@@ -168,8 +168,10 @@
                     value="<%= employee.getId() %>">Паспортные данные
             </button>
         </form>
-        <form action="relatives" method="post">
-            <button class="tab" >Семья</button>
+        <form action="relatives" method="get">
+            <button class="tab"
+                    name="<%= ConstantParamAndAttribute.EMPLOYEE_ID %>"
+                    value="<%= employee.getId() %>">Родственники</button>
         </form>
         <form action="marital_status" method="post">
             <button class="tab" >Семейное положение</button>
