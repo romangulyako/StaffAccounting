@@ -27,4 +27,6 @@ public class ConstantParamAndAttribute {
     public static String PASSPORT = "passport";
     public static String EMPLOYEE_ID = "employee_id";
     public static String TYPE_KINSHIP = "type_kinship";
+    public static String LIST_RELATIVES = "list_relatives";
+    public static String RELATIVE = "relative";
 }
