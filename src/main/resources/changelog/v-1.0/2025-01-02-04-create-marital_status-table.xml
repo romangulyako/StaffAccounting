@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="create-marital_status-table" author="Roman Gulyako">
+        <createTable tableName="marital_status">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="registration_date" type="DATE">
+                <constraints nullable="true"/>
+            </column>
+            <column name="document" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="is_current" type="BIT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="employee_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="DATETIME(6)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="update_date" type="DATETIME(6)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="marital_status"
+                                 baseColumnNames="employee_id"
+                                 constraintName="FK_employee_marital_status"
+                                 referencedTableName="employees"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
