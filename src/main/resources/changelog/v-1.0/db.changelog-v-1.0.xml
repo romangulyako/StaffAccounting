@@ -11,5 +11,7 @@
              relativeToChangelogFile="true"/>
     <include file="2025-01-01-03-create-relatives-table.xml"
              relativeToChangelogFile="true"/>
+    <include file="2025-01-02-04-create-marital_status-table.xml"
+             relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
