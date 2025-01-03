@@ -13,5 +13,7 @@
              relativeToChangelogFile="true"/>
     <include file="2025-01-02-04-create-marital_status-table.xml"
              relativeToChangelogFile="true"/>
+    <include file="2025-01-03-05-create-education-table.xml"
+             relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

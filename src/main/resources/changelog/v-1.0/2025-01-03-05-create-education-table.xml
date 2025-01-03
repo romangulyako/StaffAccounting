@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="create-education-table" author="Roman Gulyako">
+        <createTable tableName="education">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="education_level" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="institution" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="faculty" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="specialization" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="date_start" type="DATE">
+                <constraints nullable="true"/>
+            </column>
+            <column name="date_end" type="DATE">
+                <constraints nullable="true"/>
+            </column>
+            <column name="employee_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="DATETIME(6)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="update_date" type="DATETIME(6)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="education"
+                                 baseColumnNames="employee_id"
+                                 constraintName="FK_employee_education"
+                                 referencedTableName="employees"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
