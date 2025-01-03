@@ -24,8 +24,8 @@ public class RelativeAddServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long employee_id = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.EMPLOYEE_ID));
-        req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employee_id);
+        Long employeeId = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.EMPLOYEE_ID));
+        req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
         req.getRequestDispatcher(ConstantJSP.ADD_RELATIVE_PAGE).forward(req, resp);
         // TODO: Переделать, чтобы адрес был правильный
     }

@@ -17,8 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "deleteRelativeServlet", value = "/delete_relative")
-public class DeleteRelativeServlet extends HttpServlet {
+@WebServlet(name = "relativeDeleteServlet", value = "/delete_relative")
+public class RelativeDeleteServlet extends HttpServlet {
     private final RelativeService relativeService = new RelativeServiceImpl();
 
     @Override
