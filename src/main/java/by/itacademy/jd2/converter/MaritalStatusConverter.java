@@ -2,7 +2,7 @@ package by.itacademy.jd2.converter;
 
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.MaritalStatusDTO;
-import by.itacademy.jd2.repository.MaritalStatusEntity;
+import by.itacademy.jd2.entity.MaritalStatusEntity;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.http.HttpServletRequest;

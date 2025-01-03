@@ -1,7 +1,7 @@
 <%@ page import="by.itacademy.jd2.dto.EmployeeDTO" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
-<%@ page import="by.itacademy.jd2.repository.embedded.PersonData" %>
-<%@ page import="by.itacademy.jd2.repository.embedded.Address" %>
+<%@ page import="by.itacademy.jd2.entity.embedded.PersonData" %>
+<%@ page import="by.itacademy.jd2.entity.embedded.Address" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantAction" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>

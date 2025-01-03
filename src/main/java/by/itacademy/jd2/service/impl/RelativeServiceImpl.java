@@ -6,8 +6,8 @@ import by.itacademy.jd2.dao.api.RelativeDAO;
 import by.itacademy.jd2.dao.impl.EmployeeDaoImpl;
 import by.itacademy.jd2.dao.impl.RelativeDaoImpl;
 import by.itacademy.jd2.dto.RelativeDTO;
-import by.itacademy.jd2.repository.EmployeeEntity;
-import by.itacademy.jd2.repository.RelativeEntity;
+import by.itacademy.jd2.entity.EmployeeEntity;
+import by.itacademy.jd2.entity.RelativeEntity;
 import by.itacademy.jd2.service.api.RelativeService;
 
 import java.io.Serializable;

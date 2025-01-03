@@ -2,9 +2,9 @@ package by.itacademy.jd2.converter;
 
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.EmployeeDTO;
-import by.itacademy.jd2.repository.EmployeeEntity;
-import by.itacademy.jd2.repository.embedded.Address;
-import by.itacademy.jd2.repository.embedded.PersonData;
+import by.itacademy.jd2.entity.EmployeeEntity;
+import by.itacademy.jd2.entity.embedded.Address;
+import by.itacademy.jd2.entity.embedded.PersonData;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.http.HttpServletRequest;

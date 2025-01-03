@@ -6,8 +6,8 @@ import by.itacademy.jd2.dao.api.MaritalStatusDAO;
 import by.itacademy.jd2.dao.impl.EmployeeDaoImpl;
 import by.itacademy.jd2.dao.impl.MaritalStatusDaoImpl;
 import by.itacademy.jd2.dto.MaritalStatusDTO;
-import by.itacademy.jd2.repository.EmployeeEntity;
-import by.itacademy.jd2.repository.MaritalStatusEntity;
+import by.itacademy.jd2.entity.EmployeeEntity;
+import by.itacademy.jd2.entity.MaritalStatusEntity;
 import by.itacademy.jd2.service.api.MaritalStatusService;
 import by.itacademy.jd2.utils.HibernateUtil;
 

@@ -1,6 +1,6 @@
 package by.itacademy.jd2.dto;
 
-import by.itacademy.jd2.repository.embedded.PersonData;
+import by.itacademy.jd2.entity.embedded.PersonData;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

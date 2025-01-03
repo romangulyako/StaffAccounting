@@ -2,8 +2,8 @@ package by.itacademy.jd2.converter;
 
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.RelativeDTO;
-import by.itacademy.jd2.repository.RelativeEntity;
-import by.itacademy.jd2.repository.embedded.PersonData;
+import by.itacademy.jd2.entity.RelativeEntity;
+import by.itacademy.jd2.entity.embedded.PersonData;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.http.HttpServletRequest;
