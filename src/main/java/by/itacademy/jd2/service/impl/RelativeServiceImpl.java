@@ -57,8 +57,7 @@ public class RelativeServiceImpl implements RelativeService {
         if (entities == null || entities.isEmpty()) {
             return null;
         }
-        return relativeDAO.getRelativesByEmployeeId(employeeId)
-                .stream()
+        return entities.stream()
                 .map(RelativeConverter::toDTO)
                 .collect(Collectors.toList());
     }
