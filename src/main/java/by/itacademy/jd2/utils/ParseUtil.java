@@ -24,4 +24,10 @@ public class ParseUtil {
         LocalDate localDate = LocalDate.parse(input, formatter);
         return Date.valueOf(localDate);
     }
+
+    public static Boolean parseBoolean(String input) {
+        return Optional.ofNullable(input)
+                .map(Boolean::parseBoolean)
+                .orElse(null);
+    }
 }
