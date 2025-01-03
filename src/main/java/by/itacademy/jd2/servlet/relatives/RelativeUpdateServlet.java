@@ -3,7 +3,6 @@ package by.itacademy.jd2.servlet.relatives;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.converter.RelativeConverter;
-import by.itacademy.jd2.dto.EmployeeDTO;
 import by.itacademy.jd2.dto.RelativeDTO;
 import by.itacademy.jd2.service.api.RelativeService;
 import by.itacademy.jd2.service.impl.RelativeServiceImpl;
@@ -19,8 +18,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "updateRelativeServlet", value = "/update_relative")
-public class UpdateRelativeServlet extends HttpServlet {
+@WebServlet(name = "relativeUpdateServlet", value = "/update_relative")
+public class RelativeUpdateServlet extends HttpServlet {
     private final RelativeService relativeService = new RelativeServiceImpl();
 
     @Override
