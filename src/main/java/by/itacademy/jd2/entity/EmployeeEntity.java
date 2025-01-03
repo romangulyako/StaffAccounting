@@ -8,7 +8,19 @@ import lombok.EqualsAndHashCode;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Embedded;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.AttributeOverride;
+import javax.persistence.OneToOne;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -60,4 +72,10 @@ public class EmployeeEntity extends CommonSuperEntity {
             mappedBy = "employee")
     @Builder.Default
     private Set<MaritalStatusEntity> maritalStatuses = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "employee",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<EducationEntity> educations = new HashSet<>();
 }
