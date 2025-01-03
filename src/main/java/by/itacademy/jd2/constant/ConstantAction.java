@@ -15,4 +15,8 @@ public class ConstantAction {
     public static final String ADD_RELATIVE = "add_relative";
     public static final String UPDATE_RELATIVE = "update_relative";
     public static final String DELETE_RELATIVE = "delete_relative";
+    public static final String MARITAL_STATUSES = "marital_statuses";
+    public static final String ADD_MARITAL_STATUS = "add_marital_status";
+    public static final String UPDATE_MARITAL_STATUS = "update_marital_status";
+    public static final String DELETE_MARITAL_STATUS = "delete_marital_status";
 }
