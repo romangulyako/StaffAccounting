@@ -1,11 +1,11 @@
-<%@ page import="by.itacademy.jd2.dto.RelativeDTO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="by.itacademy.jd2.dto.MaritalStatusDTO" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantAction" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Родственники</title>
+    <title>Семейное положение</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -81,7 +81,7 @@
             background-color: #dddddd;
         }
 
-        .relative-header {
+        .status-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -90,7 +90,7 @@
             padding-bottom: 10px;
         }
 
-        .relative-header h2 {
+        .status-header h2 {
             margin: 0;
         }
 
@@ -134,60 +134,51 @@
 </head>
 <body>
 <div class="form-container">
-    <% List<RelativeDTO> relatives = (List<RelativeDTO>) request.getAttribute(ConstantParamAndAttribute.LIST_RELATIVES);
-        if (relatives == null || relatives.isEmpty()) { %>
-    <div class="relative-header">
-        <h2>Информация о родственниках отсутствует</h2>
+    <% List<MaritalStatusDTO> maritalStatuses = (List<MaritalStatusDTO>) request.getAttribute(ConstantParamAndAttribute.LIST_MARITAL_STATUSES);
+        if (maritalStatuses == null || maritalStatuses.isEmpty()) { %>
+    <div class="status-header">
+        <h2>Нет информации о семейном положении сотрудника</h2>
     </div>
     <% } else { %>
     <div class="form-group">
         <table>
             <tr>
-                <th>Фамилия</th>
-                <th>Имя</th>
-                <th>Отчество</th>
-                <th>Дата рождения</th>
-                <th>Тип родства</th>
+                <th>Семейное положение</th>
+                <th>Дата регистрации</th>
+                <th>Подтверждающий документ</th>
                 <th colspan="2">Действие</th>
             </tr>
             <tr>
-                <% for (RelativeDTO relative : relatives) { %>
-                <td><%= relative.getPersonData().getSurname() %>
-                </td>
-                <td><%= relative.getPersonData().getName() %>
-                </td>
-                <td><%= relative.getPersonData().getPatronymic() %>
-                </td>
-                <td><%= relative.getPersonData().getBirthday() %>
-                </td>
-                <td><%= relative.getTypeKinship() %>
-                </td>
+                <% for (MaritalStatusDTO maritalStatus : maritalStatuses) { %>
+                <td><%= maritalStatus.getStatus() %></td>
+                <td><%= maritalStatus.getRegistrationDate() %></td>
+                <td><%= maritalStatus.getDocument() %></td>
                 <td>
-                    <form name="update_relative"
+                    <form name="update_marital_status"
                           method="get"
-                          action="<%= ConstantAction.UPDATE_RELATIVE %>">
+                          action="<%= ConstantAction.UPDATE_MARITAL_STATUS %>">
                         <button class="button-edit"
                                 name="<%= ConstantParamAndAttribute.ID %>"
-                                value="<%= relative.getId() %>">
+                                value="<%= maritalStatus.getId() %>">
                             Изменить
                         </button>
                         <input type="hidden"
                                name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
-                               value="<%= relative.getEmployeeId() %>"/>
+                               value="<%= maritalStatus.getEmployeeId() %>"/>
                     </form>
                 </td>
                 <td>
-                    <form name="delete_relative"
+                    <form name="delete_marital_status"
                           method="post"
-                          action="<%= ConstantAction.DELETE_RELATIVE %>">
+                          action="<%= ConstantAction.DELETE_MARITAL_STATUS %>">
                         <button class="button-delete"
                                 name="<%= ConstantParamAndAttribute.ID %>"
-                                value="<%= relative.getId() %>">
+                                value="<%= maritalStatus.getId() %>">
                             Удалить
                         </button>
                         <input type="hidden"
                                name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
-                               value="<%= relative.getEmployeeId() %>"/>
+                               value="<%= maritalStatus.getEmployeeId() %>"/>
                     </form>
                 </td>
             </tr>
@@ -196,13 +187,13 @@
     </div>
     <% } %>
     <div class="tabs">
-        <form name="add_relative"
+        <form name="add_marital_status"
               method="get"
-              action="<%= ConstantAction.ADD_RELATIVE %>">
+              action="<%= ConstantAction.ADD_MARITAL_STATUS %>">
             <button class="tab, button-add"
                     name="<%= ConstantParamAndAttribute.EMPLOYEE_ID%>"
-                    value="<%= request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
-                Добавить родственника
+                    value="<%= request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID) %>">
+                Обновить семейное положение
             </button>
         </form>
         <form name="employee"
