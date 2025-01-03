@@ -1,6 +1,6 @@
-package by.itacademy.jd2.repository;
+package by.itacademy.jd2.entity;
 
-import by.itacademy.jd2.repository.embedded.Address;
+import by.itacademy.jd2.entity.embedded.Address;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

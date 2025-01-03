@@ -1,6 +1,6 @@
 package by.itacademy.jd2.dao.api;
 
-import by.itacademy.jd2.repository.MaritalStatusEntity;
+import by.itacademy.jd2.entity.MaritalStatusEntity;
 
 import java.util.List;
 

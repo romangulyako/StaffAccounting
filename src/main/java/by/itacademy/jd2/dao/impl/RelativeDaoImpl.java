@@ -2,7 +2,7 @@ package by.itacademy.jd2.dao.impl;
 
 import by.itacademy.jd2.dao.DAO;
 import by.itacademy.jd2.dao.api.RelativeDAO;
-import by.itacademy.jd2.repository.RelativeEntity;
+import by.itacademy.jd2.entity.RelativeEntity;
 import by.itacademy.jd2.utils.ExecutorUtil;
 
 import javax.persistence.Query;

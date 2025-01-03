@@ -1,6 +1,6 @@
 package by.itacademy.jd2.dto;
 
-import by.itacademy.jd2.repository.embedded.Address;
+import by.itacademy.jd2.entity.embedded.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

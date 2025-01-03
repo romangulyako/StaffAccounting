@@ -6,8 +6,8 @@ import by.itacademy.jd2.dao.api.EmployeeDAO;
 import by.itacademy.jd2.dao.impl.EmployeeDaoImpl;
 import by.itacademy.jd2.dto.EmployeeDTO;
 import by.itacademy.jd2.dto.PassportDTO;
-import by.itacademy.jd2.repository.EmployeeEntity;
-import by.itacademy.jd2.repository.PassportEntity;
+import by.itacademy.jd2.entity.EmployeeEntity;
+import by.itacademy.jd2.entity.PassportEntity;
 import by.itacademy.jd2.service.api.EmployeeService;
 
 import java.io.Serializable;

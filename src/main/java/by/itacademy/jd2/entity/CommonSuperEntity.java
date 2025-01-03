@@ -1,4 +1,4 @@
-package by.itacademy.jd2.repository;
+package by.itacademy.jd2.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
