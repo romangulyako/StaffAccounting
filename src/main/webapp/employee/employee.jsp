@@ -171,16 +171,20 @@
         <form action="relatives" method="get">
             <button class="tab"
                     name="<%= ConstantParamAndAttribute.EMPLOYEE_ID %>"
-                    value="<%= employee.getId() %>">Родственники</button>
+                    value="<%= employee.getId() %>">Родственники
+            </button>
         </form>
-        <form action="marital_status" method="post">
-            <button class="tab" >Семейное положение</button>
+        <form action="marital_statuses" method="get">
+            <button class="tab"
+                    name="<%= ConstantParamAndAttribute.EMPLOYEE_ID %>"
+                    value="<%= employee.getId() %>">Семейное положение
+            </button>
         </form>
         <form action="education" method="post">
-            <button class="tab" >Образование</button>
+            <button class="tab">Образование</button>
         </form>
         <form action="career" method="post">
-            <button class="tab" >Карьера</button>
+            <button class="tab">Карьера</button>
         </form>
     </div>
     <div class="tab">
