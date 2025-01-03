@@ -12,6 +12,8 @@ public class ConstantJSP {
     public static final String RELATIVES_PAGE = "/relatives/relatives.jsp";
     public static final String ADD_RELATIVE_PAGE = "/relatives/add_relative.jsp";
     public static final String UPDATE_RELATIVE_PAGE = "/relatives/update_relative.jsp";
-
+    public static final String MARITAL_STATUSES_PAGE = "/marital_statuses/marital_statuses.jsp";
+    public static final String ADD_MARITAL_STATUS_PAGE = "/marital_statuses/add_marital_status.jsp";
+    public static final String UPDATE_MARITAL_STATUS_PAGE = "/marital_statuses/update_marital_status.jsp";
 }
 
