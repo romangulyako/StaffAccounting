@@ -6,6 +6,7 @@ import by.itacademy.jd2.entity.EducationEntity;
 import by.itacademy.jd2.utils.ExecutorUtil;
 
 import javax.persistence.Query;
+import java.io.Serializable;
 import java.util.List;
 
 public class EducationDaoImpl extends DAO<EducationEntity> implements EducationDAO {
@@ -14,7 +15,7 @@ public class EducationDaoImpl extends DAO<EducationEntity> implements EducationD
     }
 
     @Override
-    public List<EducationEntity> getEducationByEmployeeId(Long employeeId) {
+    public List<EducationEntity> getEducationByEmployeeId(Serializable employeeId) {
         return ExecutorUtil.executeHibernate(super.getEntityManager(),
                 em -> {
                     em.clear();
