@@ -6,60 +6,7 @@
 <head>
     <title>Добавление сотрудника</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .form-container {
-            background-color: #f4f4f4;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-width: 90%;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        input[type="text"],
-        input[type="date"] {
-            width: calc(100% - 20px);
-            padding: 10px;
-            border: 1px solid #000000;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-
-
-        button {
-            background-color: #259925;
-            color: #ffffff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #218721;
-        }
+        <%@include file="../resources/css/styles.css"%>
     </style>
 </head>
 <body>
@@ -67,7 +14,7 @@
     <div class="form-group">
         <h2>Введите данные о новом сотруднике:</h2>
     </div>
-    <form action="<%= ConstantAction.ADD_EMPLOYEE %>" method="post">
+    <form id="save" action="<%= ConstantAction.ADD_EMPLOYEE %>" method="post">
         <div class="form-group">
             <label for="surname">Фамилия:</label>
             <input type="text" id="surname" name="<%= ConstantParamAndAttribute.SURNAME %>" required>
@@ -104,11 +51,19 @@
             <label for="phone">Номер телефона:</label>
             <input type="text" id="phone" name="<%= ConstantParamAndAttribute.PHONE %>">
         </div>
+    </form>
+    <form class="tabs" action="<%=ConstantAction.LIST_EMPLOYEES%>" method="get">
         <div class="form-group">
-            <button type="submit">Сохранить</button>
+            <button class="tab, button-add"
+                    form="save"
+                    type="submit">
+                Сохранить
+            </button>
         </div>
         <div class="form-group">
-            <a href=<%= ConstantAction.LIST_EMPLOYEES %>> Вернуться к списку сотрудников </a><br/>
+            <button class="tab">
+                Вернуться к просмотру сотрудника
+            </button>
         </div>
     </form>
 </div>
