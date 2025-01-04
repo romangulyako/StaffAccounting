@@ -15,5 +15,7 @@
              relativeToChangelogFile="true"/>
     <include file="2025-01-03-05-create-education-table.xml"
              relativeToChangelogFile="true"/>
+    <include file="2025-01-05-06-create-department-table.xml"
+             relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
