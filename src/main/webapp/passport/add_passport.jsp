@@ -9,7 +9,8 @@
     </style>
 </head>
 <body>
-<div class="form-container">
+<%@include file="../menu.jsp" %>
+<div class="form-container, general-div">
     <div class="form-group">
         <h2>Введите данные о паспорте:</h2>
     </div>

@@ -18,6 +18,7 @@
     </style>
 </head>
 <body>
+<%@include file="../menu.jsp" %>
 <div class="container, general-div">
     <div class="item-header">
         <h2>Информация о сотруднике</h2>

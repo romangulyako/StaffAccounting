@@ -10,8 +10,9 @@
     </style>
 </head>
 <body>
+<%@include file="../menu.jsp" %>
 <% MaritalStatusDTO maritalStatus = (MaritalStatusDTO) request.getAttribute(ConstantParamAndAttribute.MARITAL_STATUS); %>
-<div class="form-container">
+<div class="form-container, general-div">
     <div class="form-group">
         <h2>Заполните информацию:</h2>
     </div>

@@ -11,6 +11,7 @@
     </style>
 </head>
 <body>
+<%@include file="../menu.jsp" %>
 <div class="form-container, general-div">
     <div class="form-group">
         <h2>Все сотрудники организации:</h2>
