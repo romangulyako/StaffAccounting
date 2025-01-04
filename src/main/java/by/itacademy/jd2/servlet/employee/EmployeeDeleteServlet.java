@@ -4,7 +4,6 @@ import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.service.api.EmployeeService;
 import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
-import by.itacademy.jd2.utils.HibernateUtil;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
@@ -28,6 +27,5 @@ public class EmployeeDeleteServlet extends HttpServlet {
     @Override
     public void destroy() {
         employeeService.closeDao();
-        HibernateUtil.close();
     }
 }

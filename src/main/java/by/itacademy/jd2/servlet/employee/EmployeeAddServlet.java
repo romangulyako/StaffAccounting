@@ -5,7 +5,6 @@ import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.converter.EmployeeConverter;
 import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
 import by.itacademy.jd2.service.api.EmployeeService;
-import by.itacademy.jd2.utils.HibernateUtil;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -36,6 +35,5 @@ public class EmployeeAddServlet extends HttpServlet {
     @Override
     public void destroy() {
         employeeService.closeDao();
-        HibernateUtil.close();
     }
 }

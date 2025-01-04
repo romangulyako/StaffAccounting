@@ -35,11 +35,12 @@ public class ConstantParamAndAttribute {
     public static final String IS_CURRENT = "is_current";
     public static final String LIST_MARITAL_STATUSES = "list_marital_statuses";
     public static final String MARITAL_STATUS = "marital_status";
-    public static final String EDUCATION = "education";
+    public static final String LIST_EDUCATION = "list_education";
     public static final String EDUCATION_LEVEL = "education_level";
     public static final String INSTITUTION = "institution";
     public static final String FACULTY = "faculty";
     public static final String SPECIALIZATION = "specialization";
     public static final String DATE_START = "date_start";
     public static final String DATE_END = "date_end";
+    public static final String EDUCATION = "education";
 }
