@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-<div class="form-container">
+<div class="form-container, general-div">
     <div class="form-group">
         <h2>Все сотрудники организации:</h2>
     </div>

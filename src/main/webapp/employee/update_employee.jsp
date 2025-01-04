@@ -12,7 +12,7 @@
 </head>
 <body>
 <% EmployeeDTO employee = (EmployeeDTO) request.getAttribute(ConstantParamAndAttribute.EMPLOYEE); %>
-<div class="form-container">
+<div class="form-container, general-div">
     <div class="form-group">
         <h2>Введите данные о сотруднике:</h2>
     </div>

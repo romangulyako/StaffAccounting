@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-<div class="form-container">
+<div class="form-container, general-div">
     <div class="form-group">
         <h2>Введите данные о новом сотруднике:</h2>
     </div>
