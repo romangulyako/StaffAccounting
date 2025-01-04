@@ -7,129 +7,7 @@
 <head>
     <title>Семейное положение</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .form-container {
-            background-color: #f4f4f4;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-width: 90%;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-
-        .button-add {
-            background-color: #259925;
-            color: #ffffff;
-        }
-
-        .button-add:hover {
-            background-color: #218721;
-        }
-
-        .button-delete {
-            background-color: #e41c1c;
-            color: #ffffff;
-        }
-
-        .button-delete:hover {
-            background-color: #cd1313;
-        }
-
-        .button-edit {
-            background-color: #eac431;
-            color: #000000;
-        }
-
-        .button-edit:hover {
-            background-color: #d1ad1b;
-        }
-
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-
-        .status-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-        }
-
-        .status-header h2 {
-            margin: 0;
-        }
-
-        .button-add {
-            background-color: #259925; /* Зеленый цвет */
-            color: #ffffff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-
-        .button-add:hover {
-            background-color: #218721; /* Более темный зеленый цвет при наведении */
-        }
-
-        .tabs {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .tab {
-            margin: 0 10px;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #f9f9f9;
-            cursor: pointer;
-            text-decoration: none;
-            color: #333;
-            transition: background-color 0.3s ease;
-        }
-
-        .tab:hover {
-            background-color: #e9e9e9;
-        }
+        <%@include file="../resources/css/styles.css"%>
     </style>
 </head>
 <body>
@@ -150,9 +28,12 @@
             </tr>
             <tr>
                 <% for (MaritalStatusDTO maritalStatus : maritalStatuses) { %>
-                <td><%= maritalStatus.getStatus() %></td>
-                <td><%= maritalStatus.getRegistrationDate() %></td>
-                <td><%= maritalStatus.getDocument() %></td>
+                <td><%= maritalStatus.getStatus() %>
+                </td>
+                <td><%= maritalStatus.getRegistrationDate() %>
+                </td>
+                <td><%= maritalStatus.getDocument() %>
+                </td>
                 <td>
                     <form name="update_marital_status"
                           method="get"
