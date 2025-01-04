@@ -18,5 +18,9 @@ public class ConstantJSP {
     public static final String EDUCATION_PAGE = "/education/education.jsp";
     public static final String ADD_EDUCATION_PAGE = "/education/add_education.jsp";
     public static final String UPDATE_EDUCATION_PAGE = "/education/update_education.jsp";
+    public static final String LIST_DEPARTMENTS_PAGE = "/department/list_departments.jsp";
+    public static final String ADD_DEPARTMENT_PAGE = "/department/add_department.jsp";
+    public static final String UPDATE_DEPARTMENT_PAGE = "/department/update_department.jsp";
+    public static final String DEPARTMENT_INFO_PAGE = "/department/department_info.jsp";
 }
 
