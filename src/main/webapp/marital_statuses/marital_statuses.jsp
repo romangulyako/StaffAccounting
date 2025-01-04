@@ -11,7 +11,8 @@
     </style>
 </head>
 <body>
-<div class="form-container">
+<%@include file="../menu.jsp" %>
+<div class="form-container, general-div">
     <% List<MaritalStatusDTO> maritalStatuses = (List<MaritalStatusDTO>) request.getAttribute(ConstantParamAndAttribute.LIST_MARITAL_STATUSES);
         if (maritalStatuses == null || maritalStatuses.isEmpty()) { %>
     <div class="status-header">

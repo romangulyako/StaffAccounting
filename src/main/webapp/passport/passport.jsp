@@ -10,18 +10,21 @@
     </style>
 </head>
 <body>
-<div class="container">
+<%@include file="../menu.jsp" %>
+<div class="container, general-div">
     <% PassportDTO passportDTO = (PassportDTO) request.getAttribute(ConstantParamAndAttribute.PASSPORT);
         if (passportDTO == null) { %>
     <div class="item-header">
         <h2>Информация о паспорте отсутствует</h2>
+    </div>
+    <div class="tabs">
         <form name="add_passport"
               method="get"
               action=<%=ConstantAction.ADD_PASSPORT%>>
             <button class="button-add"
                     name="<%=ConstantParamAndAttribute.ID%>"
                     value="<%=request.getAttribute(ConstantParamAndAttribute.ID)%>">
-                Добавить
+                Добавить паспортные данные сотрудника
             </button>
         </form>
     </div>

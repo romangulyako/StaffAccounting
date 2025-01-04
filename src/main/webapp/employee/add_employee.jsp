@@ -10,6 +10,7 @@
     </style>
 </head>
 <body>
+<%@include file="../menu.jsp" %>
 <div class="form-container, general-div">
     <div class="form-group">
         <h2>Введите данные о новом сотруднике:</h2>

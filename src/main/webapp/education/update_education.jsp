@@ -10,8 +10,9 @@
     </style>
 </head>
 <body>
+<%@include file="../menu.jsp" %>
 <% EducationDTO education = (EducationDTO) request.getAttribute(ConstantParamAndAttribute.EDUCATION); %>
-<div class="form-container">
+<div class="form-container, general-div">
     <div class="form-group">
         <h2>Введите новые данные об образовании:</h2>
     </div>

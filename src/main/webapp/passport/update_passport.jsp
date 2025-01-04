@@ -10,8 +10,9 @@
     </style>
 </head>
 <body>
+<%@include file="../menu.jsp" %>
 <% PassportDTO passport = (PassportDTO) request.getAttribute(ConstantParamAndAttribute.PASSPORT); %>
-<div class="form-container">
+<div class="form-container, general-div">
     <div class="form-group">
         <h2>Введите паспортные данные:</h2>
     </div>

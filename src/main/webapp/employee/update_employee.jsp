@@ -11,6 +11,7 @@
     </style>
 </head>
 <body>
+<%@include file="../menu.jsp" %>
 <% EmployeeDTO employee = (EmployeeDTO) request.getAttribute(ConstantParamAndAttribute.EMPLOYEE); %>
 <div class="form-container, general-div">
     <div class="form-group">

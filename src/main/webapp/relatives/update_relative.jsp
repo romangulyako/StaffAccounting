@@ -10,8 +10,9 @@
     </style>
 </head>
 <body>
+<%@include file="../menu.jsp" %>
 <% RelativeDTO relative = (RelativeDTO) request.getAttribute(ConstantParamAndAttribute.RELATIVE); %>
-<div class="form-container">
+<div class="form-container, general-div">
     <div class="form-group">
         <h2>Введите новые данные о родственнике:</h2>
     </div>

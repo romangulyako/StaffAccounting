@@ -11,7 +11,8 @@
     </style>
 </head>
 <body>
-<div class="form-container">
+<%@include file="../menu.jsp" %>
+<div class="form-container, general-div">
     <% List<RelativeDTO> relatives = (List<RelativeDTO>) request.getAttribute(ConstantParamAndAttribute.LIST_RELATIVES);
         if (relatives == null || relatives.isEmpty()) { %>
     <div class="item-header">
