@@ -4,7 +4,6 @@ import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.service.api.EmployeeService;
 import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
-import by.itacademy.jd2.utils.HibernateUtil;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
@@ -31,6 +30,5 @@ public class PassportDeleteServlet extends HttpServlet {
     @Override
     public void destroy() {
         this.employeeService.closeDao();
-        HibernateUtil.close();
     }
 }

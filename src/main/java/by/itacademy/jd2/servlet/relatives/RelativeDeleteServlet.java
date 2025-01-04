@@ -5,7 +5,6 @@ import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.RelativeDTO;
 import by.itacademy.jd2.service.api.RelativeService;
 import by.itacademy.jd2.service.impl.RelativeServiceImpl;
-import by.itacademy.jd2.utils.HibernateUtil;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
@@ -34,6 +33,5 @@ public class RelativeDeleteServlet extends HttpServlet {
     @Override
     public void destroy() {
         this.relativeService.closeDao();
-        HibernateUtil.close();
     }
 }

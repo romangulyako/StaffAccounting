@@ -7,7 +7,6 @@ import by.itacademy.jd2.dto.EmployeeDTO;
 import by.itacademy.jd2.dto.PassportDTO;
 import by.itacademy.jd2.service.api.EmployeeService;
 import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
-import by.itacademy.jd2.utils.HibernateUtil;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
@@ -43,6 +42,5 @@ public class PassportAddServlet extends HttpServlet {
     @Override
     public void destroy() {
         employeeService.closeDao();
-        HibernateUtil.close();
     }
 }

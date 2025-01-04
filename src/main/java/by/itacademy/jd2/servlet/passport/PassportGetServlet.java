@@ -30,4 +30,9 @@ public class PassportGetServlet extends HttpServlet {
                 .getRequestDispatcher(ConstantJSP.PASSPORT_PAGE);
         requestDispatcher.forward(req, resp);
     }
+
+    @Override
+    public void destroy() {
+        employeeService.closeDao();
+    }
 }
