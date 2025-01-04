@@ -71,13 +71,6 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
     }
 
     @Override
-    public void doNotCurrent(Serializable id) {
-        MaritalStatusEntity maritalStatus = maritalStatusDAO.get(id);
-        maritalStatus.setCurrent(false);
-        maritalStatusDAO.update(maritalStatus, maritalStatus.getId());
-    }
-
-    @Override
     public void closeDao() {
         maritalStatusDAO.close();
         HibernateUtil.close();

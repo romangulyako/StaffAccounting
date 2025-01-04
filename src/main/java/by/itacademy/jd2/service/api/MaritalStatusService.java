@@ -11,5 +11,4 @@ public interface MaritalStatusService extends Service {
     void deleteMaritalStatus(Serializable id);
     MaritalStatusDTO getMaritalStatus(Serializable id);
     List<MaritalStatusDTO> getAllMaritalStatuses(Long employeeId);
-    void doNotCurrent(Serializable id);
 }
