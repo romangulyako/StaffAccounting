@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container, general-div">
     <div class="item-header">
         <h2>Информация о сотруднике</h2>
         <form name="update_employee"
@@ -76,8 +76,10 @@
                     value="<%= employee.getId() %>">Семейное положение
             </button>
         </form>
-        <form action="education" method="post">
-            <button class="tab">Образование</button>
+        <form action="<%=ConstantAction.EDUCATION%>" method="get">
+            <button class="tab"
+                    name="<%= ConstantParamAndAttribute.EMPLOYEE_ID %>"
+                    value="<%= employee.getId() %>">Образование</button>
         </form>
         <form action="career" method="post">
             <button class="tab">Карьера</button>

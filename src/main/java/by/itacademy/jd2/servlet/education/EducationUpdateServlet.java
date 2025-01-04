@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "educationUpdateServlet", value = "update_education")
+@WebServlet(name = "educationUpdateServlet", value = "/update_education")
 public class EducationUpdateServlet extends HttpServlet {
     private final EducationService educationService = new EducationServiceImpl();
 
@@ -47,6 +47,7 @@ public class EducationUpdateServlet extends HttpServlet {
         req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, education.getEmployeeId());
         req.setAttribute(ConstantParamAndAttribute.LIST_EDUCATION,
                 educationService.getEducationsByEmployeeId(education.getEmployeeId()));
+        req.getRequestDispatcher(ConstantJSP.EDUCATION_PAGE).forward(req, resp);
     }
 
     @Override
