@@ -109,6 +109,15 @@ input[type="date"] {
     font-size: 16px;
 }
 
+textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
 .item-header {
     display: flex;
     justify-content: space-between;

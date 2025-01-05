@@ -9,21 +9,21 @@
             </form>
         </li>
         <li>
-            <form action="<%=ConstantAction.LIST_EMPLOYEES%>"
+            <form action="<%=ConstantAction.LIST_DEPARTMENTS%>"
                   method="get">
-                <button class="menu-item">Штат</button>
+                <button class="menu-item">Структура организации</button>
             </form>
         </li>
         <li>
             <form action="<%=ConstantAction.LIST_EMPLOYEES%>"
                   method="get">
-                <button class="menu-item">Назначение</button>
+                <button class="menu-item">Назначение на должности</button>
             </form>
         </li>
         <li>
             <form action="<%=ConstantAction.LIST_EMPLOYEES%>"
                   method="get">
-                <button class="menu-item">Увольнение</button>
+                <button class="menu-item">Увольнение сотрудников</button>
             </form>
         </li>
     </ul>
