@@ -19,6 +19,12 @@ public class ParseUtil {
                 .orElse(null);
     }
 
+    public static Double parseDouble(String input) throws NumberFormatException {
+        return Optional.ofNullable(input)
+                .map(Double::parseDouble)
+                .orElse(null);
+    }
+
     public static Date parseDate(String input) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(input, formatter);
