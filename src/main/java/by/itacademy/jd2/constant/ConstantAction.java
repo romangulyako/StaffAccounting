@@ -28,4 +28,7 @@ public class ConstantAction {
     public static final String UPDATE_DEPARTMENT = "update_department";
     public static final String DELETE_DEPARTMENT = "delete_department";
     public static final String DEPARTMENT_INFO = "department_info";
+    public static final String ADD_POSITION = "add_position";
+    public static final String UPDATE_POSITION = "update_position";
+    public static final String DELETE_POSITION = "delete_position";
 }
