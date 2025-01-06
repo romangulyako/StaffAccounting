@@ -27,7 +27,7 @@ public class DepartmentInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            Long departmentId = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID));
+            Long departmentId = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.DEPARTMENT_ID));
             final DepartmentDTO department = departmentService.getDepartment(departmentId);
             final List<PositionDTO> positions = positionService.getPositionsByDepartmentId(departmentId);
 
@@ -38,6 +38,11 @@ public class DepartmentInfoServlet extends HttpServlet {
             req.setAttribute(ConstantParamAndAttribute.ERROR, "Ошибка в параметре");
             req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.doGet(req, resp);
     }
 
     @Override

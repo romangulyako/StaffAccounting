@@ -1,5 +1,6 @@
 package by.itacademy.jd2.servlet.education;
 
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.converter.EducationConverter;
@@ -31,23 +32,16 @@ public class EducationUpdateServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = getServletContext()
                     .getRequestDispatcher(ConstantJSP.UPDATE_EDUCATION_PAGE);
             requestDispatcher.forward(req, resp);
-        } catch (NumberFormatException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Передан неверный параметр");
-            req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
-        } catch (NullPointerException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Такого образования нет!");
+        } catch (NumberFormatException | NullPointerException e) {
+            req.setAttribute(ConstantParamAndAttribute.ERROR, "Ошибка в параметре");
             req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        EducationDTO education = EducationConverter.fromHttpRequest(req);
-        educationService.updateEducation(education);
-        req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, education.getEmployeeId());
-        req.setAttribute(ConstantParamAndAttribute.LIST_EDUCATION,
-                educationService.getEducationsByEmployeeId(education.getEmployeeId()));
-        req.getRequestDispatcher(ConstantJSP.EDUCATION_PAGE).forward(req, resp);
+        educationService.updateEducation(EducationConverter.fromHttpRequest(req));
+        req.getRequestDispatcher(ConstantAction.EDUCATION).forward(req, resp);
     }
 
     @Override

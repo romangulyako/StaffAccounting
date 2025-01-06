@@ -1,10 +1,9 @@
 package by.itacademy.jd2.servlet.position;
 
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.converter.PositionConverter;
-import by.itacademy.jd2.dto.DepartmentDTO;
-import by.itacademy.jd2.dto.PositionDTO;
 import by.itacademy.jd2.service.api.DepartmentService;
 import by.itacademy.jd2.service.api.PositionService;
 import by.itacademy.jd2.service.impl.DepartmentServiceImpl;
@@ -33,13 +32,8 @@ public class PositionAddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PositionDTO position = PositionConverter.fromHttpRequest(req);
-        positionService.addPosition(position);
-        DepartmentDTO department = departmentService.getDepartment(position.getDepartmentId());
-        req.setAttribute(ConstantParamAndAttribute.DEPARTMENT, department);
-        req.setAttribute(ConstantParamAndAttribute.LIST_POSITIONS,
-                positionService.getPositionsByDepartmentId(position.getDepartmentId()));
-        req.getRequestDispatcher(ConstantJSP.DEPARTMENT_INFO_PAGE).forward(req, resp);
+        positionService.addPosition(PositionConverter.fromHttpRequest(req));
+        req.getRequestDispatcher(ConstantAction.DEPARTMENT_INFO).forward(req, resp);
     }
 
     @Override
