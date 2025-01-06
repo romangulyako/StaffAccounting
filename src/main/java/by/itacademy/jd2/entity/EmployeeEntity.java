@@ -78,4 +78,10 @@ public class EmployeeEntity extends CommonSuperEntity {
             fetch = FetchType.LAZY)
     @Builder.Default
     private Set<EducationEntity> educations = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "employee")
+    @Builder.Default
+    private Set<CareerStepEntity> career = new HashSet<>();
 }
