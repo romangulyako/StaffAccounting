@@ -16,7 +16,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
 import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Builder
@@ -43,4 +47,10 @@ public class PositionEntity extends CommonSuperEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private DepartmentEntity department;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "position")
+    @Builder.Default
+    private Set<CareerStepEntity> history = new HashSet<>();
 }
