@@ -1,5 +1,6 @@
 package by.itacademy.jd2.servlet.education;
 
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.converter.EducationConverter;
@@ -29,13 +30,8 @@ public class EducationAddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        EducationDTO education = EducationConverter.fromHttpRequest(req);
-        educationService.addEducation(education);
-        req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID,
-                education.getEmployeeId());
-        req.setAttribute(ConstantParamAndAttribute.LIST_EDUCATION,
-                educationService.getEducationsByEmployeeId(education.getEmployeeId()));
-        req.getRequestDispatcher(ConstantJSP.EDUCATION_PAGE).forward(req, resp);
+        educationService.addEducation(EducationConverter.fromHttpRequest(req));
+        req.getRequestDispatcher(ConstantAction.EDUCATION).forward(req, resp);
     }
 
     @Override

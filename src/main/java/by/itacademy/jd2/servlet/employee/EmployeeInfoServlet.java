@@ -26,13 +26,15 @@ public class EmployeeInfoServlet extends HttpServlet {
                     ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
             req.setAttribute(ConstantParamAndAttribute.EMPLOYEE, employee);
             req.getRequestDispatcher(ConstantJSP.EMPLOYEE_PAGE).forward(req, resp);
-        } catch (NumberFormatException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Передан неверный параметр");
-            req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
-        } catch (NullPointerException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Такого сотрудника нет!");
+        } catch (NumberFormatException | NullPointerException e) {
+            req.setAttribute(ConstantParamAndAttribute.ERROR, "Ошибка в параметре");
             req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.doGet(req, resp);
     }
 
     @Override

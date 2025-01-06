@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -27,7 +28,8 @@ import java.util.Set;
 
 @Builder
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(exclude = "career", callSuper = false)
+@ToString(exclude = "career")
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

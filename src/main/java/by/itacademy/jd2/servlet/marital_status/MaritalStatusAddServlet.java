@@ -1,9 +1,9 @@
 package by.itacademy.jd2.servlet.marital_status;
 
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.converter.MaritalStatusConverter;
-import by.itacademy.jd2.dto.MaritalStatusDTO;
 import by.itacademy.jd2.service.api.MaritalStatusService;
 import by.itacademy.jd2.service.impl.MaritalStatusServiceImpl;
 import by.itacademy.jd2.utils.ParseUtil;
@@ -30,12 +30,8 @@ public class MaritalStatusAddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        MaritalStatusDTO maritalStatus = MaritalStatusConverter.fromHttpRequest(req);
-        maritalStatusService.addMaritalStatus(maritalStatus);
-        req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, maritalStatus.getEmployeeId());
-        req.setAttribute(ConstantParamAndAttribute.LIST_MARITAL_STATUSES,
-                maritalStatusService.getAllMaritalStatuses(maritalStatus.getEmployeeId()));
-        req.getRequestDispatcher(ConstantJSP.MARITAL_STATUSES_PAGE).forward(req, resp);
+        maritalStatusService.addMaritalStatus(MaritalStatusConverter.fromHttpRequest(req));
+        req.getRequestDispatcher(ConstantAction.MARITAL_STATUSES).forward(req, resp);
     }
 
     @Override

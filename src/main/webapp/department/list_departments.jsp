@@ -34,7 +34,7 @@
                           method="get"
                           action="<%= ConstantAction.DEPARTMENT_INFO %>">
                         <button class="button-show"
-                                name="<%= ConstantParamAndAttribute.ID %>"
+                                name="<%= ConstantParamAndAttribute.DEPARTMENT_ID %>"
                                 value="<%= department.getId() %>">
                             Просмотреть
                         </button>

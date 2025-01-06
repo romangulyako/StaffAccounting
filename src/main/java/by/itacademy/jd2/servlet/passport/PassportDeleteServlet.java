@@ -1,5 +1,6 @@
 package by.itacademy.jd2.servlet.passport;
 
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.service.api.EmployeeService;
@@ -22,9 +23,7 @@ public class PassportDeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID));
         employeeService.deletePassport(id);
-        req.setAttribute(ConstantParamAndAttribute.EMPLOYEE, employeeService.getEmployee(id));
-        req.getRequestDispatcher(ConstantJSP.EMPLOYEE_PAGE).forward(req, resp);
-        // TODO: Переделать, чтобы адрес был правильный
+        req.getRequestDispatcher(ConstantAction.EMPLOYEE).forward(req, resp);
     }
 
     @Override

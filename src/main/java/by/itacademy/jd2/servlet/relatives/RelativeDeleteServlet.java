@@ -1,8 +1,7 @@
 package by.itacademy.jd2.servlet.relatives;
 
-import by.itacademy.jd2.constant.ConstantJSP;
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
-import by.itacademy.jd2.dto.RelativeDTO;
 import by.itacademy.jd2.service.api.RelativeService;
 import by.itacademy.jd2.service.impl.RelativeServiceImpl;
 import by.itacademy.jd2.utils.ParseUtil;
@@ -14,7 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "relativeDeleteServlet", value = "/delete_relative")
 public class RelativeDeleteServlet extends HttpServlet {
@@ -23,11 +21,7 @@ public class RelativeDeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         relativeService.deleteRelative(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
-        Long employeeId = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.EMPLOYEE_ID));
-        List<RelativeDTO> relatives = relativeService.getRelatives(employeeId);
-        req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
-        req.setAttribute(ConstantParamAndAttribute.LIST_RELATIVES, relatives);
-        req.getRequestDispatcher(ConstantJSP.RELATIVES_PAGE).forward(req, resp);
+        req.getRequestDispatcher(ConstantAction.RELATIVES).forward(req, resp);
     }
 
     @Override

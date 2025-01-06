@@ -1,5 +1,6 @@
 package by.itacademy.jd2.servlet.marital_status;
 
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.converter.MaritalStatusConverter;
@@ -31,23 +32,16 @@ public class MaritalStatusUpdateServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = getServletContext()
                     .getRequestDispatcher(ConstantJSP.UPDATE_MARITAL_STATUS_PAGE);
             requestDispatcher.forward(req, resp);
-        } catch (NumberFormatException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Передан неверный параметр");
-            req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
-        } catch (NullPointerException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Семейного положения с таким id нет!");
-            req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
+        } catch (NumberFormatException | NullPointerException e) {
+            req.setAttribute(ConstantParamAndAttribute.ERROR, "Ошибка в параметре");
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        MaritalStatusDTO maritalStatus = MaritalStatusConverter.fromHttpRequest(req);
-        maritalStatusService.updateMaritalStatus(maritalStatus);
-        req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, maritalStatus.getEmployeeId());
-        req.setAttribute(ConstantParamAndAttribute.LIST_MARITAL_STATUSES,
-                maritalStatusService.getAllMaritalStatuses(maritalStatus.getEmployeeId()));
-        req.getRequestDispatcher(ConstantJSP.MARITAL_STATUSES_PAGE).forward(req, resp);
+        maritalStatusService.updateMaritalStatus(MaritalStatusConverter.fromHttpRequest(req));
+        req.getRequestDispatcher(ConstantAction.MARITAL_STATUSES).forward(req, resp);
     }
 
     @Override

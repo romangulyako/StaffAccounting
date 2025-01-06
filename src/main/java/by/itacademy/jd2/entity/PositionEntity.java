@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +26,8 @@ import java.util.Set;
 
 @Builder
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(exclude = "history", callSuper = false)
+@ToString(exclude = "history")
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

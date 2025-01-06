@@ -1,5 +1,6 @@
 package by.itacademy.jd2.servlet.passport;
 
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.converter.PassportConverter;
@@ -26,7 +27,6 @@ public class PassportAddServlet extends HttpServlet {
         Long employee_id = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID));
         req.setAttribute(ConstantParamAndAttribute.ID, employee_id);
         req.getRequestDispatcher(ConstantJSP.ADD_PASSPORT_PAGE).forward(req, resp);
-        // TODO: Переделать, чтобы адрес был правильный
     }
 
     @Override
@@ -34,9 +34,7 @@ public class PassportAddServlet extends HttpServlet {
         EmployeeDTO employee = employeeService.getEmployee(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
         PassportDTO passport = PassportConverter.fromHttpRequest(req);
         employeeService.addPassport(passport, employee);
-        req.setAttribute(ConstantParamAndAttribute.ID, employee.getId());
-        req.setAttribute(ConstantParamAndAttribute.PASSPORT, passport);
-        req.getRequestDispatcher(ConstantJSP.PASSPORT_PAGE).forward(req, resp);
+        req.getRequestDispatcher(ConstantAction.PASSPORT).forward(req, resp);
     }
 
     @Override

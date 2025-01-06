@@ -1,5 +1,6 @@
 package by.itacademy.jd2.servlet.passport;
 
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.converter.PassportConverter;
@@ -32,11 +33,8 @@ public class PassportUpdateServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = getServletContext()
                     .getRequestDispatcher(ConstantJSP.UPDATE_PASSPORT_PAGE);
             requestDispatcher.forward(req, resp);
-        } catch (NumberFormatException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Передан неверный параметр");
-            req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
-        } catch (NullPointerException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Такого паспорта нет!");
+        } catch (NumberFormatException | NullPointerException e) {
+            req.setAttribute(ConstantParamAndAttribute.ERROR, "Ошибка в параметре");
             req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
         }
     }
@@ -48,10 +46,7 @@ public class PassportUpdateServlet extends HttpServlet {
                         req, ConstantParamAndAttribute.ID)));
         PassportDTO passport = PassportConverter.fromHttpRequest(req);
         employeeService.updatePassport(passport, employee);
-
-        req.setAttribute(ConstantParamAndAttribute.PASSPORT, passport);
-        req.setAttribute(ConstantParamAndAttribute.ID, employee.getId());
-        req.getRequestDispatcher(ConstantJSP.PASSPORT_PAGE).forward(req, resp);
+        req.getRequestDispatcher(ConstantAction.PASSPORT).forward(req, resp);
     }
 
     @Override
