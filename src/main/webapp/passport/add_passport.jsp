@@ -100,7 +100,7 @@
             <button class="tab"
                     name="<%=ConstantParamAndAttribute.ID%>"
                     value="<%=request.getAttribute(ConstantParamAndAttribute.ID)%>">
-                Вернуться к просмотру сотрудника
+                Вернуться к просмотру паспортных данных
             </button>
         </div>
     </form>
