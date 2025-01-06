@@ -114,7 +114,7 @@
             <button class="tab"
                     name="<%=ConstantParamAndAttribute.ID%>"
                     value="<%=passport.getId()%>">
-                Вернуться к просмотру сотрудника
+                Вернуться к просмотру паспортных данных
             </button>
         </div>
     </form>

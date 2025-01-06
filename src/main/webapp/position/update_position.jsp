@@ -58,7 +58,7 @@
         </div>
         <div class="form-group">
             <button class="tab"
-                    name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
+                    name="<%=ConstantParamAndAttribute.ID%>"
                     value="<%=position.getDepartmentId()%>">
                 Вернуться к просмотру информации об отделе
             </button>
