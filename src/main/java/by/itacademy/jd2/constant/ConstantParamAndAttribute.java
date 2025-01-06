@@ -51,4 +51,8 @@ public class ConstantParamAndAttribute {
     public static final String DEPARTMENT_ID = "department_id";
     public static final String POSITION = "position";
     public static final String LIST_POSITIONS = "list_position";
+    public static final String CAREER = "career";
+    public static final String DATE_OF_APPOINTMENT = "date_of_appointment";
+    public static final String ORDER = "order";
+    public static final String POSITION_ID = "position_id";
 }
