@@ -1,6 +1,7 @@
 package by.itacademy.jd2.service.api;
 
 import by.itacademy.jd2.dto.EmployeeDTO;
+import by.itacademy.jd2.dto.EmployeeItemDTO;
 import by.itacademy.jd2.dto.PassportDTO;
 
 import java.io.Serializable;
@@ -12,6 +13,7 @@ public interface EmployeeService extends Service {
     void deleteEmployee(Serializable id);
     EmployeeDTO getEmployee(Serializable id);
     List<EmployeeDTO> getAllEmployees();
+    List<EmployeeItemDTO> getAllEmployeeItems();
     void addPassport(PassportDTO passportDTO, EmployeeDTO employeeDTO);
     void updatePassport(PassportDTO passportDTO, EmployeeDTO employeeDTO);
     void deletePassport(Serializable id);

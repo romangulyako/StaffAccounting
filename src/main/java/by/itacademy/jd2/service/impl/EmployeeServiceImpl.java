@@ -5,6 +5,7 @@ import by.itacademy.jd2.converter.PassportConverter;
 import by.itacademy.jd2.dao.api.EmployeeDAO;
 import by.itacademy.jd2.dao.impl.EmployeeDaoImpl;
 import by.itacademy.jd2.dto.EmployeeDTO;
+import by.itacademy.jd2.dto.EmployeeItemDTO;
 import by.itacademy.jd2.dto.PassportDTO;
 import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.entity.PassportEntity;
@@ -55,6 +56,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeDTO> getAllEmployees() {
         return employeeDAO.getAll().stream()
                 .map(EmployeeConverter::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EmployeeItemDTO> getAllEmployeeItems() {
+        return employeeDAO.getAll().stream()
+                .map(EmployeeConverter::toEmployeeItem)
                 .collect(Collectors.toList());
     }
 
