@@ -6,6 +6,7 @@ import by.itacademy.jd2.dao.api.PositionDAO;
 import by.itacademy.jd2.dao.impl.DepartmentDaoImpl;
 import by.itacademy.jd2.dao.impl.PositionDaoImpl;
 import by.itacademy.jd2.dto.PositionDTO;
+import by.itacademy.jd2.dto.PositionItemDTO;
 import by.itacademy.jd2.entity.DepartmentEntity;
 import by.itacademy.jd2.entity.PositionEntity;
 import by.itacademy.jd2.service.api.PositionService;
@@ -49,6 +50,13 @@ public class PositionServiceImpl implements PositionService {
     @Override
     public PositionDTO getPosition(Serializable id) {
         return PositionConverter.toDto(positionDAO.get(id));
+    }
+
+    @Override
+    public List<PositionItemDTO> getAllPositionItems() {
+        return positionDAO.getAll().stream()
+                .map(PositionConverter::toPositionItem)
+                .collect(Collectors.toList());
     }
 
     @Override
