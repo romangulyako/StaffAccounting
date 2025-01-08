@@ -31,4 +31,9 @@ public class ConstantAction {
     public static final String ADD_POSITION = "add_position";
     public static final String UPDATE_POSITION = "update_position";
     public static final String DELETE_POSITION = "delete_position";
+    public static final String CAREER = "career";
+    public static final String UPDATE_CAREER_STEP = "update_career_step";
+    public static final String DELETE_CAREER_STEP = "delete_career_step";
+    public static final String APPOINTMENT = "appointment";
+    public static final String POSITION_HISTORY = "position_history";
 }

@@ -2,6 +2,7 @@ package by.itacademy.jd2.converter;
 
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.EmployeeDTO;
+import by.itacademy.jd2.dto.EmployeeItemDTO;
 import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.entity.embedded.Address;
 import by.itacademy.jd2.entity.embedded.PersonData;
@@ -60,5 +61,18 @@ public class EmployeeConverter {
                         .build())
                 .phone(ServletUtil.getParam(req, ConstantParamAndAttribute.PHONE))
                 .build();
+    }
+
+    public static EmployeeItemDTO toEmployeeItem(EmployeeEntity entity) {
+        if (entity != null) {
+            return EmployeeItemDTO.builder()
+                    .id(entity.getId())
+                    .fullName(entity.getPersonData().getSurname() + " "
+                    + entity.getPersonData().getName() + " "
+                    + entity.getPersonData().getPatronymic())
+                    .build();
+        }
+
+        return null;
     }
 }
