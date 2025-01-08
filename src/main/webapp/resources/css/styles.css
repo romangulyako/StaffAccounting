@@ -88,6 +88,10 @@ td, th {
     padding: 8px;
 }
 
+th {
+    text-align: center;
+}
+
 tr:nth-child(even) {
     background-color: #dddddd;
 }
@@ -101,7 +105,7 @@ label {
 
 input[type="text"],
 input[type="date"] {
-    width: calc(100% - 20px);
+    width: 100%;
     padding: 10px;
     border: 1px solid #000000;
     border-radius: 4px;
@@ -215,4 +219,54 @@ textarea {
     text-decoration: none;
     color: #070707;
     transition: background-color 0.3s ease;
+}
+
+/* Стилизация контейнера select */
+select {
+    appearance: none; /* Убираем стандартные стили браузера */
+    -webkit-appearance: none; /* Для Safari и Chrome */
+    -moz-appearance: none;  /* Для Firefox */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 16px;
+    font-family: sans-serif;
+    color: #333;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none; /* Убираем обводку при фокусе */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6"><path fill="%23333" d="M0 0l5 6 5-6z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 10px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Стилизация при наведении */
+select:hover {
+    border-color: #999;
+}
+
+/* Стилизация при фокусе */
+select:focus {
+    border-color: #448aff; /* Цвет фокуса */
+    box-shadow: 0 0 0 2px rgba(68, 138, 255, 0.2); /* Тень фокуса */
+}
+
+
+/* Стилизация option */
+select option {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+    margin-bottom: 2px;
+    transition: background-color 0.2s ease;
+}
+
+/* Стилизация option при наведении */
+select option:hover {
+    background-color: #f0f0f0;
 }

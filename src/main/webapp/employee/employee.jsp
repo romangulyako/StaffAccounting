@@ -82,8 +82,10 @@
                     name="<%= ConstantParamAndAttribute.EMPLOYEE_ID %>"
                     value="<%= employee.getId() %>">Образование</button>
         </form>
-        <form action="career" method="post">
-            <button class="tab">Карьера</button>
+        <form action="<%=ConstantAction.CAREER%>" method="get">
+            <button class="tab"
+                    name="<%= ConstantParamAndAttribute.EMPLOYEE_ID %>"
+                    value="<%= employee.getId() %>">Карьера</button>
         </form>
     </div>
     <div class="tabs">

@@ -15,7 +15,7 @@
             </form>
         </li>
         <li>
-            <form action="<%=ConstantAction.LIST_EMPLOYEES%>"
+            <form action="<%=ConstantAction.APPOINTMENT%>"
                   method="get">
                 <button class="menu-item">Назначение на должности</button>
             </form>
