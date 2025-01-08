@@ -37,5 +37,6 @@ public class CareerStepEntity extends CommonSuperEntity {
     private String order;
 
     @Column(name = "is_current")
-    private boolean isCurrent;
+    @Builder.Default
+    private boolean isCurrent = true;
 }
