@@ -57,7 +57,7 @@
                     <th>Наименование должности</th>
                     <th>Необходимый уровень образования</th>
                     <th>Оклад по должности</th>
-                    <th colspan="2">Действие</th>
+                    <th colspan="3">Действие</th>
                 </tr>
                 <tr>
                     <% for (PositionDTO position : positions) { %>
@@ -86,6 +86,20 @@
                                     name="<%= ConstantParamAndAttribute.ID %>"
                                     value="<%= position.getId() %>">
                                 Удалить
+                            </button>
+                            <input type="hidden"
+                                   name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
+                                   value="<%=department.getId()%>">
+                        </form>
+                    </td>
+                    <td>
+                        <form name="show_history"
+                              method="get"
+                              action="<%= ConstantAction.POSITION_HISTORY %>">
+                            <button class="button-show"
+                                    name="<%= ConstantParamAndAttribute.ID %>"
+                                    value="<%= position.getId() %>">
+                                Посмотреть историю
                             </button>
                             <input type="hidden"
                                    name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
