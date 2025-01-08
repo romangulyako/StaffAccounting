@@ -5,15 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
-
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CareerStepDTO {
-    private Long employeeId;
-    private Long positionId;
-    private Date dateOfAppointment;
-    private String order;
+public class EmployeeItemDTO {
+    private Long id;
+    private String fullName;
 }

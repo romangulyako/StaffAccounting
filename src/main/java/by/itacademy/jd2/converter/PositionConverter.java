@@ -2,6 +2,7 @@ package by.itacademy.jd2.converter;
 
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.PositionDTO;
+import by.itacademy.jd2.dto.PositionItemDTO;
 import by.itacademy.jd2.entity.PositionEntity;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
@@ -43,5 +44,16 @@ public class PositionConverter {
                 .salary(ParseUtil.parseDouble(ServletUtil.getParam(req, ConstantParamAndAttribute.SALARY)))
                 .departmentId(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.DEPARTMENT_ID)))
                 .build();
+    }
+
+    public static PositionItemDTO toPositionItem(PositionEntity entity) {
+        if (entity != null) {
+            return PositionItemDTO.builder()
+                    .id(entity.getId())
+                    .fullName(entity.getName() + " " + entity.getDepartment().getGenitiveCaseName())
+                    .build();
+        }
+
+        return null;
     }
 }

@@ -24,5 +24,8 @@ public class ConstantJSP {
     public static final String DEPARTMENT_INFO_PAGE = "/department/department_info.jsp";
     public static final String ADD_POSITION_PAGE = "/position/add_position.jsp";
     public static final String UPDATE_POSITION_PAGE = "/position/update_position.jsp";
+    public static final String CAREER_INFO_PAGE = "/career/career_info.jsp";
+    public static final String APPOINTMENT_PAGE = "/career/appointment.jsp";
+    public static final String UPDATE_CAREER_STEP = "/career/update_career_step.jsp";
 }
 
