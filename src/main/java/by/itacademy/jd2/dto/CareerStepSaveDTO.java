@@ -15,5 +15,6 @@ public class CareerStepSaveDTO {
     private Long employeeId;
     private Long positionId;
     private Date dateOfAppointment;
+    private Date dateOfLiberationPosition;
     private String order;
 }

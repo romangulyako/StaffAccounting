@@ -18,6 +18,7 @@ public class CareerStepConverter {
         if (dto != null) {
             return CareerStepEntity.builder()
                     .dateOfAppointment(dto.getDateOfAppointment())
+                    .dateOfLiberationPosition(dto.getDateOfLiberationPosition())
                     .order(dto.getOrder())
                     .build();
         }
@@ -36,6 +37,7 @@ public class CareerStepConverter {
                     .positionFullName(entity.getPosition().getName() + SPACE
                             + entity.getPosition().getDepartment().getGenitiveCaseName())
                     .order(entity.getOrder())
+                    .dateOfLiberationPosition(entity.getDateOfLiberationPosition())
                     .build();
         }
 
@@ -49,6 +51,8 @@ public class CareerStepConverter {
                 .dateOfAppointment(ParseUtil.parseDate(ServletUtil.getParam(req,
                         ConstantParamAndAttribute.NEW_DATE_OF_APPOINTMENT)))
                 .order(ServletUtil.getParam(req, ConstantParamAndAttribute.ORDER))
+                .dateOfLiberationPosition(ParseUtil.parseDate(ServletUtil.getParam(req,
+                        ConstantParamAndAttribute.DATE_OF_LIBERATION)))
                 .build();
     }
 
@@ -69,6 +73,7 @@ public class CareerStepConverter {
                     .employeeFullName(entity.getEmployee().getPersonData().getSurname() + SPACE
                     + entity.getEmployee().getPersonData().getName() + SPACE
                     + entity.getEmployee().getPersonData().getPatronymic())
+                    .dateOfLiberationPosition(entity.getDateOfLiberationPosition())
                     .build();
         }
 

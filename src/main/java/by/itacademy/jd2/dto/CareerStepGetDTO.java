@@ -6,12 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CareerStepGetDTO {
     private CareerStepId id;
+    private Date dateOfLiberationPosition;
     private String positionFullName;
     private String order;
 }

@@ -13,10 +13,12 @@ import by.itacademy.jd2.dto.PositionHistoryDTO;
 import by.itacademy.jd2.entity.CareerStepEntity;
 import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.entity.PositionEntity;
+import by.itacademy.jd2.entity.embedded.CareerStepId;
 import by.itacademy.jd2.exception.MoreOneResultException;
 import by.itacademy.jd2.service.api.CareerService;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,7 +35,7 @@ public class CareerServiceImpl implements CareerService {
     }
 
     @Override
-    public void addCareerStep(CareerStepSaveDTO careerStepDTO) {
+    public void appointEmployee(CareerStepSaveDTO careerStepDTO) {
         EmployeeEntity employeeEntity = employeeDAO.get(careerStepDTO.getEmployeeId());
         PositionEntity positionEntity = positionDAO.get(careerStepDTO.getPositionId());
         CareerStepEntity careerStepEntity = CareerStepConverter.toEntity(careerStepDTO);
@@ -46,6 +48,18 @@ public class CareerServiceImpl implements CareerService {
         employeeEntity.getCareer().add(careerStepEntity);
         positionEntity.getHistory().add(careerStepEntity);
         careerDAO.save(careerStepEntity);
+    }
+
+    @Override
+    public void dismissEmployee(Long employeeId, Date dateOfDismiss, String order) throws MoreOneResultException {
+        CareerStepEntity careerStep = careerDAO.getCurrentCareerStepOfEmployee(employeeId);
+        careerStep.setCurrent(false);
+        careerStep.setDateOfLiberationPosition(dateOfDismiss);
+        careerDAO.update(careerStep, CareerStepId.builder()
+                        .position(careerStep.getPosition().getId())
+                        .employee(careerStep.getEmployee().getId())
+                        .dateOfAppointment(careerStep.getDateOfAppointment())
+                .build());
     }
 
     @Override

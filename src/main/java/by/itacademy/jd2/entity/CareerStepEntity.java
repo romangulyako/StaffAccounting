@@ -46,4 +46,8 @@ public class CareerStepEntity extends CommonSuperEntity {
     @Column(name = "is_current")
     @Builder.Default
     private boolean isCurrent = true;
+
+    @Id
+    @Column(name = "date_of_liberation_position")
+    private Date dateOfLiberationPosition;
 }
