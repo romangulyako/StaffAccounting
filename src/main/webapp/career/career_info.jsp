@@ -20,7 +20,7 @@
         List<CareerStepGetDTO> career = (List<CareerStepGetDTO>) request.getAttribute(ConstantParamAndAttribute.CAREER);
         if (career == null || career.isEmpty()) {
     %>
-    <div class="item-header">
+    <div class="form-group>
         <h3>Информация о карьере сотрудника отсутствует</h3>
     </div>
     <% } else { %>

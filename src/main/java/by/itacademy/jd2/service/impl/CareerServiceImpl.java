@@ -9,15 +9,14 @@ import by.itacademy.jd2.dao.impl.EmployeeDaoImpl;
 import by.itacademy.jd2.dao.impl.PositionDaoImpl;
 import by.itacademy.jd2.dto.CareerStepGetDTO;
 import by.itacademy.jd2.dto.CareerStepSaveDTO;
+import by.itacademy.jd2.dto.PositionHistoryDTO;
 import by.itacademy.jd2.entity.CareerStepEntity;
 import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.entity.PositionEntity;
-import by.itacademy.jd2.entity.embedded.CareerStepId;
 import by.itacademy.jd2.exception.MoreOneResultException;
 import by.itacademy.jd2.service.api.CareerService;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -82,14 +81,14 @@ public class CareerServiceImpl implements CareerService {
     }
 
     @Override
-    public List<CareerStepGetDTO> getPositionHistory(Serializable positionId) {
+    public List<PositionHistoryDTO> getPositionHistory(Serializable positionId) {
         List<CareerStepEntity> entities = careerDAO.getPositionHistory(positionId);
         if (entities == null || entities.isEmpty()) {
             return null;
         }
 
         return entities.stream()
-                .map(CareerStepConverter::toDto)
+                .map(CareerStepConverter::toPositionHistoryDTO)
                 .collect(Collectors.toList());
     }
 

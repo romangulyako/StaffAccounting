@@ -35,5 +35,5 @@ public class ConstantAction {
     public static final String UPDATE_CAREER_STEP = "update_career_step";
     public static final String DELETE_CAREER_STEP = "delete_career_step";
     public static final String APPOINTMENT = "appointment";
-    public static final String POSITION_HISTORY = "position_history";
+    public static final String POSITION_HISTORY = "history";
 }

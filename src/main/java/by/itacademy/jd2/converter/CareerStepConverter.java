@@ -3,6 +3,7 @@ package by.itacademy.jd2.converter;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.CareerStepGetDTO;
 import by.itacademy.jd2.dto.CareerStepSaveDTO;
+import by.itacademy.jd2.dto.PositionHistoryDTO;
 import by.itacademy.jd2.entity.CareerStepEntity;
 import by.itacademy.jd2.entity.embedded.CareerStepId;
 import by.itacademy.jd2.utils.ParseUtil;
@@ -10,6 +11,9 @@ import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class CareerStepConverter {
+
+    private static final String SPACE = " ";
+
     public static CareerStepEntity toEntity(CareerStepSaveDTO dto) {
         if (dto != null) {
             return CareerStepEntity.builder()
@@ -29,7 +33,8 @@ public class CareerStepConverter {
                             .position(entity.getPosition().getId())
                             .dateOfAppointment(entity.getDateOfAppointment())
                             .build())
-                    .positionFullName(entity.getPosition().getName() + " " + entity.getPosition().getDepartment().getGenitiveCaseName())
+                    .positionFullName(entity.getPosition().getName() + SPACE
+                            + entity.getPosition().getDepartment().getGenitiveCaseName())
                     .order(entity.getOrder())
                     .build();
         }
@@ -52,5 +57,19 @@ public class CareerStepConverter {
                 .position(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.POSITION_ID)))
                 .dateOfAppointment(ParseUtil.parseDate(ServletUtil.getParam(req, ConstantParamAndAttribute.DATE_OF_APPOINTMENT)))
                 .build();
+    }
+
+    public static PositionHistoryDTO toPositionHistoryDTO(CareerStepEntity entity) {
+        if (entity != null) {
+            return PositionHistoryDTO.builder()
+                    .dateOfAppointment(entity.getDateOfAppointment())
+                    .order(entity.getOrder())
+                    .employeeFullName(entity.getEmployee().getPersonData().getSurname() + SPACE
+                    + entity.getEmployee().getPersonData().getName() + SPACE
+                    + entity.getEmployee().getPersonData().getPatronymic())
+                    .build();
+        }
+
+        return null;
     }
 }
