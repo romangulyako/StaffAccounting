@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
-    <include file="v-1.0/db.changelog-v-1.0.xml" relativeToChangelogFile="true"/>
-    <include file="v-2.0/db.changelog-v-2.0.xml" relativeToChangelogFile="true"/>
+    <include file="2025-01-09-01-add-column-date-liberation-position.xml"
+             relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
