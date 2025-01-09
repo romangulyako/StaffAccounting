@@ -47,13 +47,14 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
+    </changeSet>
 
+    <changeSet id="create-fk-passport-employees" author="Roman Gulyako">
         <addForeignKeyConstraint baseTableName="passport"
                                  baseColumnNames="EMPLOYEE_ID"
                                  constraintName="passport_employees_id_fk"
                                  referencedTableName="employees"
                                  referencedColumnNames="id"/>
-
     </changeSet>
 
 </databaseChangeLog>

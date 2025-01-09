@@ -38,10 +38,14 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="create-fk-education-employees" author="Roman Gulyako">
         <addForeignKeyConstraint baseTableName="education"
                                  baseColumnNames="employee_id"
                                  constraintName="FK_employee_education"
                                  referencedTableName="employees"
                                  referencedColumnNames="id"/>
     </changeSet>
+
 </databaseChangeLog>

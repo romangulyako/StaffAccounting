@@ -35,6 +35,9 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="create-fk-relatives-employees" author="Roman Gulyako">
         <addForeignKeyConstraint baseTableName="relatives"
                                  baseColumnNames="employee_id"
                                  constraintName="fk_employee_id"

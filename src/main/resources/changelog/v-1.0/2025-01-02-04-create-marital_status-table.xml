@@ -32,10 +32,14 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="create-fk-marital_status-employees" author="Roman Gulyako">
         <addForeignKeyConstraint baseTableName="marital_status"
                                  baseColumnNames="employee_id"
                                  constraintName="FK_employee_marital_status"
                                  referencedTableName="employees"
                                  referencedColumnNames="id"/>
     </changeSet>
+
 </databaseChangeLog>
