@@ -21,7 +21,8 @@ public class RelativeDeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            relativeService.deleteRelative(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
+            relativeService.deleteRelative(ParseUtil.parseLong(ServletUtil.getParam(req,
+                    ConstantParamAndAttribute.ID)));
             req.getRequestDispatcher(ConstantAction.RELATIVES).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

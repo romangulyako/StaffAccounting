@@ -33,7 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void updateEmployee(EmployeeDTO employeeDTO) {
         EmployeeEntity oldEmployee = employeeDAO.get(employeeDTO.getId());
-        EmployeeEntity newEmployee =  EmployeeConverter.toEntity(employeeDTO);
+        EmployeeEntity newEmployee = EmployeeConverter.toEntity(employeeDTO);
         if (oldEmployee != null) {
             newEmployee.setPassport(oldEmployee.getPassport());
         }

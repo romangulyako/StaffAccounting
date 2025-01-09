@@ -46,7 +46,8 @@ public class CareerStepConverter {
         return CareerStepSaveDTO.builder()
                 .employeeId(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.EMPLOYEE_ID)))
                 .positionId(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.NEW_POSITION_ID)))
-                .dateOfAppointment(ParseUtil.parseDate(ServletUtil.getParam(req, ConstantParamAndAttribute.NEW_DATE_OF_APPOINTMENT)))
+                .dateOfAppointment(ParseUtil.parseDate(ServletUtil.getParam(req,
+                        ConstantParamAndAttribute.NEW_DATE_OF_APPOINTMENT)))
                 .order(ServletUtil.getParam(req, ConstantParamAndAttribute.ORDER))
                 .build();
     }
@@ -55,7 +56,8 @@ public class CareerStepConverter {
         return CareerStepId.builder()
                 .employee(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.EMPLOYEE_ID)))
                 .position(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.POSITION_ID)))
-                .dateOfAppointment(ParseUtil.parseDate(ServletUtil.getParam(req, ConstantParamAndAttribute.DATE_OF_APPOINTMENT)))
+                .dateOfAppointment(ParseUtil.parseDate(ServletUtil.getParam(req,
+                        ConstantParamAndAttribute.DATE_OF_APPOINTMENT)))
                 .build();
     }
 

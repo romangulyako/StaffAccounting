@@ -41,7 +41,8 @@ public class MaritalStatusConverter {
          return MaritalStatusDTO.builder()
                  .id(ParseUtil.parseLong(ServletUtil.getParam(request, ConstantParamAndAttribute.ID)))
                  .status(ServletUtil.getParam(request, ConstantParamAndAttribute.STATUS))
-                 .registrationDate(ParseUtil.parseDate(ServletUtil.getParam(request, ConstantParamAndAttribute.REGISTRATION_DATE)))
+                 .registrationDate(ParseUtil.parseDate(ServletUtil.getParam(request,
+                         ConstantParamAndAttribute.REGISTRATION_DATE)))
                  .document(ServletUtil.getParam(request, ConstantParamAndAttribute.DOCUMENT))
                  .isCurrent(ParseUtil.parseBoolean(ServletUtil.getParam(request, ConstantParamAndAttribute.IS_CURRENT)))
                  .employeeId(ParseUtil.parseLong(ServletUtil.getParam(request, ConstantParamAndAttribute.EMPLOYEE_ID)))

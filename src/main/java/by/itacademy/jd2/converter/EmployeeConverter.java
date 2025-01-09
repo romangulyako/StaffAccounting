@@ -57,7 +57,8 @@ public class EmployeeConverter {
                         .city(ServletUtil.getParam(req, ConstantParamAndAttribute.RESIDENCE_CITY))
                         .street(ServletUtil.getParam(req, ConstantParamAndAttribute.RESIDENCE_STREET))
                         .house(ServletUtil.getParam(req, ConstantParamAndAttribute.RESIDENCE_HOUSE))
-                        .apartment(ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.RESIDENCE_APARTMENT)))
+                        .apartment(ParseUtil.parseInt(ServletUtil.getParam(req,
+                                ConstantParamAndAttribute.RESIDENCE_APARTMENT)))
                         .build())
                 .phone(ServletUtil.getParam(req, ConstantParamAndAttribute.PHONE))
                 .build();
