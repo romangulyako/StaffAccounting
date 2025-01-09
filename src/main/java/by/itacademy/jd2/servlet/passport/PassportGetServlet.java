@@ -24,7 +24,8 @@ public class PassportGetServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            PassportDTO passport = employeeService.getPassport(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
+            PassportDTO passport = employeeService.getPassport(ParseUtil.parseLong(ServletUtil.getParam(req,
+                    ConstantParamAndAttribute.ID)));
             req.setAttribute(ConstantParamAndAttribute.PASSPORT, passport);
             req.setAttribute(ConstantParamAndAttribute.ID, ServletUtil.getParam(req, ConstantParamAndAttribute.ID));
 

@@ -53,11 +53,14 @@ public class PassportConverter {
                         .city(ServletUtil.getParam(req, ConstantParamAndAttribute.REGISTRATION_CITY))
                         .street(ServletUtil.getParam(req, ConstantParamAndAttribute.REGISTRATION_STREET))
                         .house(ServletUtil.getParam(req, ConstantParamAndAttribute.REGISTRATION_HOUSE))
-                        .apartment(ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.REGISTRATION_APARTMENT)))
+                        .apartment(ParseUtil.parseInt(ServletUtil.getParam(req,
+                                ConstantParamAndAttribute.REGISTRATION_APARTMENT)))
                         .build())
                 .publisher(ServletUtil.getParam(req, ConstantParamAndAttribute.PUBLISHER))
-                .dateIssue(ParseUtil.parseDate(ServletUtil.getParam(req, ConstantParamAndAttribute.DATE_ISSUE)))
-                .dateEndAction(ParseUtil.parseDate(ServletUtil.getParam(req, ConstantParamAndAttribute.DATE_END_ACTION)))
+                .dateIssue(ParseUtil.parseDate(ServletUtil.getParam(req,
+                        ConstantParamAndAttribute.DATE_ISSUE)))
+                .dateEndAction(ParseUtil.parseDate(ServletUtil.getParam(req,
+                        ConstantParamAndAttribute.DATE_END_ACTION)))
                 .build();
     }
 }
