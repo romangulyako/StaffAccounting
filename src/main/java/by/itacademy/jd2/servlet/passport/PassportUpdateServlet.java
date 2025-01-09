@@ -33,20 +33,23 @@ public class PassportUpdateServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = getServletContext()
                     .getRequestDispatcher(ConstantJSP.UPDATE_PASSPORT_PAGE);
             requestDispatcher.forward(req, resp);
-        } catch (NumberFormatException | NullPointerException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Ошибка в параметре");
-            req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        EmployeeDTO employee = employeeService.getEmployee(
-                ParseUtil.parseLong(ServletUtil.getParam(
-                        req, ConstantParamAndAttribute.ID)));
-        PassportDTO passport = PassportConverter.fromHttpRequest(req);
-        employeeService.updatePassport(passport, employee);
-        req.getRequestDispatcher(ConstantAction.PASSPORT).forward(req, resp);
+        try {
+            EmployeeDTO employee = employeeService.getEmployee(
+                    ParseUtil.parseLong(ServletUtil.getParam(
+                            req, ConstantParamAndAttribute.ID)));
+            PassportDTO passport = PassportConverter.fromHttpRequest(req);
+            employeeService.updatePassport(passport, employee);
+            req.getRequestDispatcher(ConstantAction.PASSPORT).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

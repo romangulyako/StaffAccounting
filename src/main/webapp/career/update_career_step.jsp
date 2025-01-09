@@ -2,7 +2,7 @@
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
 <%@ page import="by.itacademy.jd2.dto.PositionItemDTO" %>
 <%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Изменить послужной список</title>
@@ -36,13 +36,19 @@
 
             <label for="position">Выберите должность</label>
             <select name="<%=ConstantParamAndAttribute.NEW_POSITION_ID%>"
-                    id="position" required>
-                <option value="" disabled selected>Выберите должность</option>
+                    id="position"
+                    required>
+                <option value=""
+                        disabled
+                        selected>
+                    Выберите должность
+                </option>
                 <% List<PositionItemDTO> positions = (List<PositionItemDTO>) request.getAttribute(ConstantParamAndAttribute.POSITION_ITEMS);
                     if (positions != null) {
                         for (PositionItemDTO position : positions) {
                 %>
-                <option value="<%=position.getId()%>"><%=position.getFullName()%>
+                <option value="<%=position.getId()%>">
+                    <%=position.getFullName()%>
                 </option>
                 <%
                         }

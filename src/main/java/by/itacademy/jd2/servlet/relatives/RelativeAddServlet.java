@@ -22,15 +22,23 @@ public class RelativeAddServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long employeeId = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.EMPLOYEE_ID));
-        req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
-        req.getRequestDispatcher(ConstantJSP.ADD_RELATIVE_PAGE).forward(req, resp);
+        try {
+            Long employeeId = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.EMPLOYEE_ID));
+            req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
+            req.getRequestDispatcher(ConstantJSP.ADD_RELATIVE_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        relativeService.addRelative(RelativeConverter.fromHttpRequest(req));
-        req.getRequestDispatcher(ConstantAction.RELATIVES).forward(req, resp);
+        try {
+            relativeService.addRelative(RelativeConverter.fromHttpRequest(req));
+            req.getRequestDispatcher(ConstantAction.RELATIVES).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

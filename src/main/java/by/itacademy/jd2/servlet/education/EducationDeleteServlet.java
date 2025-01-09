@@ -20,9 +20,13 @@ public class EducationDeleteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        educationService.deleteEducation(ParseUtil.parseLong(
-                ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
-        req.getRequestDispatcher(ConstantAction.EDUCATION).forward(req, resp);
+        try {
+            educationService.deleteEducation(ParseUtil.parseLong(
+                    ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
+            req.getRequestDispatcher(ConstantAction.EDUCATION).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

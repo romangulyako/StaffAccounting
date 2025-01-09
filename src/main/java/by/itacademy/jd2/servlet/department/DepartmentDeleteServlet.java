@@ -20,9 +20,13 @@ public class DepartmentDeleteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        departmentService.deleteDepartment(ParseUtil.parseLong(
-                ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
-        resp.sendRedirect(ConstantAction.LIST_DEPARTMENTS);
+        try {
+            departmentService.deleteDepartment(ParseUtil.parseLong(
+                    ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
+            resp.sendRedirect(ConstantAction.LIST_DEPARTMENTS);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

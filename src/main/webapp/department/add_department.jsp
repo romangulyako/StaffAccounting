@@ -1,5 +1,5 @@
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Добавить отдел</title>
@@ -13,7 +13,9 @@
     <div class="form-group">
         <h2>Введите данные об отделе:</h2>
     </div>
-    <form id="save" action="<%= ConstantAction.ADD_DEPARTMENT %>" method="post">
+    <form id="save"
+          action="<%= ConstantAction.ADD_DEPARTMENT %>"
+          method="post">
         <div class="form-group">
             <label for="name">Наименование:</label>
             <input type="text"
@@ -38,7 +40,9 @@
                       name="<%=ConstantParamAndAttribute.DESCRIPTION%>"></textarea>
         </div>
     </form>
-    <form class="tabs" action="<%=ConstantAction.LIST_DEPARTMENTS%>" method="get">
+    <form class="tabs"
+          action="<%=ConstantAction.LIST_DEPARTMENTS%>"
+          method="get">
         <div class="form-group">
             <button class="tab, button-add"
                     form="save"

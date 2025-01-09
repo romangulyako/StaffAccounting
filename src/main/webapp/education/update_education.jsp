@@ -1,7 +1,7 @@
 <%@ page import="by.itacademy.jd2.dto.EducationDTO" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantAction" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Изменить образование</title>
@@ -32,42 +32,50 @@
             <input type="text"
                    id="educationLevel"
                    name="<%=ConstantParamAndAttribute.EDUCATION_LEVEL%>"
-                   value="<%=education.getEducationLevel()%>"/>
+                   value="<%=education.getEducationLevel()%>"
+                   placeholder="Введите уровень образования"
+                   required/>
         </div>
         <div class="form-group">
             <label for="institution">Учебное заведение:</label>
             <input type="text"
                    id="institution"
                    name="<%=ConstantParamAndAttribute.INSTITUTION%>"
-                   value="<%=education.getInstitution()%>"/>
+                   value="<%=education.getInstitution()%>"
+                   placeholder="Введите название учебного заведения"
+                   required/>
         </div>
         <div class="form-group">
             <label for="faculty">Факультет:</label>
             <input type="text"
                    id="faculty"
                    name="<%=ConstantParamAndAttribute.FACULTY%>"
-                   value="<%=education.getFaculty()%>"/>
+                   value="<%=education.getFaculty()%>"
+                   placeholder="Введите название факультета"/>
         </div>
         <div class="form-group">
             <label for="specialization">Специализация:</label>
             <input type="text"
                    id="specialization"
                    name="<%=ConstantParamAndAttribute.SPECIALIZATION%>"
-                   value="<%=education.getSpecialization()%>"/>
+                   value="<%=education.getSpecialization()%>"
+                   placeholder="Введите специализацию"/>
         </div>
         <div class="form-group">
             <label for="dateStart">Дата начала обучения:</label>
             <input type="date"
                    id="dateStart"
                    name="<%=ConstantParamAndAttribute.DATE_START%>"
-                   value="<%=education.getDateStart()%>"/>
+                   value="<%=education.getDateStart()%>"
+                   required/>
         </div>
         <div class="form-group">
             <label for="dateEnd">Дата окончания обучения:</label>
             <input type="date"
                    id="dateEnd"
                    name="<%=ConstantParamAndAttribute.DATE_END%>"
-                   value="<%=education.getDateEnd()%>"/>
+                   value="<%=education.getDateEnd()%>"
+                   required/>
         </div>
     </form>
     <form class="tabs" action="<%= ConstantAction.EDUCATION %>" method="get">

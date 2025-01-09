@@ -22,21 +22,23 @@
             <input type="text"
                    id="marital_status"
                    name="<%= ConstantParamAndAttribute.STATUS %>"
-                   required>
+                   placeholder="Введите семейное положение"
+                   required/>
         </div>
         <div class="form-group">
             <label for="registration_date">Дата регистрации:</label>
             <input type="date"
                    id="registration_date"
                    name="<%= ConstantParamAndAttribute.REGISTRATION_DATE %>"
-                   required>
+                   required/>
         </div>
         <div class="form-group">
             <label for="document">Подтверждающий документ:</label>
             <input type="text"
                    id="document"
                    name="<%= ConstantParamAndAttribute.DOCUMENT %>"
-                   required>
+                   placeholder="Введите название и реквизиты документа"
+                   required/>
         </div>
     </form>
     <form class="tabs" action="<%=ConstantAction.MARITAL_STATUSES%>" method="get">

@@ -31,16 +31,19 @@ public class PositionUpdateServlet extends HttpServlet {
                     ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
             req.setAttribute(ConstantParamAndAttribute.POSITION, position);
             req.getRequestDispatcher(ConstantJSP.UPDATE_POSITION_PAGE).forward(req, resp);
-        } catch (NumberFormatException | NullPointerException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Ошибка в параметре");
-            req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        positionService.updatePosition(PositionConverter.fromHttpRequest(req));
-        req.getRequestDispatcher(ConstantAction.DEPARTMENT_INFO).forward(req, resp);
+        try {
+            positionService.updatePosition(PositionConverter.fromHttpRequest(req));
+            req.getRequestDispatcher(ConstantAction.DEPARTMENT_INFO).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

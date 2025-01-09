@@ -1,6 +1,6 @@
 <%@ page import="by.itacademy.jd2.dto.PositionDTO" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Изменить должность</title>
@@ -30,7 +30,8 @@
                    id="name"
                    name="<%=ConstantParamAndAttribute.NAME%>"
                    value="<%=position.getName()%>"
-                   required>
+                   placeholder="Введите наименование должности"
+                   required/>
         </div>
         <div class="form-group">
             <label for="education_level">Необходимый уровень образования:</label>
@@ -38,7 +39,8 @@
                    id="education_level"
                    name="<%=ConstantParamAndAttribute.EDUCATION_LEVEL%>"
                    value="<%=position.getEducationLevel()%>"
-                   required>
+                   placeholder="Введите необходимый уровень образования"
+                   required/>
         </div>
         <div class="form-group">
             <label for="salary">Денежный оклад по должности:</label>
@@ -46,7 +48,8 @@
                    id="salary"
                    name="<%=ConstantParamAndAttribute.SALARY%>"
                    value="<%=position.getSalary()%>"
-                   required>
+                   placeholder="Введите денежный оклад"
+                   required/>
         </div>
     </form>
     <form class="tabs" action="<%= ConstantAction.DEPARTMENT_INFO %>"

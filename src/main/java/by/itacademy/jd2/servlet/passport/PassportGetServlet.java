@@ -1,5 +1,6 @@
 package by.itacademy.jd2.servlet.passport;
 
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.PassportDTO;
@@ -22,13 +23,17 @@ public class PassportGetServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PassportDTO passport = employeeService.getPassport(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
-        req.setAttribute(ConstantParamAndAttribute.PASSPORT, passport);
-        req.setAttribute(ConstantParamAndAttribute.ID, ServletUtil.getParam(req, ConstantParamAndAttribute.ID));
+        try {
+            PassportDTO passport = employeeService.getPassport(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
+            req.setAttribute(ConstantParamAndAttribute.PASSPORT, passport);
+            req.setAttribute(ConstantParamAndAttribute.ID, ServletUtil.getParam(req, ConstantParamAndAttribute.ID));
 
-        RequestDispatcher requestDispatcher = getServletContext()
-                .getRequestDispatcher(ConstantJSP.PASSPORT_PAGE);
-        requestDispatcher.forward(req, resp);
+            RequestDispatcher requestDispatcher = getServletContext()
+                    .getRequestDispatcher(ConstantJSP.PASSPORT_PAGE);
+            requestDispatcher.forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

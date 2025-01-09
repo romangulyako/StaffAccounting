@@ -4,7 +4,6 @@ import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.converter.EducationConverter;
-import by.itacademy.jd2.dto.EducationDTO;
 import by.itacademy.jd2.service.api.EducationService;
 import by.itacademy.jd2.service.impl.EducationServiceImpl;
 import by.itacademy.jd2.utils.ParseUtil;
@@ -23,15 +22,23 @@ public class EducationAddServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long employeeId = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.EMPLOYEE_ID));
-        req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
-        req.getRequestDispatcher(ConstantJSP.ADD_EDUCATION_PAGE).forward(req, resp);
+        try {
+            Long employeeId = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.EMPLOYEE_ID));
+            req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
+            req.getRequestDispatcher(ConstantJSP.ADD_EDUCATION_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        educationService.addEducation(EducationConverter.fromHttpRequest(req));
-        req.getRequestDispatcher(ConstantAction.EDUCATION).forward(req, resp);
+        try {
+            educationService.addEducation(EducationConverter.fromHttpRequest(req));
+            req.getRequestDispatcher(ConstantAction.EDUCATION).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

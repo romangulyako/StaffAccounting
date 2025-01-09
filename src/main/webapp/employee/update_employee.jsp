@@ -2,7 +2,7 @@
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
 <%@ page import="by.itacademy.jd2.dto.EmployeeDTO" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Изменение сотрудника</title>
@@ -23,14 +23,15 @@
         <input name="<%= ConstantParamAndAttribute.ID %>"
                type="hidden"
                value="<%= employee.getId() %>"
-               required>
+               required/>
         <div class="form-group">
             <label for="surname">Фамилия:</label>
             <input type="text"
                    id="surname"
                    name="<%= ConstantParamAndAttribute.SURNAME %>"
                    value="<%= employee.getPersonData().getSurname() %>"
-                   required>
+                   placeholder="Введите фамилию"
+                   required/>
         </div>
         <div class="form-group">
             <label for="name">Имя:</label>
@@ -38,14 +39,16 @@
                    id="name"
                    name="<%= ConstantParamAndAttribute.NAME %>"
                    value="<%= employee.getPersonData().getName() %>"
-                   required>
+                   placeholder="Введите имя"
+                   required/>
         </div>
         <div class="form-group">
             <label for="patronymic">Отчество:</label>
             <input type="text"
                    id="patronymic"
                    name="<%= ConstantParamAndAttribute.PATRONYMIC %>"
-                   value="<%= employee.getPersonData().getPatronymic() %>">
+                   value="<%= employee.getPersonData().getPatronymic() %>"
+                   placeholder="Введите отчество"/>
         </div>
         <div class="form-group">
             <label for="birthday">Дата рождения:</label>
@@ -53,42 +56,50 @@
                    id="birthday"
                    name="<%= ConstantParamAndAttribute.BIRTHDAY %>"
                    value="<%= employee.getPersonData().getBirthday() %>"
-                   required>
+                   required/>
         </div>
         <div class="form-group">
             <label for="residence_city">Город, в котором проживает:</label>
             <input type="text"
                    id="residence_city"
                    name="<%= ConstantParamAndAttribute.RESIDENCE_CITY %>"
-                   value="<%= employee.getHomeAddress().getCity() %>">
+                   value="<%= employee.getHomeAddress().getCity() %>"
+                   placeholder="Введите название города"
+                   required/>
         </div>
         <div class="form-group">
             <label for="residence_street">Улица, на которой проживает:</label>
             <input type="text"
                    id="residence_street"
                    name="<%= ConstantParamAndAttribute.RESIDENCE_STREET %>"
-                   value="<%= employee.getHomeAddress().getStreet() %>">
+                   value="<%= employee.getHomeAddress().getStreet() %>"
+                   placeholder="Введите название улицы"
+                   required/>
         </div>
         <div class="form-group">
             <label for="residence_house">Дом, в котором проживает:</label>
             <input type="text"
                    id="residence_house"
                    name="<%= ConstantParamAndAttribute.RESIDENCE_HOUSE %>"
-                   value="<%= employee.getHomeAddress().getHouse() %>">
+                   value="<%= employee.getHomeAddress().getHouse() %>"
+                   placeholder="Введите номер дома"
+                   required/>
         </div>
         <div class="form-group">
             <label for="residence_apartment">Квартира, в которой проживает:</label>
             <input type="text"
                    id="residence_apartment"
                    name="<%= ConstantParamAndAttribute.RESIDENCE_APARTMENT %>"
-                   value="<%= employee.getHomeAddress().getApartment() %>">
+                   value="<%= employee.getHomeAddress().getApartment() %>"
+                   placeholder="Введите номер квартиры"/>
         </div>
         <div class="form-group">
             <label for="phone">Номер телефона:</label>
             <input type="text"
                    id="phone"
                    name="<%= ConstantParamAndAttribute.PHONE %>"
-                   value="<%= employee.getPhone() %>">
+                   value="<%= employee.getPhone() %>"
+                   placeholder="Введите номер телефона"/>
         </div>
     </form>
     <form class="tabs" action="<%=ConstantAction.LIST_EMPLOYEES%>" method="get">

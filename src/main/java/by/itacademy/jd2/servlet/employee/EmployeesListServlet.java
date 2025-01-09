@@ -1,5 +1,6 @@
 package by.itacademy.jd2.servlet.employee;
 
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.EmployeeDTO;
@@ -21,12 +22,15 @@ public class EmployeesListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final List<EmployeeDTO> employees = employeeService.getAllEmployees();
-
-        req.setAttribute(ConstantParamAndAttribute.LIST_EMPLOYEES, employees);
-        RequestDispatcher requestDispatcher = getServletContext()
-                .getRequestDispatcher(ConstantJSP.LIST_EMPLOYEES_PAGE);
-        requestDispatcher.forward(req, resp);
+        try {
+            final List<EmployeeDTO> employees = employeeService.getAllEmployees();
+            req.setAttribute(ConstantParamAndAttribute.LIST_EMPLOYEES, employees);
+            RequestDispatcher requestDispatcher = getServletContext()
+                    .getRequestDispatcher(ConstantJSP.LIST_EMPLOYEES_PAGE);
+            requestDispatcher.forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

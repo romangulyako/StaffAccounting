@@ -32,16 +32,19 @@ public class EmployeeUpdateServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = getServletContext()
                     .getRequestDispatcher(ConstantJSP.UPDATE_EMPLOYEE_PAGE);
             requestDispatcher.forward(req, resp);
-        } catch (NumberFormatException | NullPointerException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Ошибка в параметре");
-            req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        employeeService.updateEmployee(EmployeeConverter.fromHttpRequest(req));
-        req.getRequestDispatcher(ConstantAction.EMPLOYEE).forward(req, resp);
+        try {
+            employeeService.updateEmployee(EmployeeConverter.fromHttpRequest(req));
+            req.getRequestDispatcher(ConstantAction.EMPLOYEE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

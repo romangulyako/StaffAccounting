@@ -24,17 +24,25 @@ public class PassportAddServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long employee_id = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID));
-        req.setAttribute(ConstantParamAndAttribute.ID, employee_id);
-        req.getRequestDispatcher(ConstantJSP.ADD_PASSPORT_PAGE).forward(req, resp);
+        try {
+            Long employee_id = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID));
+            req.setAttribute(ConstantParamAndAttribute.ID, employee_id);
+            req.getRequestDispatcher(ConstantJSP.ADD_PASSPORT_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        EmployeeDTO employee = employeeService.getEmployee(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
-        PassportDTO passport = PassportConverter.fromHttpRequest(req);
-        employeeService.addPassport(passport, employee);
-        req.getRequestDispatcher(ConstantAction.PASSPORT).forward(req, resp);
+        try {
+            EmployeeDTO employee = employeeService.getEmployee(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
+            PassportDTO passport = PassportConverter.fromHttpRequest(req);
+            employeeService.addPassport(passport, employee);
+            req.getRequestDispatcher(ConstantAction.PASSPORT).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

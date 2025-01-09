@@ -29,17 +29,25 @@ public class AppointmentServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<EmployeeItemDTO> employeeItems = employeeService.getAllEmployeeItems();
-        List<PositionItemDTO> positionItems = positionService.getAllPositionItems();
-        req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ITEMS, employeeItems);
-        req.setAttribute(ConstantParamAndAttribute.POSITION_ITEMS, positionItems);
-        req.getRequestDispatcher(ConstantJSP.APPOINTMENT_PAGE).forward(req, resp);
+        try {
+            List<EmployeeItemDTO> employeeItems = employeeService.getAllEmployeeItems();
+            List<PositionItemDTO> positionItems = positionService.getAllPositionItems();
+            req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ITEMS, employeeItems);
+            req.setAttribute(ConstantParamAndAttribute.POSITION_ITEMS, positionItems);
+            req.getRequestDispatcher(ConstantJSP.APPOINTMENT_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        careerService.addCareerStep(CareerStepConverter.fromHttpRequest(req));
-        req.getRequestDispatcher(ConstantAction.CAREER).forward(req, resp);
+        try {
+            careerService.addCareerStep(CareerStepConverter.fromHttpRequest(req));
+            req.getRequestDispatcher(ConstantAction.CAREER).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

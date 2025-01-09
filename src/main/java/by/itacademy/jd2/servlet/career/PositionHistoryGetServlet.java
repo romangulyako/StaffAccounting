@@ -1,5 +1,6 @@
 package by.itacademy.jd2.servlet.career;
 
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.PositionHistoryDTO;
@@ -22,13 +23,17 @@ public class PositionHistoryGetServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long positionId = ParseUtil.parseLong(ServletUtil.getParam(req,
-                ConstantParamAndAttribute.POSITION_ID));
-        List<PositionHistoryDTO> history = careerService.getPositionHistory(positionId);
-        req.setAttribute(ConstantParamAndAttribute.HISTORY, history);
-        req.setAttribute(ConstantParamAndAttribute.DEPARTMENT_ID, ServletUtil.getParam(req,
-                ConstantParamAndAttribute.DEPARTMENT_ID));
-        req.getRequestDispatcher(ConstantJSP.POSITION_HISTORY_PAGE).forward(req, resp);
+        try {
+            Long positionId = ParseUtil.parseLong(ServletUtil.getParam(req,
+                    ConstantParamAndAttribute.POSITION_ID));
+            List<PositionHistoryDTO> history = careerService.getPositionHistory(positionId);
+            req.setAttribute(ConstantParamAndAttribute.HISTORY, history);
+            req.setAttribute(ConstantParamAndAttribute.DEPARTMENT_ID, ServletUtil.getParam(req,
+                    ConstantParamAndAttribute.DEPARTMENT_ID));
+            req.getRequestDispatcher(ConstantJSP.POSITION_HISTORY_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

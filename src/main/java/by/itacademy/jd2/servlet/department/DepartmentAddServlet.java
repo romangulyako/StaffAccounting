@@ -19,13 +19,21 @@ public class DepartmentAddServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher(ConstantJSP.ADD_DEPARTMENT_PAGE).forward(req, resp);
+        try {
+            req.getRequestDispatcher(ConstantJSP.ADD_DEPARTMENT_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        departmentService.addDepartment(DepartmentConverter.fromHttpRequest(req));
-        resp.sendRedirect(ConstantAction.LIST_DEPARTMENTS);
+        try {
+            departmentService.addDepartment(DepartmentConverter.fromHttpRequest(req));
+            resp.sendRedirect(ConstantAction.LIST_DEPARTMENTS);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override
