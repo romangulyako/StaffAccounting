@@ -61,4 +61,5 @@ public class ConstantParamAndAttribute {
     public static final String NEW_POSITION_ID = "new_position_id";
     public static final String NEW_DATE_OF_APPOINTMENT = "new_date_of_appointment";
     public static final String HISTORY = "history";
+    public static final String DATE_OF_LIBERATION = "date_of_liberation";
 }
