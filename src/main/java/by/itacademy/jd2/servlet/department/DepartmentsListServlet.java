@@ -1,5 +1,6 @@
 package by.itacademy.jd2.servlet.department;
 
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.DepartmentDTO;
@@ -20,10 +21,13 @@ public class DepartmentsListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final List<DepartmentDTO> departments = departmentService.getAllDepartments();
-
-        req.setAttribute(ConstantParamAndAttribute.LIST_DEPARTMENTS, departments);
-        req.getRequestDispatcher(ConstantJSP.LIST_DEPARTMENTS_PAGE).forward(req, resp);
+        try {
+            final List<DepartmentDTO> departments = departmentService.getAllDepartments();
+            req.setAttribute(ConstantParamAndAttribute.LIST_DEPARTMENTS, departments);
+            req.getRequestDispatcher(ConstantJSP.LIST_DEPARTMENTS_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

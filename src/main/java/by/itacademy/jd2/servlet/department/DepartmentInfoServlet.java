@@ -1,5 +1,6 @@
 package by.itacademy.jd2.servlet.department;
 
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.DepartmentDTO;
@@ -34,9 +35,8 @@ public class DepartmentInfoServlet extends HttpServlet {
             req.setAttribute(ConstantParamAndAttribute.DEPARTMENT, department);
             req.setAttribute(ConstantParamAndAttribute.LIST_POSITIONS, positions);
             req.getRequestDispatcher(ConstantJSP.DEPARTMENT_INFO_PAGE).forward(req, resp);
-        } catch (NullPointerException | NumberFormatException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Ошибка в параметре");
-            req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
 

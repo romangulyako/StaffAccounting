@@ -1,5 +1,6 @@
 package by.itacademy.jd2.servlet.employee;
 
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.EmployeeDTO;
@@ -26,9 +27,8 @@ public class EmployeeInfoServlet extends HttpServlet {
                     ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
             req.setAttribute(ConstantParamAndAttribute.EMPLOYEE, employee);
             req.getRequestDispatcher(ConstantJSP.EMPLOYEE_PAGE).forward(req, resp);
-        } catch (NumberFormatException | NullPointerException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Ошибка в параметре");
-            req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
 

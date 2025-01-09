@@ -1,5 +1,5 @@
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Добавить должность</title>
@@ -21,21 +21,24 @@
             <input type="text"
                    id="name"
                    name="<%=ConstantParamAndAttribute.NAME%>"
-                   required>
+                   placeholder="Введите наименование должности"
+                   required/>
         </div>
         <div class="form-group">
             <label for="education_level">Необходимый уровень образования:</label>
             <input type="text"
                    id="education_level"
                    name="<%=ConstantParamAndAttribute.EDUCATION_LEVEL%>"
-                   required>
+                   placeholder="Введите необходимый уровень образования"
+                   required/>
         </div>
         <div class="form-group">
             <label for="salary">Денежный оклад по должности:</label>
             <input type="text"
                    id="salary"
                    name="<%=ConstantParamAndAttribute.SALARY%>"
-                   required>
+                   placeholder="Введите денежный оклад"
+                   required/>
         </div>
     </form>
     <form class="tabs"

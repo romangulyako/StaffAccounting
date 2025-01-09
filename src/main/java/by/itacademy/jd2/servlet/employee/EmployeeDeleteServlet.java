@@ -20,8 +20,12 @@ public class EmployeeDeleteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        employeeService.deleteEmployee(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
-        resp.sendRedirect(ConstantAction.LIST_EMPLOYEES);
+        try {
+            employeeService.deleteEmployee(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
+            resp.sendRedirect(ConstantAction.LIST_EMPLOYEES);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

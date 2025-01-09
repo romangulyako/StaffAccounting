@@ -1,7 +1,7 @@
 <%@ page import="by.itacademy.jd2.dto.RelativeDTO" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantAction" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Изменить родственника</title>
@@ -32,7 +32,8 @@
                    id="surname"
                    name="<%= ConstantParamAndAttribute.SURNAME %>"
                    value="<%= relative.getPersonData().getSurname() %>"
-                   required>
+                   placeholder="Введите фамилию"
+                   required/>
         </div>
         <div class="form-group">
             <label for="name">Имя:</label>
@@ -40,14 +41,16 @@
                    id="name"
                    name="<%= ConstantParamAndAttribute.NAME %>"
                    value="<%= relative.getPersonData().getName() %>"
-                   required>
+                   placeholder="Введите имя"
+                   required/>
         </div>
         <div class="form-group">
             <label for="patronymic">Отчество:</label>
             <input type="text"
                    id="patronymic"
                    name="<%= ConstantParamAndAttribute.PATRONYMIC %>"
-                   value="<%= relative.getPersonData().getPatronymic() %>">
+                   value="<%= relative.getPersonData().getPatronymic() %>"
+                   placeholder="Введите отчество"/>
         </div>
         <div class="form-group">
             <label for="birthday">Дата рождения:</label>
@@ -55,7 +58,7 @@
                    id="birthday"
                    name="<%= ConstantParamAndAttribute.BIRTHDAY %>"
                    value="<%= relative.getPersonData().getBirthday() %>"
-                   required>
+                   required/>
         </div>
         <div class="form-group">
             <label for="type_kinship">Тип родства:</label>
@@ -63,7 +66,8 @@
                    id="type_kinship"
                    name="<%= ConstantParamAndAttribute.TYPE_KINSHIP %>"
                    value="<%= relative.getTypeKinship()%>"
-                   required>
+                   placeholder="Введите тип родства"
+                   required/>
         </div>
     </form>
     <form class="tabs" action="<%= ConstantAction.RELATIVES %>" method="get">

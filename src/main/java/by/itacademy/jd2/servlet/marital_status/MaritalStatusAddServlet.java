@@ -22,16 +22,24 @@ public class MaritalStatusAddServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long employeeId = ParseUtil.parseLong(ServletUtil
-                .getParam(req, ConstantParamAndAttribute.EMPLOYEE_ID));
-        req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
-        req.getRequestDispatcher(ConstantJSP.ADD_MARITAL_STATUS_PAGE).forward(req, resp);
+        try {
+            Long employeeId = ParseUtil.parseLong(ServletUtil
+                    .getParam(req, ConstantParamAndAttribute.EMPLOYEE_ID));
+            req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
+            req.getRequestDispatcher(ConstantJSP.ADD_MARITAL_STATUS_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        maritalStatusService.addMaritalStatus(MaritalStatusConverter.fromHttpRequest(req));
-        req.getRequestDispatcher(ConstantAction.MARITAL_STATUSES).forward(req, resp);
+        try {
+            maritalStatusService.addMaritalStatus(MaritalStatusConverter.fromHttpRequest(req));
+            req.getRequestDispatcher(ConstantAction.MARITAL_STATUSES).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

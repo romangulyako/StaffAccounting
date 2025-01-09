@@ -28,16 +28,19 @@ public class RelativeUpdateServlet extends HttpServlet {
                     ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
             req.setAttribute(ConstantParamAndAttribute.RELATIVE, relative);
             req.getRequestDispatcher(ConstantJSP.UPDATE_RELATIVE_PAGE).forward(req, resp);
-        } catch (NumberFormatException | NullPointerException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Ошибка в параметре");
-            req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        relativeService.updateRelative(RelativeConverter.fromHttpRequest(req));
-        req.getRequestDispatcher(ConstantAction.RELATIVES).forward(req, resp);
+        try {
+            relativeService.updateRelative(RelativeConverter.fromHttpRequest(req));
+            req.getRequestDispatcher(ConstantAction.RELATIVES).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

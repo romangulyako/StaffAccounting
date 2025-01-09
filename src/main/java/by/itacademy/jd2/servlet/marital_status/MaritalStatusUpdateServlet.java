@@ -32,16 +32,19 @@ public class MaritalStatusUpdateServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = getServletContext()
                     .getRequestDispatcher(ConstantJSP.UPDATE_MARITAL_STATUS_PAGE);
             requestDispatcher.forward(req, resp);
-        } catch (NumberFormatException | NullPointerException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Ошибка в параметре");
+        } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        maritalStatusService.updateMaritalStatus(MaritalStatusConverter.fromHttpRequest(req));
-        req.getRequestDispatcher(ConstantAction.MARITAL_STATUSES).forward(req, resp);
+        try {
+            maritalStatusService.updateMaritalStatus(MaritalStatusConverter.fromHttpRequest(req));
+            req.getRequestDispatcher(ConstantAction.MARITAL_STATUSES).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

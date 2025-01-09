@@ -1,5 +1,6 @@
 package by.itacademy.jd2.servlet.relatives;
 
+import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.RelativeDTO;
@@ -22,12 +23,16 @@ public class RelativesGetServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long employeeId = ParseUtil.parseLong(ServletUtil.getParam(req,
-                ConstantParamAndAttribute.EMPLOYEE_ID));
-        final List<RelativeDTO> relatives = relativeService.getRelatives(employeeId);
-        req.setAttribute(ConstantParamAndAttribute.LIST_RELATIVES, relatives);
-        req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
-        req.getRequestDispatcher(ConstantJSP.RELATIVES_PAGE).forward(req, resp);
+        try {
+            Long employeeId = ParseUtil.parseLong(ServletUtil.getParam(req,
+                    ConstantParamAndAttribute.EMPLOYEE_ID));
+            final List<RelativeDTO> relatives = relativeService.getRelatives(employeeId);
+            req.setAttribute(ConstantParamAndAttribute.LIST_RELATIVES, relatives);
+            req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
+            req.getRequestDispatcher(ConstantJSP.RELATIVES_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

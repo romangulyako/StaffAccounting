@@ -28,16 +28,19 @@ public class DepartmentUpdateServlet extends HttpServlet {
                     ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
             req.setAttribute(ConstantParamAndAttribute.DEPARTMENT, department);
             req.getRequestDispatcher(ConstantJSP.UPDATE_DEPARTMENT_PAGE).forward(req, resp);
-        } catch (NullPointerException | NumberFormatException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Ошибка в параметре");
-            req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        departmentService.updateDepartment(DepartmentConverter.fromHttpRequest(req));
-        resp.sendRedirect(ConstantAction.LIST_DEPARTMENTS);
+        try {
+            departmentService.updateDepartment(DepartmentConverter.fromHttpRequest(req));
+            resp.sendRedirect(ConstantAction.LIST_DEPARTMENTS);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

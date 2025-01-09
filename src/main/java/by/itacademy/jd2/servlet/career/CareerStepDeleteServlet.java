@@ -18,8 +18,12 @@ public class CareerStepDeleteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        careerService.deleteCareerStep(CareerStepConverter.toCareerStepId(req));
-        req.getRequestDispatcher(ConstantAction.CAREER).forward(req, resp);
+        try {
+            careerService.deleteCareerStep(CareerStepConverter.toCareerStepId(req));
+            req.getRequestDispatcher(ConstantAction.CAREER).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

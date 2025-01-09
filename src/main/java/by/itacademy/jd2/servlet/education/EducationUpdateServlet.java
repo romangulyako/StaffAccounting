@@ -32,16 +32,19 @@ public class EducationUpdateServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = getServletContext()
                     .getRequestDispatcher(ConstantJSP.UPDATE_EDUCATION_PAGE);
             requestDispatcher.forward(req, resp);
-        } catch (NumberFormatException | NullPointerException e) {
-            req.setAttribute(ConstantParamAndAttribute.ERROR, "Ошибка в параметре");
-            req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        educationService.updateEducation(EducationConverter.fromHttpRequest(req));
-        req.getRequestDispatcher(ConstantAction.EDUCATION).forward(req, resp);
+        try {
+            educationService.updateEducation(EducationConverter.fromHttpRequest(req));
+            req.getRequestDispatcher(ConstantAction.EDUCATION).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

@@ -1,6 +1,6 @@
 <%@ page import="by.itacademy.jd2.constant.ConstantAction" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Добавить родственника</title>
@@ -18,23 +18,41 @@
           method="post">
         <div class="form-group">
             <label for="surname">Фамилия:</label>
-            <input type="text" id="surname" name="<%= ConstantParamAndAttribute.SURNAME %>" required>
+            <input type="text"
+                   id="surname"
+                   name="<%= ConstantParamAndAttribute.SURNAME %>"
+                   placeholder="Введите фамилию"
+                   required/>
         </div>
         <div class="form-group">
             <label for="name">Имя:</label>
-            <input type="text" id="name" name="<%= ConstantParamAndAttribute.NAME %>" required>
+            <input type="text"
+                   id="name"
+                   name="<%= ConstantParamAndAttribute.NAME %>"
+                   placeholder="Введите имя"
+                   required/>
         </div>
         <div class="form-group">
             <label for="patronymic">Отчество:</label>
-            <input type="text" id="patronymic" name="<%= ConstantParamAndAttribute.PATRONYMIC %>">
+            <input type="text"
+                   id="patronymic"
+                   name="<%= ConstantParamAndAttribute.PATRONYMIC %>"
+                   placeholder="Введите отчество"/>
         </div>
         <div class="form-group">
             <label for="birthday">Дата рождения:</label>
-            <input type="date" id="birthday" name="<%= ConstantParamAndAttribute.BIRTHDAY %>" required>
+            <input type="date"
+                   id="birthday"
+                   name="<%= ConstantParamAndAttribute.BIRTHDAY %>"
+                   required/>
         </div>
         <div class="form-group">
             <label for="type_kinship">Тип родства:</label>
-            <input type="text" id="type_kinship" name="<%= ConstantParamAndAttribute.TYPE_KINSHIP %>">
+            <input type="text"
+                   id="type_kinship"
+                   name="<%= ConstantParamAndAttribute.TYPE_KINSHIP %>"
+                   placeholder="Введите тип родства"
+                   required/>
         </div>
     </form>
     <form class="tabs" action="<%=ConstantAction.RELATIVES%>" method="get">

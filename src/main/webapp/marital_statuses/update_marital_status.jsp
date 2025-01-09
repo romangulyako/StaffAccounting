@@ -1,7 +1,7 @@
 <%@ page import="by.itacademy.jd2.dto.MaritalStatusDTO" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantAction" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Изменить семейное положение</title>
@@ -37,7 +37,8 @@
                    id="marital_status"
                    name="<%= ConstantParamAndAttribute.STATUS %>"
                    value="<%= maritalStatus.getStatus() %>"
-                   required>
+                   placeholder="Введите семейное положение"
+                   required/>
         </div>
         <div class="form-group">
             <label for="registration_date">Дата регистрации:</label>
@@ -45,7 +46,7 @@
                    id="registration_date"
                    name="<%= ConstantParamAndAttribute.REGISTRATION_DATE %>"
                    value="<%= maritalStatus.getRegistrationDate() %>"
-                   required>
+                   required/>
         </div>
         <div class="form-group">
             <label for="document">Подтверждающий документ:</label>
@@ -53,7 +54,8 @@
                    id="document"
                    name="<%= ConstantParamAndAttribute.DOCUMENT %>"
                    value="<%= maritalStatus.getDocument() %>"
-                   required>
+                   placeholder="Введите название и реквизиты документа"
+                   required/>
         </div>
     </form>
     <form class="tabs" action="<%=ConstantAction.MARITAL_STATUSES%>" method="get">

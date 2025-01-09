@@ -5,7 +5,6 @@ import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.converter.EmployeeConverter;
 import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
 import by.itacademy.jd2.service.api.EmployeeService;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,16 +19,21 @@ public class EmployeeAddServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = getServletContext()
-                .getRequestDispatcher(ConstantJSP.ADD_EMPLOYEE_PAGE);
-        requestDispatcher.forward(req, resp);
+        try {
+            req.getRequestDispatcher(ConstantJSP.ADD_EMPLOYEE_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        employeeService.addEmployee(EmployeeConverter.fromHttpRequest(req));
-
-        resp.sendRedirect(ConstantAction.LIST_EMPLOYEES);
+       try {
+           employeeService.addEmployee(EmployeeConverter.fromHttpRequest(req));
+           resp.sendRedirect(ConstantAction.LIST_EMPLOYEES);
+       } catch (Exception e) {
+           req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+       }
     }
 
     @Override
