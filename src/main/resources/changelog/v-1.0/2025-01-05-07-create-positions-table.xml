@@ -29,10 +29,14 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="create-fk-positions-departments" author="Roman Gulyako">
         <addForeignKeyConstraint baseTableName="positions"
                                  baseColumnNames="department_id"
                                  constraintName="FK_department_id"
                                  referencedTableName="departments"
                                  referencedColumnNames="id"/>
     </changeSet>
+
 </databaseChangeLog>

@@ -29,10 +29,15 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
+    </changeSet>
+
+    <changeSet id="create-pk" author="Roman Gulyako">
         <addPrimaryKey  tableName="career"
                         columnNames="employee_id, position_id, date_of_appointment"
                         constraintName="career_pk"/>
+    </changeSet>
 
+    <changeSet id="create-fk" author="Roman Gulyako">
         <addForeignKeyConstraint baseTableName="career"
                                  baseColumnNames="employee_id"
                                  constraintName="FK_employee_career"
@@ -44,6 +49,6 @@
                                  constraintName="FK_position_career"
                                  referencedTableName="positions"
                                  referencedColumnNames="id"/>
-
     </changeSet>
+
 </databaseChangeLog>
