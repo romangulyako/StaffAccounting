@@ -97,7 +97,7 @@
                               method="get"
                               action="<%= ConstantAction.POSITION_HISTORY %>">
                             <button class="button-show"
-                                    name="<%= ConstantParamAndAttribute.ID %>"
+                                    name="<%= ConstantParamAndAttribute.POSITION_ID %>"
                                     value="<%= position.getId() %>">
                                 Посмотреть историю
                             </button>
