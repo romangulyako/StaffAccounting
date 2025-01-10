@@ -7,5 +7,7 @@
 
     <include file="2025-01-09-01-add-column-date-liberation-position.xml"
              relativeToChangelogFile="true"/>
+    <include file="2025-01-10-02-alter-table-career.xml"
+             relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
