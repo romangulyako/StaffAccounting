@@ -34,7 +34,7 @@
                         for (EmployeeItemDTO employee : employees) {
                 %>
                 <option value="<%=employee.getId()%>">
-                    <%=employee.getFullName()%>
+                    <%=employee.getSurname() + " " + employee.getName() + " " + employee.getPatronymic()%>
                 </option>
                 <%
                         }
@@ -57,7 +57,7 @@
                         for (PositionItemDTO position : positions) {
                 %>
                 <option value="<%=position.getId()%>">
-                    <%=position.getFullName()%>
+                    <%=position.getPositionName() + " " + position.getDepartmentGenitiveCaseName() %>
                 </option>
                 <%
                         }
@@ -76,7 +76,7 @@
             <label for="order">Приказ о назначении:</label>
             <input type="text"
                    id="order"
-                   name="<%= ConstantParamAndAttribute.ORDER %>"
+                   name="<%= ConstantParamAndAttribute.ORDER_APPOINTMENT %>"
                    required>
         </div>
     </form>

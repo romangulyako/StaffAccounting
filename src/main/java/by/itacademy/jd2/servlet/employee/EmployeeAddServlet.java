@@ -2,9 +2,10 @@ package by.itacademy.jd2.servlet.employee;
 
 import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
-import by.itacademy.jd2.converter.EmployeeConverter;
+import by.itacademy.jd2.dto.EmployeeDTO;
 import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
 import by.itacademy.jd2.service.api.EmployeeService;
+import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -29,7 +30,7 @@ public class EmployeeAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
        try {
-           employeeService.addEmployee(EmployeeConverter.fromHttpRequest(req));
+           employeeService.addEmployee(HttpRequestConverter.getConverter().convert(req, EmployeeDTO.class));
            resp.sendRedirect(ConstantAction.LIST_EMPLOYEES);
        } catch (Exception e) {
            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PositionItemDTO {
     private Long id;
-    private String fullName;
+    private String positionName;
+    private String departmentGenitiveCaseName;
 }

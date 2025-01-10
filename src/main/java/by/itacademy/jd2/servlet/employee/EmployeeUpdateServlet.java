@@ -3,10 +3,10 @@ package by.itacademy.jd2.servlet.employee;
 import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
-import by.itacademy.jd2.converter.EmployeeConverter;
 import by.itacademy.jd2.dto.EmployeeDTO;
 import by.itacademy.jd2.service.api.EmployeeService;
 import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
+import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.RequestDispatcher;
@@ -40,7 +40,7 @@ public class EmployeeUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            employeeService.updateEmployee(EmployeeConverter.fromHttpRequest(req));
+            employeeService.updateEmployee(HttpRequestConverter.getConverter().convert(req, EmployeeDTO.class));
             req.getRequestDispatcher(ConstantAction.EMPLOYEE).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

@@ -12,9 +12,11 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CareerStepSaveDTO {
+    private Long id;
     private Long employeeId;
     private Long positionId;
     private Date dateOfAppointment;
-    private Date dateOfLiberationPosition;
-    private String order;
+    private String orderAppointment;
+    private Date dateOfLiberation;
+    private String orderLiberation;
 }

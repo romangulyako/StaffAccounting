@@ -3,11 +3,12 @@ package by.itacademy.jd2.servlet.position;
 import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
-import by.itacademy.jd2.converter.PositionConverter;
+import by.itacademy.jd2.dto.PositionDTO;
 import by.itacademy.jd2.service.api.DepartmentService;
 import by.itacademy.jd2.service.api.PositionService;
 import by.itacademy.jd2.service.impl.DepartmentServiceImpl;
 import by.itacademy.jd2.service.impl.PositionServiceImpl;
+import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
@@ -37,7 +38,7 @@ public class PositionAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            positionService.addPosition(PositionConverter.fromHttpRequest(req));
+            positionService.addPosition(HttpRequestConverter.getConverter().convert(req, PositionDTO.class));
             req.getRequestDispatcher(ConstantAction.DEPARTMENT_INFO).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

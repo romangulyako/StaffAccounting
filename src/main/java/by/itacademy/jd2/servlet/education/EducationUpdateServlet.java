@@ -3,10 +3,10 @@ package by.itacademy.jd2.servlet.education;
 import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
-import by.itacademy.jd2.converter.EducationConverter;
 import by.itacademy.jd2.dto.EducationDTO;
 import by.itacademy.jd2.service.api.EducationService;
 import by.itacademy.jd2.service.impl.EducationServiceImpl;
+import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.RequestDispatcher;
@@ -40,7 +40,7 @@ public class EducationUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            educationService.updateEducation(EducationConverter.fromHttpRequest(req));
+            educationService.updateEducation(HttpRequestConverter.getConverter().convert(req, EducationDTO.class));
             req.getRequestDispatcher(ConstantAction.EDUCATION).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

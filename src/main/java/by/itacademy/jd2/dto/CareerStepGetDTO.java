@@ -1,6 +1,5 @@
 package by.itacademy.jd2.dto;
 
-import by.itacademy.jd2.entity.embedded.CareerStepId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,8 +12,13 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CareerStepGetDTO {
-    private CareerStepId id;
-    private Date dateOfLiberationPosition;
-    private String positionFullName;
-    private String order;
+    private Long id;
+    private Long employeeId;
+    private Long positionId;
+    private Date dateOfAppointment;
+    private String orderAppointment;
+    private Date dateOfLiberation;
+    private String orderLiberation;
+    private String positionName;
+    private String departmentGenitiveCaseName;
 }

@@ -1,40 +1,16 @@
-package by.itacademy.jd2.converter;
+package by.itacademy.jd2.servlet.converter.impl;
 
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.RelativeDTO;
-import by.itacademy.jd2.entity.RelativeEntity;
 import by.itacademy.jd2.entity.embedded.PersonData;
+import by.itacademy.jd2.servlet.converter.FromHttpRequestConverter;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.http.HttpServletRequest;
 
-public class RelativeConverter {
-    public static RelativeEntity toEntity(RelativeDTO dto) {
-        if (dto != null) {
-            return RelativeEntity.builder()
-                    .id(dto.getId())
-                    .personData(dto.getPersonData())
-                    .typeKinship(dto.getTypeKinship())
-                    .build();
-        }
-
-        return null;
-    }
-
-    public static RelativeDTO toDTO(RelativeEntity entity) {
-        if (entity != null) {
-            return RelativeDTO.builder()
-                    .id(entity.getId())
-                    .personData(entity.getPersonData())
-                    .typeKinship(entity.getTypeKinship())
-                    .employeeId(entity.getEmployee().getId())
-                    .build();
-        }
-
-        return null;
-    }
-
-    public static RelativeDTO fromHttpRequest(HttpServletRequest req) {
+public class RelativeHttpConverter implements FromHttpRequestConverter<RelativeDTO> {
+    @Override
+    public RelativeDTO convert(HttpServletRequest req) {
         return RelativeDTO.builder()
                 .id(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)))
                 .personData(PersonData.builder()

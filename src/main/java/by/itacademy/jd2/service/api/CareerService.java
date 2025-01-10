@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface CareerService extends Service {
     void appointEmployee(CareerStepSaveDTO careerStepDTO);
-    void dismissEmployee(Long employeeId, Date dateOfDismiss, String order) throws MoreOneResultException;
+    //void dismissEmployee(Long employeeId, Date dateOfDismiss, String order) throws MoreOneResultException;
     void updateCareerStep(CareerStepSaveDTO careerStepDTO, Serializable id);
     void deleteCareerStep(Serializable id);
     CareerStepGetDTO getCareerStep(Serializable id);

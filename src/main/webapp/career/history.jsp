@@ -27,14 +27,19 @@
                 <th>Дата назначения</th>
                 <th>Приказ о назначении</th>
                 <th>ФИО сотрудника</th>
+                <th>Дата освобождения должности</th>
             </tr>
             <tr>
                 <% for (PositionHistoryDTO historyItem : history) { %>
                 <td><%=historyItem.getDateOfAppointment()%>
                 </td>
-                <td><%=historyItem.getOrder()%>
+                <td><%=historyItem.getOrderAppointment()%>
                 </td>
-                <td><%=historyItem.getEmployeeFullName()%>
+                <td><%=historyItem.getEmployeeSurname() + " "
+                + historyItem.getEmployeeName() + " "
+                + historyItem.getEmployeePatronymic()%>
+                </td>
+                <td><%=historyItem.getDateOfLiberation()%>
                 </td>
             </tr>
             <% } %>

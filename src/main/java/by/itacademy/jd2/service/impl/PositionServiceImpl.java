@@ -1,6 +1,6 @@
 package by.itacademy.jd2.service.impl;
 
-import by.itacademy.jd2.converter.PositionConverter;
+import by.itacademy.jd2.converter.Converter;
 import by.itacademy.jd2.dao.api.DepartmentDAO;
 import by.itacademy.jd2.dao.api.PositionDAO;
 import by.itacademy.jd2.dao.impl.DepartmentDaoImpl;
@@ -18,15 +18,17 @@ import java.util.stream.Collectors;
 public class PositionServiceImpl implements PositionService {
     private final PositionDAO positionDAO;
     private final DepartmentDAO departmentDAO;
+    private final Converter converter;
 
     public PositionServiceImpl() {
         this.positionDAO = new PositionDaoImpl();
         this.departmentDAO = new DepartmentDaoImpl();
+        this.converter = Converter.getConverter();
     }
 
     @Override
     public void addPosition(PositionDTO positionDTO) {
-        PositionEntity positionEntity = PositionConverter.toEntity(positionDTO);
+        PositionEntity positionEntity = converter.toEntity(positionDTO, PositionEntity.class);
         DepartmentEntity departmentEntity = departmentDAO.get(positionDTO.getDepartmentId());
         positionEntity.setDepartment(departmentEntity);
         departmentEntity.getPositions().add(positionEntity);
@@ -36,7 +38,7 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public void updatePosition(PositionDTO positionDTO) {
-        PositionEntity positionEntity = PositionConverter.toEntity(positionDTO);
+        PositionEntity positionEntity = converter.toEntity(positionDTO, PositionEntity.class);
         DepartmentEntity departmentEntity = departmentDAO.get(positionDTO.getDepartmentId());
         positionEntity.setDepartment(departmentEntity);
         positionDAO.update(positionEntity, positionEntity.getId());
@@ -49,13 +51,13 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public PositionDTO getPosition(Serializable id) {
-        return PositionConverter.toDto(positionDAO.get(id));
+        return converter.toDto(positionDAO.get(id), PositionDTO.class);
     }
 
     @Override
     public List<PositionItemDTO> getAllPositionItems() {
         return positionDAO.getAll().stream()
-                .map(PositionConverter::toPositionItem)
+                .map(entity -> converter.toDto(entity, PositionItemDTO.class))
                 .collect(Collectors.toList());
     }
 
@@ -66,7 +68,7 @@ public class PositionServiceImpl implements PositionService {
             return null;
         }
         return entities.stream()
-                .map(PositionConverter::toDto)
+                .map(entity -> converter.toDto(entity, PositionDTO.class))
                 .collect(Collectors.toList());
     }
 
