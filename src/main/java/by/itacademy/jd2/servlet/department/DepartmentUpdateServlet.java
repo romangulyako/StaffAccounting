@@ -3,10 +3,10 @@ package by.itacademy.jd2.servlet.department;
 import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
-import by.itacademy.jd2.converter.DepartmentConverter;
 import by.itacademy.jd2.dto.DepartmentDTO;
 import by.itacademy.jd2.service.api.DepartmentService;
 import by.itacademy.jd2.service.impl.DepartmentServiceImpl;
+import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
@@ -19,7 +19,7 @@ import java.io.IOException;
 
 @WebServlet(name = "departmentUpdateServlet", value = "/update_department")
 public class DepartmentUpdateServlet extends HttpServlet {
-    private final DepartmentService departmentService = new DepartmentServiceImpl();
+    private final DepartmentService departmentService = new DepartmentServiceImpl();;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,7 +36,7 @@ public class DepartmentUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            departmentService.updateDepartment(DepartmentConverter.fromHttpRequest(req));
+            departmentService.updateDepartment(HttpRequestConverter.getConverter().convert(req, DepartmentDTO.class));
             resp.sendRedirect(ConstantAction.LIST_DEPARTMENTS);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

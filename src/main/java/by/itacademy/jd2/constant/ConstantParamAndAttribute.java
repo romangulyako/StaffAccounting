@@ -53,7 +53,7 @@ public class ConstantParamAndAttribute {
     public static final String LIST_POSITIONS = "list_position";
     public static final String CAREER = "career";
     public static final String DATE_OF_APPOINTMENT = "date_of_appointment";
-    public static final String ORDER = "order";
+    public static final String ORDER_APPOINTMENT = "order_appointment";
     public static final String POSITION_ID = "position_id";
     public static final String EMPLOYEE_ITEMS = "employee_items";
     public static final String POSITION_ITEMS = "position_items";
@@ -62,4 +62,6 @@ public class ConstantParamAndAttribute {
     public static final String NEW_DATE_OF_APPOINTMENT = "new_date_of_appointment";
     public static final String HISTORY = "history";
     public static final String DATE_OF_LIBERATION = "date_of_liberation";
+    public static final String ORDER_LIBERATION = "order_liberation";
+    public static final String CAREER_ID = "career_id";
 }

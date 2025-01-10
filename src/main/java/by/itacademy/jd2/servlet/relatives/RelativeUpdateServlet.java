@@ -3,10 +3,10 @@ package by.itacademy.jd2.servlet.relatives;
 import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
-import by.itacademy.jd2.converter.RelativeConverter;
 import by.itacademy.jd2.dto.RelativeDTO;
 import by.itacademy.jd2.service.api.RelativeService;
 import by.itacademy.jd2.service.impl.RelativeServiceImpl;
+import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
@@ -36,7 +36,7 @@ public class RelativeUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            relativeService.updateRelative(RelativeConverter.fromHttpRequest(req));
+            relativeService.updateRelative(HttpRequestConverter.getConverter().convert(req, RelativeDTO.class));
             req.getRequestDispatcher(ConstantAction.RELATIVES).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

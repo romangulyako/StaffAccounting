@@ -1,9 +1,11 @@
 package by.itacademy.jd2.servlet.career;
 
 import by.itacademy.jd2.constant.ConstantAction;
-import by.itacademy.jd2.converter.CareerStepConverter;
+import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.service.api.CareerService;
 import by.itacademy.jd2.service.impl.CareerServiceImpl;
+import by.itacademy.jd2.utils.ParseUtil;
+import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,7 +21,8 @@ public class CareerStepDeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            careerService.deleteCareerStep(CareerStepConverter.toCareerStepId(req));
+            Long id = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.CAREER_ID));
+            careerService.deleteCareerStep(id);
             req.getRequestDispatcher(ConstantAction.CAREER).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

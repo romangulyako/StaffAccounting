@@ -3,10 +3,10 @@ package by.itacademy.jd2.servlet.marital_status;
 import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
-import by.itacademy.jd2.converter.MaritalStatusConverter;
 import by.itacademy.jd2.dto.MaritalStatusDTO;
 import by.itacademy.jd2.service.api.MaritalStatusService;
 import by.itacademy.jd2.service.impl.MaritalStatusServiceImpl;
+import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
 import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.RequestDispatcher;
@@ -40,7 +40,8 @@ public class MaritalStatusUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            maritalStatusService.updateMaritalStatus(MaritalStatusConverter.fromHttpRequest(req));
+            maritalStatusService.updateMaritalStatus(HttpRequestConverter.getConverter().convert(req,
+                    MaritalStatusDTO.class));
             req.getRequestDispatcher(ConstantAction.MARITAL_STATUSES).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

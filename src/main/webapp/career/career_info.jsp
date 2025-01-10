@@ -30,15 +30,18 @@
                 <th>Дата назначения</th>
                 <th>Приказ о назначении</th>
                 <th>Должность</th>
+                <th>Дата освобождения должности</th>
                 <th colspan="2">Действие</th>
             </tr>
             <tr>
                 <% for (CareerStepGetDTO careerStep : career) { %>
-                <td><%=careerStep.getId().getDateOfAppointment()%>
+                <td><%=careerStep.getDateOfAppointment()%>
                 </td>
-                <td><%=careerStep.getOrder()%>
+                <td><%=careerStep.getOrderAppointment()%>
                 </td>
-                <td><%=careerStep.getPositionFullName()%>
+                <td><%=careerStep.getPositionName() + " " + careerStep.getDepartmentGenitiveCaseName()%>
+                </td>
+                <td><%=careerStep.getDateOfLiberation()%>
                 </td>
                 <td>
                     <form name="update_career_step"
@@ -48,32 +51,22 @@
                             Изменить
                         </button>
                         <input type="hidden"
-                               name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
-                               value="<%=careerStep.getId().getEmployee()%>"/>
-                        <input type="hidden"
-                               name="<%=ConstantParamAndAttribute.POSITION_ID%>"
-                               value="<%=careerStep.getId().getPosition()%>"/>
-                        <input type="hidden"
-                               name="<%=ConstantParamAndAttribute.DATE_OF_APPOINTMENT%>"
-                               value="<%=careerStep.getId().getDateOfAppointment()%>"/>
+                               name="<%=ConstantParamAndAttribute.CAREER_ID%>"
+                               value="<%=careerStep.getId()%>"/>
                     </form>
                 </td>
                 <td>
                     <form name="delete_career_step"
                           method="post"
                           action="<%= ConstantAction.DELETE_CAREER_STEP %>">
-                        <button class="button-delete">
+                        <button class="button-delete"
+                                name="<%=ConstantParamAndAttribute.CAREER_ID%>"
+                                value="<%=careerStep.getId()%>">
                             Удалить
                         </button>
                         <input type="hidden"
                                name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
-                               value="<%=careerStep.getId().getEmployee()%>"/>
-                        <input type="hidden"
-                               name="<%=ConstantParamAndAttribute.POSITION_ID%>"
-                               value="<%=careerStep.getId().getPosition()%>"/>
-                        <input type="hidden"
-                               name="<%=ConstantParamAndAttribute.DATE_OF_APPOINTMENT%>"
-                               value="<%=careerStep.getId().getDateOfAppointment()%>"/>
+                               value="<%=careerStep.getEmployeeId()%>"/>
                     </form>
                 </td>
             </tr>

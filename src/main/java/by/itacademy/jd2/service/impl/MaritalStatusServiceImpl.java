@@ -1,6 +1,6 @@
 package by.itacademy.jd2.service.impl;
 
-import by.itacademy.jd2.converter.MaritalStatusConverter;
+import by.itacademy.jd2.converter.Converter;
 import by.itacademy.jd2.dao.api.EmployeeDAO;
 import by.itacademy.jd2.dao.api.MaritalStatusDAO;
 import by.itacademy.jd2.dao.impl.EmployeeDaoImpl;
@@ -18,16 +18,18 @@ import java.util.stream.Collectors;
 public class MaritalStatusServiceImpl implements MaritalStatusService {
     private final MaritalStatusDAO maritalStatusDAO;
     private final EmployeeDAO employeeDAO;
+    private final Converter converter;
 
     public MaritalStatusServiceImpl() {
         this.maritalStatusDAO = new MaritalStatusDaoImpl();
         this.employeeDAO = new EmployeeDaoImpl();
+        this.converter = Converter.getConverter();
     }
 
     @Override
     public void addMaritalStatus(MaritalStatusDTO maritalStatusDTO) {
         MaritalStatusEntity maritalStatusEntity =
-                MaritalStatusConverter.toEntity(maritalStatusDTO);
+                converter.toEntity(maritalStatusDTO, MaritalStatusEntity.class);
         EmployeeEntity employeeEntity = employeeDAO.get(maritalStatusDTO.getEmployeeId());
         employeeEntity.getMaritalStatuses().stream()
                 .filter(MaritalStatusEntity::isCurrent)
@@ -41,7 +43,7 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
     @Override
     public void updateMaritalStatus(MaritalStatusDTO maritalStatusDTO) {
         MaritalStatusEntity maritalStatusEntity =
-                MaritalStatusConverter.toEntity(maritalStatusDTO);
+                converter.toEntity(maritalStatusDTO, MaritalStatusEntity.class);
         EmployeeEntity employeeEntity = employeeDAO.get(maritalStatusDTO.getEmployeeId());
         maritalStatusEntity.setEmployee(employeeEntity);
         maritalStatusDAO.update(maritalStatusEntity, maritalStatusEntity.getId());
@@ -54,7 +56,7 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
 
     @Override
     public MaritalStatusDTO getMaritalStatus(Serializable id) {
-        return MaritalStatusConverter.toDto(maritalStatusDAO.get(id));
+        return converter.toDto(maritalStatusDAO.get(id), MaritalStatusDTO.class);
     }
 
     @Override
@@ -66,7 +68,7 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
         }
 
         return entities.stream()
-                .map(MaritalStatusConverter::toDto)
+                .map(entity -> converter.toDto(entity, MaritalStatusDTO.class))
                 .collect(Collectors.toList());
     }
 

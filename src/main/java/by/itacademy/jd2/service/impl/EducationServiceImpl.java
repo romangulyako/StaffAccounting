@@ -1,6 +1,6 @@
 package by.itacademy.jd2.service.impl;
 
-import by.itacademy.jd2.converter.EducationConverter;
+import by.itacademy.jd2.converter.Converter;
 import by.itacademy.jd2.dao.api.EducationDAO;
 import by.itacademy.jd2.dao.api.EmployeeDAO;
 import by.itacademy.jd2.dao.impl.EducationDaoImpl;
@@ -15,12 +15,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EducationServiceImpl implements EducationService {
-    private final EducationDAO educationDAO = new EducationDaoImpl();
-    private final EmployeeDAO employeeDAO = new EmployeeDaoImpl();
+    private final EducationDAO educationDAO;
+    private final EmployeeDAO employeeDAO;
+    private final Converter converter;
+
+    public EducationServiceImpl() {
+        this.educationDAO = new EducationDaoImpl();
+        this.employeeDAO = new EmployeeDaoImpl();
+        this.converter = Converter.getConverter();
+    }
 
     @Override
     public void addEducation(EducationDTO educationDTO) {
-        EducationEntity educationEntity = EducationConverter.toEntity(educationDTO);
+        EducationEntity educationEntity = converter.toEntity(educationDTO, EducationEntity.class);
         EmployeeEntity employeeEntity = employeeDAO.get(educationDTO.getEmployeeId());
         educationEntity.setEmployee(employeeEntity);
         employeeEntity.getEducations().add(educationEntity);
@@ -30,7 +37,7 @@ public class EducationServiceImpl implements EducationService {
 
     @Override
     public void updateEducation(EducationDTO educationDTO) {
-        EducationEntity educationEntity = EducationConverter.toEntity(educationDTO);
+        EducationEntity educationEntity = converter.toEntity(educationDTO, EducationEntity.class);
         EmployeeEntity employeeEntity = employeeDAO.get(educationDTO.getEmployeeId());
         educationEntity.setEmployee(employeeEntity);
         educationDAO.update(educationEntity, educationEntity.getId());
@@ -43,7 +50,7 @@ public class EducationServiceImpl implements EducationService {
 
     @Override
     public EducationDTO getEducation(Serializable id) {
-        return EducationConverter.toDto(educationDAO.get(id));
+        return converter.toDto(educationDAO.get(id), EducationDTO.class);
     }
 
     @Override
@@ -53,7 +60,7 @@ public class EducationServiceImpl implements EducationService {
             return null;
         }
         return entities.stream()
-                .map(EducationConverter::toDto)
+                .map(entity -> converter.toDto(entity, EducationDTO.class))
                 .collect(Collectors.toList());
     }
 

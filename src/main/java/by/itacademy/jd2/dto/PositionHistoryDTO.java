@@ -13,7 +13,10 @@ import java.sql.Date;
 @NoArgsConstructor
 public class PositionHistoryDTO {
     private Date dateOfAppointment;
-    private Date dateOfLiberationPosition;
-    private String order;
-    private String employeeFullName;
+    private String orderAppointment;
+    private Date dateOfLiberation;
+    private String orderLiberation;
+    private String employeeSurname;
+    private String employeeName;
+    private String employeePatronymic;
 }

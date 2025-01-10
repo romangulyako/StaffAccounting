@@ -3,13 +3,16 @@ package by.itacademy.jd2.servlet.career;
 import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
-import by.itacademy.jd2.converter.CareerStepConverter;
 import by.itacademy.jd2.dto.CareerStepGetDTO;
+import by.itacademy.jd2.dto.CareerStepSaveDTO;
 import by.itacademy.jd2.dto.PositionItemDTO;
 import by.itacademy.jd2.service.api.CareerService;
 import by.itacademy.jd2.service.api.PositionService;
 import by.itacademy.jd2.service.impl.CareerServiceImpl;
 import by.itacademy.jd2.service.impl.PositionServiceImpl;
+import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
+import by.itacademy.jd2.utils.ParseUtil;
+import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -26,8 +29,8 @@ public class CareerStepUpdateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final CareerStepGetDTO careerStep = careerService.getCareerStep(
-                CareerStepConverter.toCareerStepId(req));
+        Long id = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.CAREER_ID));
+        final CareerStepGetDTO careerStep = careerService.getCareerStep(id);
         List<PositionItemDTO> positionItems = positionService.getAllPositionItems();
         req.setAttribute(ConstantParamAndAttribute.POSITION_ITEMS, positionItems);
 
@@ -38,8 +41,8 @@ public class CareerStepUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            careerService.updateCareerStep(CareerStepConverter.fromHttpRequest(req),
-                    CareerStepConverter.toCareerStepId(req));
+            CareerStepSaveDTO careerStepSaveDTO = HttpRequestConverter.getConverter().convert(req, CareerStepSaveDTO.class);
+            careerService.updateCareerStep(careerStepSaveDTO,careerStepSaveDTO.getId());
             req.getRequestDispatcher(ConstantAction.CAREER).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

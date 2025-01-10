@@ -21,19 +21,10 @@
           action="<%=ConstantAction.UPDATE_CAREER_STEP%>"
           method="post">
         <input type="hidden"
-               name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
-               value="<%=careerStep.getId().getEmployee()%>"
-               required>
-        <input type="hidden"
-               name="<%=ConstantParamAndAttribute.POSITION_ID%>"
-               value="<%=careerStep.getId().getPosition()%>"
-               required>
-        <input type="hidden"
-               name="<%=ConstantParamAndAttribute.DATE_OF_APPOINTMENT%>"
-               value="<%=careerStep.getId().getDateOfAppointment()%>"
+               name="<%=ConstantParamAndAttribute.CAREER_ID%>"
+               value="<%=careerStep.getId()%>"
                required>
         <div class="form-group">
-
             <label for="position">Выберите должность</label>
             <select name="<%=ConstantParamAndAttribute.NEW_POSITION_ID%>"
                     id="position"
@@ -48,7 +39,7 @@
                         for (PositionItemDTO position : positions) {
                 %>
                 <option value="<%=position.getId()%>">
-                    <%=position.getFullName()%>
+                    <%=position.getPositionName() + " " + position.getDepartmentGenitiveCaseName()%>
                 </option>
                 <%
                         }
@@ -61,15 +52,15 @@
             <input type="date"
                    id="date_of_appointment"
                    name="<%= ConstantParamAndAttribute.NEW_DATE_OF_APPOINTMENT %>"
-                   value="<%=careerStep.getId().getDateOfAppointment()%>"
+                   value="<%=careerStep.getDateOfAppointment()%>"
                    required>
         </div>
         <div class="form-group">
             <label for="order">Приказ о назначении:</label>
             <input type="text"
                    id="order"
-                   name="<%= ConstantParamAndAttribute.ORDER %>"
-                   value="<%=careerStep.getOrder()%>"
+                   name="<%= ConstantParamAndAttribute.ORDER_APPOINTMENT %>"
+                   value="<%=careerStep.getOrderAppointment()%>"
                    required>
         </div>
     </form>
@@ -79,14 +70,16 @@
         <div class="form-group">
             <button class="tab, button-add"
                     form="save"
-                    type="submit">
+                    type="submit"
+                    name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
+                    value="<%=careerStep.getEmployeeId()%>">
                 Сохранить
             </button>
         </div>
         <div class="form-group">
             <button class="tab"
                     name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
-                    value="<%=careerStep.getId().getEmployee()%>">
+                    value="<%=careerStep.getEmployeeId()%>">
                 Вернуться к просмотру карьеры сотрудника
             </button>
         </div>

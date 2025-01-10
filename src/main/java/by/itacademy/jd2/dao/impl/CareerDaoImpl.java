@@ -3,7 +3,6 @@ package by.itacademy.jd2.dao.impl;
 import by.itacademy.jd2.dao.DAO;
 import by.itacademy.jd2.dao.api.CareerDAO;
 import by.itacademy.jd2.entity.CareerStepEntity;
-import by.itacademy.jd2.entity.embedded.CareerStepId;
 import by.itacademy.jd2.exception.MoreOneResultException;
 import by.itacademy.jd2.utils.ExecutorUtil;
 
@@ -18,23 +17,6 @@ public class CareerDaoImpl extends DAO<CareerStepEntity> implements CareerDAO {
 
     public CareerDaoImpl() {
         super(CareerStepEntity.class);
-    }
-
-    @Override
-    public CareerStepEntity update(CareerStepEntity entity, Serializable id) {
-        return ExecutorUtil.executeHibernate(super.getEntityManager(), em -> {
-            CareerStepId newId = CareerStepId.builder()
-                    .employee(entity.getEmployee().getId())
-                    .position(entity.getPosition().getId())
-                    .dateOfAppointment(entity.getDateOfAppointment())
-                    .build();
-
-            if (!id.equals(newId)) {
-                em.remove(em.find(CareerStepEntity.class, id));
-            }
-
-            return em.merge(entity);
-        });
     }
 
     @Override
