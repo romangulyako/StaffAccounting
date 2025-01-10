@@ -9,5 +9,7 @@
              relativeToChangelogFile="true"/>
     <include file="2025-01-10-02-alter-table-career.xml"
              relativeToChangelogFile="true"/>
+    <include file="2025-01-10-03-add-column-to-career.xml"
+             relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
