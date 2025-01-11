@@ -26,7 +26,7 @@ public class DismissServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<EmployeeItemDTO> employeeItems = employeeService.getAllEmployeeItems();
+        List<EmployeeItemDTO> employeeItems = employeeService.getAllEmployeeItems(true);
         req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ITEMS, employeeItems);
         req.getRequestDispatcher(ConstantJSP.DISMISS_PAGE).forward(req, resp);
     }

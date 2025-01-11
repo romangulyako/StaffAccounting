@@ -65,8 +65,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeItemDTO> getAllEmployeeItems() {
-        return employeeDAO.getAll().stream()
+    public List<EmployeeItemDTO> getAllEmployeeItems(boolean isCurrentOnly) {
+        List<EmployeeEntity> allEmployees = employeeDAO.getAll();
+        if (isCurrentOnly) {
+            allEmployees.removeIf(EmployeeEntity::isFired);
+        }
+        return  allEmployees.stream()
                 .map(entity -> converter.toDto(entity, EmployeeItemDTO.class))
                 .collect(Collectors.toList());
     }

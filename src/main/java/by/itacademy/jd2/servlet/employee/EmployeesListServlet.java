@@ -6,6 +6,8 @@ import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.EmployeeDTO;
 import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
 import by.itacademy.jd2.service.api.EmployeeService;
+import by.itacademy.jd2.utils.ParseUtil;
+import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,7 +25,14 @@ public class EmployeesListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            final List<EmployeeDTO> employees = employeeService.getAllCurrentEmployees();
+            Boolean isFiredEmployees = ParseUtil.parseBoolean(ServletUtil.getParam(req,
+                    ConstantParamAndAttribute.IS_FIRED_EMPLOYEES));
+            List<EmployeeDTO> employees;
+            if (isFiredEmployees != null && isFiredEmployees) {
+                employees = employeeService.getAllFiredEmployees();
+            } else {
+                employees = employeeService.getAllCurrentEmployees();
+            }
             req.setAttribute(ConstantParamAndAttribute.LIST_EMPLOYEES, employees);
             RequestDispatcher requestDispatcher = getServletContext()
                     .getRequestDispatcher(ConstantJSP.LIST_EMPLOYEES_PAGE);

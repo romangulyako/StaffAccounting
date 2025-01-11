@@ -66,4 +66,5 @@ public class ConstantParamAndAttribute {
     public static final String CAREER_ID = "career_id";
     public static final String DATE_DISMISS = "date_dismiss";
     public static final String ORDER_DISMISS = "order_dismiss";
+    public static final String IS_FIRED_EMPLOYEES = "is_fired_employees";
 }

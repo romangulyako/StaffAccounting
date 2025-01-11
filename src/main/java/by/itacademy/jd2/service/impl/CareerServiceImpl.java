@@ -15,7 +15,6 @@ import by.itacademy.jd2.entity.CareerStepEntity;
 import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.entity.PositionEntity;
 import by.itacademy.jd2.service.api.CareerService;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,6 +47,9 @@ public class CareerServiceImpl implements CareerService {
         careerStepEntity.setEmployee(employeeEntity);
         careerStepEntity.setPosition(positionEntity);
         employeeEntity.getCareer().add(careerStepEntity);
+        if (employeeEntity.isFired()) {
+            employeeEntity.setFired(false);
+        }
         positionEntity.getHistory().add(careerStepEntity);
         careerDAO.save(careerStepEntity);
     }
