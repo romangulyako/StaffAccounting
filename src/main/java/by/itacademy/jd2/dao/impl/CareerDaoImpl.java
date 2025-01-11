@@ -12,9 +12,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CareerDaoImpl extends DAO<CareerStepEntity> implements CareerDAO {
-
-    private static final String MORE_ONE_POSITIONS_MESSAGE = "У сотрудника больше одной текущей должности";
-
     public CareerDaoImpl() {
         super(CareerStepEntity.class);
     }
@@ -48,17 +45,9 @@ public class CareerDaoImpl extends DAO<CareerStepEntity> implements CareerDAO {
     }
 
     @Override
-    public CareerStepEntity getCurrentCareerStepOfEmployee(Serializable employeeId) throws MoreOneResultException {
-        List<CareerStepEntity> employeeCareer = this.getCareerByEmployeeId(employeeId);
-        List<CareerStepEntity> currentCareerSteps = employeeCareer.stream()
+    public List<CareerStepEntity> getCurrentCareerStepOfEmployee(Serializable employeeId) {
+        return this.getCareerByEmployeeId(employeeId).stream()
                 .filter(CareerStepEntity::isCurrent)
                 .collect(Collectors.toList());
-        if (currentCareerSteps.isEmpty()) {
-            return null;
-        } else if (currentCareerSteps.size() > 1) {
-            throw new MoreOneResultException(MORE_ONE_POSITIONS_MESSAGE);
-        }
-
-        return currentCareerSteps.get(0);
     }
 }

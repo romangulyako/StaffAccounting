@@ -9,11 +9,11 @@ import by.itacademy.jd2.dao.impl.EmployeeDaoImpl;
 import by.itacademy.jd2.dao.impl.PositionDaoImpl;
 import by.itacademy.jd2.dto.CareerStepGetDTO;
 import by.itacademy.jd2.dto.CareerStepSaveDTO;
+import by.itacademy.jd2.dto.DismissDTO;
 import by.itacademy.jd2.dto.PositionHistoryDTO;
 import by.itacademy.jd2.entity.CareerStepEntity;
 import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.entity.PositionEntity;
-import by.itacademy.jd2.exception.MoreOneResultException;
 import by.itacademy.jd2.service.api.CareerService;
 
 import java.io.Serializable;
@@ -37,10 +37,14 @@ public class CareerServiceImpl implements CareerService {
     public void appointEmployee(CareerStepSaveDTO careerStepDTO) {
         EmployeeEntity employeeEntity = employeeDAO.get(careerStepDTO.getEmployeeId());
         PositionEntity positionEntity = positionDAO.get(careerStepDTO.getPositionId());
-        CareerStepEntity careerStepEntity = converter.toEntity(careerStepDTO,CareerStepEntity.class);
+        CareerStepEntity careerStepEntity = converter.toEntity(careerStepDTO, CareerStepEntity.class);
         employeeEntity.getCareer().stream()
                 .filter(CareerStepEntity::isCurrent)
-                .forEach(status -> status.setCurrent(false));
+                .forEach(careerStep -> {
+                    careerStep.setCurrent(false);
+                    careerStep.setOrderLiberation(careerStepEntity.getOrderAppointment());
+                    careerStep.setDateOfLiberationPosition(careerStepEntity.getDateOfAppointment());
+                });
         careerStepEntity.setEmployee(employeeEntity);
         careerStepEntity.setPosition(positionEntity);
         employeeEntity.getCareer().add(careerStepEntity);
@@ -48,17 +52,19 @@ public class CareerServiceImpl implements CareerService {
         careerDAO.save(careerStepEntity);
     }
 
-    /*@Override
-    public void dismissEmployee(Long employeeId, Date dateOfDismiss, String order) throws MoreOneResultException {
-        CareerStepEntity careerStep = careerDAO.getCurrentCareerStepOfEmployee(employeeId);
-        careerStep.setCurrent(false);
-        careerStep.setDateOfLiberationPosition(dateOfDismiss);
-        careerDAO.update(careerStep, CareerStepId.builder()
-                        .position(careerStep.getPosition().getId())
-                        .employee(careerStep.getEmployee().getId())
-                        .dateOfAppointment(careerStep.getDateOfAppointment())
-                .build());
-    }*/
+    @Override
+    public void dismissEmployee(DismissDTO dismissDTO) {
+        EmployeeEntity employee = employeeDAO.get(dismissDTO.getEmployeeId());
+        employee.getCareer().stream()
+                .filter(CareerStepEntity::isCurrent)
+                .forEach(careerStep -> {
+                    careerStep.setCurrent(false);
+                    careerStep.setOrderLiberation(dismissDTO.getOrderDismiss());
+                    careerStep.setDateOfLiberationPosition(dismissDTO.getDateOfDismiss());
+                });
+        employee.setFired(true);
+        employeeDAO.update(employee, employee.getId());
+    }
 
     @Override
     public void updateCareerStep(CareerStepSaveDTO careerStepDTO, Serializable id) {
@@ -82,14 +88,14 @@ public class CareerServiceImpl implements CareerService {
 
     @Override
     public List<CareerStepGetDTO> getCareerOfEmployee(Serializable employeeId) {
-       List<CareerStepEntity> entities = careerDAO.getCareerByEmployeeId(employeeId);
-       if (entities == null || entities.isEmpty()) {
-           return null;
-       }
+        List<CareerStepEntity> entities = careerDAO.getCareerByEmployeeId(employeeId);
+        if (entities == null || entities.isEmpty()) {
+            return null;
+        }
 
-       return entities.stream()
-               .map(entity -> converter.toDto(entity, CareerStepGetDTO.class))
-               .collect(Collectors.toList());
+        return entities.stream()
+                .map(entity -> converter.toDto(entity, CareerStepGetDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -102,12 +108,6 @@ public class CareerServiceImpl implements CareerService {
         return entities.stream()
                 .map(entity -> converter.toDto(entity, PositionHistoryDTO.class))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public CareerStepGetDTO getCurrentPositionOfEmployee(Serializable employeeId) throws MoreOneResultException {
-        return converter.toDto(
-                careerDAO.getCurrentCareerStepOfEmployee(employeeId), CareerStepGetDTO.class);
     }
 
     @Override

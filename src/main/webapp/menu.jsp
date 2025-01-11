@@ -21,7 +21,7 @@
             </form>
         </li>
         <li>
-            <form action="<%=ConstantAction.LIST_EMPLOYEES%>"
+            <form action="<%=ConstantAction.DISMISS%>"
                   method="get">
                 <button class="menu-item">Увольнение сотрудников</button>
             </form>
