@@ -8,12 +8,10 @@ import lombok.EqualsAndHashCode;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Embedded;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.AttributeOverride;
@@ -26,7 +24,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Builder
+@SuperBuilder
 @Data
 @EqualsAndHashCode(exclude = "career", callSuper = false)
 @ToString(exclude = "career")
@@ -34,11 +32,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "employees")
-public class EmployeeEntity extends CommonSuperEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class EmployeeEntity extends CommonSuperEntityWithId {
     @Embedded
     private PersonData personData;
 

@@ -1,12 +1,12 @@
 package by.itacademy.jd2.entity;
 
 import by.itacademy.jd2.entity.embedded.Address;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -24,7 +24,7 @@ import javax.persistence.FetchType;
 import javax.persistence.PrimaryKeyJoinColumn;
 import java.sql.Date;
 
-@Builder
+@SuperBuilder
 @Data
 @ToString(exclude = "employee")
 @EqualsAndHashCode(exclude = "employee", callSuper = false)

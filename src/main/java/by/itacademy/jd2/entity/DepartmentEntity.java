@@ -6,12 +6,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
@@ -19,19 +17,15 @@ import javax.persistence.FetchType;
 import java.util.HashSet;
 import java.util.Set;
 
-@Builder
+@SuperBuilder
 @Data
-@EqualsAndHashCode(exclude = "positions", callSuper = false)
+@EqualsAndHashCode(exclude = "positions", callSuper = true)
 @ToString(exclude = "positions")
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "departments")
-public class DepartmentEntity extends CommonSuperEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class DepartmentEntity extends CommonSuperEntityWithId {
     @Column
     private String name;
 
