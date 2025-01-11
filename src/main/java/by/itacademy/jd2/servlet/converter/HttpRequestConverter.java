@@ -32,6 +32,7 @@ public class HttpRequestConverter {
         converters.put(PassportDTO.class, new PassportHttpConverter());
         converters.put(PositionDTO.class, new PositionHttpConverter());
         converters.put(RelativeDTO.class, new RelativeHttpConverter());
+        converters.put(DismissDTO.class, new DismissConverter());
     }
 
     public <DTO> DTO convert(HttpServletRequest req, Class<DTO> dtoClass) {

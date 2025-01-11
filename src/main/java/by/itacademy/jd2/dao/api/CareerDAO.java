@@ -9,5 +9,5 @@ import java.util.List;
 public interface CareerDAO extends IDAO<CareerStepEntity> {
     List<CareerStepEntity> getCareerByEmployeeId(Serializable employeeId);
     List<CareerStepEntity> getPositionHistory(Serializable positionId);
-    CareerStepEntity getCurrentCareerStepOfEmployee(Serializable employeeId) throws MoreOneResultException;
+    List<CareerStepEntity> getCurrentCareerStepOfEmployee(Serializable employeeId);
 }

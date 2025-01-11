@@ -28,5 +28,6 @@ public class ConstantJSP {
     public static final String APPOINTMENT_PAGE = "/career/appointment.jsp";
     public static final String UPDATE_CAREER_STEP = "/career/update_career_step.jsp";
     public static final String POSITION_HISTORY_PAGE = "/career/history.jsp";
+    public static final String DISMISS_PAGE = "/career/dismiss_employee.jsp";
 }
 
