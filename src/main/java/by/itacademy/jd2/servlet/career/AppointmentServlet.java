@@ -31,7 +31,7 @@ public class AppointmentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            List<EmployeeItemDTO> employeeItems = employeeService.getAllEmployeeItems();
+            List<EmployeeItemDTO> employeeItems = employeeService.getAllEmployeeItems(false);
             List<PositionItemDTO> positionItems = positionService.getAllPositionItems();
             req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ITEMS, employeeItems);
             req.setAttribute(ConstantParamAndAttribute.POSITION_ITEMS, positionItems);
