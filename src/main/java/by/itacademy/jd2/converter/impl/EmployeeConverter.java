@@ -5,8 +5,6 @@ import by.itacademy.jd2.converter.api.ToEntityConverter;
 import by.itacademy.jd2.dto.EmployeeDTO;
 import by.itacademy.jd2.entity.EmployeeEntity;
 
-import javax.persistence.Converter;
-
 public class EmployeeConverter
         implements ToDtoConverter<EmployeeEntity, EmployeeDTO>, ToEntityConverter<EmployeeEntity, EmployeeDTO> {
     @Override

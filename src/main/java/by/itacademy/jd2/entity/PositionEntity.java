@@ -1,21 +1,17 @@
 package by.itacademy.jd2.entity;
 
-
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
@@ -23,8 +19,7 @@ import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
-
-@Builder
+@SuperBuilder
 @Data
 @EqualsAndHashCode(exclude = "history", callSuper = false)
 @ToString(exclude = "history")
@@ -32,11 +27,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "positions")
-public class PositionEntity extends CommonSuperEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class PositionEntity extends CommonSuperEntityWithId {
     @Column
     private String name;
 
