@@ -23,7 +23,7 @@ public class EmployeesListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            final List<EmployeeDTO> employees = employeeService.getAllEmployees();
+            final List<EmployeeDTO> employees = employeeService.getAllCurrentEmployees();
             req.setAttribute(ConstantParamAndAttribute.LIST_EMPLOYEES, employees);
             RequestDispatcher requestDispatcher = getServletContext()
                     .getRequestDispatcher(ConstantJSP.LIST_EMPLOYEES_PAGE);

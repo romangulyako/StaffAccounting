@@ -12,7 +12,8 @@ public interface EmployeeService extends Service {
     void updateEmployee(EmployeeDTO employeeDTO);
     void deleteEmployee(Serializable id);
     EmployeeDTO getEmployee(Serializable id);
-    List<EmployeeDTO> getAllEmployees();
+    List<EmployeeDTO> getAllCurrentEmployees();
+    List<EmployeeDTO> getAllFiredEmployees();
     List<EmployeeItemDTO> getAllEmployeeItems();
     void addPassport(PassportDTO passportDTO, EmployeeDTO employeeDTO);
     void updatePassport(PassportDTO passportDTO, EmployeeDTO employeeDTO);

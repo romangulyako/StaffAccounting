@@ -11,7 +11,6 @@ import by.itacademy.jd2.entity.PassportEntity;
 import by.itacademy.jd2.service.api.EmployeeService;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,8 +51,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeDTO> getAllEmployees() {
-        return employeeDAO.getAll().stream()
+    public List<EmployeeDTO> getAllCurrentEmployees() {
+        return employeeDAO.getAllCurrentEmployees().stream()
+                .map(entity -> converter.toDto(entity, EmployeeDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EmployeeDTO> getAllFiredEmployees() {
+        return employeeDAO.getAllFiredEmployees().stream()
                 .map(entity -> converter.toDto(entity, EmployeeDTO.class))
                 .collect(Collectors.toList());
     }
