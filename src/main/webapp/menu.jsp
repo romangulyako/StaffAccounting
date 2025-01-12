@@ -5,7 +5,7 @@
         <li>
             <form action="<%=ConstantAction.LIST_EMPLOYEES%>"
                   method="get">
-                <button class="menu-item">Сотрудники</button>
+                <button class="menu-item">Действующие сотрудники организации</button>
             </form>
         </li>
         <li>
@@ -24,6 +24,16 @@
             <form action="<%=ConstantAction.DISMISS%>"
                   method="get">
                 <button class="menu-item">Увольнение сотрудников</button>
+            </form>
+        </li>
+        <li>
+            <form action="<%=ConstantAction.LIST_EMPLOYEES%>"
+                  method="get">
+                <button class="menu-item"
+                name="<%=ConstantParamAndAttribute.IS_FIRED_EMPLOYEES%>"
+                value="true">
+                    Просмотр уволенных сотрудников
+                </button>
             </form>
         </li>
     </ul>

@@ -46,7 +46,9 @@
                       rows="5"
                       placeholder="Введите описание отдела"
                       name="<%=ConstantParamAndAttribute.DESCRIPTION%>">
+                <%if (department.getDescription() != null) { %>
                 <%=department.getDescription()%>
+                <% } %>
             </textarea>
         </div>
     </form>

@@ -46,8 +46,10 @@
             <label>Адрес регистрации:</label>
             <span><%=passportDTO.getRegistrationAddress().getCity() + ", ул. "
                     + passportDTO.getRegistrationAddress().getStreet() + ", д. "
-                    + passportDTO.getRegistrationAddress().getHouse() + ", кв. "
-                    + passportDTO.getRegistrationAddress().getApartment()%>
+                    + passportDTO.getRegistrationAddress().getHouse()%>
+                <%if (passportDTO.getRegistrationAddress().getApartment() != null) { %>
+                <%=", кв. " + passportDTO.getRegistrationAddress().getApartment()%>
+                <% } %>
             </span>
         </div>
         <div class="item-info-item">

@@ -30,6 +30,7 @@ public class EmployeeDaoImpl extends DAO<EmployeeEntity> implements EmployeeDAO 
     private List<EmployeeEntity> getEmployeesByFired(boolean isFired) {
         return ExecutorUtil.executeHibernate(super.getEntityManager(),
                 em -> {
+                    em.clear();
                     Query query = em.createQuery(GET_EMPLOYEES_QUERY);
                     query.setParameter(IS_FIRED_PARAMETER, isFired);
                     return (List<EmployeeEntity>) query.getResultList();

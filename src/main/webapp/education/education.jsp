@@ -36,9 +36,15 @@
                 </td>
                 <td><%= dto.getInstitution() %>
                 </td>
-                <td><%= dto.getFaculty() %>
+                <td>
+                    <%if (dto.getFaculty() != null) { %>
+                    <%= dto.getFaculty() %>
+                    <% }%>
                 </td>
-                <td><%= dto.getSpecialization() %>
+                <td>
+                    <%if (dto.getSpecialization() != null) { %>
+                    <%= dto.getSpecialization() %>
+                    <% }%>
                 </td>
                 <td><%= dto.getDateStart() %>
                 </td>

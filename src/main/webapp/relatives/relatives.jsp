@@ -35,7 +35,10 @@
                 </td>
                 <td><%= relative.getPersonData().getName() %>
                 </td>
-                <td><%= relative.getPersonData().getPatronymic() %>
+                <td>
+                    <%if (relative.getPersonData().getPatronymic() != null) { %>
+                    <%= relative.getPersonData().getPatronymic() %>
+                    <% } %>
                 </td>
                 <td><%= relative.getPersonData().getBirthday() %>
                 </td>

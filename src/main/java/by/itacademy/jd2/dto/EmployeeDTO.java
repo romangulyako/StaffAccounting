@@ -17,4 +17,5 @@ public class EmployeeDTO {
     private Address homeAddress;
     private String phone;
     private PassportDTO passport;
+    private String positionName;
 }
