@@ -20,6 +20,9 @@ import java.util.List;
 
 @WebServlet(name = "employeesListServlet", value = "/list_employees")
 public class EmployeesListServlet extends HttpServlet {
+    private static final Integer DEFAULT_PAGE_SIZE = 2;
+    private static final Integer DEFAULT_PAGE_NUMBER = 1;
+    private static final Boolean DEFAULT_IS_FIRED = false;
     private final EmployeeService employeeService = new EmployeeServiceImpl();
 
     @Override
@@ -27,16 +30,31 @@ public class EmployeesListServlet extends HttpServlet {
         try {
             Boolean isFiredEmployees = ParseUtil.parseBoolean(ServletUtil.getParam(req,
                     ConstantParamAndAttribute.IS_FIRED_EMPLOYEES));
+            Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req,ConstantParamAndAttribute.PAGE_SIZE));
+            Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req,ConstantParamAndAttribute.PAGE_NUMBER));
+            if (pageSize == null || pageSize < 1) {
+                pageSize = DEFAULT_PAGE_SIZE;
+            }
+            if (pageNumber == null || pageNumber < 1) {
+                pageNumber = DEFAULT_PAGE_NUMBER;
+            }
+            if (isFiredEmployees == null) {
+                isFiredEmployees = DEFAULT_IS_FIRED;
+            }
+            Integer totalPages = employeeService.getTotalPages(isFiredEmployees, pageSize);
+
             List<EmployeeDTO> employees;
-            if (isFiredEmployees != null && isFiredEmployees) {
-                employees = employeeService.getAllFiredEmployees();
+            if (isFiredEmployees) {
+                employees = employeeService.getAllFiredEmployees(pageSize, pageNumber);
             } else {
-                employees = employeeService.getAllCurrentEmployees();
+                employees = employeeService.getAllCurrentEmployees(pageSize, pageNumber);
             }
             req.setAttribute(ConstantParamAndAttribute.LIST_EMPLOYEES, employees);
-            RequestDispatcher requestDispatcher = getServletContext()
-                    .getRequestDispatcher(ConstantJSP.LIST_EMPLOYEES_PAGE);
-            requestDispatcher.forward(req, resp);
+            req.setAttribute(ConstantParamAndAttribute.PAGE_NUMBER, pageNumber);
+            req.setAttribute(ConstantParamAndAttribute.PAGE_SIZE, pageSize);
+            req.setAttribute(ConstantParamAndAttribute.TOTAL_PAGES, totalPages);
+
+            req.getRequestDispatcher(ConstantJSP.LIST_EMPLOYEES_PAGE).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }

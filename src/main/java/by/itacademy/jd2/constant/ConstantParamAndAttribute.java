@@ -67,4 +67,7 @@ public class ConstantParamAndAttribute {
     public static final String DATE_DISMISS = "date_dismiss";
     public static final String ORDER_DISMISS = "order_dismiss";
     public static final String IS_FIRED_EMPLOYEES = "is_fired_employees";
+    public static final String TOTAL_PAGES = "total_pages";
+    public static final String PAGE_SIZE = "page_size";
+    public static final String PAGE_NUMBER = "page_number";
 }

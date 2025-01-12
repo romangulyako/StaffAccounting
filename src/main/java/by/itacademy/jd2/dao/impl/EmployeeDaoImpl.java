@@ -6,6 +6,7 @@ import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.utils.ExecutorUtil;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class EmployeeDaoImpl extends DAO<EmployeeEntity> implements EmployeeDAO {
@@ -18,22 +19,37 @@ public class EmployeeDaoImpl extends DAO<EmployeeEntity> implements EmployeeDAO 
     }
 
     @Override
-    public List<EmployeeEntity> getAllCurrentEmployees() {
-        return getEmployeesByFired(false);
+    public List<EmployeeEntity> getAllCurrentEmployees(Integer pageSize, Integer pageNumber) {
+        return getEmployeesByFired(false, pageSize, pageNumber);
     }
 
     @Override
-    public List<EmployeeEntity> getAllFiredEmployees() {
-        return getEmployeesByFired(true);
+    public List<EmployeeEntity> getAllFiredEmployees(Integer pageSize, Integer pageNumber) {
+        return getEmployeesByFired(true, pageSize, pageNumber);
     }
 
-    private List<EmployeeEntity> getEmployeesByFired(boolean isFired) {
+    @Override
+    public Long getEmployeesCount(boolean isFired) {
         return ExecutorUtil.executeHibernate(super.getEntityManager(),
                 em -> {
                     em.clear();
-                    Query query = em.createQuery(GET_EMPLOYEES_QUERY);
+                    TypedQuery<Long> query =
+                            em.createQuery("SELECT COUNT(e) FROM EmployeeEntity e WHERE isFired =: isFired",
+                                    Long.class);
                     query.setParameter(IS_FIRED_PARAMETER, isFired);
-                    return (List<EmployeeEntity>) query.getResultList();
+                    return query.getSingleResult();
+                });
+    }
+
+    private List<EmployeeEntity> getEmployeesByFired(boolean isFired, Integer pageSize, Integer pageNumber) {
+        return ExecutorUtil.executeHibernate(super.getEntityManager(),
+                em -> {
+                    em.clear();
+                    TypedQuery<EmployeeEntity> query = em.createQuery(GET_EMPLOYEES_QUERY, EmployeeEntity.class);
+                    query.setParameter(IS_FIRED_PARAMETER, isFired);
+                    query.setFirstResult((pageNumber - 1) * pageSize);
+                    query.setMaxResults(pageSize);
+                    return query.getResultList();
                 });
     }
 }

@@ -309,3 +309,32 @@ h1 {
     color: #dc3545; /* Красный цвет для заголовка */
     margin-bottom: 10px;
 }
+
+.paginator-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.paginator-button-block {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.paginator-page-size-block {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.paginator-button {
+    padding: 10px 10px;
+    margin: 5px 5px;
+    border: #666666 1px;
+    border-radius: 5px;
+}
+
+input.paginator-input {
+    width: 10%;
+}

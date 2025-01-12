@@ -51,17 +51,22 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeDTO> getAllCurrentEmployees() {
-        return employeeDAO.getAllCurrentEmployees().stream()
+    public List<EmployeeDTO> getAllCurrentEmployees(Integer pageSize, Integer pageNumber) {
+        return employeeDAO.getAllCurrentEmployees(pageSize, pageNumber).stream()
                 .map(entity -> converter.toDto(entity, EmployeeDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<EmployeeDTO> getAllFiredEmployees() {
-        return employeeDAO.getAllFiredEmployees().stream()
+    public List<EmployeeDTO> getAllFiredEmployees(Integer pageSize, Integer pageNumber) {
+        return employeeDAO.getAllFiredEmployees(pageSize, pageNumber).stream()
                 .map(entity -> converter.toDto(entity, EmployeeDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer getTotalPages(boolean isFired, Integer pageSize) {
+        return (int)Math.ceil((double) this.employeeDAO.getEmployeesCount(isFired) / pageSize);
     }
 
     @Override
