@@ -47,7 +47,9 @@
             <input type="text"
                    id="patronymic"
                    name="<%= ConstantParamAndAttribute.PATRONYMIC %>"
+                    <%if (employee.getPersonData().getPatronymic() != null) { %>
                    value="<%= employee.getPersonData().getPatronymic() %>"
+                    <% } %>
                    placeholder="Введите отчество"/>
         </div>
         <div class="form-group">
@@ -90,7 +92,9 @@
             <input type="text"
                    id="residence_apartment"
                    name="<%= ConstantParamAndAttribute.RESIDENCE_APARTMENT %>"
+                    <%if (employee.getHomeAddress().getApartment() != null) { %>
                    value="<%= employee.getHomeAddress().getApartment() %>"
+                    <% } %>
                    placeholder="Введите номер квартиры"/>
         </div>
         <div class="form-group">
@@ -98,7 +102,9 @@
             <input type="text"
                    id="phone"
                    name="<%= ConstantParamAndAttribute.PHONE %>"
+                    <%if (employee.getPhone() != null) { %>
                    value="<%= employee.getPhone() %>"
+                    <% } %>
                    placeholder="Введите номер телефона"/>
         </div>
     </form>

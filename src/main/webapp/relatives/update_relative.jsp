@@ -49,7 +49,9 @@
             <input type="text"
                    id="patronymic"
                    name="<%= ConstantParamAndAttribute.PATRONYMIC %>"
+                    <%if (relative.getPersonData().getPatronymic() != null) { %>
                    value="<%= relative.getPersonData().getPatronymic() %>"
+                   <% } %>
                    placeholder="Введите отчество"/>
         </div>
         <div class="form-group">

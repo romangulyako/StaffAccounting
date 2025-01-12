@@ -29,10 +29,9 @@
             <select name="<%=ConstantParamAndAttribute.NEW_POSITION_ID%>"
                     id="position"
                     required>
-                <option value=""
-                        disabled
+                <option value="<%=careerStep.getPositionId()%>"
                         selected>
-                    Выберите должность
+                    <%=careerStep.getPositionName() + " " + careerStep.getDepartmentGenitiveCaseName()%>
                 </option>
                 <% List<PositionItemDTO> positions = (List<PositionItemDTO>) request.getAttribute(ConstantParamAndAttribute.POSITION_ITEMS);
                     if (positions != null) {
@@ -63,6 +62,24 @@
                    value="<%=careerStep.getOrderAppointment()%>"
                    required>
         </div>
+        <%if(careerStep.getDateOfLiberation() != null) {%>
+        <div class="form-group">
+            <label for="date_of_liberation">Дата освобождения должности:</label>
+            <input type="date"
+                   id="date_of_liberation"
+                   name="<%= ConstantParamAndAttribute.DATE_OF_LIBERATION %>"
+                   value="<%=careerStep.getDateOfLiberation()%>"
+                   required>
+        </div>
+        <div class="form-group">
+            <label for="orderLiberation">Приказ об освобождении должности:</label>
+            <input type="text"
+                   id="orderLiberation"
+                   name="<%= ConstantParamAndAttribute.ORDER_LIBERATION %>"
+                   value="<%=careerStep.getOrderLiberation()%>"
+                   required>
+        </div>
+        <% } %>
     </form>
     <form class="tabs"
           action="<%=ConstantAction.CAREER%>"

@@ -24,22 +24,19 @@
     <div class="form-group">
         <table>
             <tr>
-                <th>Дата назначения</th>
-                <th>Приказ о назначении</th>
+                <th>С какого числа</th>
+                <th>По какое число</th>
                 <th>ФИО сотрудника</th>
-                <th>Дата освобождения должности</th>
             </tr>
             <tr>
                 <% for (PositionHistoryDTO historyItem : history) { %>
                 <td><%=historyItem.getDateOfAppointment()%>
                 </td>
-                <td><%=historyItem.getOrderAppointment()%>
+                <td><%=historyItem.getDateOfLiberation()%>
                 </td>
                 <td><%=historyItem.getEmployeeSurname() + " "
                 + historyItem.getEmployeeName() + " "
                 + historyItem.getEmployeePatronymic()%>
-                </td>
-                <td><%=historyItem.getDateOfLiberation()%>
                 </td>
             </tr>
             <% } %>

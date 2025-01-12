@@ -20,6 +20,7 @@
             <tr>
                 <th>Наименование</th>
                 <th>Описание отдела</th>
+                <th>Количество должностей</th>
                 <th colspan="2">Действие</th>
             </tr>
             <% List<DepartmentDTO> departments = (List<DepartmentDTO>) request.getAttribute(ConstantParamAndAttribute.LIST_DEPARTMENTS);
@@ -27,8 +28,12 @@
             <tr>
                 <td><%=department.getName()%>
                 </td>
-                <td><%=department.getDescription()%>
+                <td>
+                    <%if (department.getDescription() != null) { %>
+                    <%=department.getDescription()%>
+                    <% } %>
                 </td>
+                <td><%=department.getPositionsCount()%></td>
                 <td>
                     <form name="employee"
                           method="get"

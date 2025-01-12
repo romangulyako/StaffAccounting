@@ -85,7 +85,9 @@
             <input type="text"
                    id="registration_apartment"
                    name="<%=ConstantParamAndAttribute.REGISTRATION_APARTMENT%>"
+                   <%if (passport.getRegistrationAddress().getApartment() != null) { %>
                    value="<%= passport.getRegistrationAddress().getApartment() %>"
+                   <% } %>
                    placeholder="Введите номер квартиры"/>
         </div>
         <div class="form-group">

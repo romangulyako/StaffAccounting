@@ -10,8 +10,10 @@
 <% Address homeAddress = employee.getHomeAddress(); %>
 <head>
     <title><%=personData.getSurname() + " "
-            + personData.getName() + " "
-            + personData.getPatronymic() %>
+            + personData.getName() + " " %>
+        <%if (personData.getPatronymic() != null) {%>
+        <%=personData.getPatronymic()%>
+        <%}%>
     </title>
     <style>
         <%@include file="../resources/css/styles.css"%>
@@ -43,7 +45,11 @@
         </div>
         <div class="item-info-item">
             <label>Отчество:</label>
-            <span><%=personData.getPatronymic()%></span>
+            <span>
+                <%if (personData.getPatronymic() != null) { %>
+                <%=personData.getPatronymic()%>
+                <% } %>
+            </span>
         </div>
         <div class="item-info-item">
             <label>Дата рождения:</label>
@@ -51,11 +57,22 @@
         </div>
         <div class="item-info-item">
             <label>Домашний адрес:</label>
-            <span><%=homeAddress.getCity()%>, ул. <%=homeAddress.getStreet()%>, д. <%=homeAddress.getHouse()%>, кв. <%=homeAddress.getApartment()%></span>
+            <span>
+                <%=homeAddress.getCity()%>
+                , ул. <%=homeAddress.getStreet()%>
+                , д. <%=homeAddress.getHouse()%>
+                <%if (homeAddress.getApartment() != null) { %>
+                , кв. <%=homeAddress.getApartment()%>
+                <% } %>
+            </span>
         </div>
         <div class="item-info-item">
             <label>Мобильный телефон:</label>
-            <span><%=employee.getPhone()%></span>
+            <span>
+                <%if (employee.getPhone() != null) { %>
+                <%=employee.getPhone()%>
+                <% } %>
+            </span>
         </div>
     </div>
 
@@ -80,12 +97,14 @@
         <form action="<%=ConstantAction.EDUCATION%>" method="get">
             <button class="tab"
                     name="<%= ConstantParamAndAttribute.EMPLOYEE_ID %>"
-                    value="<%= employee.getId() %>">Образование</button>
+                    value="<%= employee.getId() %>">Образование
+            </button>
         </form>
         <form action="<%=ConstantAction.CAREER%>" method="get">
             <button class="tab"
                     name="<%= ConstantParamAndAttribute.EMPLOYEE_ID %>"
-                    value="<%= employee.getId() %>">Карьера</button>
+                    value="<%= employee.getId() %>">Карьера
+            </button>
         </form>
     </div>
     <div class="tabs">

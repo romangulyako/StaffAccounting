@@ -13,7 +13,7 @@
 <%@include file="../menu.jsp" %>
 <div class="form-container, general-div">
     <div class="form-group">
-        <h2>Заполните форму для удаления сотрудника:</h2>
+        <h2>Заполните форму для увольнения сотрудника:</h2>
     </div>
     <form id="save"
           action="<%=ConstantAction.DISMISS%>"

@@ -16,6 +16,7 @@ public class DepartmentConverter
                     .name(entity.getName())
                     .genitiveCaseName(entity.getGenitiveCaseName())
                     .description(entity.getDescription())
+                    .positionsCount(entity.getPositions().size())
                     .build();
         }
 

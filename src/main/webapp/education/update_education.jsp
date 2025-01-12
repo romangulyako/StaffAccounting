@@ -50,7 +50,9 @@
             <input type="text"
                    id="faculty"
                    name="<%=ConstantParamAndAttribute.FACULTY%>"
+                   <%if (education.getFaculty() != null) { %>
                    value="<%=education.getFaculty()%>"
+                   <%}%>
                    placeholder="Введите название факультета"/>
         </div>
         <div class="form-group">
@@ -58,7 +60,9 @@
             <input type="text"
                    id="specialization"
                    name="<%=ConstantParamAndAttribute.SPECIALIZATION%>"
+                    <%if (education.getSpecialization() != null) { %>
                    value="<%=education.getSpecialization()%>"
+                    <%}%>
                    placeholder="Введите специализацию"/>
         </div>
         <div class="form-group">

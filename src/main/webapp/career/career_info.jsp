@@ -27,21 +27,26 @@
     <div class="form-group">
         <table>
             <tr>
-                <th>С какого числа</th>
                 <th>Приказ о назначении</th>
-                <th>Должность</th>
+                <th>С какого числа</th>
                 <th>По какое число</th>
+                <th>Должность</th>
                 <th colspan="2">Действие</th>
             </tr>
             <tr>
                 <% for (CareerStepGetDTO careerStep : career) { %>
-                <td><%=careerStep.getDateOfAppointment()%>
-                </td>
                 <td><%=careerStep.getOrderAppointment()%>
                 </td>
-                <td><%=careerStep.getPositionName() + " " + careerStep.getDepartmentGenitiveCaseName()%>
+                <td><%=careerStep.getDateOfAppointment()%>
                 </td>
-                <td><%=careerStep.getDateOfLiberation()%>
+                <td>
+                    <% if (careerStep.getDateOfLiberation() == null) { %>
+                    н.вр.
+                    <% } else { %>
+                    <%=careerStep.getDateOfLiberation()%>
+                    <%}%>
+                </td>
+                <td><%=careerStep.getPositionName() + " " + careerStep.getDepartmentGenitiveCaseName()%>
                 </td>
                 <td>
                     <form name="update_career_step"

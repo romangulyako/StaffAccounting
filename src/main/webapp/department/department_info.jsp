@@ -38,7 +38,11 @@
         </div>
         <div class="item-info-item">
             <label>Описание:</label>
-            <span><%=department.getDescription()%></span>
+            <span>
+                <%if(department.getDescription() != null) { %>
+                <%=department.getDescription()%>
+                <% } %>
+            </span>
         </div>
     </div>
     <div class="form-group">

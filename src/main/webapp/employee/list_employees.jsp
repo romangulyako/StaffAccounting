@@ -19,33 +19,28 @@
     <div class="form-group">
         <table>
             <tr>
-                <th>Фамилия</th>
-                <th>Имя</th>
-                <th>Отчество</th>
+                <th>ФИО</th>
                 <th>Дата рождения</th>
-                <th>Домашний адрес</th>
-                <th>Номер телефона</th>
+                <th>Должность</th>
                 <th colspan="2">Действие</th>
             </tr>
             <% List<EmployeeDTO> employees = (List<EmployeeDTO>) request.getAttribute(ConstantParamAndAttribute.LIST_EMPLOYEES);
                 for (EmployeeDTO employee : employees) {
             %>
             <tr>
-                <td><%= employee.getPersonData().getSurname() %>
-                </td>
-                <td><%= employee.getPersonData().getName() %>
-                </td>
-                <td><%= employee.getPersonData().getPatronymic() %>
+                <td>
+                    <%= employee.getPersonData().getSurname() + " "
+                            + employee.getPersonData().getName()%>
+                    <%if (employee.getPersonData().getPatronymic() != null) { %>
+                    <%=" " + employee.getPersonData().getPatronymic()%>
+                    <% } %>
                 </td>
                 <td><%= employee.getPersonData().getBirthday() %>
                 </td>
                 <td>
-                    <%= employee.getHomeAddress().getCity() %>,
-                    <%= employee.getHomeAddress().getStreet() %>,
-                    <%= employee.getHomeAddress().getHouse() %>,
-                    <%= employee.getHomeAddress().getApartment() %>
-                </td>
-                <td><%= employee.getPhone() %>
+                    <%if (employee.getPositionName() != null) { %>
+                    <%=employee.getPositionName()%>
+                    <% } %>
                 </td>
                 <td>
                     <form name="employee"
