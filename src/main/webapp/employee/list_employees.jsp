@@ -69,7 +69,12 @@
                 }
             %>
         </table>
+        <form action="<%=ConstantAction.LIST_EMPLOYEES%>"
+              method="get">
+            <%@include file="../paginator.jsp"%>
+        </form>
     </div>
+
     <div>
         <form name="add_employee"
               method="get"
