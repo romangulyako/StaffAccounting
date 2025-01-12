@@ -61,6 +61,10 @@
                 }
             %>
         </table>
+        <form action="<%=ConstantAction.LIST_DEPARTMENTS%>"
+              method="get">
+            <%@include file="../paginator.jsp"%>
+        </form>
     </div>
     <div>
         <form name="add_department"

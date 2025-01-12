@@ -58,6 +58,18 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public List<DepartmentDTO> getDepartmentsByPage(Integer page, Integer pageSize) {
+        return departmentDAO.getDepartmentsByPage(pageSize, page).stream()
+                .map(entity -> converter.toDto(entity, DepartmentDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer getTotalPages(Integer pageSize) {
+        return (int)Math.ceil((double) this.departmentDAO.getDepartmentsCount() / pageSize);
+    }
+
+    @Override
     public void closeDao() {
         departmentDAO.close();
     }

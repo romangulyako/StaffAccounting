@@ -11,4 +11,6 @@ public interface DepartmentService extends Service {
     void deleteDepartment(Serializable id);
     DepartmentDTO getDepartment(Serializable id);
     List<DepartmentDTO> getAllDepartments();
+    Integer getTotalPages(Integer pageSize);
+    List<DepartmentDTO> getDepartmentsByPage(Integer page, Integer pageSize);
 }
