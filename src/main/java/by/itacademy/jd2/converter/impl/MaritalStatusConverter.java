@@ -6,7 +6,8 @@ import by.itacademy.jd2.dto.MaritalStatusDTO;
 import by.itacademy.jd2.entity.MaritalStatusEntity;
 
 public class MaritalStatusConverter implements
-        ToDtoConverter<MaritalStatusEntity, MaritalStatusDTO>, ToEntityConverter<MaritalStatusEntity, MaritalStatusDTO> {
+        ToDtoConverter<MaritalStatusEntity, MaritalStatusDTO>,
+        ToEntityConverter<MaritalStatusEntity, MaritalStatusDTO> {
     @Override
     public MaritalStatusDTO toDto(MaritalStatusEntity entity) {
         if (entity != null) {

@@ -3,7 +3,6 @@ package by.itacademy.jd2.dao.impl;
 import by.itacademy.jd2.dao.DAO;
 import by.itacademy.jd2.dao.api.CareerDAO;
 import by.itacademy.jd2.entity.CareerStepEntity;
-import by.itacademy.jd2.exception.MoreOneResultException;
 import by.itacademy.jd2.utils.ExecutorUtil;
 
 import javax.persistence.Query;

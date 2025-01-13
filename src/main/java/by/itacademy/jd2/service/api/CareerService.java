@@ -4,7 +4,6 @@ import by.itacademy.jd2.dto.CareerStepGetDTO;
 import by.itacademy.jd2.dto.CareerStepSaveDTO;
 import by.itacademy.jd2.dto.DismissDTO;
 import by.itacademy.jd2.dto.PositionHistoryDTO;
-import by.itacademy.jd2.exception.MoreOneResultException;
 
 import java.io.Serializable;
 import java.util.List;

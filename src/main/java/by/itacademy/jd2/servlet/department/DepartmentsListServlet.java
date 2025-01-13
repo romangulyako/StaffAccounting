@@ -19,15 +19,13 @@ import java.io.IOException;
 
 @WebServlet(name = "departmentsListServlet", value = "/list_departments")
 public class DepartmentsListServlet extends HttpServlet {
-    private static final Integer DEFAULT_PAGE_SIZE = 2;
-    private static final Integer DEFAULT_PAGE_NUMBER = 1;
     private final DepartmentService departmentService = new DepartmentServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req,ConstantParamAndAttribute.PAGE_SIZE));
-            Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req,ConstantParamAndAttribute.PAGE_NUMBER));
+            Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_SIZE));
+            Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
 
             PageInfo<DepartmentDTO> pageItems = departmentService.getDepartmentsByPage(pageNumber, pageSize);
             req.setAttribute(ConstantParamAndAttribute.PAGE, pageItems);
