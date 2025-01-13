@@ -4,7 +4,7 @@ import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.DepartmentDTO;
-import by.itacademy.jd2.paginator.Paginator;
+import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.DepartmentService;
 import by.itacademy.jd2.service.impl.DepartmentServiceImpl;
 import by.itacademy.jd2.utils.ParseUtil;
@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "departmentsListServlet", value = "/list_departments")
 public class DepartmentsListServlet extends HttpServlet {
@@ -30,7 +29,7 @@ public class DepartmentsListServlet extends HttpServlet {
             Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req,ConstantParamAndAttribute.PAGE_SIZE));
             Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req,ConstantParamAndAttribute.PAGE_NUMBER));
 
-            Paginator<DepartmentDTO> pageItems = departmentService.getDepartmentsByPage(pageNumber, pageSize);
+            PageInfo<DepartmentDTO> pageItems = departmentService.getDepartmentsByPage(pageNumber, pageSize);
             req.setAttribute(ConstantParamAndAttribute.PAGE, pageItems);
 
             req.getRequestDispatcher(ConstantJSP.LIST_DEPARTMENTS_PAGE).forward(req, resp);

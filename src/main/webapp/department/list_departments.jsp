@@ -1,7 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="by.itacademy.jd2.dto.DepartmentDTO" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
-<%@ page import="by.itacademy.jd2.paginator.Paginator" %>
+<%@ page import="by.itacademy.jd2.service.PageInfo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -24,7 +24,7 @@
                 <th>Количество должностей</th>
                 <th colspan="2">Действие</th>
             </tr>
-            <% Paginator<DepartmentDTO> pageItems = (Paginator<DepartmentDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE);
+            <% PageInfo<DepartmentDTO> pageItems = (PageInfo<DepartmentDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE);
                 List<DepartmentDTO> departments = pageItems.getItems();
                 for (DepartmentDTO department : departments) { %>
             <tr>
