@@ -1,6 +1,7 @@
 package by.itacademy.jd2.service.api;
 
 import by.itacademy.jd2.dto.DepartmentDTO;
+import by.itacademy.jd2.paginator.Paginator;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,7 +11,5 @@ public interface DepartmentService extends Service {
     void updateDepartment(DepartmentDTO departmentDTO);
     void deleteDepartment(Serializable id);
     DepartmentDTO getDepartment(Serializable id);
-    List<DepartmentDTO> getAllDepartments();
-    Integer getTotalPages(Integer pageSize);
-    List<DepartmentDTO> getDepartmentsByPage(Integer page, Integer pageSize);
+    Paginator<DepartmentDTO> getDepartmentsByPage(Integer pageNumber, Integer pageSize);
 }

@@ -9,6 +9,9 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class DepartmentDaoImpl extends DAO<DepartmentEntity> implements DepartmentDAO {
+    private static final String GET_ALL_DEPARTMENTS_QUERY = "select d from DepartmentEntity d";
+    private static final String GET_DEPARTMENTS_COUNT_QUERY = "SELECT COUNT(*) FROM DepartmentEntity";
+
     public DepartmentDaoImpl() {
         super(DepartmentEntity.class);
     }
@@ -18,7 +21,7 @@ public class DepartmentDaoImpl extends DAO<DepartmentEntity> implements Departme
         return ExecutorUtil.executeHibernate(super.getEntityManager(),
                 em -> {
                     em.clear();
-                    TypedQuery<DepartmentEntity> query = em.createQuery("select d from DepartmentEntity d",
+                    TypedQuery<DepartmentEntity> query = em.createQuery(GET_ALL_DEPARTMENTS_QUERY,
                             DepartmentEntity.class);
                     query.setFirstResult((pageNumber - 1) * pageSize);
                     query.setMaxResults(pageSize);
@@ -30,7 +33,7 @@ public class DepartmentDaoImpl extends DAO<DepartmentEntity> implements Departme
     public Long getDepartmentsCount() {
         return ExecutorUtil.executeHibernate(super.getEntityManager(),
                 em -> {
-                    TypedQuery<Long> query = em.createQuery("SELECT COUNT(*) FROM DepartmentEntity ", Long.class);
+                    TypedQuery<Long> query = em.createQuery(GET_DEPARTMENTS_COUNT_QUERY, Long.class);
                     return query.getSingleResult();
                 });
     }

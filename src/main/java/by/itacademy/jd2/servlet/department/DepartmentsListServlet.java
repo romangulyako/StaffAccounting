@@ -4,6 +4,7 @@ import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.DepartmentDTO;
+import by.itacademy.jd2.paginator.Paginator;
 import by.itacademy.jd2.service.api.DepartmentService;
 import by.itacademy.jd2.service.impl.DepartmentServiceImpl;
 import by.itacademy.jd2.utils.ParseUtil;
@@ -28,19 +29,9 @@ public class DepartmentsListServlet extends HttpServlet {
         try {
             Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req,ConstantParamAndAttribute.PAGE_SIZE));
             Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req,ConstantParamAndAttribute.PAGE_NUMBER));
-            if (pageSize == null || pageSize < 1) {
-                pageSize = DEFAULT_PAGE_SIZE;
-            }
-            if (pageNumber == null || pageNumber < 1) {
-                pageNumber = DEFAULT_PAGE_NUMBER;
-            }
-            Integer totalPages = departmentService.getTotalPages(pageSize);
-            List<DepartmentDTO> departments = departmentService.getDepartmentsByPage(pageNumber, pageSize);
 
-            req.setAttribute(ConstantParamAndAttribute.LIST_DEPARTMENTS, departments);
-            req.setAttribute(ConstantParamAndAttribute.PAGE_NUMBER, pageNumber);
-            req.setAttribute(ConstantParamAndAttribute.PAGE_SIZE, pageSize);
-            req.setAttribute(ConstantParamAndAttribute.TOTAL_PAGES, totalPages);
+            Paginator<DepartmentDTO> pageItems = departmentService.getDepartmentsByPage(pageNumber, pageSize);
+            req.setAttribute(ConstantParamAndAttribute.PAGE, pageItems);
 
             req.getRequestDispatcher(ConstantJSP.LIST_DEPARTMENTS_PAGE).forward(req, resp);
         } catch (Exception e) {

@@ -8,6 +8,7 @@ import by.itacademy.jd2.dto.EmployeeItemDTO;
 import by.itacademy.jd2.dto.PassportDTO;
 import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.entity.PassportEntity;
+import by.itacademy.jd2.paginator.Paginator;
 import by.itacademy.jd2.service.api.EmployeeService;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EmployeeServiceImpl implements EmployeeService {
+    private static final Boolean DEFAULT_IS_FIRED = false;
     private final Converter converter = Converter.getConverter();
     private final EmployeeDAO employeeDAO;
 
@@ -51,22 +53,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeDTO> getAllCurrentEmployees(Integer pageSize, Integer pageNumber) {
-        return employeeDAO.getAllCurrentEmployees(pageSize, pageNumber).stream()
+    public Paginator<EmployeeDTO> getEmployeesByFiredAndPage(Boolean isFired, Integer pageSize, Integer pageNumber) {
+        pageSize = Paginator.checkPageSize(pageSize);
+        pageNumber = Paginator.checkPageNumber(pageNumber);
+        if (isFired == null) {
+            isFired = DEFAULT_IS_FIRED;
+        }
+        List<EmployeeDTO> employees = employeeDAO.getEmployeesByFiredAndPage(isFired, pageSize, pageNumber).stream()
                 .map(entity -> converter.toDto(entity, EmployeeDTO.class))
                 .collect(Collectors.toList());
-    }
+        Long employeesCount = employeeDAO.getEmployeesCount(isFired);
 
-    @Override
-    public List<EmployeeDTO> getAllFiredEmployees(Integer pageSize, Integer pageNumber) {
-        return employeeDAO.getAllFiredEmployees(pageSize, pageNumber).stream()
-                .map(entity -> converter.toDto(entity, EmployeeDTO.class))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public Integer getTotalPages(boolean isFired, Integer pageSize) {
-        return (int)Math.ceil((double) this.employeeDAO.getEmployeesCount(isFired) / pageSize);
+        return new Paginator<>(employees, pageNumber, pageSize, employeesCount);
     }
 
     @Override
