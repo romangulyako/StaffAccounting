@@ -4,7 +4,7 @@ import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.EmployeeDTO;
-import by.itacademy.jd2.paginator.Paginator;
+import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
 import by.itacademy.jd2.service.api.EmployeeService;
 import by.itacademy.jd2.utils.ParseUtil;
@@ -29,7 +29,7 @@ public class EmployeesListServlet extends HttpServlet {
                     ConstantParamAndAttribute.IS_FIRED_EMPLOYEES));
             Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_SIZE));
             Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
-            Paginator<EmployeeDTO> pageItems =
+            PageInfo<EmployeeDTO> pageItems =
                     employeeService.getEmployeesByFiredAndPage(isFired, pageSize, pageNumber);
             req.setAttribute(ConstantParamAndAttribute.PAGE, pageItems);
 

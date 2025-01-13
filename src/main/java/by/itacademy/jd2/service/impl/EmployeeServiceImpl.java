@@ -8,8 +8,9 @@ import by.itacademy.jd2.dto.EmployeeItemDTO;
 import by.itacademy.jd2.dto.PassportDTO;
 import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.entity.PassportEntity;
-import by.itacademy.jd2.paginator.Paginator;
+import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.EmployeeService;
+import by.itacademy.jd2.utils.PaginatorUtil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -53,9 +54,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Paginator<EmployeeDTO> getEmployeesByFiredAndPage(Boolean isFired, Integer pageSize, Integer pageNumber) {
-        pageSize = Paginator.checkPageSize(pageSize);
-        pageNumber = Paginator.checkPageNumber(pageNumber);
+    public PageInfo<EmployeeDTO> getEmployeesByFiredAndPage(Boolean isFired, Integer pageSize, Integer pageNumber) {
+        pageSize = PaginatorUtil.checkPageSize(pageSize);
+        pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
         if (isFired == null) {
             isFired = DEFAULT_IS_FIRED;
         }
@@ -64,7 +65,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .collect(Collectors.toList());
         Long employeesCount = employeeDAO.getEmployeesCount(isFired);
 
-        return new Paginator<>(employees, pageNumber, pageSize, employeesCount);
+        return new PageInfo<>(employees, pageNumber, pageSize, employeesCount);
     }
 
     @Override

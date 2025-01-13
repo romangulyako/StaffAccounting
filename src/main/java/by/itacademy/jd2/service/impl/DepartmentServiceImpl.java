@@ -5,8 +5,9 @@ import by.itacademy.jd2.dao.api.DepartmentDAO;
 import by.itacademy.jd2.dao.impl.DepartmentDaoImpl;
 import by.itacademy.jd2.dto.DepartmentDTO;
 import by.itacademy.jd2.entity.DepartmentEntity;
-import by.itacademy.jd2.paginator.Paginator;
+import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.DepartmentService;
+import by.itacademy.jd2.utils.PaginatorUtil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -52,15 +53,15 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Paginator<DepartmentDTO> getDepartmentsByPage(Integer pageNumber, Integer pageSize) {
-        pageSize = Paginator.checkPageSize(pageSize);
-        pageNumber = Paginator.checkPageNumber(pageNumber);
+    public PageInfo<DepartmentDTO> getDepartmentsByPage(Integer pageNumber, Integer pageSize) {
+        pageSize = PaginatorUtil.checkPageSize(pageSize);
+        pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
         List<DepartmentDTO> departments = departmentDAO.getDepartmentsByPage(pageSize, pageNumber).stream()
                 .map(entity -> converter.toDto(entity, DepartmentDTO.class))
                 .collect(Collectors.toList());
         Long departmentCount = departmentDAO.getDepartmentsCount();
 
-        return new Paginator<>(departments, pageNumber, pageSize, departmentCount);
+        return new PageInfo<>(departments, pageNumber, pageSize, departmentCount);
     }
 
     @Override
