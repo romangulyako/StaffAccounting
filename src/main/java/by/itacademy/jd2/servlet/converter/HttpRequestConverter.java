@@ -1,6 +1,14 @@
 package by.itacademy.jd2.servlet.converter;
 
-import by.itacademy.jd2.dto.*;
+import by.itacademy.jd2.dto.CareerStepSaveDTO;
+import by.itacademy.jd2.dto.DepartmentDTO;
+import by.itacademy.jd2.dto.EducationDTO;
+import by.itacademy.jd2.dto.EmployeeDTO;
+import by.itacademy.jd2.dto.MaritalStatusDTO;
+import by.itacademy.jd2.dto.PassportDTO;
+import by.itacademy.jd2.dto.PositionDTO;
+import by.itacademy.jd2.dto.RelativeDTO;
+import by.itacademy.jd2.dto.DismissDTO;
 import by.itacademy.jd2.servlet.converter.impl.*;
 import jakarta.servlet.http.HttpServletRequest;
 

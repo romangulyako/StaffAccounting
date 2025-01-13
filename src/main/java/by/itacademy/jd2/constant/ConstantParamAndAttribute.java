@@ -46,13 +46,11 @@ public class ConstantParamAndAttribute {
     public static final String GENITIVE_CASE_NAME = "genitive_case_name";
     public static final String DESCRIPTION = "description";
     public static final String DEPARTMENT = "department";
-    public static final String LIST_DEPARTMENTS = "list_departments";
     public static final String SALARY = "salary";
     public static final String DEPARTMENT_ID = "department_id";
     public static final String POSITION = "position";
     public static final String LIST_POSITIONS = "list_position";
     public static final String CAREER = "career";
-    public static final String DATE_OF_APPOINTMENT = "date_of_appointment";
     public static final String ORDER_APPOINTMENT = "order_appointment";
     public static final String POSITION_ID = "position_id";
     public static final String EMPLOYEE_ITEMS = "employee_items";

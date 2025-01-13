@@ -74,7 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (isCurrentOnly) {
             allEmployees.removeIf(EmployeeEntity::isFired);
         }
-        return  allEmployees.stream()
+        return allEmployees.stream()
                 .map(entity -> converter.toDto(entity, EmployeeItemDTO.class))
                 .collect(Collectors.toList());
     }

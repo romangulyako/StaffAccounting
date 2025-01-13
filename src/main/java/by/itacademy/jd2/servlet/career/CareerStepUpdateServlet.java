@@ -41,7 +41,8 @@ public class CareerStepUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            CareerStepSaveDTO careerStepSaveDTO = HttpRequestConverter.getConverter().convert(req, CareerStepSaveDTO.class);
+            CareerStepSaveDTO careerStepSaveDTO =
+                    HttpRequestConverter.getConverter().convert(req, CareerStepSaveDTO.class);
             careerService.updateCareerStep(careerStepSaveDTO,careerStepSaveDTO.getId());
             req.getRequestDispatcher(ConstantAction.CAREER).forward(req, resp);
         } catch (Exception e) {

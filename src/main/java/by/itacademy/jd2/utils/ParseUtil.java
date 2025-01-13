@@ -28,7 +28,7 @@ public class ParseUtil {
     public static Date parseDate(String input) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = Optional.ofNullable(input)
-                .map(date -> LocalDate.parse(date,formatter))
+                .map(date -> LocalDate.parse(date, formatter))
                 .orElse(null);
         return Optional.ofNullable(localDate)
                 .map(Date::valueOf)
