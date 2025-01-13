@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="by.itacademy.jd2.dto.DepartmentDTO" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
+<%@ page import="by.itacademy.jd2.paginator.Paginator" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -23,7 +24,8 @@
                 <th>Количество должностей</th>
                 <th colspan="2">Действие</th>
             </tr>
-            <% List<DepartmentDTO> departments = (List<DepartmentDTO>) request.getAttribute(ConstantParamAndAttribute.LIST_DEPARTMENTS);
+            <% Paginator<DepartmentDTO> pageItems = (Paginator<DepartmentDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE);
+                List<DepartmentDTO> departments = pageItems.getItems();
                 for (DepartmentDTO department : departments) { %>
             <tr>
                 <td><%=department.getName()%>
@@ -63,6 +65,9 @@
         </table>
         <form action="<%=ConstantAction.LIST_DEPARTMENTS%>"
               method="get">
+            <% request.setAttribute(ConstantParamAndAttribute.PAGE_NUMBER, pageItems.getPageNumber());
+                request.setAttribute(ConstantParamAndAttribute.PAGE_SIZE, pageItems.getPageSize());
+                request.setAttribute(ConstantParamAndAttribute.TOTAL_PAGES, pageItems.getTotalPages());%>
             <%@include file="../paginator.jsp"%>
         </form>
     </div>
