@@ -13,10 +13,13 @@
 <body>
 <%@include file="../menu.jsp" %>
 <div class="form-container, general-div">
+    <div class="item-header">
+        <h2>Информация о родственниках сотрудника</h2>
+    </div>
     <% List<RelativeDTO> relatives = (List<RelativeDTO>) request.getAttribute(ConstantParamAndAttribute.LIST_RELATIVES);
         if (relatives == null || relatives.isEmpty()) { %>
-    <div class="item-header">
-        <h2>Информация о родственниках отсутствует</h2>
+    <div class="form-group">
+        <h3>Информация о родственниках отсутствует</h3>
     </div>
     <% } else { %>
     <div class="form-group">

@@ -8,10 +8,13 @@ import by.itacademy.jd2.dao.impl.EmployeeDaoImpl;
 import by.itacademy.jd2.dto.EducationDTO;
 import by.itacademy.jd2.entity.EducationEntity;
 import by.itacademy.jd2.entity.EmployeeEntity;
+import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.EducationService;
+import by.itacademy.jd2.utils.PaginatorUtil;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class EducationServiceImpl implements EducationService {
@@ -54,14 +57,19 @@ public class EducationServiceImpl implements EducationService {
     }
 
     @Override
-    public List<EducationDTO> getEducationsByEmployeeId(Serializable employeeId) {
-        List<EducationEntity> entities = educationDAO.getEducationByEmployeeId(employeeId);
-        if (entities == null || entities.isEmpty()) {
-            return null;
-        }
-        return entities.stream()
-                .map(entity -> converter.toDto(entity, EducationDTO.class))
-                .collect(Collectors.toList());
+    public PageInfo<EducationDTO> getEducationsByEmployeeIdAndPage(Serializable employeeId,
+                                                                   Integer pageNumber,
+                                                                   Integer pageSize) {
+        pageSize = PaginatorUtil.checkPageSize(pageSize);
+        pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
+        List<EducationDTO> education = Optional.of(
+                        educationDAO.getEducationByEmployeeId(employeeId, pageSize, pageNumber).stream()
+                                .map(entity -> converter.toDto(entity, EducationDTO.class))
+                                .collect(Collectors.toList()))
+                .orElse(null);
+        Long educationCount = educationDAO.getEducationCountByEmployeeId(employeeId);
+
+        return new PageInfo<>(education, pageNumber, pageSize, educationCount);
     }
 
     @Override

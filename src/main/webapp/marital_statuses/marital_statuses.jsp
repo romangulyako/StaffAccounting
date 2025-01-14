@@ -13,10 +13,13 @@
 <body>
 <%@include file="../menu.jsp" %>
 <div class="form-container, general-div">
+    <div class="item-header">
+        <h2>Информация о семейном положении сотрудника</h2>
+    </div>
     <% List<MaritalStatusDTO> maritalStatuses = (List<MaritalStatusDTO>) request.getAttribute(ConstantParamAndAttribute.LIST_MARITAL_STATUSES);
         if (maritalStatuses == null || maritalStatuses.isEmpty()) { %>
-    <div class="status-header">
-        <h2>Нет информации о семейном положении сотрудника</h2>
+    <div class="form-group">
+        <h3>Нет информации о семейном положении сотрудника</h3>
     </div>
     <% } else { %>
     <div class="form-group">

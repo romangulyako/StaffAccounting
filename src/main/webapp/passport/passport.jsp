@@ -12,10 +12,13 @@
 <body>
 <%@include file="../menu.jsp" %>
 <div class="container, general-div">
+    <div class="item-header">
+        <h2>Паспортные данные сотрудника</h2>
+    </div>
     <% PassportDTO passportDTO = (PassportDTO) request.getAttribute(ConstantParamAndAttribute.PASSPORT);
         if (passportDTO == null) { %>
-    <div class="item-header">
-        <h2>Информация о паспорте отсутствует</h2>
+    <div class="form-group">
+        <h3>Информация о паспорте отсутствует</h3>
     </div>
     <div class="tabs">
         <form name="add_passport"
