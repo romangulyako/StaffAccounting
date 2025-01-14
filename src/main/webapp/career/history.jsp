@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="by.itacademy.jd2.dto.PositionHistoryDTO" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
+<%@ page import="by.itacademy.jd2.service.PageInfo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -15,7 +16,8 @@
     <div class="form-group">
         <h2>История должности:</h2>
     </div>
-    <% List<PositionHistoryDTO> history = (List<PositionHistoryDTO>) request.getAttribute(ConstantParamAndAttribute.HISTORY);
+    <% PageInfo<PositionHistoryDTO> pageInfo = (PageInfo<PositionHistoryDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
+        List<PositionHistoryDTO> history = pageInfo.getItems();
         if (history == null || history.isEmpty()) { %>
     <div class="form-group">
         <h3>История должности пуста</h3>
@@ -32,15 +34,35 @@
                 <% for (PositionHistoryDTO historyItem : history) { %>
                 <td><%=historyItem.getDateOfAppointment()%>
                 </td>
-                <td><%=historyItem.getDateOfLiberation()%>
+                <td>
+                    <%if (historyItem.getDateOfLiberation() != null) { %>
+                    <%=historyItem.getDateOfLiberation()%>
+                    <% } else { %>
+                    н.вр.
+                    <% } %>
                 </td>
                 <td><%=historyItem.getEmployeeSurname() + " "
-                + historyItem.getEmployeeName() + " "
-                + historyItem.getEmployeePatronymic()%>
+                        + historyItem.getEmployeeName()%>
+                    <%if (historyItem.getEmployeePatronymic() != null) { %>
+                    <%= " " + historyItem.getEmployeePatronymic()%>
+                    <% } %>
                 </td>
             </tr>
             <% } %>
         </table>
+        <form action="<%=ConstantAction.POSITION_HISTORY%>"
+              method="get">
+            <input type="hidden"
+                   name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
+                   value="<%= request.getAttribute(ConstantParamAndAttribute.DEPARTMENT_ID)%>"/>
+            <input type="hidden"
+                   name="<%=ConstantParamAndAttribute.POSITION_ID%>"
+                   value="<%= request.getAttribute(ConstantParamAndAttribute.POSITION_ID)%>"/>
+            <% request.setAttribute(ConstantParamAndAttribute.PAGE_NUMBER, pageInfo.getPageNumber());
+                request.setAttribute(ConstantParamAndAttribute.PAGE_SIZE, pageInfo.getPageSize());
+                request.setAttribute(ConstantParamAndAttribute.TOTAL_PAGES, pageInfo.getTotalPages());%>
+            <%@include file="../paginator.jsp" %>
+        </form>
     </div>
     <% } %>
     <div class="tabs">

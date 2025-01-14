@@ -6,7 +6,8 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface CareerDAO extends IDAO<CareerStepEntity> {
-    List<CareerStepEntity> getCareerByEmployeeId(Serializable employeeId);
-    List<CareerStepEntity> getPositionHistory(Serializable positionId);
-    List<CareerStepEntity> getCurrentCareerStepOfEmployee(Serializable employeeId);
+    List<CareerStepEntity> getCareerByEmployeeIdAndPage(Serializable employeeId, Integer pageSize, Integer pageNumber);
+    List<CareerStepEntity> getPositionHistoryByPage(Serializable positionId, Integer pageSize, Integer pageNumber);
+    Long getCareerStepCountByEmployeeId(Serializable employeeId);
+    Long getCareerStepCountByPositionId(Serializable positionId);
 }
