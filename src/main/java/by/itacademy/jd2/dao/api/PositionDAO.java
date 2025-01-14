@@ -6,5 +6,8 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface PositionDAO extends IDAO<PositionEntity> {
-    List<PositionEntity> getPositionsByDepartmentId(Serializable departmentId);
+    List<PositionEntity> getPositionsByDepartmentIdAndPage(Serializable departmentId,
+                                                           Integer pageSize,
+                                                           Integer pageNumber);
+    Long getPositionsCountByDepartmentId(Serializable departmentId);
 }

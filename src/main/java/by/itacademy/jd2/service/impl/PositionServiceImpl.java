@@ -9,10 +9,13 @@ import by.itacademy.jd2.dto.PositionDTO;
 import by.itacademy.jd2.dto.PositionItemDTO;
 import by.itacademy.jd2.entity.DepartmentEntity;
 import by.itacademy.jd2.entity.PositionEntity;
+import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.PositionService;
+import by.itacademy.jd2.utils.PaginatorUtil;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PositionServiceImpl implements PositionService {
@@ -62,14 +65,19 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public List<PositionDTO> getPositionsByDepartmentId(Serializable departmentId) {
-        List<PositionEntity> entities = positionDAO.getPositionsByDepartmentId(departmentId);
-        if (entities == null || entities.isEmpty()) {
-            return null;
-        }
-        return entities.stream()
-                .map(entity -> converter.toDto(entity, PositionDTO.class))
-                .collect(Collectors.toList());
+    public PageInfo<PositionDTO> getPositionsByDepartmentIdAndPage(Serializable departmentId,
+                                                                   Integer pageNumber,
+                                                                   Integer pageSize) {
+        pageSize = PaginatorUtil.checkPageSize(pageSize);
+        pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
+        List<PositionDTO> positions = Optional.of(
+                        positionDAO.getPositionsByDepartmentIdAndPage(departmentId, pageSize, pageNumber).stream()
+                                .map(entity -> converter.toDto(entity, PositionDTO.class))
+                                .collect(Collectors.toList()))
+                .orElse(null);
+        Long positionsCount = positionDAO.getPositionsCountByDepartmentId(departmentId);
+
+        return new PageInfo<>(positions, pageNumber, pageSize, positionsCount);
     }
 
     @Override

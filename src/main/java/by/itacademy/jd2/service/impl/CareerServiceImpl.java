@@ -98,11 +98,6 @@ public class CareerServiceImpl implements CareerService {
                                                                 Integer pageSize) {
         pageSize = PaginatorUtil.checkPageSize(pageSize);
         pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
-        /*List<CareerStepEntity> entities =
-                careerDAO.getCareerByEmployeeIdAndPage(employeeId, pageSize, pageNumber);
-        if (entities == null || entities.isEmpty()) {
-            return null;
-        }*/
 
         List<CareerStepGetDTO> career = Optional.of(
                 careerDAO.getCareerByEmployeeIdAndPage(employeeId, pageSize, pageNumber)
@@ -113,11 +108,6 @@ public class CareerServiceImpl implements CareerService {
         Long careerStepsCount = careerDAO.getCareerStepCountByEmployeeId(employeeId);
 
         return new PageInfo<>(career, pageNumber, pageSize, careerStepsCount);
-
-
-        /*return entities.stream()
-                .map(entity -> converter.toDto(entity, CareerStepGetDTO.class))
-                .collect(Collectors.toList());*/
     }
 
     @Override

@@ -5,6 +5,7 @@ import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.DepartmentDTO;
 import by.itacademy.jd2.dto.PositionDTO;
+import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.DepartmentService;
 import by.itacademy.jd2.service.api.PositionService;
 import by.itacademy.jd2.service.impl.DepartmentServiceImpl;
@@ -28,12 +29,16 @@ public class DepartmentInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_SIZE));
+            Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
             Long departmentId = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.DEPARTMENT_ID));
+
             final DepartmentDTO department = departmentService.getDepartment(departmentId);
-            final List<PositionDTO> positions = positionService.getPositionsByDepartmentId(departmentId);
+            final PageInfo<PositionDTO> pageInfo =
+                    positionService.getPositionsByDepartmentIdAndPage(departmentId, pageNumber, pageSize);
 
             req.setAttribute(ConstantParamAndAttribute.DEPARTMENT, department);
-            req.setAttribute(ConstantParamAndAttribute.LIST_POSITIONS, positions);
+            req.setAttribute(ConstantParamAndAttribute.PAGE_INFO, pageInfo);
             req.getRequestDispatcher(ConstantJSP.DEPARTMENT_INFO_PAGE).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
