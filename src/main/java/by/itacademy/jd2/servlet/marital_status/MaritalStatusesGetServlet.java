@@ -4,6 +4,7 @@ import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.MaritalStatusDTO;
+import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.MaritalStatusService;
 import by.itacademy.jd2.service.impl.MaritalStatusServiceImpl;
 import by.itacademy.jd2.utils.ParseUtil;
@@ -15,7 +16,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "maritalStatusesGetServlet", value = "/marital_statuses")
 public class MaritalStatusesGetServlet extends HttpServlet {
@@ -24,11 +24,14 @@ public class MaritalStatusesGetServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_SIZE));
+            Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
             Long employeeId = ParseUtil.parseLong(
                     ServletUtil.getParam(req, ConstantParamAndAttribute.EMPLOYEE_ID));
-            final List<MaritalStatusDTO> maritalStatuses =
-                    maritalStatusService.getAllMaritalStatuses(employeeId);
-            req.setAttribute(ConstantParamAndAttribute.LIST_MARITAL_STATUSES, maritalStatuses);
+            PageInfo<MaritalStatusDTO> pageInfo = maritalStatusService.getMaritalStatusesByEmployeeAndPage(employeeId,
+                    pageNumber, pageSize);
+
+            req.setAttribute(ConstantParamAndAttribute.PAGE_INFO, pageInfo);
             req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
             req.getRequestDispatcher(ConstantJSP.MARITAL_STATUSES_PAGE).forward(req, resp);
         } catch (Exception e) {

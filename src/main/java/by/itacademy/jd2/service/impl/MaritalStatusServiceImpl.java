@@ -8,11 +8,14 @@ import by.itacademy.jd2.dao.impl.MaritalStatusDaoImpl;
 import by.itacademy.jd2.dto.MaritalStatusDTO;
 import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.entity.MaritalStatusEntity;
+import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.MaritalStatusService;
 import by.itacademy.jd2.utils.HibernateUtil;
+import by.itacademy.jd2.utils.PaginatorUtil;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class MaritalStatusServiceImpl implements MaritalStatusService {
@@ -60,16 +63,19 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
     }
 
     @Override
-    public List<MaritalStatusDTO> getAllMaritalStatuses(Long employeeId) {
-        List<MaritalStatusEntity> entities =
-                maritalStatusDAO.getMaritalStatusesByEmployeeId(employeeId);
-        if (entities == null || entities.isEmpty()) {
-            return null;
-        }
+    public PageInfo<MaritalStatusDTO> getMaritalStatusesByEmployeeAndPage(Serializable employeeId,
+                                                                          Integer pageNumber,
+                                                                          Integer pageSize) {
+        pageSize = PaginatorUtil.checkPageSize(pageSize);
+        pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
+        List<MaritalStatusDTO> maritalStatuses = Optional.of(
+                maritalStatusDAO.getMaritalStatusesByEmployeeIdAndPage(employeeId, pageSize, pageNumber).stream()
+                        .map(entity -> converter.toDto(entity, MaritalStatusDTO.class))
+                        .collect(Collectors.toList()))
+                .orElse(null);
+        Long maritalStatusesCount = maritalStatusDAO.getMaritalStatusesCountByEmployeeId(employeeId);
 
-        return entities.stream()
-                .map(entity -> converter.toDto(entity, MaritalStatusDTO.class))
-                .collect(Collectors.toList());
+        return new PageInfo<>(maritalStatuses, pageNumber, pageSize, maritalStatusesCount);
     }
 
     @Override
