@@ -25,6 +25,7 @@
     <% } %>
   </div>
   <div class="paginator-page-size-block">
+    <label>Стр. <%=pageNumber%>/<%=totalPages%>.</label>
     <label for="page_size">Размер страницы:</label>
     <input class="paginator-input"
            id="page_size"

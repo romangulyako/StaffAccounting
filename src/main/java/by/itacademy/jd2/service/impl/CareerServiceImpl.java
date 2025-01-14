@@ -14,9 +14,13 @@ import by.itacademy.jd2.dto.PositionHistoryDTO;
 import by.itacademy.jd2.entity.CareerStepEntity;
 import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.entity.PositionEntity;
+import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.CareerService;
+import by.itacademy.jd2.utils.PaginatorUtil;
+
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class CareerServiceImpl implements CareerService {
@@ -89,27 +93,47 @@ public class CareerServiceImpl implements CareerService {
     }
 
     @Override
-    public List<CareerStepGetDTO> getCareerOfEmployee(Serializable employeeId) {
-        List<CareerStepEntity> entities = careerDAO.getCareerByEmployeeId(employeeId);
+    public PageInfo<CareerStepGetDTO> getCareerOfEmployeeByPage(Serializable employeeId,
+                                                                Integer pageNumber,
+                                                                Integer pageSize) {
+        pageSize = PaginatorUtil.checkPageSize(pageSize);
+        pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
+        /*List<CareerStepEntity> entities =
+                careerDAO.getCareerByEmployeeIdAndPage(employeeId, pageSize, pageNumber);
         if (entities == null || entities.isEmpty()) {
             return null;
-        }
+        }*/
 
-        return entities.stream()
+        List<CareerStepGetDTO> career = Optional.of(
+                careerDAO.getCareerByEmployeeIdAndPage(employeeId, pageSize, pageNumber)
+                        .stream().map(entity -> converter.toDto(entity, CareerStepGetDTO.class))
+                        .collect(Collectors.toList()))
+                .orElse(null);
+
+        Long careerStepsCount = careerDAO.getCareerStepCountByEmployeeId(employeeId);
+
+        return new PageInfo<>(career, pageNumber, pageSize, careerStepsCount);
+
+
+        /*return entities.stream()
                 .map(entity -> converter.toDto(entity, CareerStepGetDTO.class))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
     }
 
     @Override
-    public List<PositionHistoryDTO> getPositionHistory(Serializable positionId) {
-        List<CareerStepEntity> entities = careerDAO.getPositionHistory(positionId);
-        if (entities == null || entities.isEmpty()) {
-            return null;
-        }
+    public PageInfo<PositionHistoryDTO> getPositionHistoryByPage(Serializable positionId,
+                                                             Integer pageNumber,
+                                                             Integer pageSize) {
+        pageSize = PaginatorUtil.checkPageSize(pageSize);
+        pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
+        List<PositionHistoryDTO> career = Optional.of(
+                        careerDAO.getPositionHistoryByPage(positionId, pageSize, pageNumber)
+                                .stream().map(entity -> converter.toDto(entity, PositionHistoryDTO.class))
+                                .collect(Collectors.toList()))
+                .orElse(null);
+        Long careerStepsCount = careerDAO.getCareerStepCountByPositionId(positionId);
 
-        return entities.stream()
-                .map(entity -> converter.toDto(entity, PositionHistoryDTO.class))
-                .collect(Collectors.toList());
+        return new PageInfo<>(career, pageNumber, pageSize, careerStepsCount);
     }
 
     @Override

@@ -4,6 +4,7 @@ import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantJSP;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.PositionHistoryDTO;
+import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.CareerService;
 import by.itacademy.jd2.service.impl.CareerServiceImpl;
 import by.itacademy.jd2.utils.ParseUtil;
@@ -15,7 +16,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "positionHistoryGetServlet", value = "/history")
 public class PositionHistoryGetServlet extends HttpServlet {
@@ -24,12 +24,17 @@ public class PositionHistoryGetServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_SIZE));
+            Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
             Long positionId = ParseUtil.parseLong(ServletUtil.getParam(req,
                     ConstantParamAndAttribute.POSITION_ID));
-            List<PositionHistoryDTO> history = careerService.getPositionHistory(positionId);
-            req.setAttribute(ConstantParamAndAttribute.HISTORY, history);
+            PageInfo<PositionHistoryDTO> pageInfo = careerService.getPositionHistoryByPage(positionId, pageNumber, pageSize);
+
+            req.setAttribute(ConstantParamAndAttribute.PAGE_INFO, pageInfo);
             req.setAttribute(ConstantParamAndAttribute.DEPARTMENT_ID, ServletUtil.getParam(req,
                     ConstantParamAndAttribute.DEPARTMENT_ID));
+            req.setAttribute(ConstantParamAndAttribute.POSITION_ID, ServletUtil.getParam(req,
+                    ConstantParamAndAttribute.POSITION_ID));
             req.getRequestDispatcher(ConstantJSP.POSITION_HISTORY_PAGE).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
