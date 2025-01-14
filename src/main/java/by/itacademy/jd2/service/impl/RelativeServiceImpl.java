@@ -8,10 +8,13 @@ import by.itacademy.jd2.dao.impl.RelativeDaoImpl;
 import by.itacademy.jd2.dto.RelativeDTO;
 import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.entity.RelativeEntity;
+import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.RelativeService;
+import by.itacademy.jd2.utils.PaginatorUtil;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class RelativeServiceImpl implements RelativeService {
@@ -24,6 +27,7 @@ public class RelativeServiceImpl implements RelativeService {
         this.employeeDAO = new EmployeeDaoImpl();
         this.converter = Converter.getConverter();
     }
+
     @Override
     public void addRelative(RelativeDTO relativeDTO) {
         RelativeEntity relativeEntity = converter.toEntity(relativeDTO, RelativeEntity.class);
@@ -54,14 +58,18 @@ public class RelativeServiceImpl implements RelativeService {
 
 
     @Override
-    public List<RelativeDTO> getRelatives(Long employeeId) {
-        List<RelativeEntity> entities = relativeDAO.getRelativesByEmployeeId(employeeId);
-        if (entities == null || entities.isEmpty()) {
-            return null;
-        }
-        return entities.stream()
-                .map(entity -> converter.toDto(entity, RelativeDTO.class))
-                .collect(Collectors.toList());
+    public PageInfo<RelativeDTO> getRelativesByEmployeeIdAndPage(Serializable employeeId,
+                                                                 Integer pageNumber,
+                                                                 Integer pageSize) {
+        pageSize = PaginatorUtil.checkPageSize(pageSize);
+        pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
+        List<RelativeDTO> relatives = Optional.of(
+                relativeDAO.getRelativesByEmployeeIdAndPage(employeeId, pageSize, pageNumber).stream()
+                        .map(entity -> converter.toDto(entity, RelativeDTO.class))
+                        .collect(Collectors.toList())).orElse(null);
+        Long relativesCount = relativeDAO.getRelativesCountByEmployeeId(employeeId);
+
+        return new PageInfo<>(relatives, pageNumber, pageSize, relativesCount);
     }
 
     @Override
