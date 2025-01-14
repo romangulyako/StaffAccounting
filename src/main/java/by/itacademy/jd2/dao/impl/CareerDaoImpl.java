@@ -29,32 +29,22 @@ public class CareerDaoImpl extends DAO<CareerStepEntity> implements CareerDAO {
     public List<CareerStepEntity> getCareerByEmployeeIdAndPage(Serializable employeeId,
                                                                Integer pageSize,
                                                                Integer pageNumber) {
-        return ExecutorUtil.executeHibernate(super.getEntityManager(),
-                em -> {
-                    em.clear();
-                    TypedQuery<CareerStepEntity> query = em.createQuery(
-                            GET_EMPLOYEE_CAREER_QUERY, CareerStepEntity.class);
-                    query.setParameter(EMPLOYEE_ID_PARAMETER, employeeId);
-                    query.setFirstResult((pageNumber - 1) * pageSize);
-                    query.setMaxResults(pageSize);
-                    return query.getResultList();
-                });
+        return getCareerSteps(employeeId,
+                pageSize,
+                pageNumber,
+                GET_EMPLOYEE_CAREER_QUERY,
+                EMPLOYEE_ID_PARAMETER);
     }
 
     @Override
     public List<CareerStepEntity> getPositionHistoryByPage(Serializable positionId,
                                                            Integer pageSize,
                                                            Integer pageNumber) {
-        return ExecutorUtil.executeHibernate(super.getEntityManager(),
-                em -> {
-                    em.clear();
-                    TypedQuery<CareerStepEntity> query = em.createQuery(
-                            GET_POSITION_HISTORY_QUERY, CareerStepEntity.class);
-                    query.setParameter(POSITION_ID_PARAMETER, positionId);
-                    query.setFirstResult((pageNumber - 1) * pageSize);
-                    query.setMaxResults(pageSize);
-                    return query.getResultList();
-                });
+        return getCareerSteps(positionId,
+                pageSize,
+                pageNumber,
+                GET_POSITION_HISTORY_QUERY,
+                POSITION_ID_PARAMETER);
     }
 
     @Override
@@ -74,6 +64,23 @@ public class CareerDaoImpl extends DAO<CareerStepEntity> implements CareerDAO {
                     TypedQuery<Long> query = em.createQuery(GET_POSITION_HISTORY_COUNT_QUERY, Long.class);
                     query.setParameter(POSITION_ID_PARAMETER, positionId);
                     return query.getSingleResult();
+                });
+    }
+
+    private List<CareerStepEntity> getCareerSteps(Serializable idParameter,
+                                                  Integer pageSize,
+                                                  Integer pageNumber,
+                                                  String getCareerStepsQuery,
+                                                  String idParameterName) {
+        return ExecutorUtil.executeHibernate(super.getEntityManager(),
+                em -> {
+                    em.clear();
+                    TypedQuery<CareerStepEntity> query = em.createQuery(
+                            getCareerStepsQuery, CareerStepEntity.class);
+                    query.setParameter(idParameterName, idParameter);
+                    query.setFirstResult((pageNumber - 1) * pageSize);
+                    query.setMaxResults(pageSize);
+                    return query.getResultList();
                 });
     }
 }
