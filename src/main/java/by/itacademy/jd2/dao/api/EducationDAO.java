@@ -6,5 +6,6 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface EducationDAO extends IDAO<EducationEntity> {
-    List<EducationEntity> getEducationByEmployeeId(Serializable employeeId);
+    List<EducationEntity> getEducationByEmployeeId(Serializable employeeId, Integer pageSize, Integer pageNumber);
+    Long getEducationCountByEmployeeId(Serializable employeeId);
 }
