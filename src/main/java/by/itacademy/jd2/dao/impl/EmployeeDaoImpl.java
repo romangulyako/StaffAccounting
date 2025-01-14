@@ -9,26 +9,14 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class EmployeeDaoImpl extends DAO<EmployeeEntity> implements EmployeeDAO {
-    private static final String GET_EMPLOYEES_QUERY = "SELECT e " +
-            "FROM EmployeeEntity e WHERE isFired =: isFired";
+    private static final String IS_FIRED_PARAMETER = "isFired";
+    private static final String GET_EMPLOYEES_QUERY =
+            "SELECT e FROM EmployeeEntity e WHERE isFired =: isFired";
     private static final String GET_EMPLOYEES_COUNT_QUERY =
             "SELECT COUNT(e) FROM EmployeeEntity e WHERE isFired =: isFired";
-    private static final String IS_FIRED_PARAMETER = "isFired";
 
     public EmployeeDaoImpl() {
         super(EmployeeEntity.class);
-    }
-
-    @Override
-    public Long getEmployeesCount(boolean isFired) {
-        return ExecutorUtil.executeHibernate(super.getEntityManager(),
-                em -> {
-                    TypedQuery<Long> query =
-                            em.createQuery(GET_EMPLOYEES_COUNT_QUERY,
-                                    Long.class);
-                    query.setParameter(IS_FIRED_PARAMETER, isFired);
-                    return query.getSingleResult();
-                });
     }
 
     @Override
@@ -41,6 +29,16 @@ public class EmployeeDaoImpl extends DAO<EmployeeEntity> implements EmployeeDAO 
                     query.setFirstResult((pageNumber - 1) * pageSize);
                     query.setMaxResults(pageSize);
                     return query.getResultList();
+                });
+    }
+
+    @Override
+    public Long getEmployeesCount(boolean isFired) {
+        return ExecutorUtil.executeHibernate(super.getEntityManager(),
+                em -> {
+                    TypedQuery<Long> query = em.createQuery(GET_EMPLOYEES_COUNT_QUERY, Long.class);
+                    query.setParameter(IS_FIRED_PARAMETER, isFired);
+                    return query.getSingleResult();
                 });
     }
 }

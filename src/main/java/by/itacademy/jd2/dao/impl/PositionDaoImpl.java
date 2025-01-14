@@ -5,16 +5,16 @@ import by.itacademy.jd2.dao.api.PositionDAO;
 import by.itacademy.jd2.entity.PositionEntity;
 import by.itacademy.jd2.utils.ExecutorUtil;
 
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.List;
 
 public class PositionDaoImpl extends DAO<PositionEntity> implements PositionDAO {
-
-    public static final String GET_POSITIONS_BY_DEPARTMENT = "SELECT p FROM PositionEntity p where p.department.id =: departmentId";
-    public static final String DEPARTMENT_ID_PARAMETER = "departmentId";
-    public static final String GET_POSITIONS_COUNT_QUERY = "SELECT COUNT(p) FROM PositionEntity p WHERE p.department.id =: departmentId";
+    private static final String DEPARTMENT_ID_PARAMETER = "departmentId";
+    private static final String GET_POSITIONS_BY_DEPARTMENT =
+            "SELECT p FROM PositionEntity p where p.department.id =: departmentId";
+    private static final String GET_POSITIONS_COUNT_QUERY =
+            "SELECT COUNT(p) FROM PositionEntity p WHERE p.department.id =: departmentId";
 
     public PositionDaoImpl() {
         super(PositionEntity.class);
@@ -27,8 +27,7 @@ public class PositionDaoImpl extends DAO<PositionEntity> implements PositionDAO 
         return ExecutorUtil.executeHibernate(super.getEntityManager(),
                 em -> {
                     em.clear();
-                    TypedQuery<PositionEntity> query = em.createQuery(GET_POSITIONS_BY_DEPARTMENT,
-                            PositionEntity.class);
+                    TypedQuery<PositionEntity> query = em.createQuery(GET_POSITIONS_BY_DEPARTMENT, PositionEntity.class);
                     query.setParameter(DEPARTMENT_ID_PARAMETER, departmentId);
                     query.setFirstResult((pageNumber - 1) * pageSize);
                     query.setMaxResults(pageSize);
