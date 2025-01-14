@@ -32,6 +32,7 @@ public class EmployeesListServlet extends HttpServlet {
             PageInfo<EmployeeDTO> pageInfo =
                     employeeService.getEmployeesByFiredAndPage(isFired, pageSize, pageNumber);
             req.setAttribute(ConstantParamAndAttribute.PAGE_INFO, pageInfo);
+            req.setAttribute(ConstantParamAndAttribute.IS_FIRED_EMPLOYEES, isFired);
 
             req.getRequestDispatcher(ConstantJSP.LIST_EMPLOYEES_PAGE).forward(req, resp);
         } catch (Exception e) {

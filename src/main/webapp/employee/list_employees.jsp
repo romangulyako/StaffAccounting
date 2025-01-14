@@ -73,6 +73,9 @@
         </table>
         <form action="<%=ConstantAction.LIST_EMPLOYEES%>"
               method="get">
+            <input type="hidden"
+            name="<%=ConstantParamAndAttribute.IS_FIRED_EMPLOYEES%>"
+            value="<%=request.getAttribute(ConstantParamAndAttribute.IS_FIRED_EMPLOYEES)%>"/>
             <% request.setAttribute(ConstantParamAndAttribute.PAGE_NUMBER, pageInfo.getPageNumber());
                 request.setAttribute(ConstantParamAndAttribute.PAGE_SIZE, pageInfo.getPageSize());
                 request.setAttribute(ConstantParamAndAttribute.TOTAL_PAGES, pageInfo.getTotalPages());%>
@@ -80,6 +83,8 @@
         </form>
     </div>
 
+    <%Boolean isFired = (Boolean)request.getAttribute(ConstantParamAndAttribute.IS_FIRED_EMPLOYEES);
+    if (isFired == null || !isFired) { %>
     <div>
         <form name="add_employee"
               method="get"
@@ -87,6 +92,7 @@
             <button class="button-add">Добавить нового сотрудника</button>
         </form>
     </div>
+    <% } %>
 </div>
 </body>
 </html>
