@@ -29,9 +29,9 @@ public class EmployeesListServlet extends HttpServlet {
                     ConstantParamAndAttribute.IS_FIRED_EMPLOYEES));
             Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_SIZE));
             Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
-            PageInfo<EmployeeDTO> pageItems =
+            PageInfo<EmployeeDTO> pageInfo =
                     employeeService.getEmployeesByFiredAndPage(isFired, pageSize, pageNumber);
-            req.setAttribute(ConstantParamAndAttribute.PAGE, pageItems);
+            req.setAttribute(ConstantParamAndAttribute.PAGE_INFO, pageInfo);
 
             req.getRequestDispatcher(ConstantJSP.LIST_EMPLOYEES_PAGE).forward(req, resp);
         } catch (Exception e) {

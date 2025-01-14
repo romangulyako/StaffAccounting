@@ -28,7 +28,7 @@ public class DepartmentsListServlet extends HttpServlet {
             Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
 
             PageInfo<DepartmentDTO> pageItems = departmentService.getDepartmentsByPage(pageNumber, pageSize);
-            req.setAttribute(ConstantParamAndAttribute.PAGE, pageItems);
+            req.setAttribute(ConstantParamAndAttribute.PAGE_INFO, pageItems);
 
             req.getRequestDispatcher(ConstantJSP.LIST_DEPARTMENTS_PAGE).forward(req, resp);
         } catch (Exception e) {
