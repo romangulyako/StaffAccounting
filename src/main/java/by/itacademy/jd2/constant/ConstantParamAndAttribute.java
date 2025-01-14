@@ -68,5 +68,5 @@ public class ConstantParamAndAttribute {
     public static final String TOTAL_PAGES = "total_pages";
     public static final String PAGE_SIZE = "page_size";
     public static final String PAGE_NUMBER = "page_number";
-    public static final String PAGE = "page";
+    public static final String PAGE_INFO = "page_info";
 }

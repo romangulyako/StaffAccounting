@@ -24,8 +24,8 @@
                 <th>Количество должностей</th>
                 <th colspan="2">Действие</th>
             </tr>
-            <% PageInfo<DepartmentDTO> pageItems = (PageInfo<DepartmentDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE);
-                List<DepartmentDTO> departments = pageItems.getItems();
+            <% PageInfo<DepartmentDTO> pageInfo = (PageInfo<DepartmentDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
+                List<DepartmentDTO> departments = pageInfo.getItems();
                 for (DepartmentDTO department : departments) { %>
             <tr>
                 <td><%=department.getName()%>
@@ -65,9 +65,9 @@
         </table>
         <form action="<%=ConstantAction.LIST_DEPARTMENTS%>"
               method="get">
-            <% request.setAttribute(ConstantParamAndAttribute.PAGE_NUMBER, pageItems.getPageNumber());
-                request.setAttribute(ConstantParamAndAttribute.PAGE_SIZE, pageItems.getPageSize());
-                request.setAttribute(ConstantParamAndAttribute.TOTAL_PAGES, pageItems.getTotalPages());%>
+            <% request.setAttribute(ConstantParamAndAttribute.PAGE_NUMBER, pageInfo.getPageNumber());
+                request.setAttribute(ConstantParamAndAttribute.PAGE_SIZE, pageInfo.getPageSize());
+                request.setAttribute(ConstantParamAndAttribute.TOTAL_PAGES, pageInfo.getTotalPages());%>
             <%@include file="../paginator.jsp"%>
         </form>
     </div>
