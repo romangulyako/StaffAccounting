@@ -2,6 +2,7 @@
 <%@ page import="by.itacademy.jd2.dto.MaritalStatusDTO" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantAction" %>
+<%@ page import="by.itacademy.jd2.service.PageInfo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -16,7 +17,8 @@
     <div class="item-header">
         <h2>Информация о семейном положении сотрудника</h2>
     </div>
-    <% List<MaritalStatusDTO> maritalStatuses = (List<MaritalStatusDTO>) request.getAttribute(ConstantParamAndAttribute.LIST_MARITAL_STATUSES);
+    <% PageInfo<MaritalStatusDTO> pageInfo = (PageInfo<MaritalStatusDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
+        List<MaritalStatusDTO> maritalStatuses = pageInfo.getItems();
         if (maritalStatuses == null || maritalStatuses.isEmpty()) { %>
     <div class="form-group">
         <h3>Нет информации о семейном положении сотрудника</h3>
@@ -69,6 +71,16 @@
             </tr>
             <% } %>
         </table>
+        <form action="<%=ConstantAction.MARITAL_STATUSES%>"
+              method="get">
+            <input type="hidden"
+                   name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
+                   value="<%= request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>"/>
+            <% request.setAttribute(ConstantParamAndAttribute.PAGE_NUMBER, pageInfo.getPageNumber());
+                request.setAttribute(ConstantParamAndAttribute.PAGE_SIZE, pageInfo.getPageSize());
+                request.setAttribute(ConstantParamAndAttribute.TOTAL_PAGES, pageInfo.getTotalPages());%>
+            <%@include file="../paginator.jsp" %>
+        </form>
     </div>
     <% } %>
     <div class="tabs">
