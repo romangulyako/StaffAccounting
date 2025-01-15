@@ -28,7 +28,8 @@ public class CareerInfoServlet extends HttpServlet {
             Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
             Long employeeId = ParseUtil.parseLong(ServletUtil.getParam(req,
                     ConstantParamAndAttribute.EMPLOYEE_ID));
-            PageInfo<CareerStepGetDTO> pageInfo = careerService.getCareerOfEmployeeByPage(employeeId, pageNumber, pageSize);
+            PageInfo<CareerStepGetDTO> pageInfo =
+                    careerService.getCareerOfEmployeeByPage(employeeId, pageNumber, pageSize);
             req.setAttribute(ConstantParamAndAttribute.PAGE_INFO, pageInfo);
             req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
             req.getRequestDispatcher(ConstantJSP.CAREER_INFO_PAGE).forward(req, resp);

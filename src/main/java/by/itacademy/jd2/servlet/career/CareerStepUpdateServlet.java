@@ -43,7 +43,7 @@ public class CareerStepUpdateServlet extends HttpServlet {
         try {
             CareerStepSaveDTO careerStepSaveDTO =
                     HttpRequestConverter.getConverter().convert(req, CareerStepSaveDTO.class);
-            careerService.updateCareerStep(careerStepSaveDTO,careerStepSaveDTO.getId());
+            careerService.updateCareerStep(careerStepSaveDTO, careerStepSaveDTO.getId());
             req.getRequestDispatcher(ConstantAction.CAREER).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

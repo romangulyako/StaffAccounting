@@ -11,8 +11,10 @@ import java.util.List;
 
 public class EducationDaoImpl extends DAO<EducationEntity> implements EducationDAO {
     private static final String EMPLOYEE_ID_PARAMETER = "employeeId";
-    private static final String GET_EDUCATION_BY_EMPLOYEE = "SELECT e FROM EducationEntity e where e.employee.id =: employeeId";
-    private static final String GET_EDUCATION_COUNT_QUERY = "SELECT COUNT(e) FROM EducationEntity e where e.employee.id =: employeeId";
+    private static final String GET_EDUCATION_BY_EMPLOYEE =
+            "SELECT e FROM EducationEntity e where e.employee.id =: employeeId";
+    private static final String GET_EDUCATION_COUNT_QUERY =
+            "SELECT COUNT(e) FROM EducationEntity e where e.employee.id =: employeeId";
 
     public EducationDaoImpl() {
         super(EducationEntity.class);
