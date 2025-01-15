@@ -20,7 +20,6 @@ public class DepartmentDaoImpl extends DAO<DepartmentEntity> implements Departme
     public List<DepartmentEntity> getDepartmentsByPage(Integer pageSize, Integer pageNumber) {
         return ExecutorUtil.executeHibernate(super.getEntityManager(),
                 em -> {
-                    em.clear();
                     TypedQuery<DepartmentEntity> query = em.createQuery(GET_ALL_DEPARTMENTS_QUERY,
                             DepartmentEntity.class);
                     query.setFirstResult((pageNumber - 1) * pageSize);
