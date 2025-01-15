@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="add-is_actual-column-to-positions" author="Roman Gulyako">
+        <addColumn tableName="positions">
+            <column name="is_actual"
+                    type="BIT"
+                    defaultValue="TRUE">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add-is_actual-column-to-departments" author="Roman Gulyako">
+        <addColumn tableName="departments">
+            <column name="is_actual"
+                    type="BIT"
+                    defaultValue="TRUE">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
