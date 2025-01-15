@@ -52,10 +52,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     public PageInfo<DepartmentDTO> getDepartmentsByPage(Integer pageNumber, Integer pageSize) {
         pageSize = PaginatorUtil.checkPageSize(pageSize);
         pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
-        List<DepartmentDTO> departments = departmentDAO.getDepartmentsByPage(pageSize, pageNumber).stream()
+        List<DepartmentDTO> departments = departmentDAO.getDepartmentsByActualAndPage(pageSize, pageNumber).stream()
                 .map(entity -> converter.toDto(entity, DepartmentDTO.class))
                 .collect(Collectors.toList());
-        Long departmentCount = departmentDAO.getDepartmentsCount();
+        Long departmentCount = departmentDAO.getDepartmentsCountByActual();
 
         return new PageInfo<>(departments, pageNumber, pageSize, departmentCount);
     }

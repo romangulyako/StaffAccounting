@@ -5,6 +5,6 @@ import by.itacademy.jd2.entity.DepartmentEntity;
 import java.util.List;
 
 public interface DepartmentDAO extends IDAO<DepartmentEntity> {
-    List<DepartmentEntity> getDepartmentsByPage(Integer pageSize, Integer pageNumber);
-    Long getDepartmentsCount();
+    List<DepartmentEntity> getDepartmentsByActualAndPage(Boolean isActual, Integer pageSize, Integer pageNumber);
+    Long getDepartmentsCountByActual(Boolean isActual);
 }
