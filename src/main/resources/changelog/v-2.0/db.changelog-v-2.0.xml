@@ -11,5 +11,7 @@
              relativeToChangelogFile="true"/>
     <include file="2025-01-10-03-add-column-to-career.xml"
              relativeToChangelogFile="true"/>
+    <include file="2025-01-15-04-add-column-is_actual-to-positions-and-departments.xml"
+             relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
