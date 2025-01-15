@@ -46,4 +46,8 @@ public class PositionEntity extends CommonSuperEntityWithId {
             mappedBy = "position")
     @Builder.Default
     private Set<CareerStepEntity> history = new HashSet<>();
+
+    @Column(name = "is_actual")
+    @Builder.Default
+    private Boolean isActual = true;
 }
