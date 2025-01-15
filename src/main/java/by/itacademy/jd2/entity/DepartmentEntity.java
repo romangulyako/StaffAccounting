@@ -40,4 +40,8 @@ public class DepartmentEntity extends CommonSuperEntityWithId {
             mappedBy = "department")
     @Builder.Default
     private Set<PositionEntity> positions = new HashSet<>();
+
+    @Column(name = "is_actual")
+    @Builder.Default
+    private Boolean isActual = true;
 }
