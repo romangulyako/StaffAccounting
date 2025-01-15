@@ -12,6 +12,7 @@ import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.RelativeService;
 import by.itacademy.jd2.utils.PaginatorUtil;
 
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,7 @@ public class RelativeServiceImpl implements RelativeService {
         this.converter = Converter.getConverter();
     }
 
+    @Transactional
     @Override
     public void addRelative(RelativeDTO relativeDTO) {
         RelativeEntity relativeEntity = converter.toEntity(relativeDTO, RelativeEntity.class);
@@ -35,19 +37,23 @@ public class RelativeServiceImpl implements RelativeService {
         relativeEntity.setEmployee(employeeEntity);
         employeeEntity.getRelatives().add(relativeEntity);
         relativeDAO.save(relativeEntity);
-        relativeDTO.setId(relativeEntity.getId());
     }
 
+    @Transactional
     @Override
     public void updateRelative(RelativeDTO relativeDTO) {
-        RelativeEntity relativeEntity = converter.toEntity(relativeDTO, RelativeEntity.class);
-        EmployeeEntity employeeEntity = employeeDAO.get(relativeDTO.getEmployeeId());
-        relativeEntity.setEmployee(employeeEntity);
-        relativeDAO.update(relativeEntity, relativeEntity.getId());
+        if (relativeDTO != null) {
+            RelativeEntity relativeEntity = converter.toEntity(relativeDTO, RelativeEntity.class);
+            relativeEntity.setEmployee(relativeDAO.get(relativeEntity.getId()).getEmployee());
+            relativeDAO.update(relativeEntity, relativeEntity.getId());
+        }
     }
 
+    @Transactional
     @Override
     public void deleteRelative(Serializable id) {
+        RelativeEntity relativeEntity = relativeDAO.get(id);
+        relativeEntity.getEmployee().getRelatives().remove(relativeEntity);
         relativeDAO.delete(id);
     }
 
@@ -57,6 +63,7 @@ public class RelativeServiceImpl implements RelativeService {
     }
 
 
+    @Transactional
     @Override
     public PageInfo<RelativeDTO> getRelativesByEmployeeIdAndPage(Serializable employeeId,
                                                                  Integer pageNumber,

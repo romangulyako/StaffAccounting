@@ -34,18 +34,13 @@ public class EmployeeConverter
     @Override
     public EmployeeEntity toEntity(EmployeeDTO dto) {
         if (dto != null) {
-            EmployeeEntity employeeEntity = EmployeeEntity.builder()
+            return EmployeeEntity.builder()
                     .id(dto.getId())
                     .personData(dto.getPersonData())
                     .homeAddress(dto.getHomeAddress())
                     .phone(dto.getPhone())
                     .passport(new PassportConverter().toEntity(dto.getPassport()))
                     .build();
-            if (employeeEntity.getPassport() != null) {
-                employeeEntity.getPassport().setEmployee(employeeEntity);
-            }
-
-            return employeeEntity;
         }
 
         return null;

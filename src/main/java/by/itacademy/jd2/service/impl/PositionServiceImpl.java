@@ -13,6 +13,7 @@ import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.PositionService;
 import by.itacademy.jd2.utils.PaginatorUtil;
 
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +30,7 @@ public class PositionServiceImpl implements PositionService {
         this.converter = Converter.getConverter();
     }
 
+    @Transactional
     @Override
     public void addPosition(PositionDTO positionDTO) {
         PositionEntity positionEntity = converter.toEntity(positionDTO, PositionEntity.class);
@@ -36,19 +38,23 @@ public class PositionServiceImpl implements PositionService {
         positionEntity.setDepartment(departmentEntity);
         departmentEntity.getPositions().add(positionEntity);
         positionDAO.save(positionEntity);
-        positionDTO.setId(positionEntity.getId());
     }
 
+    @Transactional
     @Override
     public void updatePosition(PositionDTO positionDTO) {
-        PositionEntity positionEntity = converter.toEntity(positionDTO, PositionEntity.class);
-        DepartmentEntity departmentEntity = departmentDAO.get(positionDTO.getDepartmentId());
-        positionEntity.setDepartment(departmentEntity);
-        positionDAO.update(positionEntity, positionEntity.getId());
+        if (positionDTO != null) {
+            PositionEntity positionEntity = converter.toEntity(positionDTO, PositionEntity.class);
+            positionEntity.setDepartment(positionDAO.get(positionEntity.getId()).getDepartment());
+            positionDAO.update(positionEntity, positionEntity.getId());
+        }
     }
 
+    @Transactional
     @Override
     public void deletePosition(Serializable id) {
+        PositionEntity positionEntity = positionDAO.get(id);
+        positionEntity.getDepartment().getPositions().remove(positionEntity);
         positionDAO.delete(id);
     }
 
@@ -64,6 +70,7 @@ public class PositionServiceImpl implements PositionService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public PageInfo<PositionDTO> getPositionsByDepartmentIdAndPage(Serializable departmentId,
                                                                    Integer pageNumber,

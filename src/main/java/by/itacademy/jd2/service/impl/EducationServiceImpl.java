@@ -12,6 +12,7 @@ import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.EducationService;
 import by.itacademy.jd2.utils.PaginatorUtil;
 
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,7 @@ public class EducationServiceImpl implements EducationService {
         this.converter = Converter.getConverter();
     }
 
+    @Transactional
     @Override
     public void addEducation(EducationDTO educationDTO) {
         EducationEntity educationEntity = converter.toEntity(educationDTO, EducationEntity.class);
@@ -35,19 +37,23 @@ public class EducationServiceImpl implements EducationService {
         educationEntity.setEmployee(employeeEntity);
         employeeEntity.getEducations().add(educationEntity);
         educationDAO.save(educationEntity);
-        educationDTO.setId(educationEntity.getId());
     }
 
+    @Transactional
     @Override
     public void updateEducation(EducationDTO educationDTO) {
-        EducationEntity educationEntity = converter.toEntity(educationDTO, EducationEntity.class);
-        EmployeeEntity employeeEntity = employeeDAO.get(educationDTO.getEmployeeId());
-        educationEntity.setEmployee(employeeEntity);
-        educationDAO.update(educationEntity, educationEntity.getId());
+        if (educationDTO != null) {
+            EducationEntity newEntity = converter.toEntity(educationDTO, EducationEntity.class);
+            newEntity.setEmployee(educationDAO.get(educationDTO.getId()).getEmployee());
+            educationDAO.update(newEntity, newEntity.getId());
+        }
     }
 
+    @Transactional
     @Override
     public void deleteEducation(Serializable id) {
+        EducationEntity educationEntity = educationDAO.get(id);
+        educationEntity.getEmployee().getEducations().remove(educationEntity);
         educationDAO.delete(id);
     }
 
@@ -56,6 +62,7 @@ public class EducationServiceImpl implements EducationService {
         return converter.toDto(educationDAO.get(id), EducationDTO.class);
     }
 
+    @Transactional
     @Override
     public PageInfo<EducationDTO> getEducationsByEmployeeIdAndPage(Serializable employeeId,
                                                                    Integer pageNumber,

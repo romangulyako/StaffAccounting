@@ -36,10 +36,8 @@ public class PassportAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            EmployeeDTO employee = employeeService.getEmployee(ParseUtil.parseLong(ServletUtil.getParam(req,
-                    ConstantParamAndAttribute.ID)));
             PassportDTO passport = HttpRequestConverter.getConverter().convert(req, PassportDTO.class);
-            employeeService.addPassport(passport, employee);
+            employeeService.addPassport(passport);
             req.getRequestDispatcher(ConstantAction.PASSPORT).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

@@ -11,7 +11,6 @@ import by.itacademy.jd2.utils.PaginatorUtil;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class DepartmentServiceImpl implements DepartmentService {
@@ -27,7 +26,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void addDepartment(DepartmentDTO departmentDTO) {
         DepartmentEntity entity = converter.toEntity(departmentDTO, DepartmentEntity.class);
         departmentDAO.save(entity);
-        departmentDTO.setId(entity.getId());
     }
 
     @Override
@@ -35,11 +33,9 @@ public class DepartmentServiceImpl implements DepartmentService {
         if (departmentDTO != null) {
             DepartmentEntity oldEntity = departmentDAO.get(departmentDTO.getId());
             DepartmentEntity newEntity = converter.toEntity(departmentDTO, DepartmentEntity.class);
-            if (Objects.equals(oldEntity.getId(), newEntity.getId())) {
-                departmentDAO.update(newEntity, oldEntity.getId());
-            }
+            newEntity.setPositions(oldEntity.getPositions());
+            departmentDAO.update(newEntity, oldEntity.getId());
         }
-
     }
 
     @Override
