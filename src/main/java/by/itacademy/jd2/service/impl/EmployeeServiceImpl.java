@@ -12,6 +12,7 @@ import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.EmployeeService;
 import by.itacademy.jd2.utils.PaginatorUtil;
 
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,17 +31,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity employeeEntity =
                 converter.toEntity(employeeDTO, EmployeeEntity.class);
         employeeDAO.save(employeeEntity);
-        employeeDTO.setId(employeeEntity.getId());
     }
 
+    @Transactional
     @Override
     public void updateEmployee(EmployeeDTO employeeDTO) {
-        EmployeeEntity oldEmployee = employeeDAO.get(employeeDTO.getId());
-        EmployeeEntity newEmployee = converter.toEntity(employeeDTO, EmployeeEntity.class);
-        if (oldEmployee != null) {
-            newEmployee.setPassport(oldEmployee.getPassport());
+        if (employeeDTO != null) {
+            EmployeeEntity newEmployee = converter.toEntity(employeeDTO, EmployeeEntity.class);
+            newEmployee.setPassport(employeeDAO.get(employeeDTO.getId()).getPassport());
+            employeeDAO.update(newEmployee, newEmployee.getId());
         }
-        employeeDAO.update(newEmployee, newEmployee.getId());
     }
 
     @Override
@@ -53,6 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return converter.toDto(employeeDAO.get(id), EmployeeDTO.class);
     }
 
+    @Transactional
     @Override
     public PageInfo<EmployeeDTO> getEmployeesByFiredAndPage(Boolean isFired, Integer pageSize, Integer pageNumber) {
         pageSize = PaginatorUtil.checkPageSize(pageSize);
@@ -80,26 +81,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void addPassport(PassportDTO passportDTO, EmployeeDTO employeeDTO) {
-        EmployeeEntity employeeEntity = converter.toEntity(employeeDTO, EmployeeEntity.class);
+    public void addPassport(PassportDTO passportDTO) {
+        EmployeeEntity employeeEntity = employeeDAO.get(passportDTO.getId());
         PassportEntity passportEntity = converter.toEntity(passportDTO, PassportEntity.class);
         employeeEntity.setPassport(passportEntity);
         passportEntity.setEmployee(employeeEntity);
         employeeDAO.update(employeeEntity, employeeEntity.getId());
-        employeeDTO.setPassport(converter.toDto(passportEntity, PassportDTO.class));
-        passportDTO.setId(passportEntity.getId());
     }
 
     @Override
-    public void updatePassport(PassportDTO passportDTO, EmployeeDTO employeeDTO) {
-        EmployeeEntity employeeEntity = converter.toEntity(employeeDTO, EmployeeEntity.class);
+    public void updatePassport(PassportDTO passportDTO) {
         PassportEntity passportEntity = converter.toEntity(passportDTO, PassportEntity.class);
-        passportEntity.setId(employeeDTO.getId());
+        EmployeeEntity employeeEntity = employeeDAO.get(passportEntity.getId());
         employeeEntity.setPassport(passportEntity);
-        passportEntity.setEmployee(employeeEntity);
         employeeDAO.update(employeeEntity, employeeEntity.getId());
-        employeeDTO.setPassport(converter.toDto(passportEntity, PassportDTO.class));
-        passportDTO.setId(passportEntity.getId());
     }
 
     @Override

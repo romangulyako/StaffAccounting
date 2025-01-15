@@ -37,7 +37,7 @@ public class DepartmentUpdateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             departmentService.updateDepartment(HttpRequestConverter.getConverter().convert(req, DepartmentDTO.class));
-            resp.sendRedirect(ConstantAction.LIST_DEPARTMENTS);
+            req.getRequestDispatcher(ConstantAction.DEPARTMENT_INFO).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }

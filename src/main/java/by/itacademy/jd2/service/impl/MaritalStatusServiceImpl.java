@@ -10,9 +10,9 @@ import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.entity.MaritalStatusEntity;
 import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.MaritalStatusService;
-import by.itacademy.jd2.utils.HibernateUtil;
 import by.itacademy.jd2.utils.PaginatorUtil;
 
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
@@ -40,20 +40,23 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
         maritalStatusEntity.setEmployee(employeeEntity);
         employeeEntity.getMaritalStatuses().add(maritalStatusEntity);
         maritalStatusDAO.save(maritalStatusEntity);
-        maritalStatusDTO.setId(maritalStatusEntity.getId());
     }
 
     @Override
     public void updateMaritalStatus(MaritalStatusDTO maritalStatusDTO) {
-        MaritalStatusEntity maritalStatusEntity =
-                converter.toEntity(maritalStatusDTO, MaritalStatusEntity.class);
-        EmployeeEntity employeeEntity = employeeDAO.get(maritalStatusDTO.getEmployeeId());
-        maritalStatusEntity.setEmployee(employeeEntity);
-        maritalStatusDAO.update(maritalStatusEntity, maritalStatusEntity.getId());
+        if (maritalStatusDTO != null) {
+            MaritalStatusEntity maritalStatusEntity =
+                    converter.toEntity(maritalStatusDTO, MaritalStatusEntity.class);
+            maritalStatusEntity.setEmployee(employeeDAO.get(maritalStatusDTO.getEmployeeId()));
+            maritalStatusDAO.update(maritalStatusEntity, maritalStatusEntity.getId());
+        }
     }
 
+    @Transactional
     @Override
     public void deleteMaritalStatus(Serializable id) {
+        MaritalStatusEntity maritalStatusEntity = maritalStatusDAO.get(id);
+        maritalStatusEntity.getEmployee().getMaritalStatuses().remove(maritalStatusEntity);
         maritalStatusDAO.delete(id);
     }
 
@@ -69,9 +72,9 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
         pageSize = PaginatorUtil.checkPageSize(pageSize);
         pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
         List<MaritalStatusDTO> maritalStatuses = Optional.of(
-                maritalStatusDAO.getMaritalStatusesByEmployeeIdAndPage(employeeId, pageSize, pageNumber).stream()
-                        .map(entity -> converter.toDto(entity, MaritalStatusDTO.class))
-                        .collect(Collectors.toList()))
+                        maritalStatusDAO.getMaritalStatusesByEmployeeIdAndPage(employeeId, pageSize, pageNumber).stream()
+                                .map(entity -> converter.toDto(entity, MaritalStatusDTO.class))
+                                .collect(Collectors.toList()))
                 .orElse(null);
         Long maritalStatusesCount = maritalStatusDAO.getMaritalStatusesCountByEmployeeId(employeeId);
 
@@ -81,6 +84,5 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
     @Override
     public void closeDao() {
         maritalStatusDAO.close();
-        HibernateUtil.close();
     }
 }

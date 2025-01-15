@@ -34,7 +34,7 @@ public class HttpRequestConverter {
     private void fillConverters() {
         converters.put(CareerStepSaveDTO.class, new CareerStepHttpConverter());
         converters.put(DepartmentDTO.class, new DepartmentHttpConverter());
-        converters.put(EducationDTO.class, new DepartmentHttpConverter());
+        converters.put(EducationDTO.class, new EducationHttpConverter());
         converters.put(EmployeeDTO.class, new EmployeeHttpConverter());
         converters.put(MaritalStatusDTO.class, new MaritalStatusHttpConverter());
         converters.put(PassportDTO.class, new PassportHttpConverter());

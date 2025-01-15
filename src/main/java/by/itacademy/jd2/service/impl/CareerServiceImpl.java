@@ -16,8 +16,10 @@ import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.entity.PositionEntity;
 import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.CareerService;
+import by.itacademy.jd2.utils.HibernateUtil;
 import by.itacademy.jd2.utils.PaginatorUtil;
 
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +38,7 @@ public class CareerServiceImpl implements CareerService {
         this.converter = Converter.getConverter();
     }
 
+    @Transactional
     @Override
     public void appointEmployee(CareerStepSaveDTO careerStepDTO) {
         EmployeeEntity employeeEntity = employeeDAO.get(careerStepDTO.getEmployeeId());
@@ -58,6 +61,7 @@ public class CareerServiceImpl implements CareerService {
         careerDAO.save(careerStepEntity);
     }
 
+    @Transactional
     @Override
     public void dismissEmployee(DismissDTO dismissDTO) {
         EmployeeEntity employee = employeeDAO.get(dismissDTO.getEmployeeId());
@@ -72,6 +76,7 @@ public class CareerServiceImpl implements CareerService {
         employeeDAO.update(employee, employee.getId());
     }
 
+    @Transactional
     @Override
     public void updateCareerStep(CareerStepSaveDTO careerStepDTO, Serializable id) {
         EmployeeEntity employeeEntity = employeeDAO.get(careerStepDTO.getEmployeeId());
@@ -82,8 +87,14 @@ public class CareerServiceImpl implements CareerService {
         careerDAO.update(careerStepEntity, id);
     }
 
+    @Transactional
     @Override
     public void deleteCareerStep(Serializable id) {
+        CareerStepEntity careerStep = careerDAO.get(id);
+        careerStep.getPosition().getHistory().remove(careerStep);
+        careerStep.getEmployee().getCareer().remove(careerStep);
+        careerStep.setEmployee(null);
+        careerStep.setPosition(null);
         careerDAO.delete(id);
     }
 
@@ -92,6 +103,7 @@ public class CareerServiceImpl implements CareerService {
         return converter.toDto(careerDAO.get(id), CareerStepGetDTO.class);
     }
 
+    @Transactional
     @Override
     public PageInfo<CareerStepGetDTO> getCareerOfEmployeeByPage(Serializable employeeId,
                                                                 Integer pageNumber,
@@ -110,6 +122,7 @@ public class CareerServiceImpl implements CareerService {
         return new PageInfo<>(career, pageNumber, pageSize, careerStepsCount);
     }
 
+    @Transactional
     @Override
     public PageInfo<PositionHistoryDTO> getPositionHistoryByPage(Serializable positionId,
                                                              Integer pageNumber,

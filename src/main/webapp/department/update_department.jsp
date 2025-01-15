@@ -18,8 +18,8 @@
     <form id="save"
           action="<%=ConstantAction.UPDATE_DEPARTMENT%>"
           method="post">
-        <input name="<%= ConstantParamAndAttribute.ID %>"
-               type="hidden"
+        <input type="hidden"
+               name="<%= ConstantParamAndAttribute.ID %>"
                value="<%= department.getId() %>"
                required>
         <div class="form-group">
@@ -52,17 +52,21 @@
             </textarea>
         </div>
     </form>
-    <form class="tabs" action="<%=ConstantAction.LIST_DEPARTMENTS%>" method="get">
+    <form class="tabs" action="<%=ConstantAction.DEPARTMENT_INFO%>" method="get">
         <div class="form-group">
             <button class="tab, button-add"
                     form="save"
-                    type="submit">
+                    type="submit"
+                    name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
+                    value="<%=department.getId()%>">
                 Сохранить
             </button>
         </div>
         <div class="form-group">
-            <button class="tab">
-                Вернуться к списку отделов
+            <button class="tab"
+                    name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
+                    value="<%=department.getId()%>">
+                Вернуться к просмотру отдела
             </button>
         </div>
     </form>
