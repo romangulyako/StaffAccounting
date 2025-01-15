@@ -23,7 +23,6 @@ public class EmployeeDaoImpl extends DAO<EmployeeEntity> implements EmployeeDAO 
     public List<EmployeeEntity> getEmployeesByFiredAndPage(boolean isFired, Integer pageSize, Integer pageNumber) {
         return ExecutorUtil.executeHibernate(super.getEntityManager(),
                 em -> {
-                    em.clear();
                     TypedQuery<EmployeeEntity> query = em.createQuery(GET_EMPLOYEES_QUERY, EmployeeEntity.class);
                     query.setParameter(IS_FIRED_PARAMETER, isFired);
                     query.setFirstResult((pageNumber - 1) * pageSize);

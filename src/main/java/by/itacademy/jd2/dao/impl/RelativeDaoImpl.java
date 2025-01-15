@@ -26,7 +26,6 @@ public class RelativeDaoImpl extends DAO<RelativeEntity> implements RelativeDAO 
                                                                 Integer pageNumber) {
         return ExecutorUtil.executeHibernate(super.getEntityManager(),
                 em -> {
-                    em.clear();
                     TypedQuery<RelativeEntity> query = em.createQuery(
                             GET_RELATIVE_BY_EMPLOYEE_QUERY, RelativeEntity.class);
                     query.setParameter(EMPLOYEE_ID_PARAMETER, employeeId);

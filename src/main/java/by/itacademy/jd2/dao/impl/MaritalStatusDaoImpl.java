@@ -27,7 +27,6 @@ public class MaritalStatusDaoImpl extends DAO<MaritalStatusEntity> implements Ma
                                                                            Integer pageNumber) {
         return ExecutorUtil.executeHibernate(super.getEntityManager(),
                 em -> {
-                    em.clear();
                     TypedQuery<MaritalStatusEntity> query = em.createQuery(
                             GET_MARITAL_STATUSES_BY_EMPLOYEE_QUERY, MaritalStatusEntity.class);
                     query.setParameter(EMPLOYEE_ID_PARAMETER, employeeId);

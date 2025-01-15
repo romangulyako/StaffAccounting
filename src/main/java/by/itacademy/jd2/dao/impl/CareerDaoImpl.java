@@ -74,7 +74,6 @@ public class CareerDaoImpl extends DAO<CareerStepEntity> implements CareerDAO {
                                                   String idParameterName) {
         return ExecutorUtil.executeHibernate(super.getEntityManager(),
                 em -> {
-                    em.clear();
                     TypedQuery<CareerStepEntity> query = em.createQuery(
                             getCareerStepsQuery, CareerStepEntity.class);
                     query.setParameter(idParameterName, idParameter);

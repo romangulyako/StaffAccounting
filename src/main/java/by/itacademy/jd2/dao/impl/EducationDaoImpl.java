@@ -24,7 +24,6 @@ public class EducationDaoImpl extends DAO<EducationEntity> implements EducationD
                                                           Integer pageNumber) {
         return ExecutorUtil.executeHibernate(super.getEntityManager(),
                 em -> {
-                    em.clear();
                     TypedQuery<EducationEntity> query = em.createQuery(
                             GET_EDUCATION_BY_EMPLOYEE, EducationEntity.class);
                     query.setParameter(EMPLOYEE_ID_PARAMETER, employeeId);
