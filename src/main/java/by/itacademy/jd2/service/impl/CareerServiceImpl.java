@@ -16,7 +16,6 @@ import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.entity.PositionEntity;
 import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.CareerService;
-import by.itacademy.jd2.utils.HibernateUtil;
 import by.itacademy.jd2.utils.PaginatorUtil;
 
 import javax.transaction.Transactional;

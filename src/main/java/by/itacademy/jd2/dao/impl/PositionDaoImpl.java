@@ -26,7 +26,8 @@ public class PositionDaoImpl extends DAO<PositionEntity> implements PositionDAO 
                                                                   Integer pageNumber) {
         return ExecutorUtil.executeHibernate(super.getEntityManager(),
                 em -> {
-                    TypedQuery<PositionEntity> query = em.createQuery(GET_POSITIONS_BY_DEPARTMENT, PositionEntity.class);
+                    TypedQuery<PositionEntity> query = em.createQuery(GET_POSITIONS_BY_DEPARTMENT,
+                            PositionEntity.class);
                     query.setParameter(DEPARTMENT_ID_PARAMETER, departmentId);
                     query.setFirstResult((pageNumber - 1) * pageSize);
                     query.setMaxResults(pageSize);

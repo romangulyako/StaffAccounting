@@ -7,7 +7,7 @@ import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.http.HttpServletRequest;
 
-public class DismissConverter implements FromHttpRequestConverter<DismissDTO> {
+public class DismissHttpConverter implements FromHttpRequestConverter<DismissDTO> {
     @Override
     public DismissDTO convert(HttpServletRequest req) {
         return DismissDTO.builder()

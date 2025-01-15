@@ -4,7 +4,6 @@ import by.itacademy.jd2.dto.MaritalStatusDTO;
 import by.itacademy.jd2.service.PageInfo;
 
 import java.io.Serializable;
-import java.util.List;
 
 public interface MaritalStatusService extends Service {
     void addMaritalStatus(MaritalStatusDTO maritalStatusDTO);

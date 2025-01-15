@@ -72,7 +72,8 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
         pageSize = PaginatorUtil.checkPageSize(pageSize);
         pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
         List<MaritalStatusDTO> maritalStatuses = Optional.of(
-                        maritalStatusDAO.getMaritalStatusesByEmployeeIdAndPage(employeeId, pageSize, pageNumber).stream()
+                        maritalStatusDAO.getMaritalStatusesByEmployeeIdAndPage(employeeId, pageSize, pageNumber)
+                                .stream()
                                 .map(entity -> converter.toDto(entity, MaritalStatusDTO.class))
                                 .collect(Collectors.toList()))
                 .orElse(null);
