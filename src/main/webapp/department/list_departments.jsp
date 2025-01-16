@@ -47,6 +47,9 @@
                     <form name="employee"
                           method="get"
                           action="<%= ConstantAction.DEPARTMENT_INFO %>">
+                        <input type="hidden"
+                               name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
+                               value="<%=isActual%>"/>
                         <button class="button-show"
                                 name="<%= ConstantParamAndAttribute.DEPARTMENT_ID %>"
                                 value="<%= department.getId() %>">
@@ -70,7 +73,7 @@
                     <form name="reduce_employee"
                           method="post"
                           action="<%= ConstantAction.REDUCE_DEPARTMENT %>">
-                        <button class="button-edit"
+                        <button class="button-reduce"
                                 name="<%= ConstantParamAndAttribute.DEPARTMENT_ID %>"
                                 value="<%= department.getId() %>">
                             Сократить
@@ -80,7 +83,7 @@
                     <form name="reduce_employee"
                           method="post"
                           action="<%= ConstantAction.RESTORE_DEPARTMENT %>">
-                        <button class="button-edit"
+                        <button class="button-restore"
                                 name="<%= ConstantParamAndAttribute.DEPARTMENT_ID %>"
                                 value="<%= department.getId() %>">
                             Восстановить

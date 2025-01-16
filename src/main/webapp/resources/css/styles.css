@@ -71,6 +71,24 @@ button {
     background-color: #cd1313;
 }
 
+.button-reduce {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.button-reduce:hover {
+    background-color: #121212;
+}
+
+.button-restore {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.button-restore:hover {
+    background-color: #d8d8d8;
+}
+
 .button-show {
     background-color: #3258ea;
     color: #ffffff;
