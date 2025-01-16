@@ -14,5 +14,6 @@ public class DepartmentDTO {
     private String name;
     private String genitiveCaseName;
     private String description;
-    private Integer positionsCount;
+    private Integer actualPositionsCount;
+    private Integer reducedPositionsCount;
 }

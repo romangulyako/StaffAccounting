@@ -11,9 +11,13 @@ import java.util.List;
 public class DepartmentDaoImpl extends DAO<DepartmentEntity> implements DepartmentDAO {
     private static final String IS_ACTUAL_PARAMETER = "isActual";
     private static final String GET_ALL_DEPARTMENTS_QUERY =
-            "select d from DepartmentEntity d where d.isActual =: isActual";
+            "select distinct d from DepartmentEntity d " +
+                    "LEFT JOIN d.positions p ON d.id = p.department.id " +
+                    "where d.isActual =: isActual OR  p.isActual =: isActual";
     private static final String GET_DEPARTMENTS_COUNT_QUERY =
-            "SELECT COUNT(d) FROM DepartmentEntity d WHERE d.isActual =: isActual";
+            "SELECT COUNT(DISTINCT d) FROM DepartmentEntity d " +
+                    "LEFT JOIN d.positions p ON d.id = p.department.id " +
+                    "where d.isActual =: isActual OR  p.isActual =: isActual";
 
     public DepartmentDaoImpl() {
         super(DepartmentEntity.class);

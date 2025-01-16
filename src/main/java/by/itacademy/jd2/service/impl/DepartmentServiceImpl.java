@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DepartmentServiceImpl implements DepartmentService {
+    private static final boolean DEFAULT_IS_ACTUAL = true;
     private final DepartmentDAO departmentDAO;
     private final Converter converter;
 
@@ -49,19 +50,41 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public PageInfo<DepartmentDTO> getDepartmentsByPage(Integer pageNumber, Integer pageSize) {
+    public PageInfo<DepartmentDTO> getDepartmentsByActualAndPage(Boolean isActual, Integer pageNumber, Integer pageSize) {
         pageSize = PaginatorUtil.checkPageSize(pageSize);
         pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
-        List<DepartmentDTO> departments = departmentDAO.getDepartmentsByActualAndPage(pageSize, pageNumber).stream()
+        if (isActual == null) {
+            isActual = DEFAULT_IS_ACTUAL;
+        }
+        List<DepartmentDTO> departments = departmentDAO.getDepartmentsByActualAndPage(isActual, pageSize, pageNumber)
+                .stream()
                 .map(entity -> converter.toDto(entity, DepartmentDTO.class))
                 .collect(Collectors.toList());
-        Long departmentCount = departmentDAO.getDepartmentsCountByActual();
+        Long departmentCount = departmentDAO.getDepartmentsCountByActual(isActual);
 
         return new PageInfo<>(departments, pageNumber, pageSize, departmentCount);
     }
 
     @Override
+    public void reduceDepartment(Serializable id) {
+        this.changeDepartmentStatus(id, false);
+    }
+
+    @Override
+    public void restoreDepartment(Serializable id) {
+        this.changeDepartmentStatus(id, true);
+    }
+
+    @Override
     public void closeDao() {
         departmentDAO.close();
+    }
+
+    private void changeDepartmentStatus(Serializable id, boolean status) {
+        DepartmentEntity departmentEntity = departmentDAO.get(id);
+        departmentEntity.setIsActual(status);
+        departmentEntity.getPositions()
+                .forEach(position -> position.setIsActual(status));
+        departmentDAO.update(departmentEntity, id);
     }
 }

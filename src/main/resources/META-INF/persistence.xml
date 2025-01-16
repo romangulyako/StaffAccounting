@@ -4,6 +4,14 @@
              version="2.0">
     <persistence-unit name="staff_accounting">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>by.itacademy.jd2.entity.CareerStepEntity</class>
+        <class>by.itacademy.jd2.entity.DepartmentEntity</class>
+        <class>by.itacademy.jd2.entity.EducationEntity</class>
+        <class>by.itacademy.jd2.entity.EmployeeEntity</class>
+        <class>by.itacademy.jd2.entity.MaritalStatusEntity</class>
+        <class>by.itacademy.jd2.entity.PassportEntity</class>
+        <class>by.itacademy.jd2.entity.PositionEntity</class>
+        <class>by.itacademy.jd2.entity.RelativeEntity</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/staff_accounting"/>

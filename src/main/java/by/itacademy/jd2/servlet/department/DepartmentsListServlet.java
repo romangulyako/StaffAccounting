@@ -26,14 +26,21 @@ public class DepartmentsListServlet extends HttpServlet {
         try {
             Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_SIZE));
             Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
+            Boolean isActual = ParseUtil.parseBoolean(ServletUtil.getParam(req, ConstantParamAndAttribute.IS_ACTUAL));
 
-            PageInfo<DepartmentDTO> pageItems = departmentService.getDepartmentsByPage(pageNumber, pageSize);
+            PageInfo<DepartmentDTO> pageItems = departmentService.getDepartmentsByActualAndPage(isActual, pageNumber, pageSize);
             req.setAttribute(ConstantParamAndAttribute.PAGE_INFO, pageItems);
+            req.setAttribute(ConstantParamAndAttribute.IS_ACTUAL, isActual);
 
             req.getRequestDispatcher(ConstantJSP.LIST_DEPARTMENTS_PAGE).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.doGet(req, resp);
     }
 
     @Override

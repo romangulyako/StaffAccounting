@@ -37,4 +37,7 @@ public class ConstantAction {
     public static final String APPOINTMENT = "appointment";
     public static final String POSITION_HISTORY = "history";
     public static final String DISMISS = "dismiss";
+    public static final String REDUCE_DEPARTMENT = "reduce_department";
+    public static final String RESTORE_DEPARTMENT = "restore_department";
+    public static final String REDUCE_POSITION = "reduce_position";
 }
