@@ -10,5 +10,7 @@ public interface DepartmentService extends Service {
     void updateDepartment(DepartmentDTO departmentDTO);
     void deleteDepartment(Serializable id);
     DepartmentDTO getDepartment(Serializable id);
-    PageInfo<DepartmentDTO> getDepartmentsByPage(Integer pageNumber, Integer pageSize);
+    PageInfo<DepartmentDTO> getDepartmentsByActualAndPage(Boolean isActual, Integer pageNumber, Integer pageSize);
+    void reduceDepartment(Serializable id);
+    void restoreDepartment(Serializable id);
 }

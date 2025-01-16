@@ -4,6 +4,9 @@ import by.itacademy.jd2.converter.api.ToDtoConverter;
 import by.itacademy.jd2.converter.api.ToEntityConverter;
 import by.itacademy.jd2.dto.DepartmentDTO;
 import by.itacademy.jd2.entity.DepartmentEntity;
+import by.itacademy.jd2.entity.PositionEntity;
+
+import java.util.stream.Collectors;
 
 public class DepartmentConverter
         implements ToDtoConverter<DepartmentEntity, DepartmentDTO>, ToEntityConverter<DepartmentEntity, DepartmentDTO> {
@@ -16,7 +19,10 @@ public class DepartmentConverter
                     .name(entity.getName())
                     .genitiveCaseName(entity.getGenitiveCaseName())
                     .description(entity.getDescription())
-                    .positionsCount(entity.getPositions().size())
+                    .actualPositionsCount((int) entity.getPositions().stream()
+                            .filter(PositionEntity::getIsActual).count())
+                    .reducedPositionsCount((int) entity.getPositions().stream()
+                            .filter(position -> !position.getIsActual()).count())
                     .build();
         }
 

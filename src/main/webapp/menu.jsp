@@ -5,13 +5,19 @@
         <li>
             <form action="<%=ConstantAction.LIST_EMPLOYEES%>"
                   method="get">
-                <button class="menu-item">Действующие сотрудники организации</button>
+                <button class="menu-item"
+                        name="<%=ConstantParamAndAttribute.IS_FIRED_EMPLOYEES%>"
+                        value="false">
+                    Действующие сотрудники организации</button>
             </form>
         </li>
         <li>
             <form action="<%=ConstantAction.LIST_DEPARTMENTS%>"
                   method="get">
-                <button class="menu-item">Структура организации</button>
+                <button class="menu-item"
+                        name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
+                        value="true">
+                    Структура организации</button>
             </form>
         </li>
         <li>
@@ -33,6 +39,16 @@
                 name="<%=ConstantParamAndAttribute.IS_FIRED_EMPLOYEES%>"
                 value="true">
                     Просмотр уволенных сотрудников
+                </button>
+            </form>
+        </li>
+        <li>
+            <form action="<%=ConstantAction.LIST_DEPARTMENTS%>"
+                  method="get">
+                <button class="menu-item"
+                        name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
+                        value="false">
+                    Сокращенные подразделения/должности
                 </button>
             </form>
         </li>
