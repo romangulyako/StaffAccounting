@@ -20,6 +20,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PositionServiceImpl implements PositionService {
+    private static final boolean DEFAULT_IS_ACTUAL = true;
     private final PositionDAO positionDAO;
     private final DepartmentDAO departmentDAO;
     private final Converter converter;
@@ -72,24 +73,48 @@ public class PositionServiceImpl implements PositionService {
 
     @Transactional
     @Override
-    public PageInfo<PositionDTO> getPositionsByDepartmentIdAndPage(Serializable departmentId,
-                                                                   Integer pageNumber,
-                                                                   Integer pageSize) {
+    public PageInfo<PositionDTO> getPositionsByDepartmentIdAndActualAndPage(Serializable departmentId,
+                                                                            Boolean isActual,
+                                                                            Integer pageNumber,
+                                                                            Integer pageSize) {
         pageSize = PaginatorUtil.checkPageSize(pageSize);
         pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
+        if (isActual == null) {
+            isActual = DEFAULT_IS_ACTUAL;
+        }
         List<PositionDTO> positions = Optional.of(
-                        positionDAO.getPositionsByDepartmentIdAndPage(departmentId, pageSize, pageNumber).stream()
+                        positionDAO.getPositionsByDepartmentIdAndActualAndPage(departmentId,
+                                        isActual,
+                                        pageSize,
+                                        pageNumber)
+                                .stream()
                                 .map(entity -> converter.toDto(entity, PositionDTO.class))
                                 .collect(Collectors.toList()))
                 .orElse(null);
-        Long positionsCount = positionDAO.getPositionsCountByDepartmentId(departmentId);
+        Long positionsCount = positionDAO.getPositionsCountByDepartmentIdAndActual(departmentId, isActual);
 
         return new PageInfo<>(positions, pageNumber, pageSize, positionsCount);
+    }
+
+    @Override
+    public void reducePosition(Serializable id) {
+        this.changePositionStatus(id, false);
+    }
+
+    @Override
+    public void restorePosition(Serializable id) {
+        this.changePositionStatus(id, true);
     }
 
     @Override
     public void closeDao() {
         positionDAO.close();
         departmentDAO.close();
+    }
+
+    private void changePositionStatus(Serializable id, boolean status) {
+        PositionEntity positionEntity = positionDAO.get(id);
+        positionEntity.setIsActual(status);
+        positionDAO.update(positionEntity, id);
     }
 }

@@ -31,13 +31,16 @@ public class DepartmentInfoServlet extends HttpServlet {
             Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_SIZE));
             Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
             Long departmentId = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.DEPARTMENT_ID));
+            Boolean isActual = ParseUtil.parseBoolean(ServletUtil.getParam(req, ConstantParamAndAttribute.IS_ACTUAL));
 
             final DepartmentDTO department = departmentService.getDepartment(departmentId);
             final PageInfo<PositionDTO> pageInfo =
-                    positionService.getPositionsByDepartmentIdAndPage(departmentId, pageNumber, pageSize);
+                    positionService.getPositionsByDepartmentIdAndActualAndPage(departmentId, isActual, pageNumber,
+                            pageSize);
 
             req.setAttribute(ConstantParamAndAttribute.DEPARTMENT, department);
             req.setAttribute(ConstantParamAndAttribute.PAGE_INFO, pageInfo);
+            req.setAttribute(ConstantParamAndAttribute.IS_ACTUAL, isActual);
             req.getRequestDispatcher(ConstantJSP.DEPARTMENT_INFO_PAGE).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

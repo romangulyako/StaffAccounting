@@ -13,7 +13,10 @@ public interface PositionService extends Service {
     void deletePosition(Serializable id);
     List<PositionItemDTO> getAllPositionItems();
     PositionDTO getPosition(Serializable id);
-    PageInfo<PositionDTO> getPositionsByDepartmentIdAndPage(Serializable departmentId,
-                                                     Integer pageNumber,
-                                                     Integer pageSize);
+    PageInfo<PositionDTO> getPositionsByDepartmentIdAndActualAndPage(Serializable departmentId,
+                                                                     Boolean isActual,
+                                                                     Integer pageNumber,
+                                                                     Integer pageSize);
+    void reducePosition(Serializable id);
+    void restorePosition(Serializable id);
 }
