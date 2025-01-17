@@ -5,7 +5,7 @@ import by.itacademy.jd2.dao.api.EmployeeDAO;
 import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.utils.ExecutorUtil;
 
-import javax.persistence.TypedQuery;
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 public class EmployeeDaoImpl extends DAO<EmployeeEntity> implements EmployeeDAO {

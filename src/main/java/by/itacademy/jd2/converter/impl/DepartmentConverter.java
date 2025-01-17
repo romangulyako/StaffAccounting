@@ -6,8 +6,6 @@ import by.itacademy.jd2.dto.DepartmentDTO;
 import by.itacademy.jd2.entity.DepartmentEntity;
 import by.itacademy.jd2.entity.PositionEntity;
 
-import java.util.stream.Collectors;
-
 public class DepartmentConverter
         implements ToDtoConverter<DepartmentEntity, DepartmentDTO>, ToEntityConverter<DepartmentEntity, DepartmentDTO> {
 

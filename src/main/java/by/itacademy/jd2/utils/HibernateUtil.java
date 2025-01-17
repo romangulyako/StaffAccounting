@@ -1,8 +1,8 @@
 package by.itacademy.jd2.utils;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class HibernateUtil {
     public static final EntityManagerFactory ENTITY_MANAGER_FACTORY =

@@ -28,7 +28,8 @@ public class DepartmentsListServlet extends HttpServlet {
             Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
             Boolean isActual = ParseUtil.parseBoolean(ServletUtil.getParam(req, ConstantParamAndAttribute.IS_ACTUAL));
 
-            PageInfo<DepartmentDTO> pageItems = departmentService.getDepartmentsByActualAndPage(isActual, pageNumber, pageSize);
+            PageInfo<DepartmentDTO> pageItems = departmentService.getDepartmentsByActualAndPage(isActual,
+                    pageNumber, pageSize);
             req.setAttribute(ConstantParamAndAttribute.PAGE_INFO, pageItems);
             req.setAttribute(ConstantParamAndAttribute.IS_ACTUAL, isActual);
 

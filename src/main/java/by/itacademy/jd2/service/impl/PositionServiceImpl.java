@@ -13,7 +13,7 @@ import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.PositionService;
 import by.itacademy.jd2.utils.PaginatorUtil;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
