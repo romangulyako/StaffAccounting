@@ -32,11 +32,6 @@ import java.sql.Date;
 @Entity
 @Table(name = "passport")
 public class PassportEntity extends CommonSuperEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "EMPLOYEE_ID")
-    private Long id;
-
     @Column(length = 2)
     private String series;
 
