@@ -90,7 +90,7 @@
 
          <!-- Проверка на правильность именования пакетов -->
          <module name="PackageName">
-             <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+             <property name="format" value="^[a-z]+(\.[a-z][a-z0-9_]*)*$"/>
          </module>
 
          <!-- Проверяет правильность именования констант -->
