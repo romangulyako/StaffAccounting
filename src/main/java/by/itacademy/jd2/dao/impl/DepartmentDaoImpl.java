@@ -5,7 +5,7 @@ import by.itacademy.jd2.dao.api.DepartmentDAO;
 import by.itacademy.jd2.entity.DepartmentEntity;
 import by.itacademy.jd2.utils.ExecutorUtil;
 
-import javax.persistence.TypedQuery;
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 public class DepartmentDaoImpl extends DAO<DepartmentEntity> implements DepartmentDAO {
@@ -24,7 +24,9 @@ public class DepartmentDaoImpl extends DAO<DepartmentEntity> implements Departme
     }
 
     @Override
-    public List<DepartmentEntity> getDepartmentsByActualAndPage(Boolean isActual, Integer pageSize, Integer pageNumber) {
+    public List<DepartmentEntity> getDepartmentsByActualAndPage(Boolean isActual,
+                                                                Integer pageSize,
+                                                                Integer pageNumber) {
         return ExecutorUtil.executeHibernate(super.getEntityManager(),
                 em -> {
                     TypedQuery<DepartmentEntity> query = em.createQuery(GET_ALL_DEPARTMENTS_QUERY,

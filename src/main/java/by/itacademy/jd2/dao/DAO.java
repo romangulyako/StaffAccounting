@@ -4,7 +4,7 @@ import by.itacademy.jd2.dao.api.IDAO;
 import by.itacademy.jd2.utils.ExecutorUtil;
 import by.itacademy.jd2.utils.HibernateUtil;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.List;
 

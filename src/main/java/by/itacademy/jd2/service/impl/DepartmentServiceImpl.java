@@ -50,7 +50,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public PageInfo<DepartmentDTO> getDepartmentsByActualAndPage(Boolean isActual, Integer pageNumber, Integer pageSize) {
+    public PageInfo<DepartmentDTO> getDepartmentsByActualAndPage(Boolean isActual,
+                                                                 Integer pageNumber,
+                                                                 Integer pageSize) {
         pageSize = PaginatorUtil.checkPageSize(pageSize);
         pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
         if (isActual == null) {

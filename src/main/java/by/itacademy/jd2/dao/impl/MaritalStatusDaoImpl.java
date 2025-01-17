@@ -5,7 +5,7 @@ import by.itacademy.jd2.dao.api.MaritalStatusDAO;
 import by.itacademy.jd2.entity.MaritalStatusEntity;
 import by.itacademy.jd2.utils.ExecutorUtil;
 
-import javax.persistence.TypedQuery;
+import jakarta.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.List;
 

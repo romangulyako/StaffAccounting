@@ -2,7 +2,7 @@ package by.itacademy.jd2.utils;
 
 import by.itacademy.jd2.utils.api.HibernateExecutor;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 public class ExecutorUtil {
     public static <T> T executeHibernate(EntityManager em,
