@@ -22,7 +22,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "career")
-public class CareerStepEntity extends CommonSuperEntityWithId {
+public class CareerStepEntity extends CommonSuperEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private EmployeeEntity employee;

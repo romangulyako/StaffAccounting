@@ -25,7 +25,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "departments")
-public class DepartmentEntity extends CommonSuperEntityWithId {
+public class DepartmentEntity extends CommonSuperEntity {
     @Column
     private String name;
 
