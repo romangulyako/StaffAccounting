@@ -7,21 +7,20 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.GenericGenerator;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Column;
-import jakarta.persistence.Access;
-import jakarta.persistence.AccessType;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.JoinColumn;
 import java.sql.Date;
 
 @SuperBuilder
@@ -34,13 +33,8 @@ import java.sql.Date;
 @Table(name = "passport")
 public class PassportEntity extends CommonSuperEntity {
     @Id
-    @GenericGenerator(name = "one-one",
-            strategy = "foreign",
-            parameters = @org.hibernate.annotations.Parameter(name = "property",
-                    value = "employee"))
-    @GeneratedValue(generator = "one-one")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EMPLOYEE_ID")
-    @Access(AccessType.PROPERTY)
     private Long id;
 
     @Column(length = 2)
@@ -71,6 +65,7 @@ public class PassportEntity extends CommonSuperEntity {
     private String publisher;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn
+    @MapsId
+    @JoinColumn(name="EMPLOYEE_ID")
     private EmployeeEntity employee;
 }

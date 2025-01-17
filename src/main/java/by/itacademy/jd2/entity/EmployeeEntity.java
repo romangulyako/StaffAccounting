@@ -32,7 +32,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "employees")
-public class EmployeeEntity extends CommonSuperEntityWithId {
+public class EmployeeEntity extends CommonSuperEntity {
     @Embedded
     private PersonData personData;
 

@@ -24,7 +24,7 @@ import jakarta.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Table(name = "relatives")
-public class RelativeEntity extends CommonSuperEntityWithId {
+public class RelativeEntity extends CommonSuperEntity {
     @Embedded
     private PersonData personData;
 
