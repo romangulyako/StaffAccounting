@@ -5,11 +5,8 @@
 <%@ page import="by.itacademy.jd2.service.PageInfo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<% Boolean isActual = (Boolean) request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL);
-    DepartmentDTO department = (DepartmentDTO) request.getAttribute(ConstantParamAndAttribute.DEPARTMENT);
-    PageInfo<PositionDTO> pageInfo = (PageInfo<PositionDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
-    List<PositionDTO> positions = pageInfo.getItems();
-%>
+<% DepartmentDTO department = (DepartmentDTO) request.getAttribute(ConstantParamAndAttribute.DEPARTMENT);
+    Boolean isActual = (Boolean) request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL); %>
 <head>
     <title><%=department.getName()%>
     </title>
@@ -22,13 +19,10 @@
 <div class="container, general-div">
     <div class="item-header">
         <h2>Информация об отделе:</h2>
-        <%if (isActual) { %>
+        <%if (!isActual) { %>
         <form name="update_department"
               action="<%=ConstantAction.UPDATE_DEPARTMENT%>"
               method="get">
-            <input type="hidden"
-                   name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
-                   value="<%=isActual%>"/>
             <button class="button-edit"
                     name="<%= ConstantParamAndAttribute.ID %>"
                     value="<%= department.getId() %>">
@@ -56,12 +50,14 @@
         </div>
     </div>
     <div class="form-group">
-        <h2>Должности отдела:</h2>
+        <h2>Все должности структурного подразделения:</h2>
     </div>
     <div class="form-group">
-        <%if (positions == null || positions.isEmpty()) { %>
+        <% PageInfo<PositionDTO> pageInfo = (PageInfo<PositionDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
+            List<PositionDTO> positions = pageInfo.getItems();
+            if (positions == null || positions.isEmpty()) { %>
         <div class="form-group">
-            <h3>Должностей нет</h3>
+            <h3>В отделе пока нет должностей</h3>
         </div>
         <% } else { %>
         <div class="form-group">
@@ -72,8 +68,8 @@
                     <th>Оклад по должности</th>
                     <th colspan="4">Действие</th>
                 </tr>
-                <% for (PositionDTO position : positions) { %>
                 <tr>
+                    <% for (PositionDTO position : positions) { %>
                     <td><%=position.getName()%>
                     </td>
                     <td><%=position.getEducationLevel()%>
@@ -83,10 +79,7 @@
                     <td>
                         <form name="update_position"
                               method="get"
-                              action="<%=ConstantAction.UPDATE_POSITION%>">
-                            <input type="hidden"
-                                   name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
-                                   value="<%= isActual %>"/>
+                              action="<%= ConstantAction.UPDATE_POSITION %>">
                             <button class="button-edit"
                                     name="<%= ConstantParamAndAttribute.ID %>"
                                     value="<%= position.getId() %>">
@@ -96,97 +89,89 @@
                     </td>
                     <td>
                         <form name="delete_position"
-                              action="<%=ConstantAction.DELETE_POSITION%>"
-                              method="post">
-                            <input type="hidden"
-                                   name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
-                                   value="<%= department.getId() %>"/>
-                            <input type="hidden"
-                                   name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
-                                   value="<%= isActual %>"/>
+                              method="post"
+                              action="<%= ConstantAction.DELETE_POSITION %>">
                             <button class="button-delete"
                                     name="<%= ConstantParamAndAttribute.ID %>"
                                     value="<%= position.getId() %>">
                                 Удалить
                             </button>
+                            <input type="hidden"
+                                   name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
+                                   value="<%=department.getId()%>">
                         </form>
                     </td>
                     <td>
                         <form name="show_history"
-                              action="<%=ConstantAction.POSITION_HISTORY%>"
-                              method="get">
-                            <input type="hidden"
-                                   name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
-                                   value="<%=department.getId()%>"/>
-                            <input type="hidden"
-                                   name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
-                                   value="<%= isActual %>"/>
+                              method="get"
+                              action="<%= ConstantAction.POSITION_HISTORY %>">
                             <button class="button-show"
                                     name="<%= ConstantParamAndAttribute.POSITION_ID %>"
                                     value="<%= position.getId() %>">
                                 Посмотреть историю
                             </button>
+                            <input type="hidden"
+                                   name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
+                                   value="<%=department.getId()%>">
                         </form>
                     </td>
                     <td>
-                        <%if (isActual) { %>
+                        <%if (isActual == null || isActual) {%>
                         <form name="reduce_position"
-                              action="<%=ConstantAction.REDUCE_POSITION%>"
-                              method="post">
-                            <input type="hidden"
-                                   name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
-                                   value="<%=department.getId()%>"/>
-                            <input type="hidden"
-                                   name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
-                                   value="<%= true %>"/>
+                              method="post"
+                              action="<%= ConstantAction.REDUCE_POSITION %>">
                             <button class="button-reduce"
                                     name="<%= ConstantParamAndAttribute.POSITION_ID %>"
                                     value="<%= position.getId() %>">
                                 Сократить
                             </button>
-                        </form>
-                        <% } else { %>
-                        <form name="restore_position"
-                              action="<%=ConstantAction.RESTORE_POSITION%>"
-                              method="post">
                             <input type="hidden"
                                    name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
-                                   value="<%=department.getId()%>"/>
-                            <input type="hidden"
-                                   name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
-                                   value="<%= true %>"/>
-                            <button class="button-reduce"
+                                   value="<%=department.getId()%>">
+                        </form>
+                        <% } else {%>
+                        <form name="restore_position"
+                              method="post"
+                              action="<%= ConstantAction.RESTORE_POSITION %>">
+                            <button class="button-restore"
                                     name="<%= ConstantParamAndAttribute.POSITION_ID %>"
                                     value="<%= position.getId() %>">
                                 Восстановить
                             </button>
+                            <input type="hidden"
+                                   name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
+                                   value="<%=department.getId()%>">
                         </form>
                         <% } %>
                     </td>
                 </tr>
-                <% } %>
+                <%
+                    }
+                %>
             </table>
             <form action="<%=ConstantAction.DEPARTMENT_INFO%>"
                   method="get">
-                <input type="hidden"
-                       name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
-                       value="<%=department.getId()%>"/>
+                <%if (Boolean.FALSE.equals(isActual)) { %>
                 <input type="hidden"
                        name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
-                       value="<%= true %>"/>
+                       value="<%=isActual%>"/>
+                <% } %>
+                <input type="hidden"
+                       name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
+                       value="<%= department.getId()%>"/>
                 <% request.setAttribute(ConstantParamAndAttribute.PAGE_NUMBER, pageInfo.getPageNumber());
                     request.setAttribute(ConstantParamAndAttribute.PAGE_SIZE, pageInfo.getPageSize());
                     request.setAttribute(ConstantParamAndAttribute.TOTAL_PAGES, pageInfo.getTotalPages());%>
                 <%@include file="../paginator.jsp" %>
             </form>
         </div>
-        <% } %>
+        <%
+            }
+        %>
         <div class="tabs">
-            <%if (isActual) { %>
             <form name="add_position"
                   action="<%=ConstantAction.ADD_POSITION%>"
                   method="get">
-
                 <button class="tab, button-add"
                         type="submit"
                         name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
@@ -194,7 +179,6 @@
                     Добавить новую должность
                 </button>
             </form>
-            <% } %>
             <form name="list_departments"
                   action="<%=ConstantAction.LIST_DEPARTMENTS%>"
                   method="get">

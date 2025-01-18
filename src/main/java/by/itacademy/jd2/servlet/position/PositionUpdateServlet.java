@@ -29,6 +29,8 @@ public class PositionUpdateServlet extends HttpServlet {
         try {
             final PositionDTO position = positionService.getPosition(
                     ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
+            req.setAttribute(ConstantParamAndAttribute.IS_ACTUAL,
+                    ParseUtil.parseBoolean(ServletUtil.getParam(req, ConstantParamAndAttribute.IS_ACTUAL)));
             req.setAttribute(ConstantParamAndAttribute.POSITION, position);
             req.getRequestDispatcher(ConstantJSP.UPDATE_POSITION_PAGE).forward(req, resp);
         } catch (Exception e) {

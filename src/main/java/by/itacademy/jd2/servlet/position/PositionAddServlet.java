@@ -21,6 +21,7 @@ import java.io.IOException;
 
 @WebServlet(name = "positionAddServlet", value = "/add_position")
 public class PositionAddServlet extends HttpServlet {
+    private static final Boolean DEFAULT_IS_ACTUAL_FOR_ADD = true;
     private final PositionService positionService = new PositionServiceImpl();
     private final DepartmentService departmentService = new DepartmentServiceImpl();
 
@@ -29,6 +30,7 @@ public class PositionAddServlet extends HttpServlet {
         try {
             Long departmentId = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.DEPARTMENT_ID));
             req.setAttribute(ConstantParamAndAttribute.DEPARTMENT_ID, departmentId);
+            req.setAttribute(ConstantParamAndAttribute.IS_ACTUAL, DEFAULT_IS_ACTUAL_FOR_ADD);
             req.getRequestDispatcher(ConstantJSP.ADD_POSITION_PAGE).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

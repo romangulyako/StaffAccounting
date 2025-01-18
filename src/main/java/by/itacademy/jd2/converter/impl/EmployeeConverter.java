@@ -14,6 +14,7 @@ public class EmployeeConverter
     public EmployeeDTO toDto(EmployeeEntity entity) {
         if (entity != null) {
             String position = entity.getCareer().stream()
+                    .filter(CareerStepEntity::isCurrent)
                     .max(Comparator.comparing(CareerStepEntity::getDateOfAppointment))
                     .map(careerStep -> careerStep.getPosition().getName() + " "
                             + careerStep.getPosition().getDepartment().getGenitiveCaseName())

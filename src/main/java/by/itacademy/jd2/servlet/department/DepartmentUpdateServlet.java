@@ -19,6 +19,7 @@ import java.io.IOException;
 
 @WebServlet(name = "departmentUpdateServlet", value = "/update_department")
 public class DepartmentUpdateServlet extends HttpServlet {
+    private static final Boolean DEFAULT_IS_ACTUAL_FOR_UPDATE = true;
     private final DepartmentService departmentService = new DepartmentServiceImpl();;
 
     @Override
@@ -27,6 +28,7 @@ public class DepartmentUpdateServlet extends HttpServlet {
             DepartmentDTO department = departmentService.getDepartment(
                     ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
             req.setAttribute(ConstantParamAndAttribute.DEPARTMENT, department);
+            req.setAttribute(ConstantParamAndAttribute.IS_ACTUAL, DEFAULT_IS_ACTUAL_FOR_UPDATE);
             req.getRequestDispatcher(ConstantJSP.UPDATE_DEPARTMENT_PAGE).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

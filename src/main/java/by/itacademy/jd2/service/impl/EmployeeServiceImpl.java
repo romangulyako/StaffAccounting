@@ -38,7 +38,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void updateEmployee(EmployeeDTO employeeDTO) {
         if (employeeDTO != null) {
             EmployeeEntity newEmployee = converter.toEntity(employeeDTO, EmployeeEntity.class);
-            newEmployee.setPassport(employeeDAO.get(employeeDTO.getId()).getPassport());
+            EmployeeEntity oldEmployee = employeeDAO.get(employeeDTO.getId());
+            newEmployee.setPassport(oldEmployee.getPassport());
+            newEmployee.setFired(oldEmployee.isFired());
             employeeDAO.update(newEmployee, newEmployee.getId());
         }
     }
