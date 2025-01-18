@@ -3,7 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="by.itacademy.jd2.dto.PositionDTO" %>
 <%@ page import="by.itacademy.jd2.service.PageInfo" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <% Boolean isActual = (Boolean) request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL);
     DepartmentDTO department = (DepartmentDTO) request.getAttribute(ConstantParamAndAttribute.DEPARTMENT);
