@@ -69,6 +69,9 @@
         <form name="department_info"
               method="get"
               action="<%= ConstantAction.DEPARTMENT_INFO %>">
+            <input type="hidden"
+                   name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
+                   value="<%=request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL)%>"/>
             <button class="tab"
                     name="<%= ConstantParamAndAttribute.DEPARTMENT_ID%>"
                     value="<%= request.getAttribute(ConstantParamAndAttribute.DEPARTMENT_ID)%>">

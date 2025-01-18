@@ -22,6 +22,9 @@
                name="<%= ConstantParamAndAttribute.ID %>"
                value="<%= department.getId() %>"
                required>
+        <input type="hidden"
+               name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
+               value="<%=request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL)%>"/>
         <div class="form-group">
             <label for="name">Наименование:</label>
             <input type="text"

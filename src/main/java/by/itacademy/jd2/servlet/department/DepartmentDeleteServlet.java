@@ -23,7 +23,7 @@ public class DepartmentDeleteServlet extends HttpServlet {
         try {
             departmentService.deleteDepartment(ParseUtil.parseLong(
                     ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
-            resp.sendRedirect(ConstantAction.LIST_DEPARTMENTS);
+            req.getRequestDispatcher(ConstantAction.LIST_DEPARTMENTS).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }

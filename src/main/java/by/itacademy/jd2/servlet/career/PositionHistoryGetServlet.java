@@ -28,9 +28,11 @@ public class PositionHistoryGetServlet extends HttpServlet {
             Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
             Long positionId = ParseUtil.parseLong(ServletUtil.getParam(req,
                     ConstantParamAndAttribute.POSITION_ID));
+            Boolean isActual = ParseUtil.parseBoolean(ServletUtil.getParam(req, ConstantParamAndAttribute.IS_ACTUAL));
             PageInfo<PositionHistoryDTO> pageInfo =
                     careerService.getPositionHistoryByPage(positionId, pageNumber, pageSize);
 
+            req.setAttribute(ConstantParamAndAttribute.IS_ACTUAL, isActual);
             req.setAttribute(ConstantParamAndAttribute.PAGE_INFO, pageInfo);
             req.setAttribute(ConstantParamAndAttribute.DEPARTMENT_ID, ServletUtil.getParam(req,
                     ConstantParamAndAttribute.DEPARTMENT_ID));

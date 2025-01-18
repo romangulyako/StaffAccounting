@@ -7,6 +7,7 @@ import by.itacademy.jd2.dao.impl.DepartmentDaoImpl;
 import by.itacademy.jd2.dao.impl.PositionDaoImpl;
 import by.itacademy.jd2.dto.PositionDTO;
 import by.itacademy.jd2.dto.PositionItemDTO;
+import by.itacademy.jd2.entity.CareerStepEntity;
 import by.itacademy.jd2.entity.DepartmentEntity;
 import by.itacademy.jd2.entity.PositionEntity;
 import by.itacademy.jd2.service.PageInfo;
@@ -15,6 +16,8 @@ import by.itacademy.jd2.utils.PaginatorUtil;
 
 import jakarta.transaction.Transactional;
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,9 +48,11 @@ public class PositionServiceImpl implements PositionService {
     @Override
     public void updatePosition(PositionDTO positionDTO) {
         if (positionDTO != null) {
-            PositionEntity positionEntity = converter.toEntity(positionDTO, PositionEntity.class);
-            positionEntity.setDepartment(positionDAO.get(positionEntity.getId()).getDepartment());
-            positionDAO.update(positionEntity, positionEntity.getId());
+            PositionEntity newPosition = converter.toEntity(positionDTO, PositionEntity.class);
+            PositionEntity oldPosition = positionDAO.get(positionDTO.getId());
+            newPosition.setDepartment(oldPosition.getDepartment());
+            newPosition.setIsActual(oldPosition.getIsActual());
+            positionDAO.update(newPosition, newPosition.getId());
         }
     }
 
@@ -67,6 +72,7 @@ public class PositionServiceImpl implements PositionService {
     @Override
     public List<PositionItemDTO> getAllPositionItems() {
         return positionDAO.getAll().stream()
+                .filter(PositionEntity::getIsActual)
                 .map(entity -> converter.toDto(entity, PositionItemDTO.class))
                 .collect(Collectors.toList());
     }
@@ -96,8 +102,18 @@ public class PositionServiceImpl implements PositionService {
         return new PageInfo<>(positions, pageNumber, pageSize, positionsCount);
     }
 
+    @Transactional
     @Override
     public void reducePosition(Serializable id) {
+        PositionEntity position = positionDAO.get(id);
+        position.getHistory().stream()
+                .filter(CareerStepEntity::isCurrent)
+                .forEach(careerStep -> {
+                    careerStep.setCurrent(false);
+                    careerStep.setDateOfLiberationPosition(Date.valueOf(LocalDate.now()));
+                    careerStep.setOrderLiberation("По сокращению");
+                });
+        positionDAO.update(position, position.getId());
         this.changePositionStatus(id, false);
     }
 

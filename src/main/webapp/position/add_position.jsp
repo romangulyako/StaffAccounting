@@ -16,6 +16,9 @@
     <form id="save"
           action="<%=ConstantAction.ADD_POSITION%>"
           method="post">
+        <input type="hidden"
+               name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
+               value="<%=request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL)%>"/>
         <div class="form-group">
             <label for="name">Наименование должности:</label>
             <input type="text"
@@ -53,6 +56,9 @@
             </button>
         </div>
         <div class="form-group">
+            <input type="hidden"
+                   name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
+                   value="<%= request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL) %>"/>
             <button class="tab"
                     name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
                     value="<%=request.getAttribute(ConstantParamAndAttribute.DEPARTMENT_ID)%>">
