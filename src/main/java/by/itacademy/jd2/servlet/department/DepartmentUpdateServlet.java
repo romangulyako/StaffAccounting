@@ -20,7 +20,7 @@ import java.io.IOException;
 @WebServlet(name = "departmentUpdateServlet", value = "/update_department")
 public class DepartmentUpdateServlet extends HttpServlet {
     private static final Boolean DEFAULT_IS_ACTUAL_FOR_UPDATE = true;
-    private final DepartmentService departmentService = new DepartmentServiceImpl();;
+    private final DepartmentService departmentService = new DepartmentServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
