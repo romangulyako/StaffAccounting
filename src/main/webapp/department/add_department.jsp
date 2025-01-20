@@ -8,57 +8,66 @@
     </style>
 </head>
 <body>
-<%@include file="../menu.jsp" %>
-<div class="form-container, general-div">
+<%@include file="../header.jsp" %>
+<main>
+    <%@include file="../menu.jsp" %>
     <div class="form-group">
-        <h2>Введите данные об отделе:</h2>
-    </div>
-    <form id="save"
-          action="<%= ConstantAction.ADD_DEPARTMENT %>"
-          method="post">
-        <input type="hidden"
-               name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
-               value="<%=request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL)%>"/>
-        <div class="form-group">
-            <label for="name">Наименование:</label>
-            <input type="text"
-                   id="name"
-                   name="<%= ConstantParamAndAttribute.NAME %>"
-                   placeholder="Введите название отдела"
-                   required>
+        <h2>Заполните данные об отделе:</h2>
+        <div class="filling-form">
+            <form id="save"
+                  action="<%= ConstantAction.ADD_DEPARTMENT %>"
+                  method="post">
+                <input type="hidden"
+                       name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
+                       value="<%=request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL)%>"/>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Наименование</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.NAME %>"
+                                   placeholder="Введите название отдела"
+                                   required>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Наименование в родительном падеже</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.GENITIVE_CASE_NAME %>"
+                                   placeholder="Введите название отдела в родительном падеже"
+                                   required>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Описание</legend>
+                        <textarea rows="5"
+                                  placeholder="Введите описание отдела"
+                                  name="<%=ConstantParamAndAttribute.DESCRIPTION%>"></textarea>
+                    </fieldset>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="genitive_case_name">Наименование в родительном падеже:</label>
-            <input type="text"
-                   id="genitive_case_name"
-                   name="<%= ConstantParamAndAttribute.GENITIVE_CASE_NAME %>"
-                   placeholder="Введите название отдела в родительном падеже"
-                   required>
-        </div>
-        <div class="form-group">
-            <label for="description">Описание:</label>
-            <textarea id="description"
-                      rows="5"
-                      placeholder="Введите описание отдела"
-                      name="<%=ConstantParamAndAttribute.DESCRIPTION%>"></textarea>
-        </div>
-    </form>
-    <form class="tabs"
-          action="<%=ConstantAction.LIST_DEPARTMENTS%>"
-          method="get">
-        <div class="form-group">
-            <button class="tab, button-add"
+        <form class="footer-buttons-block"
+              action="<%=ConstantAction.LIST_DEPARTMENTS%>"
+              method="get">
+            <button class="footer-button, button-add"
                     form="save"
                     type="submit">
                 Сохранить
             </button>
-        </div>
-        <div class="form-group">
-            <button class="tab">
+            <button class="footer-button"
+            name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
+            value="<%=request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL)%>">
                 Вернуться к списку отделов
             </button>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+</main>
+<%@include file="../footer.jsp" %>
 </body>
 </html>

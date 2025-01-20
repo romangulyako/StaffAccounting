@@ -10,95 +10,126 @@
     </style>
 </head>
 <body>
-<%@include file="../menu.jsp" %>
-<div class="form-container, general-div">
+<%@include file="../header.jsp" %>
+<main>
+    <%@include file="../menu.jsp" %>
     <div class="form-group">
-        <h2>Введите данные о новом сотруднике:</h2>
-    </div>
-    <form id="save" action="<%= ConstantAction.ADD_EMPLOYEE %>" method="post">
-        <div class="form-group">
-            <label for="surname">Фамилия:</label>
-            <input type="text"
-                   id="surname"
-                   name="<%= ConstantParamAndAttribute.SURNAME %>"
-                   placeholder="Введите фамилию"
-                   required/>
+        <h2>Заполните информацию о сотруднике:</h2>
+        <div class="filling-form">
+            <form id="save"
+                  action="<%= ConstantAction.ADD_EMPLOYEE %>"
+                  method="post">
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Фамилия</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.SURNAME %>"
+                                   placeholder="Введите фамилию"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Имя</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.NAME %>"
+                                   placeholder="Введите имя"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Отчество</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.PATRONYMIC %>"
+                                   placeholder="Введите отчество"/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Дата рождения</legend>
+                        <label>
+                            <input type="date"
+                                   name="<%= ConstantParamAndAttribute.BIRTHDAY %>"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Город, в котором проживает:</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.RESIDENCE_CITY %>"
+                                   placeholder="Введите название города"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Улица, на которой проживает:</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.RESIDENCE_STREET %>"
+                                   placeholder="Введите название улицы"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Дом, в котором проживает:</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.RESIDENCE_HOUSE %>"
+                                   placeholder="Введите номер дома"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Квартира, в которой проживает</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.RESIDENCE_APARTMENT %>"
+                                   placeholder="Введите номер квартиры"/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Номер телефона</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.PHONE %>"
+                                   placeholder="Введите номер телефона"/>
+                        </label>
+                    </fieldset>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="name">Имя:</label>
-            <input type="text"
-                   id="name"
-                   name="<%= ConstantParamAndAttribute.NAME %>"
-                   placeholder="Введите имя"
-                   required/>
-        </div>
-        <div class="form-group">
-            <label for="patronymic">Отчество:</label>
-            <input type="text"
-                   id="patronymic"
-                   name="<%= ConstantParamAndAttribute.PATRONYMIC %>"
-                   placeholder="Введите отчество"/>
-        </div>
-        <div class="form-group">
-            <label for="birthday">Дата рождения:</label>
-            <input type="date"
-                   id="birthday"
-                   name="<%= ConstantParamAndAttribute.BIRTHDAY %>"
-                   required/>
-        </div>
-        <div class="form-group">
-            <label for="residence_city">Город, в котором проживает:</label>
-            <input type="text"
-                   id="residence_city"
-                   name="<%= ConstantParamAndAttribute.RESIDENCE_CITY %>"
-                   placeholder="Введите название города"
-                   required/>
-        </div>
-        <div class="form-group">
-            <label for="residence_street">Улица, на которой проживает:</label>
-            <input type="text"
-                   id="residence_street"
-                   name="<%= ConstantParamAndAttribute.RESIDENCE_STREET %>"
-                   placeholder="Введите название улицы"
-                   required/>
-        </div>
-        <div class="form-group">
-            <label for="residence_house">Дом, в котором проживает:</label>
-            <input type="text"
-                   id="residence_house"
-                   name="<%= ConstantParamAndAttribute.RESIDENCE_HOUSE %>"
-                   placeholder="Введите номер дома"
-                   required/>
-        </div>
-        <div class="form-group">
-            <label for="residence_apartment">Квартира, в которой проживает:</label>
-            <input type="text"
-                   id="residence_apartment"
-                   name="<%= ConstantParamAndAttribute.RESIDENCE_APARTMENT %>"
-                   placeholder="Введите номер квартиры"/>
-        </div>
-        <div class="form-group">
-            <label for="phone">Номер телефона:</label>
-            <input type="text"
-                   id="phone"
-                   name="<%= ConstantParamAndAttribute.PHONE %>"
-                   placeholder="Введите номер телефона"/>
-        </div>
-    </form>
-    <form class="tabs" action="<%=ConstantAction.LIST_EMPLOYEES%>" method="get">
-        <div class="form-group">
-            <button class="tab, button-add"
+        <form class="footer-buttons-block"
+              action="<%=ConstantAction.LIST_EMPLOYEES%>"
+              method="get">
+            <button class="footer-button, button-add"
                     form="save"
                     type="submit">
                 Сохранить
             </button>
-        </div>
-        <div class="form-group">
-            <button class="tab">
+            <button class="footer-button">
                 Вернуться к просмотру сотрудника
             </button>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+</main>
+<%@include file="../footer.jsp" %>
 </body>
 </html>

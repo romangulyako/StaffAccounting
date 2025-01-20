@@ -10,82 +10,101 @@
     </style>
 </head>
 <body>
-<%@include file="../menu.jsp" %>
-<% RelativeDTO relative = (RelativeDTO) request.getAttribute(ConstantParamAndAttribute.RELATIVE); %>
-<div class="form-container, general-div">
+<%@include file="../header.jsp" %>
+<main>
+    <%@include file="../menu.jsp" %>
     <div class="form-group">
-        <h2>Введите новые данные о родственнике:</h2>
-    </div>
-    <form id="save" action="<%= ConstantAction.UPDATE_RELATIVE%>"
-          method="post">
-        <input name="<%= ConstantParamAndAttribute.ID %>"
-               type="hidden"
-               value="<%= relative.getId() %>"
-               required/>
-        <input name="<%= ConstantParamAndAttribute.EMPLOYEE_ID %>"
-               type="hidden"
-               value="<%= relative.getEmployeeId() %>"
-               required/>
-        <div class="form-group">
-            <label for="surname">Фамилия:</label>
-            <input type="text"
-                   id="surname"
-                   name="<%= ConstantParamAndAttribute.SURNAME %>"
-                   value="<%= relative.getPersonData().getSurname() %>"
-                   placeholder="Введите фамилию"
-                   required/>
+        <h2>Введите данные о родственнике:</h2>
+        <div class="filling-form">
+            <% RelativeDTO relative = (RelativeDTO) request.getAttribute(ConstantParamAndAttribute.RELATIVE); %>
+            <form id="save"
+                  action="<%=ConstantAction.UPDATE_RELATIVE%>"
+                  method="post">
+                <input name="<%= ConstantParamAndAttribute.ID %>"
+                       type="hidden"
+                       value="<%= relative.getId() %>"
+                       required/>
+                <input name="<%= ConstantParamAndAttribute.EMPLOYEE_ID %>"
+                       type="hidden"
+                       value="<%= relative.getEmployeeId() %>"
+                       required/>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Фамилия</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.SURNAME %>"
+                                   value="<%= relative.getPersonData().getSurname() %>"
+                                   placeholder="Введите фамилию"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Имя</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.NAME %>"
+                                   value="<%= relative.getPersonData().getName() %>"
+                                   placeholder="Введите имя"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Отчество</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.PATRONYMIC %>"
+                                    <%if (relative.getPersonData().getPatronymic() != null) { %>
+                                   value="<%= relative.getPersonData().getPatronymic() %>"
+                                    <% } %>
+                                   placeholder="Введите отчество"/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Дата рождения</legend>
+                        <label>
+                            <input type="date"
+                                   name="<%= ConstantParamAndAttribute.BIRTHDAY %>"
+                                   value="<%= relative.getPersonData().getBirthday() %>"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Тип родства</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.TYPE_KINSHIP %>"
+                                   value="<%= relative.getTypeKinship()%>"
+                                   placeholder="Введите тип родства"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="name">Имя:</label>
-            <input type="text"
-                   id="name"
-                   name="<%= ConstantParamAndAttribute.NAME %>"
-                   value="<%= relative.getPersonData().getName() %>"
-                   placeholder="Введите имя"
-                   required/>
-        </div>
-        <div class="form-group">
-            <label for="patronymic">Отчество:</label>
-            <input type="text"
-                   id="patronymic"
-                   name="<%= ConstantParamAndAttribute.PATRONYMIC %>"
-                    <%if (relative.getPersonData().getPatronymic() != null) { %>
-                   value="<%= relative.getPersonData().getPatronymic() %>"
-                   <% } %>
-                   placeholder="Введите отчество"/>
-        </div>
-        <div class="form-group">
-            <label for="birthday">Дата рождения:</label>
-            <input type="date"
-                   id="birthday"
-                   name="<%= ConstantParamAndAttribute.BIRTHDAY %>"
-                   value="<%= relative.getPersonData().getBirthday() %>"
-                   required/>
-        </div>
-        <div class="form-group">
-            <label for="type_kinship">Тип родства:</label>
-            <input type="text"
-                   id="type_kinship"
-                   name="<%= ConstantParamAndAttribute.TYPE_KINSHIP %>"
-                   value="<%= relative.getTypeKinship()%>"
-                   placeholder="Введите тип родства"
-                   required/>
-        </div>
-    </form>
-    <form class="tabs" action="<%= ConstantAction.RELATIVES %>" method="get">
-        <div class="form-group">
-            <button class="tab, button-add" form="save">
+        <form class="footer-buttons-block"
+              action="<%=ConstantAction.RELATIVES%>"
+              method="get">
+            <button class="footer-button, button-add"
+                    form="save">
                 Сохранить
             </button>
-        </div>
-        <div class="form-group">
-            <button class="tab"
+            <button class="footer-button"
                     name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
                     value="<%=relative.getEmployeeId()%>">
                 Вернуться к просмотру родственников
             </button>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+</main>
+<%@include file="../footer.jsp" %>
 </body>
 </html>

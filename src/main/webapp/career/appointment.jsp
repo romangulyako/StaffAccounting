@@ -11,84 +11,97 @@
     </style>
 </head>
 <body>
-<%@include file="../menu.jsp" %>
-<div class="form-container, general-div">
+<%@include file="../header.jsp" %>
+<main>
+    <%@include file="../menu.jsp" %>
     <div class="form-group">
         <h2>Заполните форму для назначения сотрудника:</h2>
-    </div>
-    <form id="save"
-          action="<%=ConstantAction.APPOINTMENT%>"
-          method="post">
-        <div class="form-group">
-            <label for="employee">Выберите сотрудника</label>
-            <select name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
-                    id="employee"
-                    required>
-                <option value=""
-                        disabled
-                        selected>
-                    Выберите сотрудника
-                </option>
-                <% List<EmployeeItemDTO> employees = (List<EmployeeItemDTO>) request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ITEMS);
-                    if (employees != null) {
-                        for (EmployeeItemDTO employee : employees) {
-                %>
-                <option value="<%=employee.getId()%>">
-                    <%=employee.getSurname() + " " + employee.getName() + " " + employee.getPatronymic()%>
-                </option>
-                <%
-                        }
-                    }
-                %>
-            </select>
+        <div class="filling-form">
+            <form id="save"
+                  action="<%=ConstantAction.APPOINTMENT%>"
+                  method="post">
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Сотрудник</legend>
+                        <select name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
+                                id="employee"
+                                required>
+                            <option value=""
+                                    disabled
+                                    selected>
+                                Выберите сотрудника
+                            </option>
+                            <% List<EmployeeItemDTO> employees = (List<EmployeeItemDTO>) request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ITEMS);
+                                if (employees != null) {
+                                    for (EmployeeItemDTO employee : employees) {
+                            %>
+                            <option value="<%=employee.getId()%>">
+                                <%=employee.getSurname() + " " + employee.getName() + " " + employee.getPatronymic()%>
+                            </option>
+                            <%
+                                    }
+                                }
+                            %>
+                        </select>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Должность</legend>
+                        <select name="<%=ConstantParamAndAttribute.NEW_POSITION_ID%>"
+                                id="position"
+                                required>
+                            <option value=""
+                                    disabled
+                                    selected>
+                                Выберите должность
+                            </option>
+                            <% List<PositionItemDTO> positions = (List<PositionItemDTO>) request.getAttribute(ConstantParamAndAttribute.POSITION_ITEMS);
+                                if (positions != null) {
+                                    for (PositionItemDTO position : positions) {
+                            %>
+                            <option value="<%=position.getId()%>">
+                                <%=position.getPositionName() + " " + position.getDepartmentGenitiveCaseName() %>
+                            </option>
+                            <%
+                                    }
+                                }
+                            %>
+                        </select>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Дата назначения</legend>
+                        <label>
+                            <input type="date"
+                                   name="<%= ConstantParamAndAttribute.NEW_DATE_OF_APPOINTMENT %>"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Приказ о назначении</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.ORDER_APPOINTMENT %>"
+                                   placeholder="Введите реквизиты приказа"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="position">Выберите должность</label>
-            <select name="<%=ConstantParamAndAttribute.NEW_POSITION_ID%>"
-                    id="position"
-                    required>
-                <option value=""
-                        disabled
-                        selected>
-                    Выберите должность
-                </option>
-                <% List<PositionItemDTO> positions = (List<PositionItemDTO>) request.getAttribute(ConstantParamAndAttribute.POSITION_ITEMS);
-                    if (positions != null) {
-                        for (PositionItemDTO position : positions) {
-                %>
-                <option value="<%=position.getId()%>">
-                    <%=position.getPositionName() + " " + position.getDepartmentGenitiveCaseName() %>
-                </option>
-                <%
-                        }
-                    }
-                %>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="date_of_appointment">Дата назначения:</label>
-            <input type="date"
-                   id="date_of_appointment"
-                   name="<%= ConstantParamAndAttribute.NEW_DATE_OF_APPOINTMENT %>"
-                   required>
-        </div>
-        <div class="form-group">
-            <label for="order">Приказ о назначении:</label>
-            <input type="text"
-                   id="order"
-                   name="<%= ConstantParamAndAttribute.ORDER_APPOINTMENT %>"
-                   required>
-        </div>
-    </form>
-    <form class="tabs">
-        <div class="form-group">
-            <button class="button-add"
+        <form class="footer-buttons-block">
+            <button class="footer-button, button-add"
                     form="save"
                     type="submit">
                 Назначить
             </button>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+</main>
+<%@include file="../footer.jsp" %>
 </body>
 </html>

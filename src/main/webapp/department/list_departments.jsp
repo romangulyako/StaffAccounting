@@ -11,22 +11,25 @@
     </style>
 </head>
 <body>
-<%@include file="../menu.jsp" %>
-<% PageInfo<DepartmentDTO> pageInfo = (PageInfo<DepartmentDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
-    List<DepartmentDTO> departments = pageInfo.getItems();
-    Boolean isActual = (Boolean) request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL);%>
-<div class="form-container, general-div">
-    <div class="form-group">
-        <h2>Структура организации:</h2>
-    </div>
-    <div class="form-group">
+<%@include file="../header.jsp" %>
+<main>
+    <%@include file="../menu.jsp" %>
+    <div>
+        <% PageInfo<DepartmentDTO> pageInfo = (PageInfo<DepartmentDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
+            List<DepartmentDTO> departments = pageInfo.getItems();
+            Boolean isActual = (Boolean) request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL);%>
+
+        <h2>Структура организации</h2>
         <table>
+            <thead>
             <tr>
                 <th>Наименование</th>
                 <th>Описание отдела</th>
                 <th>Количество должностей</th>
                 <th colspan="3">Действие</th>
             </tr>
+            </thead>
+            <tbody>
             <% for (DepartmentDTO department : departments) { %>
             <tr>
                 <td><%=department.getName()%>
@@ -102,6 +105,7 @@
                 </td>
             </tr>
             <% } %>
+            </tbody>
         </table>
         <form action="<%=ConstantAction.LIST_DEPARTMENTS%>"
               method="get">
@@ -113,16 +117,15 @@
                 request.setAttribute(ConstantParamAndAttribute.TOTAL_PAGES, pageInfo.getTotalPages());%>
             <%@include file="../paginator.jsp" %>
         </form>
-    </div>
-    <% if (isActual) { %>
-    <div>
+        <% if (isActual) { %>
         <form name="add_department"
               method="get"
               action="<%= ConstantAction.ADD_DEPARTMENT %>">
             <button class="button-add">Добавить новый отдел</button>
         </form>
+        <% } %>
     </div>
-    <% } %>
-</div>
+</main>
+<%@include file="../footer.jsp" %>
 </body>
 </html>

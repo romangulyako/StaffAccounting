@@ -1,78 +1,90 @@
 <%@ page import="by.itacademy.jd2.dto.DepartmentDTO" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>Title</title>
+    <title>Изменить отдел</title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
 </head>
 <body>
-<%@include file="../menu.jsp" %>
-<% DepartmentDTO department = (DepartmentDTO) request.getAttribute(ConstantParamAndAttribute.DEPARTMENT); %>
-<div class="form-container, general-div">
+<%@include file="../header.jsp" %>
+<main>
+    <%@include file="../menu.jsp" %>
     <div class="form-group">
-        <h2>Введите информацию об отделе:</h2>
-    </div>
-    <form id="save"
-          action="<%=ConstantAction.UPDATE_DEPARTMENT%>"
-          method="post">
-        <input type="hidden"
-               name="<%= ConstantParamAndAttribute.ID %>"
-               value="<%= department.getId() %>"
-               required>
-        <input type="hidden"
-               name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
-               value="<%=request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL)%>"/>
-        <div class="form-group">
-            <label for="name">Наименование:</label>
-            <input type="text"
-                   id="name"
-                   name="<%= ConstantParamAndAttribute.NAME %>"
-                   value="<%=department.getName()%>"
-                   placeholder="Введите название отдела"
-                   required>
+        <% DepartmentDTO department = (DepartmentDTO) request.getAttribute(ConstantParamAndAttribute.DEPARTMENT); %>
+        <h2>Заполните данные об отделе:</h2>
+        <div class="filling-form">
+            <form id="save"
+                  action="<%=ConstantAction.UPDATE_DEPARTMENT%>"
+                  method="post">
+                <input type="hidden"
+                       name="<%= ConstantParamAndAttribute.ID %>"
+                       value="<%= department.getId() %>"
+                       required>
+                <input type="hidden"
+                       name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
+                       value="<%=request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL)%>"/>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Наименование</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.NAME %>"
+                                   value="<%=department.getName()%>"
+                                   placeholder="Введите наименование отдела"
+                                   required>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Наименование в родительном падеже</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.GENITIVE_CASE_NAME %>"
+                                   value="<%=department.getGenitiveCaseName()%>"
+                                   placeholder="Введите наименование отдела в родительном падеже"
+                                   required>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Описание</legend>
+                        <textarea rows="5"
+                                  placeholder="Введите описание отдела"
+                                  name="<%=ConstantParamAndAttribute.DESCRIPTION%>">
+                            <%if (department.getDescription() != null) { %>
+                            <%=department.getDescription()%>
+                            <% } %>
+                        </textarea>
+                    </fieldset>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="genitive_case_name">Наименование в родительном падеже:</label>
-            <input type="text"
-                   id="genitive_case_name"
-                   name="<%= ConstantParamAndAttribute.GENITIVE_CASE_NAME %>"
-                   value="<%=department.getGenitiveCaseName()%>"
-                   placeholder="Введите название отдела в родительном падеже"
-                   required>
-        </div>
-        <div class="form-group">
-            <label for="description">Описание:</label>
-            <textarea id="description"
-                      rows="5"
-                      placeholder="Введите описание отдела"
-                      name="<%=ConstantParamAndAttribute.DESCRIPTION%>">
-                <%if (department.getDescription() != null) { %>
-                <%=department.getDescription()%>
-                <% } %>
-            </textarea>
-        </div>
-    </form>
-    <form class="tabs" action="<%=ConstantAction.DEPARTMENT_INFO%>" method="get">
-        <div class="form-group">
-            <button class="tab, button-add"
+        <form class="footer-buttons-block"
+              action="<%=ConstantAction.DEPARTMENT_INFO%>"
+              method="get">
+            <input type="hidden"
+            name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
+                   value="<%=request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL)%>"/>
+            <button class="footer-button, button-add"
                     form="save"
                     type="submit"
                     name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
                     value="<%=department.getId()%>">
                 Сохранить
             </button>
-        </div>
-        <div class="form-group">
-            <button class="tab"
+            <button class="footer-button"
                     name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
                     value="<%=department.getId()%>">
                 Вернуться к просмотру отдела
             </button>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+</main>
+<%@include file="../footer.jsp" %>
 </body>
 </html>

@@ -10,68 +10,80 @@
     </style>
 </head>
 <body>
-<%@include file="../menu.jsp" %>
-<% MaritalStatusDTO maritalStatus = (MaritalStatusDTO) request.getAttribute(ConstantParamAndAttribute.MARITAL_STATUS); %>
-<div class="form-container, general-div">
+<%@include file="../header.jsp" %>
+<main>
+    <%@include file="../menu.jsp" %>
     <div class="form-group">
-        <h2>Заполните информацию:</h2>
-    </div>
-    <form id="save"
-          action="<%= ConstantAction.UPDATE_MARITAL_STATUS %>"
-          method="post">
-        <input name="<%= ConstantParamAndAttribute.ID %>"
-               type="hidden"
-               value="<%= maritalStatus.getId() %>"
-               required/>
-        <input name="<%= ConstantParamAndAttribute.EMPLOYEE_ID %>"
-               type="hidden"
-               value="<%= maritalStatus.getEmployeeId() %>"
-               required/>
-        <input name="<%= ConstantParamAndAttribute.IS_CURRENT %>"
-               type="hidden"
-               value="<%= maritalStatus.isCurrent() %>"
-               required/>
-        <div class="form-group">
-            <label for="marital_status">Семейное положение:</label>
-            <input type="text"
-                   id="marital_status"
-                   name="<%= ConstantParamAndAttribute.STATUS %>"
-                   value="<%= maritalStatus.getStatus() %>"
-                   placeholder="Введите семейное положение"
-                   required/>
+        <h2>Заполните информацию о семейном положении:</h2>
+        <% MaritalStatusDTO maritalStatus = (MaritalStatusDTO) request.getAttribute(ConstantParamAndAttribute.MARITAL_STATUS); %>
+        <div class="filling-form">
+            <form id="save"
+                  action="<%= ConstantAction.UPDATE_MARITAL_STATUS %>"
+                  method="post">
+                <input name="<%= ConstantParamAndAttribute.ID %>"
+                       type="hidden"
+                       value="<%= maritalStatus.getId() %>"
+                       required/>
+                <input name="<%= ConstantParamAndAttribute.EMPLOYEE_ID %>"
+                       type="hidden"
+                       value="<%= maritalStatus.getEmployeeId() %>"
+                       required/>
+                <input name="<%= ConstantParamAndAttribute.IS_CURRENT %>"
+                       type="hidden"
+                       value="<%= maritalStatus.isCurrent() %>"
+                       required/>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Семейное положение</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.STATUS %>"
+                                   value="<%= maritalStatus.getStatus() %>"
+                                   placeholder="Введите семейное положение"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Дата регистрации</legend>
+                        <label>
+                            <input type="date"
+                                   name="<%= ConstantParamAndAttribute.REGISTRATION_DATE %>"
+                                   value="<%= maritalStatus.getRegistrationDate() %>"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Подтверждающий документ</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.DOCUMENT %>"
+                                   value="<%= maritalStatus.getDocument() %>"
+                                   placeholder="Введите название и реквизиты документа"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="registration_date">Дата регистрации:</label>
-            <input type="date"
-                   id="registration_date"
-                   name="<%= ConstantParamAndAttribute.REGISTRATION_DATE %>"
-                   value="<%= maritalStatus.getRegistrationDate() %>"
-                   required/>
-        </div>
-        <div class="form-group">
-            <label for="document">Подтверждающий документ:</label>
-            <input type="text"
-                   id="document"
-                   name="<%= ConstantParamAndAttribute.DOCUMENT %>"
-                   value="<%= maritalStatus.getDocument() %>"
-                   placeholder="Введите название и реквизиты документа"
-                   required/>
-        </div>
-    </form>
-    <form class="tabs" action="<%=ConstantAction.MARITAL_STATUSES%>" method="get">
-        <div class="form-group">
-            <button class="tab, button-add" form="save">
+        <form class="footer-buttons-block"
+              action="<%=ConstantAction.MARITAL_STATUSES%>"
+              method="get">
+            <button class="footer-button, button-add"
+                    form="save">
                 Сохранить
             </button>
-        </div>
-        <div class="form-group">
-            <button class="tab"
+            <button class="footer-button"
                     name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
                     value="<%= maritalStatus.getEmployeeId() %>">
                 Вернуться к просмотру семейного положения
             </button>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+</main>
+<%@include file="../footer.jsp" %>
 </body>
 </html>

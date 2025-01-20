@@ -10,89 +10,98 @@
     </style>
 </head>
 <body>
-<%@include file="../menu.jsp" %>
-<div class="container, general-div">
-    <div class="item-header">
-        <h2>Паспортные данные сотрудника</h2>
-    </div>
-    <% PassportDTO passportDTO = (PassportDTO) request.getAttribute(ConstantParamAndAttribute.PASSPORT);
-        if (passportDTO == null) { %>
-    <div class="form-group">
-        <h3>Информация о паспорте отсутствует</h3>
-    </div>
-    <div class="tabs">
-        <form name="add_passport"
-              method="get"
-              action=<%=ConstantAction.ADD_PASSPORT%>>
-            <button class="button-add"
-                    name="<%=ConstantParamAndAttribute.ID%>"
-                    value="<%=request.getAttribute(ConstantParamAndAttribute.ID)%>">
-                Добавить паспортные данные сотрудника
-            </button>
-        </form>
-    </div>
-    <% } else { %>
-    <div class="item-info">
-        <div class="item-info-item">
-            <label>Серия:</label>
-            <span><%=passportDTO.getSeries()%></span>
+<%@include file="../header.jsp" %>
+<main>
+    <%@include file="../menu.jsp" %>
+    <div>
+        <div class="header-with-button">
+            <div class="form-group">
+                <h2>Паспортные данные сотрудника</h2>
+            </div>
+            <% PassportDTO passport = (PassportDTO) request.getAttribute(ConstantParamAndAttribute.PASSPORT);
+                if (passport != null) { %>
+            <form action="<%=ConstantAction.UPDATE_PASSPORT%>" method="get">
+                <button class="tab, button-edit"
+                        name="<%=ConstantParamAndAttribute.ID%>"
+                        value="<%=passport.getId()%>">
+                    Изменить паспортные данные сотрудника
+                </button>
+            </form>
+            <% } %>
         </div>
-        <div class="item-info-item">
-            <label>Номер:</label>
-            <span><%=passportDTO.getNumber()%></span>
+        <%if (passport == null) { %>
+        <div class="form-group">
+            <h3>Информация о паспорте отсутствует</h3>
+            <form class="footer-buttons-block"
+                  name="add_passport"
+                  method="get"
+                  action=<%=ConstantAction.ADD_PASSPORT%>>
+                <button class="footer-button, button-add"
+                        name="<%=ConstantParamAndAttribute.ID%>"
+                        value="<%=request.getAttribute(ConstantParamAndAttribute.ID)%>">
+                    Добавить паспортные данные сотрудника
+                </button>
+            </form>
         </div>
-        <div class="item-info-item">
-            <label>Идентификационный номер:</label>
-            <span><%=passportDTO.getIdentificationNumber()%></span>
-        </div>
-        <div class="item-info-item">
-            <label>Адрес регистрации:</label>
-            <span><%=passportDTO.getRegistrationAddress().getCity() + ", ул. "
-                    + passportDTO.getRegistrationAddress().getStreet() + ", д. "
-                    + passportDTO.getRegistrationAddress().getHouse()%>
-                <%if (passportDTO.getRegistrationAddress().getApartment() != null) { %>
-                <%=", кв. " + passportDTO.getRegistrationAddress().getApartment()%>
+        <% } else { %>
+        <div class="information-block">
+            <div class="information-item">
+                <label>Серия:</label>
+                <span><%=passport.getSeries()%></span>
+            </div>
+            <div class="information-item">
+                <label>Номер:</label>
+                <span><%=passport.getNumber()%></span>
+            </div>
+            <div class="information-item">
+                <label>Идентификационный номер:</label>
+                <span><%=passport.getIdentificationNumber()%></span>
+            </div>
+            <div class="information-item">
+                <label>Адрес регистрации:</label>
+                <span><%=passport.getRegistrationAddress().getCity() + ", ул. "
+                        + passport.getRegistrationAddress().getStreet() + ", д. "
+                        + passport.getRegistrationAddress().getHouse()%>
+                <%if (passport.getRegistrationAddress().getApartment() != null) { %>
+                <%=", кв. " + passport.getRegistrationAddress().getApartment()%>
                 <% } %>
             </span>
+            </div>
+            <div class="information-item">
+                <label>Дата выдачи:</label>
+                <span><%=passport.getDateIssue()%></span>
+            </div>
+            <div class="information-item">
+                <label>Дата окончания действия:</label>
+                <span><%=passport.getDateEndAction()%></span>
+            </div>
+            <div class="information-item">
+                <label>Кем выдан:</label>
+                <span><%=passport.getPublisher()%></span>
+            </div>
         </div>
-        <div class="item-info-item">
-            <label>Дата выдачи:</label>
-            <span><%=passportDTO.getDateIssue()%></span>
-        </div>
-        <div class="item-info-item">
-            <label>Дата окончания действия:</label>
-            <span><%=passportDTO.getDateEndAction()%></span>
-        </div>
-        <div class="item-info-item">
-            <label>Кем выдан:</label>
-            <span><%=passportDTO.getPublisher()%></span>
+        <% } %>
+        <div class="footer-buttons-block">
+            <%if (passport != null) { %>
+            <form action="<%=ConstantAction.DELETE_PASSPORT%>"
+                  method="post">
+                <button class="footer-button, button-delete"
+                        name="<%=ConstantParamAndAttribute.ID%>"
+                        value="<%=passport.getId()%>">
+                    Удалить паспортные данные сотрудника
+                </button>
+            </form>
+            <% } %>
+            <form action="<%=ConstantAction.EMPLOYEE%>" method="get">
+                <button class="footer-button"
+                        name="<%=ConstantParamAndAttribute.ID%>"
+                        value="<%=request.getAttribute(ConstantParamAndAttribute.ID)%>">
+                    Вернуться к просмотру сотрудника
+                </button>
+            </form>
         </div>
     </div>
-    <div class="tabs">
-        <form action="<%=ConstantAction.UPDATE_PASSPORT%>" method="get">
-            <button class="tab, button-edit"
-                    name="<%=ConstantParamAndAttribute.ID%>"
-                    value="<%=passportDTO.getId()%>">
-                Изменить паспортные данные сотрудника
-            </button>
-        </form>
-        <form action="<%=ConstantAction.DELETE_PASSPORT%>" method="post">
-            <button class="tab, button-delete" name="<%=ConstantParamAndAttribute.ID%>"
-                    value="<%=passportDTO.getId()%>">
-                Удалить паспортные данные сотрудника
-            </button>
-        </form>
-    </div>
-    <% } %>
-    <div class="tabs">
-        <form action="<%=ConstantAction.EMPLOYEE%>" method="get">
-            <button class="tab"
-                    name="<%=ConstantParamAndAttribute.ID%>"
-                    value="<%=request.getAttribute(ConstantParamAndAttribute.ID)%>">
-                Вернуться к просмотру сотрудника
-            </button>
-        </form>
-    </div>
-</div>
+</main>
+<%@include file="../footer.jsp" %>
 </body>
 </html>

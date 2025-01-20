@@ -10,92 +10,113 @@
     </style>
 </head>
 <body>
-<%@include file="../menu.jsp" %>
-<% EducationDTO education = (EducationDTO) request.getAttribute(ConstantParamAndAttribute.EDUCATION); %>
-<div class="form-container, general-div">
+<%@include file="../header.jsp" %>
+<main>
+    <%@include file="../menu.jsp" %>
     <div class="form-group">
         <h2>Введите новые данные об образовании:</h2>
-    </div>
-    <form id="save"
-          action="<%=ConstantAction.UPDATE_EDUCATION %>"
-          method="post">
-        <input name="<%= ConstantParamAndAttribute.ID %>"
-               type="hidden"
-               value="<%= education.getId() %>"
-               required/>
-        <input name="<%= ConstantParamAndAttribute.EMPLOYEE_ID %>"
-               type="hidden"
-               value="<%= education.getEmployeeId() %>"
-               required/>
-        <div class="form-group">
-            <label for="educationLevel">Уровень образования:</label>
-            <input type="text"
-                   id="educationLevel"
-                   name="<%=ConstantParamAndAttribute.EDUCATION_LEVEL%>"
-                   value="<%=education.getEducationLevel()%>"
-                   placeholder="Введите уровень образования"
-                   required/>
+        <% EducationDTO education = (EducationDTO) request.getAttribute(ConstantParamAndAttribute.EDUCATION); %>
+        <div class="filling-form">
+            <form id="save"
+                  action="<%=ConstantAction.UPDATE_EDUCATION %>"
+                  method="post">
+                <input name="<%= ConstantParamAndAttribute.ID %>"
+                       type="hidden"
+                       value="<%= education.getId() %>"
+                       required/>
+                <input name="<%= ConstantParamAndAttribute.EMPLOYEE_ID %>"
+                       type="hidden"
+                       value="<%= education.getEmployeeId() %>"
+                       required/>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Уровень образования</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%=ConstantParamAndAttribute.EDUCATION_LEVEL%>"
+                                   value="<%=education.getEducationLevel()%>"
+                                   placeholder="Введите уровень образования"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Учебное заведение</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%=ConstantParamAndAttribute.INSTITUTION%>"
+                                   value="<%=education.getInstitution()%>"
+                                   placeholder="Введите название учебного заведения"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Факультет</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%=ConstantParamAndAttribute.FACULTY%>"
+                                    <%if (education.getFaculty() != null) { %>
+                                   value="<%=education.getFaculty()%>"
+                                    <% } %>
+                                   placeholder="Введите название факультета"/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Специализация</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%=ConstantParamAndAttribute.SPECIALIZATION%>"
+                                    <%if (education.getSpecialization() != null) { %>
+                                   value="<%=education.getSpecialization()%>"
+                                    <% } %>
+                                   placeholder="Введите специализацию"/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Дата начала обучения</legend>
+                        <label>
+                            <input type="date"
+                                   name="<%=ConstantParamAndAttribute.DATE_START%>"
+                                   value="<%=education.getDateStart()%>"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Дата окончания обучения</legend>
+                        <label>
+                            <input type="date"
+                                   name="<%=ConstantParamAndAttribute.DATE_END%>"
+                                   value="<%=education.getDateEnd()%>"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="institution">Учебное заведение:</label>
-            <input type="text"
-                   id="institution"
-                   name="<%=ConstantParamAndAttribute.INSTITUTION%>"
-                   value="<%=education.getInstitution()%>"
-                   placeholder="Введите название учебного заведения"
-                   required/>
-        </div>
-        <div class="form-group">
-            <label for="faculty">Факультет:</label>
-            <input type="text"
-                   id="faculty"
-                   name="<%=ConstantParamAndAttribute.FACULTY%>"
-                   <%if (education.getFaculty() != null) { %>
-                   value="<%=education.getFaculty()%>"
-                   <%}%>
-                   placeholder="Введите название факультета"/>
-        </div>
-        <div class="form-group">
-            <label for="specialization">Специализация:</label>
-            <input type="text"
-                   id="specialization"
-                   name="<%=ConstantParamAndAttribute.SPECIALIZATION%>"
-                    <%if (education.getSpecialization() != null) { %>
-                   value="<%=education.getSpecialization()%>"
-                    <%}%>
-                   placeholder="Введите специализацию"/>
-        </div>
-        <div class="form-group">
-            <label for="dateStart">Дата начала обучения:</label>
-            <input type="date"
-                   id="dateStart"
-                   name="<%=ConstantParamAndAttribute.DATE_START%>"
-                   value="<%=education.getDateStart()%>"
-                   required/>
-        </div>
-        <div class="form-group">
-            <label for="dateEnd">Дата окончания обучения:</label>
-            <input type="date"
-                   id="dateEnd"
-                   name="<%=ConstantParamAndAttribute.DATE_END%>"
-                   value="<%=education.getDateEnd()%>"
-                   required/>
-        </div>
-    </form>
-    <form class="tabs" action="<%= ConstantAction.EDUCATION %>" method="get">
-        <div class="form-group">
-            <button class="tab, button-add" form="save">
+        <form class="footer-buttons-block"
+              action="<%= ConstantAction.EDUCATION %>"
+              method="get">
+            <button class="footer-button, button-add"
+                    form="save">
                 Сохранить
             </button>
-        </div>
-        <div class="form-group">
-            <button class="tab"
+            <button class="footer-button"
                     name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
                     value="<%=education.getEmployeeId()%>">
                 Вернуться к просмотру образования
             </button>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+</main>
+<%@include file="../footer.jsp" %>
 </body>
 </html>

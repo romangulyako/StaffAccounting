@@ -9,59 +9,69 @@
     </style>
 </head>
 <body>
-<%@include file="../menu.jsp" %>
-<div class="form-container, general-div">
+<%@include file="../header.jsp" %>
+<main>
+    <%@include file="../menu.jsp" %>
     <div class="form-group">
-        <h2>Заполните информацию:</h2>
-    </div>
-    <form id="save"
-          action="<%= ConstantAction.ADD_MARITAL_STATUS %>"
-          method="post">
-        <div class="form-group">
-            <label for="marital_status">Семейное положение:</label>
-            <input type="text"
-                   id="marital_status"
-                   name="<%= ConstantParamAndAttribute.STATUS %>"
-                   placeholder="Введите семейное положение"
-                   required/>
+        <h2>Заполните информацию о семейном положении:</h2>
+        <div class="filling-form">
+            <form id="save"
+                  action="<%= ConstantAction.ADD_MARITAL_STATUS %>"
+                  method="post">
+                <input type="hidden"
+                       name="<%=ConstantParamAndAttribute.IS_CURRENT%>"
+                       value="true"
+                       required/>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Семейное положение</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.STATUS %>"
+                                   placeholder="Введите семейное положение"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Дата регистрации</legend>
+                        <label>
+                            <input type="date"
+                                   name="<%= ConstantParamAndAttribute.REGISTRATION_DATE %>"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend>Подтверждающий документ</legend>
+                        <label>
+                            <input type="text"
+                                   name="<%= ConstantParamAndAttribute.DOCUMENT %>"
+                                   placeholder="Введите название и реквизиты документа"
+                                   required/>
+                        </label>
+                    </fieldset>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="registration_date">Дата регистрации:</label>
-            <input type="date"
-                   id="registration_date"
-                   name="<%= ConstantParamAndAttribute.REGISTRATION_DATE %>"
-                   required/>
-        </div>
-        <div class="form-group">
-            <label for="document">Подтверждающий документ:</label>
-            <input type="text"
-                   id="document"
-                   name="<%= ConstantParamAndAttribute.DOCUMENT %>"
-                   placeholder="Введите название и реквизиты документа"
-                   required/>
-        </div>
-    </form>
-    <form class="tabs" action="<%=ConstantAction.MARITAL_STATUSES%>" method="get">
-        <div class="form-group">
-            <button class="tab, button-add" form="save"
+        <form class="footer-buttons-block"
+              action="<%=ConstantAction.MARITAL_STATUSES%>"
+              method="get">
+            <button class="footer-button, button-add" form="save"
                     name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
                     value="<%=request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
                 Сохранить
             </button>
-            <input form="save"
-                   type="hidden"
-                   name="<%=ConstantParamAndAttribute.IS_CURRENT%>"
-                   value="true"
-                   required/>
-        </div>
-        <div class="form-group">
-            <button class="tab"
+            <button class="footer-button"
                     name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
                     value="<%=request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
                 Вернуться к просмотру семейного положения
             </button>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+</main>
+<%@include file="../footer.jsp" %>
 </body>
 </html>

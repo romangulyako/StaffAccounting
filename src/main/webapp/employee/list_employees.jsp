@@ -12,19 +12,21 @@
     </style>
 </head>
 <body>
-<%@include file="../menu.jsp" %>
-<div class="form-container, general-div">
-    <div class="form-group">
+<%@include file="../header.jsp" %>
+<main>
+    <%@include file="../menu.jsp" %>
+    <div>
         <h2>Все сотрудники организации:</h2>
-    </div>
-    <div class="form-group">
         <table>
+            <thead>
             <tr>
                 <th>ФИО</th>
                 <th>Дата рождения</th>
                 <th>Должность</th>
                 <th colspan="2">Действие</th>
             </tr>
+            </thead>
+            <tbody>
             <% PageInfo<EmployeeDTO> pageInfo = (PageInfo<EmployeeDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
                 List<EmployeeDTO> employees = pageInfo.getItems();
                 for (EmployeeDTO employee : employees) {
@@ -70,29 +72,30 @@
             <%
                 }
             %>
+            </tbody>
         </table>
         <form action="<%=ConstantAction.LIST_EMPLOYEES%>"
               method="get">
             <input type="hidden"
-            name="<%=ConstantParamAndAttribute.IS_FIRED_EMPLOYEES%>"
-            value="<%=request.getAttribute(ConstantParamAndAttribute.IS_FIRED_EMPLOYEES)%>"/>
+                   name="<%=ConstantParamAndAttribute.IS_FIRED_EMPLOYEES%>"
+                   value="<%=request.getAttribute(ConstantParamAndAttribute.IS_FIRED_EMPLOYEES)%>"/>
             <% request.setAttribute(ConstantParamAndAttribute.PAGE_NUMBER, pageInfo.getPageNumber());
                 request.setAttribute(ConstantParamAndAttribute.PAGE_SIZE, pageInfo.getPageSize());
                 request.setAttribute(ConstantParamAndAttribute.TOTAL_PAGES, pageInfo.getTotalPages());%>
             <%@include file="../paginator.jsp" %>
         </form>
-    </div>
-
-    <%Boolean isFired = (Boolean)request.getAttribute(ConstantParamAndAttribute.IS_FIRED_EMPLOYEES);
-    if (isFired == null || !isFired) { %>
-    <div>
+        <%
+            Boolean isFired = (Boolean) request.getAttribute(ConstantParamAndAttribute.IS_FIRED_EMPLOYEES);
+            if (isFired == null || !isFired) {
+        %>
         <form name="add_employee"
               method="get"
               action="<%= ConstantAction.ADD_EMPLOYEE %>">
             <button class="button-add">Добавить нового сотрудника</button>
         </form>
+        <% } %>
     </div>
-    <% } %>
-</div>
+</main>
+<%@include file="../footer.jsp" %>
 </body>
 </html>

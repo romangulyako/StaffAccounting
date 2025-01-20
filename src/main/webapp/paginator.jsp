@@ -25,11 +25,12 @@
     <% } %>
   </div>
   <div class="paginator-page-size-block">
-    <label>Стр. <%=pageNumber%>/<%=totalPages%>.</label>
+    <label class="paginator-label">Стр. <%=pageNumber%>/<%=totalPages%>.</label>
     <label for="page_size">Размер страницы:</label>
-    <input class="paginator-input"
+    <input class="page-size-input"
            id="page_size"
-           type="text"
+           type="number"
+           min="1"
            name="<%=ConstantParamAndAttribute.PAGE_SIZE%>"
            value="<%=pageSize%>">
     <button class="paginator-button"

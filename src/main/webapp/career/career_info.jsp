@@ -3,7 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="by.itacademy.jd2.dto.CareerStepGetDTO" %>
 <%@ page import="by.itacademy.jd2.service.PageInfo" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <title>Карьера</title>
@@ -12,22 +12,22 @@
     </style>
 </head>
 <body>
-<%@include file="../menu.jsp" %>
-<div class="form-container, general-div">
-    <div class="item-header">
+<%@include file="../header.jsp" %>
+<main>
+    <%@include file="../menu.jsp" %>
+    <div>
         <h2>Послужной список сотрудника</h2>
-    </div>
-    <%
-        PageInfo<CareerStepGetDTO> pageInfo = (PageInfo<CareerStepGetDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
-        List<CareerStepGetDTO> career = pageInfo.getItems();
-        if (career == null || career.isEmpty()) {
-    %>
-    <div class="form-group">
-        <h3>Информация о карьере сотрудника отсутствует</h3>
-    </div>
-    <% } else { %>
-    <div class=" form-group">
+        <%
+            PageInfo<CareerStepGetDTO> pageInfo = (PageInfo<CareerStepGetDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
+            List<CareerStepGetDTO> career = pageInfo.getItems();
+            if (career == null || career.isEmpty()) {
+        %>
+        <div class="form-group">
+            <h3>Информация о карьере сотрудника отсутствует</h3>
+        </div>
+        <% } else { %>
         <table>
+            <thead>
             <tr>
                 <th>Приказ о назначении</th>
                 <th>С какого числа</th>
@@ -35,6 +35,8 @@
                 <th>Должность</th>
                 <th colspan="2">Действие</th>
             </tr>
+            </thead>
+            <tbody>
             <tr>
                 <% for (CareerStepGetDTO careerStep : career) { %>
                 <td><%=careerStep.getOrderAppointment()%>
@@ -78,6 +80,7 @@
                 </td>
             </tr>
             <% } %>
+            </tbody>
         </table>
         <form action="<%=ConstantAction.CAREER%>"
               method="get">
@@ -89,19 +92,19 @@
                 request.setAttribute(ConstantParamAndAttribute.TOTAL_PAGES, pageInfo.getTotalPages());%>
             <%@include file="../paginator.jsp" %>
         </form>
-    </div>
-    <% } %>
-    <div class="tabs">
-        <form name="employee"
+        <% } %>
+        <form class="footer-buttons-block"
+              name="employee"
               method="get"
               action="<%= ConstantAction.EMPLOYEE %>">
-            <button class="tab"
+            <button class="footer-button"
                     name="<%= ConstantParamAndAttribute.ID%>"
                     value="<%= request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
                 Вернуться к просмотру сотрудника
             </button>
         </form>
     </div>
-</div>
+</main>
+<%@include file="../footer.jsp" %>
 </body>
 </html>
