@@ -32,9 +32,10 @@ header h1, span {
 }
 
 .logo {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    color: #dcdcdc;
 }
 
 .header-right {

@@ -14,17 +14,19 @@
 <main>
     <%@include file="../menu.jsp" %>
     <div>
-        <div class="header-with-button">
+        <% PassportDTO passport = (PassportDTO) request.getAttribute(ConstantParamAndAttribute.PASSPORT);%>
+        <div <%if (passport != null) { %>
+                class="header-with-button"
+        <% } %>>
             <div class="form-group">
                 <h2>Паспортные данные сотрудника</h2>
             </div>
-            <% PassportDTO passport = (PassportDTO) request.getAttribute(ConstantParamAndAttribute.PASSPORT);
-                if (passport != null) { %>
+            <% if (passport != null) { %>
             <form action="<%=ConstantAction.UPDATE_PASSPORT%>" method="get">
                 <button class="tab, button-edit"
                         name="<%=ConstantParamAndAttribute.ID%>"
                         value="<%=passport.getId()%>">
-                    Изменить паспортные данные сотрудника
+                    Изменить
                 </button>
             </form>
             <% } %>
@@ -39,7 +41,7 @@
                 <button class="footer-button, button-add"
                         name="<%=ConstantParamAndAttribute.ID%>"
                         value="<%=request.getAttribute(ConstantParamAndAttribute.ID)%>">
-                    Добавить паспортные данные сотрудника
+                    Добавить паспортные данные
                 </button>
             </form>
         </div>
@@ -88,7 +90,7 @@
                 <button class="footer-button, button-delete"
                         name="<%=ConstantParamAndAttribute.ID%>"
                         value="<%=passport.getId()%>">
-                    Удалить паспортные данные сотрудника
+                    Удалить паспортные данные
                 </button>
             </form>
             <% } %>
