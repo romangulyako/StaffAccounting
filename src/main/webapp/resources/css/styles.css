@@ -101,6 +101,7 @@ main table {
     border-collapse: collapse;
     margin-bottom: 10px;
     background-color: #efefef;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 main table th,
@@ -109,6 +110,7 @@ main table td {
     padding: 10px;
     text-align: center;
 }
+
 main table th {
     background-color: #d1d1d1;
 }
@@ -288,9 +290,10 @@ button {
     align-items: center;
 }
 
-.input-wrapper{
+.input-wrapper {
     padding: 10px;
 }
+
 fieldset {
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -310,7 +313,7 @@ input, select {
     padding: 5px 0;
     width: 100%;
     box-sizing: border-box;
-    font-size: 16px;/* Важно, чтобы padding не увеличивал ширину */
+    font-size: 16px; /* Важно, чтобы padding не увеличивал ширину */
 }
 
 textarea {
@@ -359,7 +362,8 @@ select:hover {
     text-align: center;
     width: 100%;
 }
-.error-icon{
+
+.error-icon {
     font-size: 50px;
     color: #dc3545; /* Красный цвет */
     margin-bottom: 10px;
@@ -371,5 +375,78 @@ h1 {
     margin-bottom: 10px;
 }
 
+/*-----------------------------------------------------*/
 
+.filter-container {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-form {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+}
+
+.filter-inputs {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.filter-form fieldset {
+    padding: 5px;
+}
+
+.filter-form input[type="text"],
+.filter-form input[type="number"],
+.filter-form select {
+    padding: 5px;
+    background-color: #F9F9F9FF;
+}
+
+.filter-button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.apply-filter-buttons {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.apply-filter-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    justify-content: flex-start;
+}
+
+.apply-filter-button:hover {
+    background-color: #0056b3;
+}
+
+.clear-filter-button {
+    background-color: #cccccc;
+    color: #000000;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    justify-content: flex-end;
+}
+
+.clear-filter-button:hover {
+    background-color: #c1c1c1;
+}
 

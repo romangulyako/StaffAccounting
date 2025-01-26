@@ -7,7 +7,7 @@
                 <form action="<%=ConstantAction.LIST_EMPLOYEES%>"
                       method="get">
                     <button class="menu-item"
-                            name="<%=ConstantParamAndAttribute.IS_FIRED_EMPLOYEES%>"
+                            name="<%=ConstantParamAndAttribute.IS_FIRED%>"
                             value="false">
                         Действующие сотрудники организации
                     </button>
@@ -39,7 +39,7 @@
                 <form action="<%=ConstantAction.LIST_EMPLOYEES%>"
                       method="get">
                     <button class="menu-item"
-                            name="<%=ConstantParamAndAttribute.IS_FIRED_EMPLOYEES%>"
+                            name="<%=ConstantParamAndAttribute.IS_FIRED%>"
                             value="true">
                         Просмотр уволенных сотрудников
                     </button>

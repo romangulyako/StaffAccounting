@@ -1,23 +1,7 @@
 package by.itacademy.jd2.servlet.converter;
 
-import by.itacademy.jd2.dto.CareerStepSaveDTO;
-import by.itacademy.jd2.dto.DepartmentDTO;
-import by.itacademy.jd2.dto.EducationDTO;
-import by.itacademy.jd2.dto.EmployeeDTO;
-import by.itacademy.jd2.dto.MaritalStatusDTO;
-import by.itacademy.jd2.dto.PassportDTO;
-import by.itacademy.jd2.dto.PositionDTO;
-import by.itacademy.jd2.dto.RelativeDTO;
-import by.itacademy.jd2.dto.DismissDTO;
-import by.itacademy.jd2.servlet.converter.impl.CareerStepHttpConverter;
-import by.itacademy.jd2.servlet.converter.impl.DepartmentHttpConverter;
-import by.itacademy.jd2.servlet.converter.impl.EmployeeHttpConverter;
-import by.itacademy.jd2.servlet.converter.impl.EducationHttpConverter;
-import by.itacademy.jd2.servlet.converter.impl.PassportHttpConverter;
-import by.itacademy.jd2.servlet.converter.impl.MaritalStatusHttpConverter;
-import by.itacademy.jd2.servlet.converter.impl.RelativeHttpConverter;
-import by.itacademy.jd2.servlet.converter.impl.PositionHttpConverter;
-import by.itacademy.jd2.servlet.converter.impl.DismissHttpConverter;
+import by.itacademy.jd2.dto.*;
+import by.itacademy.jd2.servlet.converter.impl.*;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.HashMap;
@@ -49,6 +33,7 @@ public class HttpRequestConverter {
         converters.put(PositionDTO.class, new PositionHttpConverter());
         converters.put(RelativeDTO.class, new RelativeHttpConverter());
         converters.put(DismissDTO.class, new DismissHttpConverter());
+        converters.put(EmployeeFilterData.class, new EmployeeFilterDataHttpConverter());
     }
 
     public <DTO> DTO convert(HttpServletRequest req, Class<DTO> dtoClass) {

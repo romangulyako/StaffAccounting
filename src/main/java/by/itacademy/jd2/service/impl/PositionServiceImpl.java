@@ -26,18 +26,16 @@ public class PositionServiceImpl implements PositionService {
     private static final boolean DEFAULT_IS_ACTUAL = true;
     private final PositionDAO positionDAO;
     private final DepartmentDAO departmentDAO;
-    private final Converter converter;
 
     public PositionServiceImpl() {
         this.positionDAO = new PositionDaoImpl();
         this.departmentDAO = new DepartmentDaoImpl();
-        this.converter = Converter.getConverter();
     }
 
     @Transactional
     @Override
     public void addPosition(PositionDTO positionDTO) {
-        PositionEntity positionEntity = converter.toEntity(positionDTO, PositionEntity.class);
+        PositionEntity positionEntity = Converter.toEntity(positionDTO, PositionEntity.class);
         DepartmentEntity departmentEntity = departmentDAO.get(positionDTO.getDepartmentId());
         positionEntity.setDepartment(departmentEntity);
         departmentEntity.getPositions().add(positionEntity);
@@ -48,7 +46,7 @@ public class PositionServiceImpl implements PositionService {
     @Override
     public void updatePosition(PositionDTO positionDTO) {
         if (positionDTO != null) {
-            PositionEntity newPosition = converter.toEntity(positionDTO, PositionEntity.class);
+            PositionEntity newPosition = Converter.toEntity(positionDTO, PositionEntity.class);
             PositionEntity oldPosition = positionDAO.get(positionDTO.getId());
             newPosition.setDepartment(oldPosition.getDepartment());
             newPosition.setIsActual(oldPosition.getIsActual());
@@ -66,14 +64,14 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public PositionDTO getPosition(Serializable id) {
-        return converter.toDto(positionDAO.get(id), PositionDTO.class);
+        return Converter.toDto(positionDAO.get(id), PositionDTO.class);
     }
 
     @Override
     public List<PositionItemDTO> getAllPositionItems() {
         return positionDAO.getAll().stream()
                 .filter(PositionEntity::getIsActual)
-                .map(entity -> converter.toDto(entity, PositionItemDTO.class))
+                .map(entity -> Converter.toDto(entity, PositionItemDTO.class))
                 .collect(Collectors.toList());
     }
 
@@ -94,7 +92,7 @@ public class PositionServiceImpl implements PositionService {
                                         pageSize,
                                         pageNumber)
                                 .stream()
-                                .map(entity -> converter.toDto(entity, PositionDTO.class))
+                                .map(entity -> Converter.toDto(entity, PositionDTO.class))
                                 .collect(Collectors.toList()))
                 .orElse(null);
         Long positionsCount = positionDAO.getPositionsCountByDepartmentIdAndActual(departmentId, isActual);

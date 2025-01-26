@@ -21,18 +21,16 @@ import java.util.stream.Collectors;
 public class EducationServiceImpl implements EducationService {
     private final EducationDAO educationDAO;
     private final EmployeeDAO employeeDAO;
-    private final Converter converter;
 
     public EducationServiceImpl() {
         this.educationDAO = new EducationDaoImpl();
         this.employeeDAO = new EmployeeDaoImpl();
-        this.converter = Converter.getConverter();
     }
 
     @Transactional
     @Override
     public void addEducation(EducationDTO educationDTO) {
-        EducationEntity educationEntity = converter.toEntity(educationDTO, EducationEntity.class);
+        EducationEntity educationEntity = Converter.toEntity(educationDTO, EducationEntity.class);
         EmployeeEntity employeeEntity = employeeDAO.get(educationDTO.getEmployeeId());
         educationEntity.setEmployee(employeeEntity);
         employeeEntity.getEducations().add(educationEntity);
@@ -43,7 +41,7 @@ public class EducationServiceImpl implements EducationService {
     @Override
     public void updateEducation(EducationDTO educationDTO) {
         if (educationDTO != null) {
-            EducationEntity newEntity = converter.toEntity(educationDTO, EducationEntity.class);
+            EducationEntity newEntity = Converter.toEntity(educationDTO, EducationEntity.class);
             newEntity.setEmployee(educationDAO.get(educationDTO.getId()).getEmployee());
             educationDAO.update(newEntity, newEntity.getId());
         }
@@ -59,7 +57,7 @@ public class EducationServiceImpl implements EducationService {
 
     @Override
     public EducationDTO getEducation(Serializable id) {
-        return converter.toDto(educationDAO.get(id), EducationDTO.class);
+        return Converter.toDto(educationDAO.get(id), EducationDTO.class);
     }
 
     @Transactional
@@ -71,7 +69,7 @@ public class EducationServiceImpl implements EducationService {
         pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
         List<EducationDTO> education = Optional.of(
                         educationDAO.getEducationByEmployeeId(employeeId, pageSize, pageNumber).stream()
-                                .map(entity -> converter.toDto(entity, EducationDTO.class))
+                                .map(entity -> Converter.toDto(entity, EducationDTO.class))
                                 .collect(Collectors.toList()))
                 .orElse(null);
         Long educationCount = educationDAO.getEducationCountByEmployeeId(employeeId);

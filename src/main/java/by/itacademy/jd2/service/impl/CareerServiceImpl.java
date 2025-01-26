@@ -28,13 +28,11 @@ public class CareerServiceImpl implements CareerService {
     private final CareerDAO careerDAO;
     private final EmployeeDAO employeeDAO;
     private final PositionDAO positionDAO;
-    private final Converter converter;
 
     public CareerServiceImpl() {
         this.careerDAO = new CareerDaoImpl();
         this.employeeDAO = new EmployeeDaoImpl();
         this.positionDAO = new PositionDaoImpl();
-        this.converter = Converter.getConverter();
     }
 
     @Transactional
@@ -42,7 +40,7 @@ public class CareerServiceImpl implements CareerService {
     public void appointEmployee(CareerStepSaveDTO careerStepDTO) {
         EmployeeEntity employeeEntity = employeeDAO.get(careerStepDTO.getEmployeeId());
         PositionEntity positionEntity = positionDAO.get(careerStepDTO.getPositionId());
-        CareerStepEntity careerStepEntity = converter.toEntity(careerStepDTO, CareerStepEntity.class);
+        CareerStepEntity careerStepEntity = Converter.toEntity(careerStepDTO, CareerStepEntity.class);
         employeeEntity.getCareer().stream()
                 .filter(CareerStepEntity::isCurrent)
                 .forEach(careerStep -> {
@@ -80,7 +78,7 @@ public class CareerServiceImpl implements CareerService {
     public void updateCareerStep(CareerStepSaveDTO careerStepDTO, Serializable id) {
         EmployeeEntity employeeEntity = employeeDAO.get(careerStepDTO.getEmployeeId());
         PositionEntity positionEntity = positionDAO.get(careerStepDTO.getPositionId());
-        CareerStepEntity careerStepEntity = converter.toEntity(careerStepDTO, CareerStepEntity.class);
+        CareerStepEntity careerStepEntity = Converter.toEntity(careerStepDTO, CareerStepEntity.class);
         careerStepEntity.setEmployee(employeeEntity);
         careerStepEntity.setPosition(positionEntity);
         careerDAO.update(careerStepEntity, id);
@@ -99,7 +97,7 @@ public class CareerServiceImpl implements CareerService {
 
     @Override
     public CareerStepGetDTO getCareerStep(Serializable id) {
-        return converter.toDto(careerDAO.get(id), CareerStepGetDTO.class);
+        return Converter.toDto(careerDAO.get(id), CareerStepGetDTO.class);
     }
 
     @Transactional
@@ -112,7 +110,7 @@ public class CareerServiceImpl implements CareerService {
 
         List<CareerStepGetDTO> career = Optional.of(
                 careerDAO.getCareerByEmployeeIdAndPage(employeeId, pageSize, pageNumber)
-                        .stream().map(entity -> converter.toDto(entity, CareerStepGetDTO.class))
+                        .stream().map(entity -> Converter.toDto(entity, CareerStepGetDTO.class))
                         .collect(Collectors.toList()))
                 .orElse(null);
 
@@ -130,7 +128,7 @@ public class CareerServiceImpl implements CareerService {
         pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
         List<PositionHistoryDTO> career = Optional.of(
                         careerDAO.getPositionHistoryByPage(positionId, pageSize, pageNumber)
-                                .stream().map(entity -> converter.toDto(entity, PositionHistoryDTO.class))
+                                .stream().map(entity -> Converter.toDto(entity, PositionHistoryDTO.class))
                                 .collect(Collectors.toList()))
                 .orElse(null);
         Long careerStepsCount = careerDAO.getCareerStepCountByPositionId(positionId);

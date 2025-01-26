@@ -64,10 +64,13 @@ public class ConstantParamAndAttribute {
     public static final String CAREER_ID = "career_id";
     public static final String DATE_DISMISS = "date_dismiss";
     public static final String ORDER_DISMISS = "order_dismiss";
-    public static final String IS_FIRED_EMPLOYEES = "is_fired_employees";
+    public static final String IS_FIRED = "is_fired_employees";
     public static final String TOTAL_PAGES = "total_pages";
     public static final String PAGE_SIZE = "page_size";
     public static final String PAGE_NUMBER = "page_number";
     public static final String PAGE_INFO = "page_info";
     public static final String IS_ACTUAL = "is_actual";
+    public static final String AGE = "age";
+    public static final String EMPLOYEE_FILTER_DATA = "employee_filter_data";
+    public static final String DEPARTMENT_ITEMS = "department_items";
 }

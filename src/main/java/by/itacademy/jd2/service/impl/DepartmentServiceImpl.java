@@ -4,6 +4,7 @@ import by.itacademy.jd2.converter.Converter;
 import by.itacademy.jd2.dao.api.DepartmentDAO;
 import by.itacademy.jd2.dao.impl.DepartmentDaoImpl;
 import by.itacademy.jd2.dto.DepartmentDTO;
+import by.itacademy.jd2.dto.DepartmentItemDTO;
 import by.itacademy.jd2.entity.DepartmentEntity;
 import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.DepartmentService;
@@ -16,16 +17,14 @@ import java.util.stream.Collectors;
 public class DepartmentServiceImpl implements DepartmentService {
     private static final boolean DEFAULT_IS_ACTUAL = true;
     private final DepartmentDAO departmentDAO;
-    private final Converter converter;
 
     public DepartmentServiceImpl() {
         this.departmentDAO = new DepartmentDaoImpl();
-        this.converter = Converter.getConverter();
     }
 
     @Override
     public void addDepartment(DepartmentDTO departmentDTO) {
-        DepartmentEntity entity = converter.toEntity(departmentDTO, DepartmentEntity.class);
+        DepartmentEntity entity = Converter.toEntity(departmentDTO, DepartmentEntity.class);
         departmentDAO.save(entity);
     }
 
@@ -33,7 +32,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void updateDepartment(DepartmentDTO departmentDTO) {
         if (departmentDTO != null) {
             DepartmentEntity oldEntity = departmentDAO.get(departmentDTO.getId());
-            DepartmentEntity newEntity = converter.toEntity(departmentDTO, DepartmentEntity.class);
+            DepartmentEntity newEntity = Converter.toEntity(departmentDTO, DepartmentEntity.class);
             newEntity.setPositions(oldEntity.getPositions());
             departmentDAO.update(newEntity, oldEntity.getId());
         }
@@ -46,7 +45,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentDTO getDepartment(Serializable id) {
-        return converter.toDto(departmentDAO.get(id), DepartmentDTO.class);
+        return Converter.toDto(departmentDAO.get(id), DepartmentDTO.class);
     }
 
     @Override
@@ -60,11 +59,18 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
         List<DepartmentDTO> departments = departmentDAO.getDepartmentsByActualAndPage(isActual, pageSize, pageNumber)
                 .stream()
-                .map(entity -> converter.toDto(entity, DepartmentDTO.class))
+                .map(entity -> Converter.toDto(entity, DepartmentDTO.class))
                 .collect(Collectors.toList());
         Long departmentCount = departmentDAO.getDepartmentsCountByActual(isActual);
 
         return new PageInfo<>(departments, pageNumber, pageSize, departmentCount);
+    }
+
+    @Override
+    public List<DepartmentItemDTO> getDepartmentItems() {
+        return departmentDAO.getAll().stream()
+                .map(entity -> Converter.toDto(entity, DepartmentItemDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override

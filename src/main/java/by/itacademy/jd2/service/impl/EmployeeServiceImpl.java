@@ -4,6 +4,7 @@ import by.itacademy.jd2.converter.Converter;
 import by.itacademy.jd2.dao.api.EmployeeDAO;
 import by.itacademy.jd2.dao.impl.EmployeeDaoImpl;
 import by.itacademy.jd2.dto.EmployeeDTO;
+import by.itacademy.jd2.dto.EmployeeFilterData;
 import by.itacademy.jd2.dto.EmployeeItemDTO;
 import by.itacademy.jd2.dto.PassportDTO;
 import by.itacademy.jd2.entity.EmployeeEntity;
@@ -19,7 +20,6 @@ import java.util.stream.Collectors;
 
 public class EmployeeServiceImpl implements EmployeeService {
     private static final Boolean DEFAULT_IS_FIRED = false;
-    private final Converter converter = Converter.getConverter();
     private final EmployeeDAO employeeDAO;
 
     public EmployeeServiceImpl() {
@@ -29,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void addEmployee(EmployeeDTO employeeDTO) {
         EmployeeEntity employeeEntity =
-                converter.toEntity(employeeDTO, EmployeeEntity.class);
+                Converter.toEntity(employeeDTO, EmployeeEntity.class);
         employeeDAO.save(employeeEntity);
     }
 
@@ -37,7 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void updateEmployee(EmployeeDTO employeeDTO) {
         if (employeeDTO != null) {
-            EmployeeEntity newEmployee = converter.toEntity(employeeDTO, EmployeeEntity.class);
+            EmployeeEntity newEmployee = Converter.toEntity(employeeDTO, EmployeeEntity.class);
             EmployeeEntity oldEmployee = employeeDAO.get(employeeDTO.getId());
             newEmployee.setPassport(oldEmployee.getPassport());
             newEmployee.setFired(oldEmployee.isFired());
@@ -52,21 +52,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDTO getEmployee(Serializable id) {
-        return converter.toDto(employeeDAO.get(id), EmployeeDTO.class);
+        return Converter.toDto(employeeDAO.get(id), EmployeeDTO.class);
     }
 
     @Transactional
     @Override
-    public PageInfo<EmployeeDTO> getEmployeesByFiredAndPage(Boolean isFired, Integer pageSize, Integer pageNumber) {
+    public PageInfo<EmployeeDTO> getEmployeesByFiredAndPage(EmployeeFilterData filterData,
+                                                            Boolean isFired,
+                                                            Integer pageSize,
+                                                            Integer pageNumber) {
         pageSize = PaginatorUtil.checkPageSize(pageSize);
         pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
         if (isFired == null) {
             isFired = DEFAULT_IS_FIRED;
         }
-        List<EmployeeDTO> employees = employeeDAO.getEmployeesByFiredAndPage(isFired, pageSize, pageNumber).stream()
-                .map(entity -> converter.toDto(entity, EmployeeDTO.class))
+
+        List<EmployeeDTO> employees = employeeDAO.getEmployeesByFiredAndPage(filterData, isFired, pageSize, pageNumber).stream()
+                .map(entity -> Converter.toDto(entity, EmployeeDTO.class))
                 .collect(Collectors.toList());
-        Long employeesCount = employeeDAO.getEmployeesCount(isFired);
+        Long employeesCount = employeeDAO.getEmployeesCount(filterData, isFired);
 
         return new PageInfo<>(employees, pageNumber, pageSize, employeesCount);
     }
@@ -78,14 +82,14 @@ public class EmployeeServiceImpl implements EmployeeService {
             allEmployees.removeIf(EmployeeEntity::isFired);
         }
         return allEmployees.stream()
-                .map(entity -> converter.toDto(entity, EmployeeItemDTO.class))
+                .map(entity -> Converter.toDto(entity, EmployeeItemDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
     public void addPassport(PassportDTO passportDTO) {
         EmployeeEntity employeeEntity = employeeDAO.get(passportDTO.getId());
-        PassportEntity passportEntity = converter.toEntity(passportDTO, PassportEntity.class);
+        PassportEntity passportEntity = Converter.toEntity(passportDTO, PassportEntity.class);
         employeeEntity.setPassport(passportEntity);
         passportEntity.setEmployee(employeeEntity);
         employeeDAO.update(employeeEntity, employeeEntity.getId());
@@ -93,7 +97,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void updatePassport(PassportDTO passportDTO) {
-        PassportEntity passportEntity = converter.toEntity(passportDTO, PassportEntity.class);
+        PassportEntity passportEntity = Converter.toEntity(passportDTO, PassportEntity.class);
         EmployeeEntity employeeEntity = employeeDAO.get(passportEntity.getId());
         employeeEntity.setPassport(passportEntity);
         employeeDAO.update(employeeEntity, employeeEntity.getId());
@@ -109,7 +113,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public PassportDTO getPassport(Serializable id) {
         EmployeeEntity employee = employeeDAO.get(id);
-        return converter.toDto(employee.getPassport(), PassportDTO.class);
+        return Converter.toDto(employee.getPassport(), PassportDTO.class);
     }
 
     @Override

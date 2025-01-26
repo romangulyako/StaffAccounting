@@ -41,4 +41,5 @@ public class ConstantAction {
     public static final String RESTORE_DEPARTMENT = "restore_department";
     public static final String REDUCE_POSITION = "reduce_position";
     public static final String RESTORE_POSITION = "restore_position";
+    public static final String CLEAR_FILTER = "clear_filter";
 }

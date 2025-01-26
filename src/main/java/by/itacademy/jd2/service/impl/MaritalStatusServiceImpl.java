@@ -21,18 +21,16 @@ import java.util.stream.Collectors;
 public class MaritalStatusServiceImpl implements MaritalStatusService {
     private final MaritalStatusDAO maritalStatusDAO;
     private final EmployeeDAO employeeDAO;
-    private final Converter converter;
 
     public MaritalStatusServiceImpl() {
         this.maritalStatusDAO = new MaritalStatusDaoImpl();
         this.employeeDAO = new EmployeeDaoImpl();
-        this.converter = Converter.getConverter();
     }
 
     @Override
     public void addMaritalStatus(MaritalStatusDTO maritalStatusDTO) {
         MaritalStatusEntity maritalStatusEntity =
-                converter.toEntity(maritalStatusDTO, MaritalStatusEntity.class);
+                Converter.toEntity(maritalStatusDTO, MaritalStatusEntity.class);
         EmployeeEntity employeeEntity = employeeDAO.get(maritalStatusDTO.getEmployeeId());
         employeeEntity.getMaritalStatuses().stream()
                 .filter(MaritalStatusEntity::isCurrent)
@@ -46,7 +44,7 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
     public void updateMaritalStatus(MaritalStatusDTO maritalStatusDTO) {
         if (maritalStatusDTO != null) {
             MaritalStatusEntity maritalStatusEntity =
-                    converter.toEntity(maritalStatusDTO, MaritalStatusEntity.class);
+                    Converter.toEntity(maritalStatusDTO, MaritalStatusEntity.class);
             maritalStatusEntity.setEmployee(employeeDAO.get(maritalStatusDTO.getEmployeeId()));
             maritalStatusDAO.update(maritalStatusEntity, maritalStatusEntity.getId());
         }
@@ -62,7 +60,7 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
 
     @Override
     public MaritalStatusDTO getMaritalStatus(Serializable id) {
-        return converter.toDto(maritalStatusDAO.get(id), MaritalStatusDTO.class);
+        return Converter.toDto(maritalStatusDAO.get(id), MaritalStatusDTO.class);
     }
 
     @Override
@@ -74,7 +72,7 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
         List<MaritalStatusDTO> maritalStatuses = Optional.of(
                         maritalStatusDAO.getMaritalStatusesByEmployeeIdAndPage(employeeId, pageSize, pageNumber)
                                 .stream()
-                                .map(entity -> converter.toDto(entity, MaritalStatusDTO.class))
+                                .map(entity -> Converter.toDto(entity, MaritalStatusDTO.class))
                                 .collect(Collectors.toList()))
                 .orElse(null);
         Long maritalStatusesCount = maritalStatusDAO.getMaritalStatusesCountByEmployeeId(employeeId);

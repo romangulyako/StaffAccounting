@@ -2,29 +2,33 @@ package by.itacademy.jd2.converter;
 
 import by.itacademy.jd2.converter.api.ToDtoConverter;
 import by.itacademy.jd2.converter.api.ToEntityConverter;
+
+import by.itacademy.jd2.converter.impl.CareerStepGetConverter;
+import by.itacademy.jd2.converter.impl.CareerStepSaveConverter;
 import by.itacademy.jd2.converter.impl.DepartmentConverter;
+import by.itacademy.jd2.converter.impl.DepartmentItemConverter;
 import by.itacademy.jd2.converter.impl.EducationConverter;
 import by.itacademy.jd2.converter.impl.EmployeeConverter;
+import by.itacademy.jd2.converter.impl.EmployeeItemConverter;
 import by.itacademy.jd2.converter.impl.MaritalStatusConverter;
 import by.itacademy.jd2.converter.impl.PassportConverter;
 import by.itacademy.jd2.converter.impl.PositionConverter;
-import by.itacademy.jd2.converter.impl.RelativeConverter;
-import by.itacademy.jd2.converter.impl.CareerStepGetConverter;
-import by.itacademy.jd2.converter.impl.CareerStepSaveConverter;
-import by.itacademy.jd2.converter.impl.EmployeeItemConverter;
-import by.itacademy.jd2.converter.impl.PositionHistoryConverter;
 import by.itacademy.jd2.converter.impl.PositionItemConverter;
+import by.itacademy.jd2.converter.impl.RelativeConverter;
+import by.itacademy.jd2.converter.impl.PositionHistoryConverter;
+
+import by.itacademy.jd2.dto.CareerStepGetDTO;
+import by.itacademy.jd2.dto.DepartmentDTO;
+import by.itacademy.jd2.dto.DepartmentItemDTO;
+import by.itacademy.jd2.dto.EducationDTO;
 import by.itacademy.jd2.dto.EmployeeDTO;
+import by.itacademy.jd2.dto.EmployeeItemDTO;
+import by.itacademy.jd2.dto.MaritalStatusDTO;
+import by.itacademy.jd2.dto.PassportDTO;
 import by.itacademy.jd2.dto.PositionDTO;
 import by.itacademy.jd2.dto.PositionHistoryDTO;
 import by.itacademy.jd2.dto.PositionItemDTO;
-import by.itacademy.jd2.dto.DepartmentDTO;
-import by.itacademy.jd2.dto.EmployeeItemDTO;
-import by.itacademy.jd2.dto.MaritalStatusDTO;
 import by.itacademy.jd2.dto.RelativeDTO;
-import by.itacademy.jd2.dto.PassportDTO;
-import by.itacademy.jd2.dto.CareerStepGetDTO;
-import by.itacademy.jd2.dto.EducationDTO;
 import by.itacademy.jd2.entity.EmployeeEntity;
 import by.itacademy.jd2.entity.EducationEntity;
 import by.itacademy.jd2.entity.PositionEntity;
@@ -39,15 +43,10 @@ import java.util.Map;
 
 public class Converter {
     private static Converter instance;
-    private final Map<Class<?>, ToDtoConverter<?, ?>> toDtoConverters = new HashMap<>();
-    private final Map<Class<?>, ToEntityConverter<?, ?>> toEntityConverters = new HashMap<>();
+    private static final Map<Class<?>, ToDtoConverter<?, ?>> toDtoConverters = new HashMap<>();
+    private static final Map<Class<?>, ToEntityConverter<?, ?>> toEntityConverters = new HashMap<>();
 
-    private Converter() {
-        fillToDtoConverters();
-        fillToEntityConverters();
-    }
-
-    private void fillToDtoConverters() {
+    static  {
         toDtoConverters.put(CareerStepGetDTO.class, new CareerStepGetConverter());
         toDtoConverters.put(DepartmentDTO.class, new DepartmentConverter());
         toDtoConverters.put(EducationDTO.class, new EducationConverter());
@@ -59,9 +58,8 @@ public class Converter {
         toDtoConverters.put(PositionHistoryDTO.class, new PositionHistoryConverter());
         toDtoConverters.put(PositionItemDTO.class, new PositionItemConverter());
         toDtoConverters.put(RelativeDTO.class, new RelativeConverter());
-    }
+        toDtoConverters.put(DepartmentItemDTO.class, new DepartmentItemConverter());
 
-    private void fillToEntityConverters() {
         toEntityConverters.put(CareerStepEntity.class, new CareerStepSaveConverter());
         toEntityConverters.put(DepartmentEntity.class, new DepartmentConverter());
         toEntityConverters.put(EducationEntity.class, new EducationConverter());
@@ -72,21 +70,13 @@ public class Converter {
         toEntityConverters.put(RelativeEntity.class, new RelativeConverter());
     }
 
-    public <DTO, ENTITY> DTO toDto(ENTITY entity, Class<DTO> dtoClass) {
+    public static  <DTO, ENTITY> DTO toDto(ENTITY entity, Class<DTO> dtoClass) {
         ToDtoConverter<ENTITY, DTO> converter = (ToDtoConverter<ENTITY, DTO>) toDtoConverters.get(dtoClass);
         return converter.toDto(entity);
     }
 
-    public <DTO, ENTITY> ENTITY toEntity(DTO dto, Class<ENTITY> entityClass) {
+    public static  <DTO, ENTITY> ENTITY toEntity(DTO dto, Class<ENTITY> entityClass) {
         ToEntityConverter<ENTITY, DTO> converter = (ToEntityConverter<ENTITY, DTO>) toEntityConverters.get(entityClass);
         return converter.toEntity(dto);
-    }
-
-    public static Converter getConverter() {
-        if (instance == null) {
-            instance = new Converter();
-        }
-
-        return instance;
     }
 }

@@ -21,18 +21,16 @@ import java.util.stream.Collectors;
 public class RelativeServiceImpl implements RelativeService {
     private final RelativeDAO relativeDAO;
     private final EmployeeDAO employeeDAO;
-    private final Converter converter;
 
     public RelativeServiceImpl() {
         this.relativeDAO = new RelativeDaoImpl();
         this.employeeDAO = new EmployeeDaoImpl();
-        this.converter = Converter.getConverter();
     }
 
     @Transactional
     @Override
     public void addRelative(RelativeDTO relativeDTO) {
-        RelativeEntity relativeEntity = converter.toEntity(relativeDTO, RelativeEntity.class);
+        RelativeEntity relativeEntity = Converter.toEntity(relativeDTO, RelativeEntity.class);
         EmployeeEntity employeeEntity = employeeDAO.get(relativeDTO.getEmployeeId());
         relativeEntity.setEmployee(employeeEntity);
         employeeEntity.getRelatives().add(relativeEntity);
@@ -43,7 +41,7 @@ public class RelativeServiceImpl implements RelativeService {
     @Override
     public void updateRelative(RelativeDTO relativeDTO) {
         if (relativeDTO != null) {
-            RelativeEntity relativeEntity = converter.toEntity(relativeDTO, RelativeEntity.class);
+            RelativeEntity relativeEntity = Converter.toEntity(relativeDTO, RelativeEntity.class);
             relativeEntity.setEmployee(relativeDAO.get(relativeEntity.getId()).getEmployee());
             relativeDAO.update(relativeEntity, relativeEntity.getId());
         }
@@ -59,7 +57,7 @@ public class RelativeServiceImpl implements RelativeService {
 
     @Override
     public RelativeDTO getRelative(Serializable id) {
-        return converter.toDto(relativeDAO.get(id), RelativeDTO.class);
+        return Converter.toDto(relativeDAO.get(id), RelativeDTO.class);
     }
 
 
@@ -72,7 +70,7 @@ public class RelativeServiceImpl implements RelativeService {
         pageNumber = PaginatorUtil.checkPageNumber(pageNumber);
         List<RelativeDTO> relatives = Optional.of(
                 relativeDAO.getRelativesByEmployeeIdAndPage(employeeId, pageSize, pageNumber).stream()
-                        .map(entity -> converter.toDto(entity, RelativeDTO.class))
+                        .map(entity -> Converter.toDto(entity, RelativeDTO.class))
                         .collect(Collectors.toList())).orElse(null);
         Long relativesCount = relativeDAO.getRelativesCountByEmployeeId(employeeId);
 
