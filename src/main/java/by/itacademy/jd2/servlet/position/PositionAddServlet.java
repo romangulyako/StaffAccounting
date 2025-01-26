@@ -40,7 +40,7 @@ public class PositionAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            positionService.addPosition(HttpRequestConverter.getConverter().convert(req, PositionDTO.class));
+            positionService.addPosition(HttpRequestConverter.convert(req, PositionDTO.class));
             req.getRequestDispatcher(ConstantAction.DEPARTMENT_INFO).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

@@ -35,7 +35,7 @@ public class RelativeAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            relativeService.addRelative(HttpRequestConverter.getConverter().convert(req, RelativeDTO.class));
+            relativeService.addRelative(HttpRequestConverter.convert(req, RelativeDTO.class));
             req.getRequestDispatcher(ConstantAction.RELATIVES).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

@@ -35,7 +35,7 @@ public class EmployeesListServlet extends HttpServlet {
             Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_SIZE));
             Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
             Boolean isFired = ParseUtil.parseBoolean(ServletUtil.getParam(req, ConstantParamAndAttribute.IS_FIRED));
-            EmployeeFilterData filterData = HttpRequestConverter.getConverter().convert(req, EmployeeFilterData.class);
+            EmployeeFilterData filterData = HttpRequestConverter.convert(req, EmployeeFilterData.class);
             List<DepartmentItemDTO> departments = departmentService.getDepartmentItems();
             PageInfo<EmployeeDTO> pageInfo =
                     employeeService.getEmployeesByFiredAndPage(filterData, isFired, pageSize, pageNumber);

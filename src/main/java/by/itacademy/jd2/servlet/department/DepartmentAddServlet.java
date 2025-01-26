@@ -33,7 +33,7 @@ public class DepartmentAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            departmentService.addDepartment(HttpRequestConverter.getConverter().convert(req, DepartmentDTO.class));
+            departmentService.addDepartment(HttpRequestConverter.convert(req, DepartmentDTO.class));
             req.getRequestDispatcher(ConstantAction.LIST_DEPARTMENTS).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

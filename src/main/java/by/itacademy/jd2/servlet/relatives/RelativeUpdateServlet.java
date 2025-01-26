@@ -36,7 +36,7 @@ public class RelativeUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            relativeService.updateRelative(HttpRequestConverter.getConverter().convert(req, RelativeDTO.class));
+            relativeService.updateRelative(HttpRequestConverter.convert(req, RelativeDTO.class));
             req.getRequestDispatcher(ConstantAction.RELATIVES).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

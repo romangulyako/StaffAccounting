@@ -30,7 +30,7 @@ public class EmployeeAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
        try {
-           employeeService.addEmployee(HttpRequestConverter.getConverter().convert(req, EmployeeDTO.class));
+           employeeService.addEmployee(HttpRequestConverter.convert(req, EmployeeDTO.class));
            resp.sendRedirect(ConstantAction.LIST_EMPLOYEES);
        } catch (Exception e) {
            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

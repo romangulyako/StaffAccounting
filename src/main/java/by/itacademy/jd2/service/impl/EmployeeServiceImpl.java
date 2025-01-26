@@ -67,7 +67,8 @@ public class EmployeeServiceImpl implements EmployeeService {
             isFired = DEFAULT_IS_FIRED;
         }
 
-        List<EmployeeDTO> employees = employeeDAO.getEmployeesByFiredAndPage(filterData, isFired, pageSize, pageNumber).stream()
+        List<EmployeeDTO> employees = employeeDAO.getEmployeesByFiredAndPage(filterData, isFired, pageSize, pageNumber)
+                .stream()
                 .map(entity -> Converter.toDto(entity, EmployeeDTO.class))
                 .collect(Collectors.toList());
         Long employeesCount = employeeDAO.getEmployeesCount(filterData, isFired);

@@ -33,9 +33,7 @@ public class DismissServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        careerService.dismissEmployee(HttpRequestConverter
-                .getConverter()
-                .convert(req, DismissDTO.class));
+        careerService.dismissEmployee(HttpRequestConverter.convert(req, DismissDTO.class));
         resp.sendRedirect(ConstantAction.LIST_EMPLOYEES);
     }
 

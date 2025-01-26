@@ -10,13 +10,16 @@ import by.itacademy.jd2.entity.PositionEntity;
 import by.itacademy.jd2.entity.embedded.PersonData;
 import by.itacademy.jd2.utils.ExecutorUtil;
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
 
 public class EmployeeDaoImpl extends DAO<EmployeeEntity> implements EmployeeDAO {
@@ -75,17 +78,16 @@ public class EmployeeDaoImpl extends DAO<EmployeeEntity> implements EmployeeDAO 
         }
 
         if (filterData.getName() != null && !filterData.getName().isEmpty()) {
-            Join<EmployeeEntity, PersonData> personDataJoin =
-                    root.join("personData", JoinType.INNER);
-            predicate = cb.and(predicate, cb.like(cb.lower(personDataJoin.get("name"))
-                    , "%" + filterData.getName().toLowerCase() + "%"));
+            Join<EmployeeEntity, PersonData> personDataJoin = root.join("personData", JoinType.INNER);
+            predicate = cb.and(predicate, cb.like(cb.lower(personDataJoin.get("name")),
+                    "%" + filterData.getName().toLowerCase() + "%"));
         }
 
         if (filterData.getPatronymic() != null && !filterData.getPatronymic().isEmpty()) {
             Join<EmployeeEntity, PersonData> personDataJoin =
                     root.join("personData", JoinType.INNER);
-            predicate = cb.and(predicate, cb.like(cb.lower(personDataJoin.get("patronymic"))
-                    , "%" + filterData.getPatronymic().toLowerCase() + "%"));
+            predicate = cb.and(predicate, cb.like(cb.lower(personDataJoin.get("patronymic")),
+                    "%" + filterData.getPatronymic().toLowerCase() + "%"));
         }
 
         if (filterData.getAge() != null) {

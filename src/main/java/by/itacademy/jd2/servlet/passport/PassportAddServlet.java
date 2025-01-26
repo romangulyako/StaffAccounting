@@ -35,7 +35,7 @@ public class PassportAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            PassportDTO passport = HttpRequestConverter.getConverter().convert(req, PassportDTO.class);
+            PassportDTO passport = HttpRequestConverter.convert(req, PassportDTO.class);
             employeeService.addPassport(passport);
             req.getRequestDispatcher(ConstantAction.PASSPORT).forward(req, resp);
         } catch (Exception e) {

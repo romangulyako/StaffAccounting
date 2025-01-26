@@ -36,7 +36,7 @@ public class MaritalStatusAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            maritalStatusService.addMaritalStatus(HttpRequestConverter.getConverter().convert(req,
+            maritalStatusService.addMaritalStatus(HttpRequestConverter.convert(req,
                     MaritalStatusDTO.class));
             req.getRequestDispatcher(ConstantAction.MARITAL_STATUSES).forward(req, resp);
         } catch (Exception e) {

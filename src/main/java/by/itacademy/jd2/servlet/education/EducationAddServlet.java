@@ -35,7 +35,7 @@ public class EducationAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            educationService.addEducation(HttpRequestConverter.getConverter().convert(req, EducationDTO.class));
+            educationService.addEducation(HttpRequestConverter.convert(req, EducationDTO.class));
             req.getRequestDispatcher(ConstantAction.EDUCATION).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
