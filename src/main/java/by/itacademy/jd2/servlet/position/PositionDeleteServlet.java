@@ -6,7 +6,6 @@ import by.itacademy.jd2.service.api.DepartmentService;
 import by.itacademy.jd2.service.api.PositionService;
 import by.itacademy.jd2.service.impl.DepartmentServiceImpl;
 import by.itacademy.jd2.service.impl.PositionServiceImpl;
-import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,8 +23,7 @@ public class PositionDeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            positionService.deletePosition(ParseUtil.parseLong(
-                    ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
+            positionService.deletePosition(ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID));
             req.getRequestDispatcher(ConstantAction.DEPARTMENT_INFO).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

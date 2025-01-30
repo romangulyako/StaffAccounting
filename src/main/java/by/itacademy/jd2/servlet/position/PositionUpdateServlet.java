@@ -9,7 +9,6 @@ import by.itacademy.jd2.service.api.PositionService;
 import by.itacademy.jd2.service.impl.DepartmentServiceImpl;
 import by.itacademy.jd2.service.impl.PositionServiceImpl;
 import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
-import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -28,9 +27,9 @@ public class PositionUpdateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             final PositionDTO position = positionService.getPosition(
-                    ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
+                    ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID));
             req.setAttribute(ConstantParamAndAttribute.IS_ACTUAL,
-                    ParseUtil.parseBoolean(ServletUtil.getParam(req, ConstantParamAndAttribute.IS_ACTUAL)));
+                    ServletUtil.getParamBoolean(req, ConstantParamAndAttribute.IS_ACTUAL));
             req.setAttribute(ConstantParamAndAttribute.POSITION, position);
             req.getRequestDispatcher(ConstantJSP.UPDATE_POSITION_PAGE).forward(req, resp);
         } catch (Exception e) {

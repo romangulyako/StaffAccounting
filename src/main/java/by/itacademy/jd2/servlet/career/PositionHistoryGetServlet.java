@@ -7,7 +7,6 @@ import by.itacademy.jd2.dto.PositionHistoryDTO;
 import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.CareerService;
 import by.itacademy.jd2.service.impl.CareerServiceImpl;
-import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,19 +23,18 @@ public class PositionHistoryGetServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_SIZE));
-            Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
-            Long positionId = ParseUtil.parseLong(ServletUtil.getParam(req,
-                    ConstantParamAndAttribute.POSITION_ID));
-            Boolean isActual = ParseUtil.parseBoolean(ServletUtil.getParam(req, ConstantParamAndAttribute.IS_ACTUAL));
+            Integer pageSize = ServletUtil.getParamInt(req, ConstantParamAndAttribute.PAGE_SIZE);
+            Integer pageNumber = ServletUtil.getParamInt(req, ConstantParamAndAttribute.PAGE_NUMBER);
+            Long positionId = ServletUtil.getParamLong(req, ConstantParamAndAttribute.POSITION_ID);
+            Boolean isActual = ServletUtil.getParamBoolean(req, ConstantParamAndAttribute.IS_ACTUAL);
             PageInfo<PositionHistoryDTO> pageInfo =
                     careerService.getPositionHistoryByPage(positionId, pageNumber, pageSize);
 
             req.setAttribute(ConstantParamAndAttribute.IS_ACTUAL, isActual);
             req.setAttribute(ConstantParamAndAttribute.PAGE_INFO, pageInfo);
-            req.setAttribute(ConstantParamAndAttribute.DEPARTMENT_ID, ServletUtil.getParam(req,
+            req.setAttribute(ConstantParamAndAttribute.DEPARTMENT_ID, ServletUtil.getParamString(req,
                     ConstantParamAndAttribute.DEPARTMENT_ID));
-            req.setAttribute(ConstantParamAndAttribute.POSITION_ID, ServletUtil.getParam(req,
+            req.setAttribute(ConstantParamAndAttribute.POSITION_ID, ServletUtil.getParamString(req,
                     ConstantParamAndAttribute.POSITION_ID));
             req.getRequestDispatcher(ConstantJSP.POSITION_HISTORY_PAGE).forward(req, resp);
         } catch (Exception e) {

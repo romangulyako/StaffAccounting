@@ -7,7 +7,6 @@ import by.itacademy.jd2.dto.PassportDTO;
 import by.itacademy.jd2.service.api.EmployeeService;
 import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
 import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
-import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -26,7 +25,7 @@ public class PassportUpdateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             final PassportDTO passport = employeeService.getPassport(
-                    ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
+                    ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID));
             req.setAttribute(ConstantParamAndAttribute.PASSPORT, passport);
 
             RequestDispatcher requestDispatcher = getServletContext()

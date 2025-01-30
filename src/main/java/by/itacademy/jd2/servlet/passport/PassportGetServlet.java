@@ -6,7 +6,6 @@ import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.PassportDTO;
 import by.itacademy.jd2.service.api.EmployeeService;
 import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
-import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -24,10 +23,11 @@ public class PassportGetServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            PassportDTO passport = employeeService.getPassport(ParseUtil.parseLong(ServletUtil.getParam(req,
-                    ConstantParamAndAttribute.ID)));
+            PassportDTO passport =
+                    employeeService.getPassport(ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID));
             req.setAttribute(ConstantParamAndAttribute.PASSPORT, passport);
-            req.setAttribute(ConstantParamAndAttribute.ID, ServletUtil.getParam(req, ConstantParamAndAttribute.ID));
+            req.setAttribute(ConstantParamAndAttribute.ID,
+                    ServletUtil.getParamString(req, ConstantParamAndAttribute.ID));
 
             RequestDispatcher requestDispatcher = getServletContext()
                     .getRequestDispatcher(ConstantJSP.PASSPORT_PAGE);

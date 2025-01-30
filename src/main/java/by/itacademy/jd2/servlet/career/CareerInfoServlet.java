@@ -7,7 +7,6 @@ import by.itacademy.jd2.dto.CareerStepGetDTO;
 import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.CareerService;
 import by.itacademy.jd2.service.impl.CareerServiceImpl;
-import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,10 +23,9 @@ public class CareerInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_SIZE));
-            Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
-            Long employeeId = ParseUtil.parseLong(ServletUtil.getParam(req,
-                    ConstantParamAndAttribute.EMPLOYEE_ID));
+            Integer pageSize = ServletUtil.getParamInt(req, ConstantParamAndAttribute.PAGE_SIZE);
+            Integer pageNumber = ServletUtil.getParamInt(req, ConstantParamAndAttribute.PAGE_NUMBER);
+            Long employeeId = ServletUtil.getParamLong(req, ConstantParamAndAttribute.EMPLOYEE_ID);
             PageInfo<CareerStepGetDTO> pageInfo =
                     careerService.getCareerOfEmployeeByPage(employeeId, pageNumber, pageSize);
             req.setAttribute(ConstantParamAndAttribute.PAGE_INFO, pageInfo);

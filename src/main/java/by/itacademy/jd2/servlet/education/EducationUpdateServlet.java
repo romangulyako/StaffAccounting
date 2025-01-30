@@ -7,7 +7,6 @@ import by.itacademy.jd2.dto.EducationDTO;
 import by.itacademy.jd2.service.api.EducationService;
 import by.itacademy.jd2.service.impl.EducationServiceImpl;
 import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
-import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -25,8 +24,8 @@ public class EducationUpdateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            final EducationDTO education = educationService.getEducation(
-                    ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
+            final EducationDTO education =
+                    educationService.getEducation(ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID));
             req.setAttribute(ConstantParamAndAttribute.EDUCATION, education);
 
             RequestDispatcher requestDispatcher = getServletContext()

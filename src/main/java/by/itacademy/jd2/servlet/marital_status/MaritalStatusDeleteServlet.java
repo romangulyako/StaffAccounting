@@ -4,7 +4,6 @@ import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.service.api.MaritalStatusService;
 import by.itacademy.jd2.service.impl.MaritalStatusServiceImpl;
-import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,9 +20,7 @@ public class MaritalStatusDeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            maritalStatusService.deleteMaritalStatus(
-                    ParseUtil.parseLong(
-                            ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
+            maritalStatusService.deleteMaritalStatus(ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID));
             req.getRequestDispatcher(ConstantAction.MARITAL_STATUSES).forward(req, resp);
         } catch (Exception e) {
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);

@@ -5,7 +5,6 @@ import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.service.api.PositionService;
 import by.itacademy.jd2.service.impl.PositionServiceImpl;
 import by.itacademy.jd2.utils.HibernateUtil;
-import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,8 +21,7 @@ public class PositionReduceServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            Long positionId =
-                    ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.POSITION_ID));
+            Long positionId = ServletUtil.getParamLong(req, ConstantParamAndAttribute.POSITION_ID);
             positionService.reducePosition(positionId);
             req.getRequestDispatcher(ConstantAction.DEPARTMENT_INFO).forward(req, resp);
         } catch (Exception e) {

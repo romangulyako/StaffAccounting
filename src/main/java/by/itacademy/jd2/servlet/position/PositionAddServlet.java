@@ -9,7 +9,6 @@ import by.itacademy.jd2.service.api.PositionService;
 import by.itacademy.jd2.service.impl.DepartmentServiceImpl;
 import by.itacademy.jd2.service.impl.PositionServiceImpl;
 import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
-import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -28,7 +27,7 @@ public class PositionAddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            Long departmentId = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.DEPARTMENT_ID));
+            Long departmentId = ServletUtil.getParamLong(req, ConstantParamAndAttribute.DEPARTMENT_ID);
             req.setAttribute(ConstantParamAndAttribute.DEPARTMENT_ID, departmentId);
             req.setAttribute(ConstantParamAndAttribute.IS_ACTUAL, DEFAULT_IS_ACTUAL_FOR_ADD);
             req.getRequestDispatcher(ConstantJSP.ADD_POSITION_PAGE).forward(req, resp);

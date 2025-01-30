@@ -11,7 +11,6 @@ import by.itacademy.jd2.service.api.PositionService;
 import by.itacademy.jd2.service.impl.CareerServiceImpl;
 import by.itacademy.jd2.service.impl.PositionServiceImpl;
 import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
-import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -29,7 +28,7 @@ public class CareerStepUpdateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.CAREER_ID));
+        Long id = ServletUtil.getParamLong(req, ConstantParamAndAttribute.CAREER_ID);
         final CareerStepGetDTO careerStep = careerService.getCareerStep(id);
         List<PositionItemDTO> positionItems = positionService.getAllPositionItems();
         req.setAttribute(ConstantParamAndAttribute.POSITION_ITEMS, positionItems);

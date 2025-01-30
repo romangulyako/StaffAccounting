@@ -7,7 +7,6 @@ import by.itacademy.jd2.dto.DepartmentDTO;
 import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.DepartmentService;
 import by.itacademy.jd2.service.impl.DepartmentServiceImpl;
-import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,9 +23,9 @@ public class DepartmentsListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            Integer pageSize = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_SIZE));
-            Integer pageNumber = ParseUtil.parseInt(ServletUtil.getParam(req, ConstantParamAndAttribute.PAGE_NUMBER));
-            Boolean isActual = ParseUtil.parseBoolean(ServletUtil.getParam(req, ConstantParamAndAttribute.IS_ACTUAL));
+            Integer pageSize = ServletUtil.getParamInt(req, ConstantParamAndAttribute.PAGE_SIZE);
+            Integer pageNumber = ServletUtil.getParamInt(req, ConstantParamAndAttribute.PAGE_NUMBER);
+            Boolean isActual = ServletUtil.getParamBoolean(req, ConstantParamAndAttribute.IS_ACTUAL);
 
             PageInfo<DepartmentDTO> pageItems = departmentService.getDepartmentsByActualAndPage(isActual,
                     pageNumber, pageSize);

@@ -7,7 +7,6 @@ import by.itacademy.jd2.dto.MaritalStatusDTO;
 import by.itacademy.jd2.service.api.MaritalStatusService;
 import by.itacademy.jd2.service.impl.MaritalStatusServiceImpl;
 import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
-import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -25,8 +24,8 @@ public class MaritalStatusUpdateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            final MaritalStatusDTO maritalStatus = maritalStatusService.getMaritalStatus(
-                    ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)));
+            final MaritalStatusDTO maritalStatus =
+                    maritalStatusService.getMaritalStatus(ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID));
             req.setAttribute(ConstantParamAndAttribute.MARITAL_STATUS, maritalStatus);
 
             RequestDispatcher requestDispatcher = getServletContext()

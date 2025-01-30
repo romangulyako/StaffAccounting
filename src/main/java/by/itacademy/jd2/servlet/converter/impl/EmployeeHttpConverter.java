@@ -5,7 +5,6 @@ import by.itacademy.jd2.dto.EmployeeDTO;
 import by.itacademy.jd2.entity.embedded.Address;
 import by.itacademy.jd2.entity.embedded.PersonData;
 import by.itacademy.jd2.servlet.converter.FromHttpRequestConverter;
-import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -13,21 +12,21 @@ public class EmployeeHttpConverter implements FromHttpRequestConverter<EmployeeD
     @Override
     public EmployeeDTO convert(HttpServletRequest req) {
         return EmployeeDTO.builder()
-                .id(ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID)))
+                .id(ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID))
                 .personData(PersonData.builder()
-                        .surname(ServletUtil.getParam(req, ConstantParamAndAttribute.SURNAME))
-                        .name(ServletUtil.getParam(req, ConstantParamAndAttribute.NAME))
-                        .patronymic(ServletUtil.getParam(req, ConstantParamAndAttribute.PATRONYMIC))
-                        .birthday(ParseUtil.parseDate(ServletUtil.getParam(req, ConstantParamAndAttribute.BIRTHDAY)))
+                        .surname(ServletUtil.getParamString(req, ConstantParamAndAttribute.SURNAME))
+                        .name(ServletUtil.getParamString(req, ConstantParamAndAttribute.NAME))
+                        .patronymic(ServletUtil.getParamString(req, ConstantParamAndAttribute.PATRONYMIC))
+                        .birthday(ServletUtil.getParamDate(req, ConstantParamAndAttribute.BIRTHDAY))
                         .build())
                 .homeAddress(Address.builder()
-                        .city(ServletUtil.getParam(req, ConstantParamAndAttribute.RESIDENCE_CITY))
-                        .street(ServletUtil.getParam(req, ConstantParamAndAttribute.RESIDENCE_STREET))
-                        .house(ServletUtil.getParam(req, ConstantParamAndAttribute.RESIDENCE_HOUSE))
-                        .apartment(ParseUtil.parseInt(ServletUtil.getParam(req,
-                                ConstantParamAndAttribute.RESIDENCE_APARTMENT)))
+                        .city(ServletUtil.getParamString(req, ConstantParamAndAttribute.RESIDENCE_CITY))
+                        .street(ServletUtil.getParamString(req, ConstantParamAndAttribute.RESIDENCE_STREET))
+                        .house(ServletUtil.getParamString(req, ConstantParamAndAttribute.RESIDENCE_HOUSE))
+                        .apartment(ServletUtil.getParamInt(req,
+                                ConstantParamAndAttribute.RESIDENCE_APARTMENT))
                         .build())
-                .phone(ServletUtil.getParam(req, ConstantParamAndAttribute.PHONE))
+                .phone(ServletUtil.getParamString(req, ConstantParamAndAttribute.PHONE))
                 .build();
     }
 }

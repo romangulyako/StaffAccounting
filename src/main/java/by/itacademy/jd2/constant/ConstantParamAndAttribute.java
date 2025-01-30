@@ -27,15 +27,12 @@ public class ConstantParamAndAttribute {
     public static final String PASSPORT = "passport";
     public static final String EMPLOYEE_ID = "employee_id";
     public static final String TYPE_KINSHIP = "type_kinship";
-    public static final String LIST_RELATIVES = "list_relatives";
     public static final String RELATIVE = "relative";
     public static final String STATUS = "status";
     public static final String REGISTRATION_DATE = "registration_date";
     public static final String DOCUMENT = "document";
     public static final String IS_CURRENT = "is_current";
-    public static final String LIST_MARITAL_STATUSES = "list_marital_statuses";
     public static final String MARITAL_STATUS = "marital_status";
-    public static final String LIST_EDUCATION = "list_education";
     public static final String EDUCATION_LEVEL = "education_level";
     public static final String INSTITUTION = "institution";
     public static final String FACULTY = "faculty";
@@ -49,8 +46,6 @@ public class ConstantParamAndAttribute {
     public static final String SALARY = "salary";
     public static final String DEPARTMENT_ID = "department_id";
     public static final String POSITION = "position";
-    public static final String LIST_POSITIONS = "list_position";
-    public static final String CAREER = "career";
     public static final String ORDER_APPOINTMENT = "order_appointment";
     public static final String POSITION_ID = "position_id";
     public static final String EMPLOYEE_ITEMS = "employee_items";
@@ -58,7 +53,6 @@ public class ConstantParamAndAttribute {
     public static final String CAREER_STEP = "career_step";
     public static final String NEW_POSITION_ID = "new_position_id";
     public static final String NEW_DATE_OF_APPOINTMENT = "new_date_of_appointment";
-    public static final String HISTORY = "history";
     public static final String DATE_OF_LIBERATION = "date_of_liberation";
     public static final String ORDER_LIBERATION = "order_liberation";
     public static final String CAREER_ID = "career_id";

@@ -14,5 +14,6 @@ public class RelativeDTO {
     private Long id;
     private PersonData personData;
     private String typeKinship;
+
     private Long employeeId;
 }

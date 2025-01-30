@@ -4,7 +4,6 @@ import by.itacademy.jd2.constant.ConstantAction;
 import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.service.api.EmployeeService;
 import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
-import by.itacademy.jd2.utils.ParseUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,7 +20,7 @@ public class PassportDeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            Long id = ParseUtil.parseLong(ServletUtil.getParam(req, ConstantParamAndAttribute.ID));
+            Long id = ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID);
             employeeService.deletePassport(id);
             req.getRequestDispatcher(ConstantAction.EMPLOYEE).forward(req, resp);
         } catch (Exception e) {
