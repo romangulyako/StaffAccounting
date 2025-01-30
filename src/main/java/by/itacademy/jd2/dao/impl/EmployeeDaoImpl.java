@@ -13,13 +13,16 @@ import by.itacademy.jd2.utils.ExecutorUtil;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import org.apache.commons.lang3.StringUtils;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDaoImpl extends DAO<EmployeeEntity> implements EmployeeDAO {
@@ -67,37 +70,20 @@ public class EmployeeDaoImpl extends DAO<EmployeeEntity> implements EmployeeDAO 
                                       Root<EmployeeEntity> root,
                                       EmployeeFilterData filterData,
                                       Boolean isFired) {
-        Predicate predicate = cb.conjunction();
-        predicate = cb.and(predicate, cb.equal(root.get("isFired"), isFired));
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(cb.equal(root.get("isFired"), isFired));
 
-        if (filterData.getSurname() != null && !filterData.getSurname().isEmpty()) {
-            Join<EmployeeEntity, PersonData> personDataJoin =
-                    root.join("personData", JoinType.INNER);
-            predicate = cb.and(predicate, cb.like(cb.lower(personDataJoin.get("surname")),
-                    "%" + filterData.getSurname().toLowerCase() + "%"));
-        }
+        Join<EmployeeEntity, PersonData> personDataJoin =
+                root.join("personData", JoinType.INNER);
 
-        if (filterData.getName() != null && !filterData.getName().isEmpty()) {
-            Join<EmployeeEntity, PersonData> personDataJoin = root.join("personData", JoinType.INNER);
-            predicate = cb.and(predicate, cb.like(cb.lower(personDataJoin.get("name")),
-                    "%" + filterData.getName().toLowerCase() + "%"));
-        }
-
-        if (filterData.getPatronymic() != null && !filterData.getPatronymic().isEmpty()) {
-            Join<EmployeeEntity, PersonData> personDataJoin =
-                    root.join("personData", JoinType.INNER);
-            predicate = cb.and(predicate, cb.like(cb.lower(personDataJoin.get("patronymic")),
-                    "%" + filterData.getPatronymic().toLowerCase() + "%"));
-        }
+        addPredicateForStringValue(predicates, cb, personDataJoin.get("surname"), filterData.getSurname());
+        addPredicateForStringValue(predicates, cb, personDataJoin.get("name"), filterData.getName());
+        addPredicateForStringValue(predicates, cb, personDataJoin.get("patronymic"), filterData.getPatronymic());
 
         if (filterData.getAge() != null) {
-            Join<EmployeeEntity, PersonData> personDataJoin =
-                    root.join("personData", JoinType.INNER);
-
             LocalDate today = LocalDate.now();
             Date minBirthDay = Date.valueOf(today.minusYears(filterData.getAge()));
-
-            predicate = cb.and(predicate, cb.lessThanOrEqualTo(personDataJoin.get("birthday"), minBirthDay));
+            predicates.add(cb.lessThanOrEqualTo(personDataJoin.get("birthday"), minBirthDay));
         }
 
         if (filterData.getDepartmentId() != null) {
@@ -109,12 +95,17 @@ public class EmployeeDaoImpl extends DAO<EmployeeEntity> implements EmployeeDAO 
 
             Join<PositionEntity, DepartmentEntity> departmentEntityJoin =
                     positionEntityJoin.join("department", JoinType.INNER);
-
-            predicate = cb.and(predicate, cb.equal(departmentEntityJoin.get("id"),
+            predicates.add(cb.and(cb.equal(departmentEntityJoin.get("id"),
                             filterData.getDepartmentId()),
-                    cb.isTrue(careerStepEntityJoin.get("isCurrent")));
+                    cb.isTrue(careerStepEntityJoin.get("isCurrent"))));
         }
+        return cb.and(predicates.toArray(Predicate[]::new));
+    }
 
-        return predicate;
+    private void addPredicateForStringValue(List<Predicate> predicates, CriteriaBuilder cb,
+                                    Expression<String> expression, String value) {
+        if (StringUtils.isNotBlank(value)) {
+            predicates.add(cb.like(cb.lower(expression), "%" + value.toLowerCase() + "%"));
+        }
     }
 }
