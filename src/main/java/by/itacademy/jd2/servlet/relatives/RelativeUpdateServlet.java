@@ -13,11 +13,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "relativeUpdateServlet", value = "/update_relative")
 public class RelativeUpdateServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RelativeUpdateServlet.class);
     private final RelativeService relativeService = new RelativeServiceImpl();
 
     @Override
@@ -28,6 +31,7 @@ public class RelativeUpdateServlet extends HttpServlet {
             req.setAttribute(ConstantParamAndAttribute.RELATIVE, relative);
             req.getRequestDispatcher(ConstantJSP.UPDATE_RELATIVE_PAGE).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
@@ -38,6 +42,7 @@ public class RelativeUpdateServlet extends HttpServlet {
             relativeService.updateRelative(HttpRequestConverter.convert(req, RelativeDTO.class));
             req.getRequestDispatcher(ConstantAction.RELATIVES).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

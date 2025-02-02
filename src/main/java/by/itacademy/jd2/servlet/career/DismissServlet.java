@@ -15,26 +15,39 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "dismissServlet", value = "/dismiss")
 public class DismissServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DismissServlet.class);
     private final CareerService careerService = new CareerServiceImpl();
     private final EmployeeService employeeService = new EmployeeServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<EmployeeItemDTO> employeeItems = employeeService.getAllEmployeeItems(true);
-        req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ITEMS, employeeItems);
-        req.getRequestDispatcher(ConstantJSP.DISMISS_PAGE).forward(req, resp);
+        try {
+            List<EmployeeItemDTO> employeeItems = employeeService.getAllEmployeeItems(true);
+            req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ITEMS, employeeItems);
+            req.getRequestDispatcher(ConstantJSP.DISMISS_PAGE).forward(req, resp);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        careerService.dismissEmployee(HttpRequestConverter.convert(req, DismissDTO.class));
-        resp.sendRedirect(ConstantAction.LIST_EMPLOYEES);
+        try {
+            careerService.dismissEmployee(HttpRequestConverter.convert(req, DismissDTO.class));
+            resp.sendRedirect(ConstantAction.LIST_EMPLOYEES);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
     }
 
     @Override

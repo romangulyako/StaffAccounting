@@ -14,11 +14,15 @@ import by.itacademy.jd2.service.api.EmployeeService;
 import by.itacademy.jd2.utils.PaginatorUtil;
 
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class EmployeeServiceImpl implements EmployeeService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeServiceImpl.class);
     private static final Boolean DEFAULT_IS_FIRED = false;
     private final EmployeeDAO employeeDAO;
 
@@ -31,9 +35,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity employeeEntity =
                 Converter.toEntity(employeeDTO, EmployeeEntity.class);
         employeeDAO.save(employeeEntity);
+
+        LOGGER.info("Added employee with id={}", employeeEntity.getId());
     }
 
-    @Transactional
     @Override
     public void updateEmployee(EmployeeDTO employeeDTO) {
         if (employeeDTO != null) {
@@ -42,20 +47,28 @@ public class EmployeeServiceImpl implements EmployeeService {
             newEmployee.setPassport(oldEmployee.getPassport());
             newEmployee.setFired(oldEmployee.isFired());
             employeeDAO.update(newEmployee, newEmployee.getId());
+
+            LOGGER.info("Updated employee with id={}", newEmployee.getId());
         }
     }
 
     @Override
     public void deleteEmployee(Serializable id) {
         employeeDAO.delete(id);
+
+        LOGGER.info("Deleted employee with id={}", id);
     }
 
     @Override
     public EmployeeDTO getEmployee(Serializable id) {
-        return Converter.toDto(employeeDAO.get(id), EmployeeDTO.class);
+        EmployeeDTO employeeDTO = Converter.toDto(employeeDAO.get(id), EmployeeDTO.class);
+        if (employeeDTO != null) {
+            LOGGER.info("Found employee with id={}", id);
+        }
+
+        return employeeDTO;
     }
 
-    @Transactional
     @Override
     public PageInfo<EmployeeDTO> getEmployeesByFiredAndPage(EmployeeFilterData filterData,
                                                             Boolean isFired,
@@ -73,6 +86,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .collect(Collectors.toList());
         Long employeesCount = employeeDAO.getEmployeesCount(filterData, isFired);
 
+        LOGGER.info("Found {} from {} employees", employees.size(), employeesCount);
+
         return new PageInfo<>(employees, pageNumber, pageSize, employeesCount);
     }
 
@@ -82,9 +97,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (isCurrentOnly) {
             allEmployees.removeIf(EmployeeEntity::isFired);
         }
-        return allEmployees.stream()
+
+        List<EmployeeItemDTO> items = allEmployees.stream()
                 .map(entity -> Converter.toDto(entity, EmployeeItemDTO.class))
                 .collect(Collectors.toList());
+
+        LOGGER.info("Found {} employeeItems", items.size());
+
+        return items;
     }
 
     @Override
@@ -94,6 +114,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeEntity.setPassport(passportEntity);
         passportEntity.setEmployee(employeeEntity);
         employeeDAO.update(employeeEntity, employeeEntity.getId());
+
+        LOGGER.info("Added passport with id={}", passportEntity.getId());
     }
 
     @Override
@@ -102,6 +124,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity employeeEntity = employeeDAO.get(passportEntity.getId());
         employeeEntity.setPassport(passportEntity);
         employeeDAO.update(employeeEntity, employeeEntity.getId());
+
+        LOGGER.info("Updated passport with id={}", passportEntity.getId());
     }
 
     @Override
@@ -109,12 +133,20 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity employee = employeeDAO.get(id);
         employee.setPassport(null);
         employeeDAO.update(employee, employee.getId());
+
+        LOGGER.info("Deleted passport with id={}", id);
     }
 
     @Override
     public PassportDTO getPassport(Serializable id) {
         EmployeeEntity employee = employeeDAO.get(id);
-        return Converter.toDto(employee.getPassport(), PassportDTO.class);
+        PassportDTO passportDTO = Converter.toDto(employee.getPassport(), PassportDTO.class);
+
+        if (passportDTO != null) {
+            LOGGER.info("Found passport with id={}", id);
+        }
+
+        return passportDTO;
     }
 
     @Override

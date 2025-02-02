@@ -13,12 +13,16 @@ import by.itacademy.jd2.service.api.RelativeService;
 import by.itacademy.jd2.utils.PaginatorUtil;
 
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class RelativeServiceImpl implements RelativeService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RelativeServiceImpl.class);
     private final RelativeDAO relativeDAO;
     private final EmployeeDAO employeeDAO;
 
@@ -27,7 +31,6 @@ public class RelativeServiceImpl implements RelativeService {
         this.employeeDAO = new EmployeeDaoImpl();
     }
 
-    @Transactional
     @Override
     public void addRelative(RelativeDTO relativeDTO) {
         RelativeEntity relativeEntity = Converter.toEntity(relativeDTO, RelativeEntity.class);
@@ -35,33 +38,42 @@ public class RelativeServiceImpl implements RelativeService {
         relativeEntity.setEmployee(employeeEntity);
         employeeEntity.getRelatives().add(relativeEntity);
         relativeDAO.save(relativeEntity);
+
+        LOGGER.info("Added relative with id={} for employee with id={}", relativeEntity.getId(), employeeEntity.getId());
     }
 
-    @Transactional
     @Override
     public void updateRelative(RelativeDTO relativeDTO) {
         if (relativeDTO != null) {
             RelativeEntity relativeEntity = Converter.toEntity(relativeDTO, RelativeEntity.class);
             relativeEntity.setEmployee(relativeDAO.get(relativeEntity.getId()).getEmployee());
             relativeDAO.update(relativeEntity, relativeEntity.getId());
+
+            LOGGER.info("Updated relative with id={}", relativeEntity.getId());
         }
     }
 
-    @Transactional
     @Override
     public void deleteRelative(Serializable id) {
         RelativeEntity relativeEntity = relativeDAO.get(id);
-        relativeEntity.getEmployee().getRelatives().remove(relativeEntity);
-        relativeDAO.delete(id);
+        if (relativeEntity != null) {
+            relativeEntity.getEmployee().getRelatives().remove(relativeEntity);
+            relativeDAO.delete(id);
+
+            LOGGER.info("Deleted relative with id={}", id);
+        }
     }
 
     @Override
     public RelativeDTO getRelative(Serializable id) {
-        return Converter.toDto(relativeDAO.get(id), RelativeDTO.class);
+        RelativeDTO relative = Converter.toDto(relativeDAO.get(id), RelativeDTO.class);
+        if (relative != null) {
+            LOGGER.info("Found relative with id={}", id);
+        }
+
+        return relative;
     }
 
-
-    @Transactional
     @Override
     public PageInfo<RelativeDTO> getRelativesByEmployeeIdAndPage(Serializable employeeId,
                                                                  Integer pageNumber,
@@ -73,6 +85,8 @@ public class RelativeServiceImpl implements RelativeService {
                         .map(entity -> Converter.toDto(entity, RelativeDTO.class))
                         .collect(Collectors.toList())).orElse(null);
         Long relativesCount = relativeDAO.getRelativesCountByEmployeeId(employeeId);
+
+        LOGGER.info("Found {} from {} relatives", relatives.size(), relativesCount);
 
         return new PageInfo<>(relatives, pageNumber, pageSize, relativesCount);
     }

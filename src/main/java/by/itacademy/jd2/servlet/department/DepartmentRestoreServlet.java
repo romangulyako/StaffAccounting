@@ -11,11 +11,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "departmentRestoreServlet", value = "/restore_department")
 public class DepartmentRestoreServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentRestoreServlet.class);
     private final DepartmentService departmentService = new DepartmentServiceImpl();
 
     @Override
@@ -25,6 +28,7 @@ public class DepartmentRestoreServlet extends HttpServlet {
             departmentService.restoreDepartment(departmentId);
             req.getRequestDispatcher(ConstantAction.LIST_DEPARTMENTS).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

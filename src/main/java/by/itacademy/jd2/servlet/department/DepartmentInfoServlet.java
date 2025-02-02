@@ -16,11 +16,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "departmentInfoServlet", value = "/department_info")
 public class DepartmentInfoServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentInfoServlet.class);
     private final DepartmentService departmentService = new DepartmentServiceImpl();
     private final PositionService positionService = new PositionServiceImpl();
 
@@ -42,6 +45,7 @@ public class DepartmentInfoServlet extends HttpServlet {
             req.setAttribute(ConstantParamAndAttribute.IS_ACTUAL, isActual);
             req.getRequestDispatcher(ConstantJSP.DEPARTMENT_INFO_PAGE).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

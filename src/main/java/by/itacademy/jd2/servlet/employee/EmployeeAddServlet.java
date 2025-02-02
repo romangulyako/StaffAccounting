@@ -11,11 +11,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "employeeAddServlet", value = "/add_employee")
 public class EmployeeAddServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeAddServlet.class);
     private final EmployeeService employeeService = new EmployeeServiceImpl();
 
     @Override
@@ -23,6 +26,7 @@ public class EmployeeAddServlet extends HttpServlet {
         try {
             req.getRequestDispatcher(ConstantJSP.ADD_EMPLOYEE_PAGE).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
@@ -33,6 +37,7 @@ public class EmployeeAddServlet extends HttpServlet {
            employeeService.addEmployee(HttpRequestConverter.convert(req, EmployeeDTO.class));
            resp.sendRedirect(ConstantAction.LIST_EMPLOYEES);
        } catch (Exception e) {
+           LOGGER.error(e.getMessage());
            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
        }
     }

@@ -13,11 +13,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "educationGetServlet", value = "/education")
 public class EducationGetServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EducationGetServlet.class);
     private final EducationService educationService = new EducationServiceImpl();
 
     @Override
@@ -33,6 +36,7 @@ public class EducationGetServlet extends HttpServlet {
             req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
             req.getRequestDispatcher(ConstantJSP.EDUCATION_PAGE).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

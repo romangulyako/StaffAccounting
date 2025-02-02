@@ -19,12 +19,16 @@ import by.itacademy.jd2.service.api.CareerService;
 import by.itacademy.jd2.utils.PaginatorUtil;
 
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class CareerServiceImpl implements CareerService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CareerServiceImpl.class);
     private final CareerDAO careerDAO;
     private final EmployeeDAO employeeDAO;
     private final PositionDAO positionDAO;
@@ -35,7 +39,6 @@ public class CareerServiceImpl implements CareerService {
         this.positionDAO = new PositionDaoImpl();
     }
 
-    @Transactional
     @Override
     public void appointEmployee(CareerStepSaveDTO careerStepDTO) {
         EmployeeEntity employeeEntity = employeeDAO.get(careerStepDTO.getEmployeeId());
@@ -56,9 +59,11 @@ public class CareerServiceImpl implements CareerService {
         }
         positionEntity.getHistory().add(careerStepEntity);
         careerDAO.save(careerStepEntity);
+
+        LOGGER.info("Employee with id={} appointed to position with id={} successfully!",
+                careerStepDTO.getEmployeeId(), careerStepDTO.getPositionId());
     }
 
-    @Transactional
     @Override
     public void dismissEmployee(DismissDTO dismissDTO) {
         EmployeeEntity employee = employeeDAO.get(dismissDTO.getEmployeeId());
@@ -71,9 +76,10 @@ public class CareerServiceImpl implements CareerService {
                 });
         employee.setFired(true);
         employeeDAO.update(employee, employee.getId());
+
+        LOGGER.info("Employee with id={} dismissed successfully!", employee.getId());
     }
 
-    @Transactional
     @Override
     public void updateCareerStep(CareerStepSaveDTO careerStepDTO, Serializable id) {
         EmployeeEntity employeeEntity = employeeDAO.get(careerStepDTO.getEmployeeId());
@@ -82,9 +88,10 @@ public class CareerServiceImpl implements CareerService {
         careerStepEntity.setEmployee(employeeEntity);
         careerStepEntity.setPosition(positionEntity);
         careerDAO.update(careerStepEntity, id);
+
+        LOGGER.info("Career step with id={} updated successfully!", id);
     }
 
-    @Transactional
     @Override
     public void deleteCareerStep(Serializable id) {
         CareerStepEntity careerStep = careerDAO.get(id);
@@ -93,14 +100,21 @@ public class CareerServiceImpl implements CareerService {
         careerStep.setEmployee(null);
         careerStep.setPosition(null);
         careerDAO.delete(id);
+
+        LOGGER.info("Career step with id={} deleted successfully!", id);
     }
 
     @Override
     public CareerStepGetDTO getCareerStep(Serializable id) {
-        return Converter.toDto(careerDAO.get(id), CareerStepGetDTO.class);
+        CareerStepGetDTO careerStep = Converter.toDto(careerDAO.get(id), CareerStepGetDTO.class);
+
+        if (careerStep != null) {
+            LOGGER.info("Career step with id={} found successfully!", id);
+        }
+
+        return careerStep;
     }
 
-    @Transactional
     @Override
     public PageInfo<CareerStepGetDTO> getCareerOfEmployeeByPage(Serializable employeeId,
                                                                 Integer pageNumber,
@@ -116,10 +130,11 @@ public class CareerServiceImpl implements CareerService {
 
         Long careerStepsCount = careerDAO.getCareerStepCountByEmployeeId(employeeId);
 
+        LOGGER.info("CareerSteps for employee with id={} found successfully!", employeeId);
+
         return new PageInfo<>(career, pageNumber, pageSize, careerStepsCount);
     }
 
-    @Transactional
     @Override
     public PageInfo<PositionHistoryDTO> getPositionHistoryByPage(Serializable positionId,
                                                              Integer pageNumber,
@@ -132,6 +147,8 @@ public class CareerServiceImpl implements CareerService {
                                 .collect(Collectors.toList()))
                 .orElse(null);
         Long careerStepsCount = careerDAO.getCareerStepCountByPositionId(positionId);
+
+        LOGGER.info("CareerSteps for position with id={} found successfully!", positionId);
 
         return new PageInfo<>(career, pageNumber, pageSize, careerStepsCount);
     }

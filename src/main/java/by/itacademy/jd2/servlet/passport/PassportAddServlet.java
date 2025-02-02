@@ -13,11 +13,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "passportAddServlet", value = "/add_passport")
 public class PassportAddServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PassportAddServlet.class);
     private final EmployeeService employeeService = new EmployeeServiceImpl();
 
     @Override
@@ -27,6 +30,7 @@ public class PassportAddServlet extends HttpServlet {
             req.setAttribute(ConstantParamAndAttribute.ID, employee_id);
             req.getRequestDispatcher(ConstantJSP.ADD_PASSPORT_PAGE).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
@@ -38,6 +42,7 @@ public class PassportAddServlet extends HttpServlet {
             employeeService.addPassport(passport);
             req.getRequestDispatcher(ConstantAction.PASSPORT).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

@@ -17,24 +17,33 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "careerStepUpdateServlet", value = "/update_career_step")
 public class CareerStepUpdateServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CareerStepUpdateServlet.class);
     private final CareerService careerService = new CareerServiceImpl();
     private final PositionService positionService = new PositionServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = ServletUtil.getParamLong(req, ConstantParamAndAttribute.CAREER_ID);
-        final CareerStepGetDTO careerStep = careerService.getCareerStep(id);
-        List<PositionItemDTO> positionItems = positionService.getAllPositionItems();
-        req.setAttribute(ConstantParamAndAttribute.POSITION_ITEMS, positionItems);
+        try {
+            Long id = ServletUtil.getParamLong(req, ConstantParamAndAttribute.CAREER_ID);
+            final CareerStepGetDTO careerStep = careerService.getCareerStep(id);
+            List<PositionItemDTO> positionItems = positionService.getAllPositionItems();
+            req.setAttribute(ConstantParamAndAttribute.POSITION_ITEMS, positionItems);
 
-        req.setAttribute(ConstantParamAndAttribute.CAREER_STEP, careerStep);
-        req.getRequestDispatcher(ConstantJSP.UPDATE_CAREER_STEP).forward(req, resp);
+            req.setAttribute(ConstantParamAndAttribute.CAREER_STEP, careerStep);
+            req.getRequestDispatcher(ConstantJSP.UPDATE_CAREER_STEP).forward(req, resp);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
+        }
+
     }
 
     @Override
@@ -45,6 +54,7 @@ public class CareerStepUpdateServlet extends HttpServlet {
             careerService.updateCareerStep(careerStepSaveDTO, careerStepSaveDTO.getId());
             req.getRequestDispatcher(ConstantAction.CAREER).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

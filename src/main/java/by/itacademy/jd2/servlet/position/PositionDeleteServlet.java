@@ -12,11 +12,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "positionDeleteServlet", value = "/delete_position")
 public class PositionDeleteServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PositionDeleteServlet.class);
     private final PositionService positionService = new PositionServiceImpl();
     private final DepartmentService departmentService = new DepartmentServiceImpl();
 
@@ -26,6 +29,7 @@ public class PositionDeleteServlet extends HttpServlet {
             positionService.deletePosition(ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID));
             req.getRequestDispatcher(ConstantAction.DEPARTMENT_INFO).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

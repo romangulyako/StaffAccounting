@@ -13,11 +13,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "careerInfoServlet", value = "/career")
 public class CareerInfoServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CareerInfoServlet.class);
     private final CareerService careerService = new CareerServiceImpl();
 
     @Override
@@ -32,6 +35,7 @@ public class CareerInfoServlet extends HttpServlet {
             req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
             req.getRequestDispatcher(ConstantJSP.CAREER_INFO_PAGE).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

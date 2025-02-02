@@ -18,13 +18,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "employeesListServlet", value = "/list_employees")
 public class EmployeesListServlet extends HttpServlet {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeesListServlet.class);
     private final EmployeeService employeeService = new EmployeeServiceImpl();
     private final DepartmentService departmentService = new DepartmentServiceImpl();
 
@@ -46,6 +48,7 @@ public class EmployeesListServlet extends HttpServlet {
 
             req.getRequestDispatcher(ConstantJSP.LIST_EMPLOYEES_PAGE).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

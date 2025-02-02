@@ -18,12 +18,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "appointToPositionServlet", value = "/appointment")
 public class AppointmentServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AppointmentServlet.class);
     private final CareerService careerService = new CareerServiceImpl();
     private final EmployeeService employeeService = new EmployeeServiceImpl();
     private final PositionService positionService = new PositionServiceImpl();
@@ -37,6 +40,7 @@ public class AppointmentServlet extends HttpServlet {
             req.setAttribute(ConstantParamAndAttribute.POSITION_ITEMS, positionItems);
             req.getRequestDispatcher(ConstantJSP.APPOINTMENT_PAGE).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
@@ -47,6 +51,7 @@ public class AppointmentServlet extends HttpServlet {
             careerService.appointEmployee(HttpRequestConverter.convert(req, CareerStepSaveDTO.class));
             req.getRequestDispatcher(ConstantAction.CAREER).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

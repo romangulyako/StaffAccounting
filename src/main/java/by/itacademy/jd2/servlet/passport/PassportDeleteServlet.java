@@ -10,11 +10,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "passportDeleteServlet", value = "/delete_passport")
 public class PassportDeleteServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PassportDeleteServlet.class);
     private final EmployeeService employeeService = new EmployeeServiceImpl();
 
     @Override
@@ -24,6 +27,7 @@ public class PassportDeleteServlet extends HttpServlet {
             employeeService.deletePassport(id);
             req.getRequestDispatcher(ConstantAction.EMPLOYEE).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

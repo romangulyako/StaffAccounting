@@ -10,11 +10,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "maritalStatusDeleteServlet", value = "/delete_marital_status")
 public class MaritalStatusDeleteServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MaritalStatusDeleteServlet.class);
     private final MaritalStatusService maritalStatusService = new MaritalStatusServiceImpl();
 
     @Override
@@ -23,6 +26,7 @@ public class MaritalStatusDeleteServlet extends HttpServlet {
             maritalStatusService.deleteMaritalStatus(ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID));
             req.getRequestDispatcher(ConstantAction.MARITAL_STATUSES).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

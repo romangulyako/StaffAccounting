@@ -10,7 +10,7 @@
             <PatternLayout pattern="[ %-5level] %d{HH:mm:ss} | %logger{36} - %msg%n"/>
         </Console>
         <RollingFile name="RollingFile"
-                     filePattern="/logs/$${date:yyyy-MM}/app-%d{dd-MM-yyyy}-%i.log">
+                     filePattern="d:/grs/it-academy/JD2/StaffAccounting/logs/$${date:yyyy-MM}/app-%d{dd-MM-yyyy}-%i.log">
             <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss} | %c - %msg%n%throwable"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
@@ -28,7 +28,15 @@
             <AppenderRef ref="RollingFile"/>
             <AppenderRef ref="CONSOLE"/>
         </Logger>
-        <Root level="ERROR">
+        <Logger name="by.itacademy.jd2.service.impl" level="INFO" additivity="false">
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="CONSOLE"/>
+        </Logger>
+        <Logger name="by.itacademy.jd2.servlet" level="ERROR" additivity="false">
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="CONSOLE"/>
+        </Logger>
+        <Root level="ERROR" additivity="false">
             <AppenderRef ref="CONSOLE"/>
             <AppenderRef ref="RollingFile"/>
         </Root>

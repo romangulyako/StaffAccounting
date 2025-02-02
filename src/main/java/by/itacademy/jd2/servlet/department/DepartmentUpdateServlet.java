@@ -13,11 +13,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "departmentUpdateServlet", value = "/update_department")
 public class DepartmentUpdateServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentUpdateServlet.class);
     private static final Boolean DEFAULT_IS_ACTUAL_FOR_UPDATE = true;
     private final DepartmentService departmentService = new DepartmentServiceImpl();
 
@@ -30,6 +33,7 @@ public class DepartmentUpdateServlet extends HttpServlet {
             req.setAttribute(ConstantParamAndAttribute.IS_ACTUAL, DEFAULT_IS_ACTUAL_FOR_UPDATE);
             req.getRequestDispatcher(ConstantJSP.UPDATE_DEPARTMENT_PAGE).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
@@ -40,6 +44,7 @@ public class DepartmentUpdateServlet extends HttpServlet {
             departmentService.updateDepartment(HttpRequestConverter.convert(req, DepartmentDTO.class));
             req.getRequestDispatcher(ConstantAction.DEPARTMENT_INFO).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

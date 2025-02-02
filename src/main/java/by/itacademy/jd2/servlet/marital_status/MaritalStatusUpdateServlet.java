@@ -14,11 +14,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "maritalStatusUpdateServlet", value = "/update_marital_status")
 public class MaritalStatusUpdateServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MaritalStatusUpdateServlet.class);
     private final MaritalStatusService maritalStatusService = new MaritalStatusServiceImpl();
 
     @Override
@@ -32,6 +35,7 @@ public class MaritalStatusUpdateServlet extends HttpServlet {
                     .getRequestDispatcher(ConstantJSP.UPDATE_MARITAL_STATUS_PAGE);
             requestDispatcher.forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
@@ -43,6 +47,7 @@ public class MaritalStatusUpdateServlet extends HttpServlet {
                     MaritalStatusDTO.class));
             req.getRequestDispatcher(ConstantAction.MARITAL_STATUSES).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

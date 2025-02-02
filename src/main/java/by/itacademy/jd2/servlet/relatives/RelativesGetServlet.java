@@ -13,11 +13,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "relativesGetServlet", value = "/relatives")
 public class RelativesGetServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RelativesGetServlet.class);
     private final RelativeService relativeService = new RelativeServiceImpl();
 
     @Override
@@ -32,6 +35,7 @@ public class RelativesGetServlet extends HttpServlet {
             req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
             req.getRequestDispatcher(ConstantJSP.RELATIVES_PAGE).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

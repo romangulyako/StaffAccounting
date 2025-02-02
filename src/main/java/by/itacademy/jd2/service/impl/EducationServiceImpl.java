@@ -13,12 +13,16 @@ import by.itacademy.jd2.service.api.EducationService;
 import by.itacademy.jd2.utils.PaginatorUtil;
 
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class EducationServiceImpl implements EducationService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EducationServiceImpl.class);
     private final EducationDAO educationDAO;
     private final EmployeeDAO employeeDAO;
 
@@ -27,7 +31,6 @@ public class EducationServiceImpl implements EducationService {
         this.employeeDAO = new EmployeeDaoImpl();
     }
 
-    @Transactional
     @Override
     public void addEducation(EducationDTO educationDTO) {
         EducationEntity educationEntity = Converter.toEntity(educationDTO, EducationEntity.class);
@@ -35,29 +38,38 @@ public class EducationServiceImpl implements EducationService {
         educationEntity.setEmployee(employeeEntity);
         employeeEntity.getEducations().add(educationEntity);
         educationDAO.save(educationEntity);
+
+        LOGGER.info("Added education with id={}", educationEntity.getId());
     }
 
-    @Transactional
     @Override
     public void updateEducation(EducationDTO educationDTO) {
         if (educationDTO != null) {
             EducationEntity newEntity = Converter.toEntity(educationDTO, EducationEntity.class);
             newEntity.setEmployee(educationDAO.get(educationDTO.getId()).getEmployee());
             educationDAO.update(newEntity, newEntity.getId());
+
+            LOGGER.info("Updated education with id={}", newEntity.getId());
         }
     }
 
-    @Transactional
     @Override
     public void deleteEducation(Serializable id) {
         EducationEntity educationEntity = educationDAO.get(id);
-        educationEntity.getEmployee().getEducations().remove(educationEntity);
-        educationDAO.delete(id);
+        if (educationEntity != null) {
+            educationEntity.getEmployee().getEducations().remove(educationEntity);
+            educationDAO.delete(id);
+
+            LOGGER.info("Deleted education with id={}", educationEntity.getId());
+        }
     }
 
     @Override
     public EducationDTO getEducation(Serializable id) {
-        return Converter.toDto(educationDAO.get(id), EducationDTO.class);
+        EducationDTO education = Converter.toDto(educationDAO.get(id), EducationDTO.class);
+
+        LOGGER.info("Education with id={} found", education.getId());
+        return education;
     }
 
     @Transactional
@@ -73,6 +85,8 @@ public class EducationServiceImpl implements EducationService {
                                 .collect(Collectors.toList()))
                 .orElse(null);
         Long educationCount = educationDAO.getEducationCountByEmployeeId(employeeId);
+
+        LOGGER.info("{} education from {} found successfully",education.size(), educationCount);
 
         return new PageInfo<>(education, pageNumber, pageSize, educationCount);
     }

@@ -10,11 +10,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "employeeDeleteServlet", value = "/delete_employee")
 public class EmployeeDeleteServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeDeleteServlet.class);
     private final EmployeeService employeeService = new EmployeeServiceImpl();
 
     @Override
@@ -23,6 +26,7 @@ public class EmployeeDeleteServlet extends HttpServlet {
             employeeService.deleteEmployee(ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID));
             resp.sendRedirect(ConstantAction.LIST_EMPLOYEES);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

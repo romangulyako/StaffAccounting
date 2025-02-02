@@ -15,11 +15,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "positionUpdateServlet", value = "/update_position")
 public class PositionUpdateServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PositionUpdateServlet.class);
     private final PositionService positionService = new PositionServiceImpl();
     private final DepartmentService departmentService = new DepartmentServiceImpl();
 
@@ -33,6 +36,7 @@ public class PositionUpdateServlet extends HttpServlet {
             req.setAttribute(ConstantParamAndAttribute.POSITION, position);
             req.getRequestDispatcher(ConstantJSP.UPDATE_POSITION_PAGE).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
@@ -43,6 +47,7 @@ public class PositionUpdateServlet extends HttpServlet {
             positionService.updatePosition(HttpRequestConverter.convert(req, PositionDTO.class));
             req.getRequestDispatcher(ConstantAction.DEPARTMENT_INFO).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }

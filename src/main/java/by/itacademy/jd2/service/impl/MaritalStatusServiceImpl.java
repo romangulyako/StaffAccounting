@@ -13,12 +13,16 @@ import by.itacademy.jd2.service.api.MaritalStatusService;
 import by.itacademy.jd2.utils.PaginatorUtil;
 
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class MaritalStatusServiceImpl implements MaritalStatusService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MaritalStatusServiceImpl.class);
     private final MaritalStatusDAO maritalStatusDAO;
     private final EmployeeDAO employeeDAO;
 
@@ -38,6 +42,8 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
         maritalStatusEntity.setEmployee(employeeEntity);
         employeeEntity.getMaritalStatuses().add(maritalStatusEntity);
         maritalStatusDAO.save(maritalStatusEntity);
+
+        LOGGER.info("Added marital status for employee with id={}", maritalStatusDTO.getEmployeeId());
     }
 
     @Override
@@ -47,20 +53,28 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
                     Converter.toEntity(maritalStatusDTO, MaritalStatusEntity.class);
             maritalStatusEntity.setEmployee(employeeDAO.get(maritalStatusDTO.getEmployeeId()));
             maritalStatusDAO.update(maritalStatusEntity, maritalStatusEntity.getId());
+
+            LOGGER.info("Updated marital status for employee with id={}", maritalStatusDTO.getEmployeeId());
         }
     }
 
-    @Transactional
     @Override
     public void deleteMaritalStatus(Serializable id) {
         MaritalStatusEntity maritalStatusEntity = maritalStatusDAO.get(id);
         maritalStatusEntity.getEmployee().getMaritalStatuses().remove(maritalStatusEntity);
         maritalStatusDAO.delete(id);
+
+        LOGGER.info("Deleted marital status with id={} for employee with id={}", id, maritalStatusEntity.getEmployee().getId());
     }
 
     @Override
     public MaritalStatusDTO getMaritalStatus(Serializable id) {
-        return Converter.toDto(maritalStatusDAO.get(id), MaritalStatusDTO.class);
+        MaritalStatusDTO maritalStatusDTO = Converter.toDto(maritalStatusDAO.get(id), MaritalStatusDTO.class);
+
+        if (maritalStatusDTO != null) {
+            LOGGER.info("Found marital status with id={}", id);
+        }
+        return maritalStatusDTO;
     }
 
     @Override
@@ -76,6 +90,9 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
                                 .collect(Collectors.toList()))
                 .orElse(null);
         Long maritalStatusesCount = maritalStatusDAO.getMaritalStatusesCountByEmployeeId(employeeId);
+
+        LOGGER.info("Found {} from {} marital statuses for employee with id={}",
+                maritalStatuses.size(), maritalStatusesCount, employeeId);
 
         return new PageInfo<>(maritalStatuses, pageNumber, pageSize, maritalStatusesCount);
     }

@@ -12,11 +12,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet(name = "departmentAddServlet", value = "/add_department")
 public class DepartmentAddServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentAddServlet.class);
     private static final Boolean DEFAULT_IS_ACTUAL_FOR_ADD = true;
     private final DepartmentService departmentService = new DepartmentServiceImpl();
 
@@ -26,6 +29,7 @@ public class DepartmentAddServlet extends HttpServlet {
             req.setAttribute(ConstantParamAndAttribute.IS_ACTUAL, DEFAULT_IS_ACTUAL_FOR_ADD);
             req.getRequestDispatcher(ConstantJSP.ADD_DEPARTMENT_PAGE).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
@@ -36,6 +40,7 @@ public class DepartmentAddServlet extends HttpServlet {
             departmentService.addDepartment(HttpRequestConverter.convert(req, DepartmentDTO.class));
             req.getRequestDispatcher(ConstantAction.LIST_DEPARTMENTS).forward(req, resp);
         } catch (Exception e) {
+            LOGGER.error(e.getMessage());
             req.getRequestDispatcher(ConstantAction.ERROR).forward(req, resp);
         }
     }
