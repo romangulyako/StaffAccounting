@@ -3,7 +3,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Добавить родственника</title>
+    <% Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+    <title><%=LocalizationUtil.getMessage("add_relative", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -13,46 +14,46 @@
 <main>
     <%@include file="../menu.jsp" %>
     <div class="form-group">
-        <h2>Введите данные о родственнике:</h2>
+        <h2><%=LocalizationUtil.getMessage("enter_relative_data", locale)%></h2>
         <div class="filling-form">
             <form id="save"
                   action="<%=ConstantAction.ADD_RELATIVE%>"
                   method="post">
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Фамилия</legend>
+                        <legend><%=LocalizationUtil.getMessage("surname", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.SURNAME %>"
-                                   placeholder="Введите фамилию"
+                                   placeholder=<%=LocalizationUtil.getMessage("surname_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Имя</legend>
+                        <legend><%=LocalizationUtil.getMessage("name", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.NAME %>"
-                                   placeholder="Введите имя"
+                                   placeholder=<%=LocalizationUtil.getMessage("name_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Отчество</legend>
+                        <legend><%=LocalizationUtil.getMessage("patronymic", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.PATRONYMIC %>"
-                                   placeholder="Введите отчество"/>
+                                   placeholder=<%=LocalizationUtil.getMessage("patronymic_placeholder", locale)%>/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Дата рождения</legend>
+                        <legend><%=LocalizationUtil.getMessage("birthday", locale)%></legend>
                         <label>
                             <input type="date"
                                    name="<%= ConstantParamAndAttribute.BIRTHDAY %>"
@@ -62,11 +63,11 @@
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Тип родства</legend>
+                        <legend><%=LocalizationUtil.getMessage("type_kinship", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.TYPE_KINSHIP %>"
-                                   placeholder="Введите тип родства"
+                                   placeholder=<%=LocalizationUtil.getMessage("type_kinship_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
@@ -77,12 +78,12 @@
             <button class="footer-button, button-add" form="save"
                     name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
                     value="<%=request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
-                Сохранить
+                <%=LocalizationUtil.getMessage("save_button", locale)%>
             </button>
             <button class="footer-button"
                     name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
                     value="<%=request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
-                Вернуться к просмотру родственников
+                <%=LocalizationUtil.getMessage("back_to_relatives", locale)%>
             </button>
         </form>
     </div>

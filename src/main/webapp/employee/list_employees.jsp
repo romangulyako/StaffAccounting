@@ -9,7 +9,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Сотрудники</title>
+    <%Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+    <title><%=LocalizationUtil.getMessage("employees", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -19,7 +20,7 @@
 <main>
     <%@include file="../menu.jsp" %>
     <div>
-        <h2>Все сотрудники организации:</h2>
+        <h2><%=LocalizationUtil.getMessage("all_employees", locale)%></h2>
         <div class="filter-container">
             <%EmployeeFilterData filterData = (EmployeeFilterData) request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_FILTER_DATA);%>
             <div class="filter-form">
@@ -28,44 +29,44 @@
                       method="get">
                     <div class="filter-inputs">
                         <fieldset>
-                            <legend>Фамилия</legend>
+                            <legend><%=LocalizationUtil.getMessage("surname", locale)%></legend>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.SURNAME%>"
                                     <%if (filterData.getSurname() != null) { %>
                                    value="<%=filterData.getSurname()%>"
                                     <% } %>
-                                   placeholder="Введите фамилию"/>
+                                   placeholder=<%=LocalizationUtil.getMessage("surname_placeholder", locale)%>/>
                         </fieldset>
                         <fieldset>
-                            <legend>Имя</legend>
+                            <legend><%=LocalizationUtil.getMessage("name", locale)%></legend>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.NAME%>"
                                     <%if (filterData.getName() != null) { %>
                                    value="<%=filterData.getName()%>"
                                     <% } %>
-                                   placeholder="Введите имя"/>
+                                   placeholder=<%=LocalizationUtil.getMessage("name_placeholder", locale)%>/>
                         </fieldset>
                         <fieldset>
-                            <legend>Отчество</legend>
+                            <legend><%=LocalizationUtil.getMessage("patronymic", locale)%></legend>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.PATRONYMIC%>"
                                     <%if (filterData.getPatronymic() != null) { %>
                                    value="<%=filterData.getPatronymic()%>"
                                     <% } %>
-                                   placeholder="Введите отчество"/>
+                                   placeholder=<%=LocalizationUtil.getMessage("patronymic_placeholder", locale)%>/>
                         </fieldset>
                         <fieldset>
-                            <legend>Минимальный возраст</legend>
+                            <legend><%=LocalizationUtil.getMessage("min_age", locale)%></legend>
                             <input type="number"
                                    name="<%=ConstantParamAndAttribute.AGE%>"
                                     <%if (filterData.getAge() != null) { %>
                                    value="<%=filterData.getAge()%>"
                                     <% } %>
-                                   placeholder="Введите возраст"/>
+                                   placeholder=<%=LocalizationUtil.getMessage("min_age_placeholder", locale)%>/>
                         </fieldset>
                         <fieldset>
                             <%List<DepartmentItemDTO> departments = (List<DepartmentItemDTO>) request.getAttribute(ConstantParamAndAttribute.DEPARTMENT_ITEMS);%>
-                            <legend>Отдел</legend>
+                            <legend><%=LocalizationUtil.getMessage("department", locale)%></legend>
                             <select name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
                                     required>
                                 <%if (filterData.getDepartmentId() != null) { %>
@@ -78,7 +79,7 @@
                                 </option>
                                 <% } else { %>
                                 <option value="null">
-                                    Выберите отдел
+                                    <%=LocalizationUtil.getMessage("select_department", locale)%>
                                 </option>
                                 <% } %>
                                 <%
@@ -94,7 +95,7 @@
                 <div class="apply-filter-buttons">
                     <button class="apply-filter-button"
                             type="submit"
-                            form="filter">Применить
+                            form="filter"><%=LocalizationUtil.getMessage("apply_button", locale)%>
                     </button>
                     <form id="clear" action="<%=ConstantAction.CLEAR_FILTER%>"
                           method="post">
@@ -104,7 +105,7 @@
                         <button class="clear-filter-button"
                                 type="submit"
                                 form="clear">
-                            Очистить фильтр
+                            <%=LocalizationUtil.getMessage("clear_button", locale)%>
                         </button>
                     </form>
 
@@ -115,10 +116,10 @@
         <table>
             <thead>
             <tr>
-                <th>ФИО</th>
-                <th>Дата рождения</th>
-                <th>Должность</th>
-                <th colspan="2">Действие</th>
+                <th><%=LocalizationUtil.getMessage("short_name", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("birthday", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("position", locale)%></th>
+                <th colspan="2"><%=LocalizationUtil.getMessage("action", locale)%></th>
             </tr>
             </thead>
             <tbody>
@@ -148,7 +149,7 @@
                         <button class="button-show"
                                 name="<%= ConstantParamAndAttribute.ID %>"
                                 value="<%= employee.getId() %>">
-                            Просмотреть
+                            <%=LocalizationUtil.getMessage("show_button", locale)%>
                         </button>
                     </form>
                 </td>
@@ -159,7 +160,7 @@
                         <button class="button-delete"
                                 name="<%= ConstantParamAndAttribute.ID %>"
                                 value="<%= employee.getId() %>">
-                            Удалить
+                            <%=LocalizationUtil.getMessage("delete_button", locale)%>
                         </button>
                     </form>
                 </td>
@@ -201,7 +202,8 @@
             <% } %>
             <% request.setAttribute(ConstantParamAndAttribute.PAGE_NUMBER, pageInfo.getPageNumber());
                 request.setAttribute(ConstantParamAndAttribute.PAGE_SIZE, pageInfo.getPageSize());
-                request.setAttribute(ConstantParamAndAttribute.TOTAL_PAGES, pageInfo.getTotalPages());%>
+                request.setAttribute(ConstantParamAndAttribute.TOTAL_PAGES, pageInfo.getTotalPages());
+            %>
             <%@include file="../paginator.jsp" %>
         </form>
         <%
@@ -211,7 +213,7 @@
         <form name="add_employee"
               method="get"
               action="<%= ConstantAction.ADD_EMPLOYEE %>">
-            <button class="button-add">Добавить нового сотрудника</button>
+            <button class="button-add"><%=LocalizationUtil.getMessage("add_employee", locale)%></button>
         </form>
         <% } %>
     </div>

@@ -7,6 +7,7 @@ import by.itacademy.jd2.dto.MaritalStatusDTO;
 import by.itacademy.jd2.service.api.MaritalStatusService;
 import by.itacademy.jd2.service.impl.MaritalStatusServiceImpl;
 import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
+import by.itacademy.jd2.utils.LocalizationUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -18,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @WebServlet(name = "maritalStatusUpdateServlet", value = "/update_marital_status")
 public class MaritalStatusUpdateServlet extends HttpServlet {
@@ -27,6 +29,9 @@ public class MaritalStatusUpdateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            Locale locale = LocalizationUtil.getLocale(req);
+            req.setAttribute(ConstantParamAndAttribute.LOCALE, locale);
+
             final MaritalStatusDTO maritalStatus =
                     maritalStatusService.getMaritalStatus(ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID));
             req.setAttribute(ConstantParamAndAttribute.MARITAL_STATUS, maritalStatus);

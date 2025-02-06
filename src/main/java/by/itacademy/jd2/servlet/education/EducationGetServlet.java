@@ -7,6 +7,7 @@ import by.itacademy.jd2.dto.EducationDTO;
 import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.EducationService;
 import by.itacademy.jd2.service.impl.EducationServiceImpl;
+import by.itacademy.jd2.utils.LocalizationUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @WebServlet(name = "educationGetServlet", value = "/education")
 public class EducationGetServlet extends HttpServlet {
@@ -26,6 +28,9 @@ public class EducationGetServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            Locale locale = LocalizationUtil.getLocale(req);
+            req.setAttribute(ConstantParamAndAttribute.LOCALE, locale);
+
             Integer pageSize = ServletUtil.getParamInt(req, ConstantParamAndAttribute.PAGE_SIZE);
             Integer pageNumber = ServletUtil.getParamInt(req, ConstantParamAndAttribute.PAGE_NUMBER);
             Long employeeId = ServletUtil.getParamLong(req, ConstantParamAndAttribute.EMPLOYEE_ID);

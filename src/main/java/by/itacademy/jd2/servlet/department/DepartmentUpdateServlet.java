@@ -7,6 +7,7 @@ import by.itacademy.jd2.dto.DepartmentDTO;
 import by.itacademy.jd2.service.api.DepartmentService;
 import by.itacademy.jd2.service.impl.DepartmentServiceImpl;
 import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
+import by.itacademy.jd2.utils.LocalizationUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @WebServlet(name = "departmentUpdateServlet", value = "/update_department")
 public class DepartmentUpdateServlet extends HttpServlet {
@@ -27,6 +29,9 @@ public class DepartmentUpdateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            Locale locale = LocalizationUtil.getLocale(req);
+            req.setAttribute(ConstantParamAndAttribute.LOCALE, locale);
+
             DepartmentDTO department = departmentService.getDepartment(
                     ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID));
             req.setAttribute(ConstantParamAndAttribute.DEPARTMENT, department);

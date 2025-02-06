@@ -4,7 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Добавление сотрудника</title>
+    <% Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+    <title><%=LocalizationUtil.getMessage("add_employee", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -14,46 +15,46 @@
 <main>
     <%@include file="../menu.jsp" %>
     <div class="form-group">
-        <h2>Заполните информацию о сотруднике:</h2>
+        <h2><%=LocalizationUtil.getMessage("filling_employee_form_message", locale)%></h2>
         <div class="filling-form">
             <form id="save"
                   action="<%= ConstantAction.ADD_EMPLOYEE %>"
                   method="post">
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Фамилия</legend>
+                        <legend><%=LocalizationUtil.getMessage("surname", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.SURNAME %>"
-                                   placeholder="Введите фамилию"
+                                   placeholder=<%=LocalizationUtil.getMessage("surname_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Имя</legend>
+                        <legend><%=LocalizationUtil.getMessage("name", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.NAME %>"
-                                   placeholder="Введите имя"
+                                   placeholder=<%=LocalizationUtil.getMessage("name_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Отчество</legend>
+                        <legend><%=LocalizationUtil.getMessage("patronymic", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.PATRONYMIC %>"
-                                   placeholder="Введите отчество"/>
+                                   placeholder=<%=LocalizationUtil.getMessage("patronymic_placeholder", locale)%>/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Дата рождения</legend>
+                        <legend><%=LocalizationUtil.getMessage("birthday", locale)%></legend>
                         <label>
                             <input type="date"
                                    name="<%= ConstantParamAndAttribute.BIRTHDAY %>"
@@ -63,54 +64,54 @@
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Город, в котором проживает:</legend>
+                        <legend><%=LocalizationUtil.getMessage("living_city", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.RESIDENCE_CITY %>"
-                                   placeholder="Введите название города"
+                                   placeholder=<%=LocalizationUtil.getMessage("living_city_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Улица, на которой проживает:</legend>
+                        <legend><%=LocalizationUtil.getMessage("living_street", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.RESIDENCE_STREET %>"
-                                   placeholder="Введите название улицы"
+                                   placeholder=<%=LocalizationUtil.getMessage("living_street_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Дом, в котором проживает:</legend>
+                        <legend><%=LocalizationUtil.getMessage("living_house", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.RESIDENCE_HOUSE %>"
-                                   placeholder="Введите номер дома"
+                                   placeholder=<%=LocalizationUtil.getMessage("living_house_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Квартира, в которой проживает</legend>
+                        <legend><%=LocalizationUtil.getMessage("living_apartment", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.RESIDENCE_APARTMENT %>"
-                                   placeholder="Введите номер квартиры"/>
+                                   placeholder=<%=LocalizationUtil.getMessage("living_apartment_placeholder", locale)%>/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Номер телефона</legend>
+                        <legend><%=LocalizationUtil.getMessage("phone", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.PHONE %>"
-                                   placeholder="Введите номер телефона"/>
+                                   placeholder=<%=LocalizationUtil.getMessage("phone_placeholder", locale)%>/>
                         </label>
                     </fieldset>
                 </div>
@@ -122,10 +123,10 @@
             <button class="footer-button, button-add"
                     form="save"
                     type="submit">
-                Сохранить
+                <%=LocalizationUtil.getMessage("save_button", locale)%>
             </button>
             <button class="footer-button">
-                Вернуться к просмотру сотрудников
+                <%=LocalizationUtil.getMessage("back_to_employees", locale)%>
             </button>
         </form>
     </div>

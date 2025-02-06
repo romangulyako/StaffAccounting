@@ -1,7 +1,9 @@
 package by.itacademy.jd2.servlet;
 
 import by.itacademy.jd2.constant.ConstantJSP;
+import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.utils.HibernateUtil;
+import by.itacademy.jd2.utils.LocalizationUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,12 +11,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @WebServlet(name = "errorServlet", value = "/error")
 public class ErrorServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Locale locale = LocalizationUtil.getLocale(req);
+        req.setAttribute(ConstantParamAndAttribute.LOCALE, locale);
+
         req.getRequestDispatcher(ConstantJSP.ERROR_PAGE).forward(req, resp);
     }
 

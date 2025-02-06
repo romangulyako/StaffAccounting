@@ -6,6 +6,7 @@ import by.itacademy.jd2.constant.ConstantParamAndAttribute;
 import by.itacademy.jd2.dto.EmployeeDTO;
 import by.itacademy.jd2.service.api.EmployeeService;
 import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
+import by.itacademy.jd2.utils.LocalizationUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @WebServlet(name = "employeeInfoServlet", value = "/employee")
 public class EmployeeInfoServlet extends HttpServlet {
@@ -25,6 +27,9 @@ public class EmployeeInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            Locale locale = LocalizationUtil.getLocale(req);
+            req.setAttribute(ConstantParamAndAttribute.LOCALE, locale);
+
             final EmployeeDTO employee =
                     employeeService.getEmployee(ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID));
             req.setAttribute(ConstantParamAndAttribute.EMPLOYEE, employee);

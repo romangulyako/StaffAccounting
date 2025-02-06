@@ -4,7 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Изменение паспортных данных</title>
+    <% Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+    <title><%=LocalizationUtil.getMessage("edit_passport", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -14,7 +15,7 @@
 <main>
     <%@include file="../menu.jsp" %>
     <div class="form-group">
-        <h2>Введите данные паспорта:</h2>
+        <h2><%=LocalizationUtil.getMessage("enter_passport_data", locale)%></h2>
         <div class="filling-form">
             <% PassportDTO passport = (PassportDTO) request.getAttribute(ConstantParamAndAttribute.PASSPORT); %>
             <form id="save"
@@ -26,96 +27,96 @@
                        required/>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Серия</legend>
+                        <legend><%=LocalizationUtil.getMessage("series", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.SERIES%>"
                                    value="<%= passport.getSeries() %>"
                                    minlength="2"
                                    maxlength="2"
-                                   placeholder="Введите серию паспорта"
+                                   placeholder=<%=LocalizationUtil.getMessage("series_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Номер</legend>
+                        <legend><%=LocalizationUtil.getMessage("number", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.NUMBER%>"
                                    value="<%= passport.getNumber() %>"
-                                   placeholder="Введите номер паспорта"
+                                   placeholder=<%=LocalizationUtil.getMessage("number_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Идентификационный номер</legend>
+                        <legend><%=LocalizationUtil.getMessage("identification", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.IDENTIFICATION_NUMBER%>"
                                    value="<%= passport.getIdentificationNumber() %>"
                                    maxlength="14"
                                    minlength="14"
-                                   placeholder="Введите идентификационный номер"
+                                   placeholder=<%=LocalizationUtil.getMessage("identification_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Адрес регистрации(населенный пункт)</legend>
+                        <legend><%=LocalizationUtil.getMessage("register_city", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.REGISTRATION_CITY%>"
                                    value="<%= passport.getRegistrationAddress().getCity() %>"
-                                   placeholder="Введите название населенного пункта"
+                                   placeholder=<%=LocalizationUtil.getMessage("register_city_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Адрес регистрации(улица)</legend>
+                        <legend><%=LocalizationUtil.getMessage("register_street", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.REGISTRATION_STREET%>"
                                    value="<%= passport.getRegistrationAddress().getStreet() %>"
-                                   placeholder="Введите название улицы"
+                                   placeholder=<%=LocalizationUtil.getMessage("register_street_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Адрес регистрации(дом)</legend>
+                        <legend><%=LocalizationUtil.getMessage("register_house", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.REGISTRATION_HOUSE%>"
                                    value="<%= passport.getRegistrationAddress().getHouse() %>"
-                                   placeholder="Введите номер дома"
+                                   placeholder=<%=LocalizationUtil.getMessage("register_house_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Адрес регистрации(квартира)</legend>
+                        <legend><%=LocalizationUtil.getMessage("register_apartment", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.REGISTRATION_APARTMENT%>"
                                     <%if (passport.getRegistrationAddress().getApartment() != null) { %>
                                    value="<%= passport.getRegistrationAddress().getApartment() %>"
                                     <% } %>
-                                   placeholder="Введите номер квартиры"/>
+                                   placeholder=<%=LocalizationUtil.getMessage("register_apartment_placeholder", locale)%>/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Дата выдачи</legend>
+                        <legend><%=LocalizationUtil.getMessage("date_issue", locale)%></legend>
                         <label>
                             <input type="date"
                                    name="<%=ConstantParamAndAttribute.DATE_ISSUE%>"
@@ -126,7 +127,7 @@
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Дата окончания действия</legend>
+                        <legend><%=LocalizationUtil.getMessage("date_end_action", locale)%></legend>
                         <label>
                             <input type="date"
                                    name="<%=ConstantParamAndAttribute.DATE_END_ACTION%>"
@@ -137,12 +138,12 @@
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Кем выдан</legend>
+                        <legend><%=LocalizationUtil.getMessage("publisher", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.PUBLISHER%>"
                                    value="<%= passport.getPublisher() %>"
-                                   placeholder="Введите название органа, выдавшего паспорт"
+                                   placeholder=<%=LocalizationUtil.getMessage("publisher_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
@@ -154,12 +155,12 @@
               method="get">
             <button class="footer-button, button-add"
                     form="save">
-                Сохранить
+                <%=LocalizationUtil.getMessage("save_button", locale)%>
             </button>
             <button class="footer-button"
                     name="<%=ConstantParamAndAttribute.ID%>"
                     value="<%=passport.getId()%>">
-                Вернуться к просмотру паспортных данных
+                <%=LocalizationUtil.getMessage("back_to_passport", locale)%>
             </button>
         </form>
     </div>

@@ -4,7 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Паспортные данные</title>
+    <% Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+    <title><%=LocalizationUtil.getMessage("passport", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -19,21 +20,21 @@
                 class="header-with-button"
         <% } %>>
             <div class="form-group">
-                <h2>Паспортные данные сотрудника</h2>
+                <h2><%=LocalizationUtil.getMessage("employees_passport", locale)%></h2>
             </div>
             <% if (passport != null) { %>
             <form action="<%=ConstantAction.UPDATE_PASSPORT%>" method="get">
                 <button class="tab, button-edit"
                         name="<%=ConstantParamAndAttribute.ID%>"
                         value="<%=passport.getId()%>">
-                    Изменить
+                    <%=LocalizationUtil.getMessage("edit_button", locale)%>
                 </button>
             </form>
             <% } %>
         </div>
         <%if (passport == null) { %>
         <div class="form-group">
-            <h3>Информация о паспорте отсутствует</h3>
+            <h3><%=LocalizationUtil.getMessage("passport_absent", locale)%></h3>
             <form class="footer-buttons-block"
                   name="add_passport"
                   method="get"
@@ -41,44 +42,44 @@
                 <button class="footer-button, button-add"
                         name="<%=ConstantParamAndAttribute.ID%>"
                         value="<%=request.getAttribute(ConstantParamAndAttribute.ID)%>">
-                    Добавить паспортные данные
+                    <%=LocalizationUtil.getMessage("add_passport", locale)%>
                 </button>
             </form>
         </div>
         <% } else { %>
         <div class="information-block">
             <div class="information-item">
-                <label>Серия:</label>
+                <label><%=LocalizationUtil.getMessage("series", locale)%></label>
                 <span><%=passport.getSeries()%></span>
             </div>
             <div class="information-item">
-                <label>Номер:</label>
+                <label><%=LocalizationUtil.getMessage("number", locale)%></label>
                 <span><%=passport.getNumber()%></span>
             </div>
             <div class="information-item">
-                <label>Идентификационный номер:</label>
+                <label><%=LocalizationUtil.getMessage("identification", locale)%></label>
                 <span><%=passport.getIdentificationNumber()%></span>
             </div>
             <div class="information-item">
-                <label>Адрес регистрации:</label>
-                <span><%=passport.getRegistrationAddress().getCity() + ", ул. "
-                        + passport.getRegistrationAddress().getStreet() + ", д. "
+                <label><%=LocalizationUtil.getMessage("registration_address", locale)%></label>
+                <span><%=passport.getRegistrationAddress().getCity() + ", " + LocalizationUtil.getMessage("street", locale) + " "
+                        + passport.getRegistrationAddress().getStreet() + ", " + LocalizationUtil.getMessage("house", locale) + " "
                         + passport.getRegistrationAddress().getHouse()%>
                 <%if (passport.getRegistrationAddress().getApartment() != null) { %>
-                <%=", кв. " + passport.getRegistrationAddress().getApartment()%>
+                <%=", " + LocalizationUtil.getMessage("apartment", locale) + " " + passport.getRegistrationAddress().getApartment()%>
                 <% } %>
             </span>
             </div>
             <div class="information-item">
-                <label>Дата выдачи:</label>
+                <label><%=LocalizationUtil.getMessage("date_issue", locale)%></label>
                 <span><%=passport.getDateIssue()%></span>
             </div>
             <div class="information-item">
-                <label>Дата окончания действия:</label>
+                <label><%=LocalizationUtil.getMessage("date_end_action", locale)%></label>
                 <span><%=passport.getDateEndAction()%></span>
             </div>
             <div class="information-item">
-                <label>Кем выдан:</label>
+                <label><%=LocalizationUtil.getMessage("publisher", locale)%></label>
                 <span><%=passport.getPublisher()%></span>
             </div>
         </div>
@@ -90,7 +91,7 @@
                 <button class="footer-button, button-delete"
                         name="<%=ConstantParamAndAttribute.ID%>"
                         value="<%=passport.getId()%>">
-                    Удалить паспортные данные
+                    <%=LocalizationUtil.getMessage("delete_button", locale)%>
                 </button>
             </form>
             <% } %>
@@ -98,7 +99,7 @@
                 <button class="footer-button"
                         name="<%=ConstantParamAndAttribute.ID%>"
                         value="<%=request.getAttribute(ConstantParamAndAttribute.ID)%>">
-                    Вернуться к просмотру сотрудника
+                    <%=LocalizationUtil.getMessage("back_to_employee", locale)%>
                 </button>
             </form>
         </div>

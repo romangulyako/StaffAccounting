@@ -3,7 +3,8 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>Изменить отдел</title>
+    <% Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+    <title><%=LocalizationUtil.getMessage("edit_department", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -14,7 +15,7 @@
     <%@include file="../menu.jsp" %>
     <div class="form-group">
         <% DepartmentDTO department = (DepartmentDTO) request.getAttribute(ConstantParamAndAttribute.DEPARTMENT); %>
-        <h2>Заполните данные об отделе:</h2>
+        <h2><%=LocalizationUtil.getMessage("filling_department_form_message", locale)%></h2>
         <div class="filling-form">
             <form id="save"
                   action="<%=ConstantAction.UPDATE_DEPARTMENT%>"
@@ -28,33 +29,33 @@
                        value="<%=request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL)%>"/>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Наименование</legend>
+                        <legend><%=LocalizationUtil.getMessage("item_name", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.NAME %>"
                                    value="<%=department.getName()%>"
-                                   placeholder="Введите наименование отдела"
+                                   placeholder=<%=LocalizationUtil.getMessage("department_name_placeholder", locale)%>
                                    required>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Наименование в родительном падеже</legend>
+                        <legend><%=LocalizationUtil.getMessage("department_genitive_name", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.GENITIVE_CASE_NAME %>"
                                    value="<%=department.getGenitiveCaseName()%>"
-                                   placeholder="Введите наименование отдела в родительном падеже"
+                                   placeholder=<%=LocalizationUtil.getMessage("department_genitive_nam_placeholder", locale)%>
                                    required>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Описание</legend>
+                        <legend><%=LocalizationUtil.getMessage("description", locale)%></legend>
                         <textarea rows="5"
-                                  placeholder="Введите описание отдела"
+                                  placeholder=<%=LocalizationUtil.getMessage("description_placeholder", locale)%>
                                   name="<%=ConstantParamAndAttribute.DESCRIPTION%>">
                             <%if (department.getDescription() != null) { %>
                             <%=department.getDescription()%>
@@ -75,12 +76,12 @@
                     type="submit"
                     name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
                     value="<%=department.getId()%>">
-                Сохранить
+                <%=LocalizationUtil.getMessage("save_button", locale)%>
             </button>
             <button class="footer-button"
                     name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
                     value="<%=department.getId()%>">
-                Вернуться к просмотру отдела
+                <%=LocalizationUtil.getMessage("back_to_department", locale)%>
             </button>
         </form>
     </div>

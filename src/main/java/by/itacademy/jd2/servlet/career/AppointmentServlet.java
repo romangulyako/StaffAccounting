@@ -13,6 +13,7 @@ import by.itacademy.jd2.service.impl.CareerServiceImpl;
 import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
 import by.itacademy.jd2.service.impl.PositionServiceImpl;
 import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
+import by.itacademy.jd2.utils.LocalizationUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -23,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 @WebServlet(name = "appointToPositionServlet", value = "/appointment")
 public class AppointmentServlet extends HttpServlet {
@@ -34,6 +36,9 @@ public class AppointmentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            Locale locale = LocalizationUtil.getLocale(req);
+            req.setAttribute(ConstantParamAndAttribute.LOCALE, locale);
+
             List<EmployeeItemDTO> employeeItems = employeeService.getAllEmployeeItems(false);
             List<PositionItemDTO> positionItems = positionService.getAllPositionItems();
             req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ITEMS, employeeItems);

@@ -7,6 +7,7 @@ import by.itacademy.jd2.dto.MaritalStatusDTO;
 import by.itacademy.jd2.service.api.MaritalStatusService;
 import by.itacademy.jd2.service.impl.MaritalStatusServiceImpl;
 import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
+import by.itacademy.jd2.utils.LocalizationUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @WebServlet(name = "maritalStatusAddServlet", value = "/add_marital_status")
 public class MaritalStatusAddServlet extends HttpServlet {
@@ -26,6 +28,9 @@ public class MaritalStatusAddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            Locale locale = LocalizationUtil.getLocale(req);
+            req.setAttribute(ConstantParamAndAttribute.LOCALE, locale);
+
             Long employeeId =ServletUtil.getParamLong(req, ConstantParamAndAttribute.EMPLOYEE_ID);
             req.setAttribute(ConstantParamAndAttribute.EMPLOYEE_ID, employeeId);
             req.getRequestDispatcher(ConstantJSP.ADD_MARITAL_STATUS_PAGE).forward(req, resp);

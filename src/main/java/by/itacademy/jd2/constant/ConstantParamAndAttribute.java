@@ -67,4 +67,6 @@ public class ConstantParamAndAttribute {
     public static final String AGE = "age";
     public static final String EMPLOYEE_FILTER_DATA = "employee_filter_data";
     public static final String DEPARTMENT_ITEMS = "department_items";
+    public static final String LOCALE = "locale";
+    public static final String LANGUAGE = "language";
 }

@@ -7,6 +7,7 @@ import by.itacademy.jd2.dto.PositionHistoryDTO;
 import by.itacademy.jd2.service.PageInfo;
 import by.itacademy.jd2.service.api.CareerService;
 import by.itacademy.jd2.service.impl.CareerServiceImpl;
+import by.itacademy.jd2.utils.LocalizationUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @WebServlet(name = "positionHistoryGetServlet", value = "/history")
 public class PositionHistoryGetServlet extends HttpServlet {
@@ -26,6 +28,9 @@ public class PositionHistoryGetServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            Locale locale = LocalizationUtil.getLocale(req);
+            req.setAttribute(ConstantParamAndAttribute.LOCALE, locale);
+
             Integer pageSize = ServletUtil.getParamInt(req, ConstantParamAndAttribute.PAGE_SIZE);
             Integer pageNumber = ServletUtil.getParamInt(req, ConstantParamAndAttribute.PAGE_NUMBER);
             Long positionId = ServletUtil.getParamLong(req, ConstantParamAndAttribute.POSITION_ID);

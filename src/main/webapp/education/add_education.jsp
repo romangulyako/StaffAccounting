@@ -3,7 +3,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Добавить образование</title>
+    <% Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+    <title><%=LocalizationUtil.getMessage("add_education", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -13,56 +14,56 @@
 <main>
     <%@include file="../menu.jsp" %>
     <div class="form-group">
-        <h2>Введите данные об образовании:</h2>
+        <h2><%=LocalizationUtil.getMessage("filling_education_form_message", locale)%></h2>
         <div class="filling-form">
             <form id="save"
                   action="<%=ConstantAction.ADD_EDUCATION%>"
                   method="post">
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Уровень образования</legend>
+                        <legend><%=LocalizationUtil.getMessage("education_level", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.EDUCATION_LEVEL%>"
-                                   placeholder="Введите уровень образования"
+                                   placeholder=<%=LocalizationUtil.getMessage("education_level_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Учебное заведение</legend>
+                        <legend><%=LocalizationUtil.getMessage("institution", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.INSTITUTION%>"
-                                   placeholder="Введите название учебного заведения"
+                                   placeholder=<%=LocalizationUtil.getMessage("institution_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Факультет</legend>
+                        <legend><%=LocalizationUtil.getMessage("faculty", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.FACULTY%>"
-                                   placeholder="Введите название факультета"/>
+                                   placeholder=<%=LocalizationUtil.getMessage("faculty_placeholder", locale)%>/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Специализация</legend>
+                        <legend><%=LocalizationUtil.getMessage("specialization", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.SPECIALIZATION%>"
-                                   placeholder="Введите специализацию"/>
+                                   placeholder=<%=LocalizationUtil.getMessage("specialization_placeholder", locale)%>/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Дата начала обучения</legend>
+                        <legend><%=LocalizationUtil.getMessage("study_start", locale)%></legend>
                         <label>
                             <input type="date"
                                    name="<%=ConstantParamAndAttribute.DATE_START%>"
@@ -72,7 +73,7 @@
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Дата окончания обучения</legend>
+                        <legend><%=LocalizationUtil.getMessage("study_end", locale)%></legend>
                         <label>
                             <input type="date"
                                    name="<%=ConstantParamAndAttribute.DATE_END%>"
@@ -88,12 +89,12 @@
             <button class="footer-button, button-add" form="save"
                     name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
                     value="<%=request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
-                Сохранить
+                <%=LocalizationUtil.getMessage("save_button", locale)%>
             </button>
             <button class="footer-button"
                     name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
                     value="<%=request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
-                Вернуться к просмотру образования
+                <%=LocalizationUtil.getMessage("back_to_education", locale)%>
             </button>
         </form>
     </div>

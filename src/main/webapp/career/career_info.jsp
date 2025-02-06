@@ -3,10 +3,13 @@
 <%@ page import="java.util.List" %>
 <%@ page import="by.itacademy.jd2.dto.CareerStepGetDTO" %>
 <%@ page import="by.itacademy.jd2.service.PageInfo" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="by.itacademy.jd2.utils.LocalizationUtil" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>Карьера</title>
+    <%Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+    <title><%=LocalizationUtil.getMessage("career", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -16,24 +19,24 @@
 <main>
     <%@include file="../menu.jsp" %>
     <div>
-        <h2>Послужной список сотрудника</h2>
+        <h2><%=LocalizationUtil.getMessage("career_header", locale)%></h2>
         <%
             PageInfo<CareerStepGetDTO> pageInfo = (PageInfo<CareerStepGetDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
             List<CareerStepGetDTO> career = pageInfo.getItems();
             if (career == null || career.isEmpty()) {
         %>
         <div class="form-group">
-            <h3>Информация о карьере сотрудника отсутствует</h3>
+            <h3><%=LocalizationUtil.getMessage("career_absent", locale)%></h3>
         </div>
         <% } else { %>
         <table>
             <thead>
             <tr>
-                <th>Приказ о назначении</th>
-                <th>С какого числа</th>
-                <th>По какое число</th>
-                <th>Должность</th>
-                <th colspan="2">Действие</th>
+                <th><%=LocalizationUtil.getMessage("appointment_order", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("from_what_date", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("on_what_date", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("position", locale)%></th>
+                <th colspan="2"><%=LocalizationUtil.getMessage("action", locale)%></th>
             </tr>
             </thead>
             <tbody>
@@ -45,7 +48,7 @@
                 </td>
                 <td>
                     <% if (careerStep.getDateOfLiberation() == null) { %>
-                    н.вр.
+                    <%=LocalizationUtil.getMessage("today", locale)%>
                     <% } else { %>
                     <%=careerStep.getDateOfLiberation()%>
                     <%}%>
@@ -57,7 +60,7 @@
                           method="get"
                           action="<%= ConstantAction.UPDATE_CAREER_STEP %>">
                         <button class="button-edit">
-                            Изменить
+                            <%=LocalizationUtil.getMessage("edit_button", locale)%>
                         </button>
                         <input type="hidden"
                                name="<%=ConstantParamAndAttribute.CAREER_ID%>"
@@ -71,7 +74,7 @@
                         <button class="button-delete"
                                 name="<%=ConstantParamAndAttribute.CAREER_ID%>"
                                 value="<%=careerStep.getId()%>">
-                            Удалить
+                            <%=LocalizationUtil.getMessage("delete_button", locale)%>
                         </button>
                         <input type="hidden"
                                name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
@@ -100,7 +103,7 @@
             <button class="footer-button"
                     name="<%= ConstantParamAndAttribute.ID%>"
                     value="<%= request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
-                Вернуться к просмотру сотрудника
+                <%=LocalizationUtil.getMessage("back_to_employee", locale)%>
             </button>
         </form>
     </div>

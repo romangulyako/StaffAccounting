@@ -6,7 +6,8 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>Родственники</title>
+    <% Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+    <title><%=LocalizationUtil.getMessage("relatives", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -16,21 +17,21 @@
 <main>
     <%@include file="../menu.jsp" %>
     <div>
-        <h2>Информация о родственниках сотрудника</h2>
+        <h2><%=LocalizationUtil.getMessage("relatives_info", locale)%></h2>
         <% PageInfo<RelativeDTO> pageInfo = (PageInfo<RelativeDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
             List<RelativeDTO> relatives = pageInfo.getItems();
             if (relatives == null || relatives.isEmpty()) { %>
-        <h3>Информация о родственниках отсутствует</h3>
+        <h3><%=LocalizationUtil.getMessage("relatives_info_absent", locale)%></h3>
         <% } else { %>
         <table>
             <thead>
             <tr>
-                <th>Фамилия</th>
-                <th>Имя</th>
-                <th>Отчество</th>
-                <th>Дата рождения</th>
-                <th>Тип родства</th>
-                <th colspan="2">Действие</th>
+                <th><%=LocalizationUtil.getMessage("surname", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("name", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("patronymic", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("birthday", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("type_kinship", locale)%></th>
+                <th colspan="2"><%=LocalizationUtil.getMessage("action", locale)%></th>
             </tr>
             </thead>
             <tbody>
@@ -56,7 +57,7 @@
                         <button class="button-edit"
                                 name="<%= ConstantParamAndAttribute.ID %>"
                                 value="<%= relative.getId() %>">
-                            Изменить
+                            <%=LocalizationUtil.getMessage("edit_button", locale)%>
                         </button>
                         <input type="hidden"
                                name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
@@ -70,7 +71,7 @@
                         <button class="button-delete"
                                 name="<%= ConstantParamAndAttribute.ID %>"
                                 value="<%= relative.getId() %>">
-                            Удалить
+                            <%=LocalizationUtil.getMessage("delete_button", locale)%>
                         </button>
                         <input type="hidden"
                                name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
@@ -99,7 +100,7 @@
                 <button class="footer-button, button-add"
                         name="<%= ConstantParamAndAttribute.EMPLOYEE_ID%>"
                         value="<%= request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
-                    Добавить родственника
+                    <%=LocalizationUtil.getMessage("add_relative", locale)%>
                 </button>
             </form>
             <form name="employee"
@@ -108,7 +109,7 @@
                 <button class="footer-button"
                         name="<%= ConstantParamAndAttribute.ID%>"
                         value="<%= request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
-                    Вернуться к просмотру сотрудника
+                    <%=LocalizationUtil.getMessage("back_to_employee", locale)%>
                 </button>
             </form>
         </div>

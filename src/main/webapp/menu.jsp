@@ -1,6 +1,7 @@
 <%@ page import="by.itacademy.jd2.constant.ConstantAction" %>
 <%@ page pageEncoding="UTF-8" %>
 <aside>
+    <%Locale localeMenu = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
     <nav class="menu-panel">
         <ul class="menu-list">
             <li>
@@ -9,7 +10,7 @@
                     <button class="menu-item"
                             name="<%=ConstantParamAndAttribute.IS_FIRED%>"
                             value="false">
-                        Действующие сотрудники организации
+                        <%=LocalizationUtil.getMessage("current_employees", localeMenu)%>
                     </button>
                 </form>
             </li>
@@ -19,20 +20,24 @@
                     <button class="menu-item"
                             name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
                             value="true">
-                        Структура организации
+                        <%=LocalizationUtil.getMessage("structure", localeMenu)%>
                     </button>
                 </form>
             </li>
             <li>
                 <form action="<%=ConstantAction.APPOINTMENT%>"
                       method="get">
-                    <button class="menu-item">Назначение на должности</button>
+                    <button class="menu-item">
+                        <%=LocalizationUtil.getMessage("appointment", localeMenu)%>
+                    </button>
                 </form>
             </li>
             <li>
                 <form action="<%=ConstantAction.DISMISS%>"
                       method="get">
-                    <button class="menu-item">Увольнение сотрудников</button>
+                    <button class="menu-item">
+                        <%=LocalizationUtil.getMessage("dismiss", localeMenu)%>
+                    </button>
                 </form>
             </li>
             <li>
@@ -41,7 +46,7 @@
                     <button class="menu-item"
                             name="<%=ConstantParamAndAttribute.IS_FIRED%>"
                             value="true">
-                        Просмотр уволенных сотрудников
+                        <%=LocalizationUtil.getMessage("view_dismissed", localeMenu)%>
                     </button>
                 </form>
             </li>
@@ -51,7 +56,7 @@
                     <button class="menu-item"
                             name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
                             value="false">
-                        Сокращенные подразделения/должности
+                        <%=LocalizationUtil.getMessage("view_abbreviated", localeMenu)%>
                     </button>
                 </form>
             </li>

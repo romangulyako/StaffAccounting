@@ -9,6 +9,7 @@ import by.itacademy.jd2.service.api.PositionService;
 import by.itacademy.jd2.service.impl.DepartmentServiceImpl;
 import by.itacademy.jd2.service.impl.PositionServiceImpl;
 import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
+import by.itacademy.jd2.utils.LocalizationUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @WebServlet(name = "positionAddServlet", value = "/add_position")
 public class PositionAddServlet extends HttpServlet {
@@ -30,6 +32,9 @@ public class PositionAddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            Locale locale = LocalizationUtil.getLocale(req);
+            req.setAttribute(ConstantParamAndAttribute.LOCALE, locale);
+
             Long departmentId = ServletUtil.getParamLong(req, ConstantParamAndAttribute.DEPARTMENT_ID);
             req.setAttribute(ConstantParamAndAttribute.DEPARTMENT_ID, departmentId);
             req.setAttribute(ConstantParamAndAttribute.IS_ACTUAL, DEFAULT_IS_ACTUAL_FOR_ADD);

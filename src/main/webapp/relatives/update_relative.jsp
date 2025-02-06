@@ -4,7 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Изменить родственника</title>
+    <% Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+    <title><%=LocalizationUtil.getMessage("edit_relative", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -14,7 +15,7 @@
 <main>
     <%@include file="../menu.jsp" %>
     <div class="form-group">
-        <h2>Введите данные о родственнике:</h2>
+        <h2><%=LocalizationUtil.getMessage("enter_relative_data", locale)%></h2>
         <div class="filling-form">
             <% RelativeDTO relative = (RelativeDTO) request.getAttribute(ConstantParamAndAttribute.RELATIVE); %>
             <form id="save"
@@ -30,44 +31,44 @@
                        required/>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Фамилия</legend>
+                        <legend><%=LocalizationUtil.getMessage("surname", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.SURNAME %>"
                                    value="<%= relative.getPersonData().getSurname() %>"
-                                   placeholder="Введите фамилию"
+                                   placeholder=<%=LocalizationUtil.getMessage("surname_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Имя</legend>
+                        <legend><%=LocalizationUtil.getMessage("name", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.NAME %>"
                                    value="<%= relative.getPersonData().getName() %>"
-                                   placeholder="Введите имя"
+                                   placeholder=<%=LocalizationUtil.getMessage("name_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Отчество</legend>
+                        <legend><%=LocalizationUtil.getMessage("patronymic", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.PATRONYMIC %>"
                                     <%if (relative.getPersonData().getPatronymic() != null) { %>
                                    value="<%= relative.getPersonData().getPatronymic() %>"
                                     <% } %>
-                                   placeholder="Введите отчество"/>
+                                   placeholder=<%=LocalizationUtil.getMessage("patronymic_placeholder", locale)%>/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Дата рождения</legend>
+                        <legend><%=LocalizationUtil.getMessage("birthday", locale)%></legend>
                         <label>
                             <input type="date"
                                    name="<%= ConstantParamAndAttribute.BIRTHDAY %>"
@@ -78,12 +79,12 @@
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Тип родства</legend>
+                        <legend><%=LocalizationUtil.getMessage("type_kinship", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.TYPE_KINSHIP %>"
                                    value="<%= relative.getTypeKinship()%>"
-                                   placeholder="Введите тип родства"
+                                   placeholder=<%=LocalizationUtil.getMessage("type_kinship_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
@@ -95,12 +96,12 @@
               method="get">
             <button class="footer-button, button-add"
                     form="save">
-                Сохранить
+                <%=LocalizationUtil.getMessage("save_button", locale)%>
             </button>
             <button class="footer-button"
                     name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
                     value="<%=relative.getEmployeeId()%>">
-                Вернуться к просмотру родственников
+                <%=LocalizationUtil.getMessage("back_to_relatives", locale)%>
             </button>
         </form>
     </div>

@@ -12,17 +12,21 @@ import by.itacademy.jd2.service.impl.DepartmentServiceImpl;
 import by.itacademy.jd2.service.impl.EmployeeServiceImpl;
 import by.itacademy.jd2.service.api.EmployeeService;
 import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
+import by.itacademy.jd2.utils.LocalizationUtil;
 import by.itacademy.jd2.utils.ServletUtil;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 @WebServlet(name = "employeesListServlet", value = "/list_employees")
 public class EmployeesListServlet extends HttpServlet {
@@ -33,6 +37,9 @@ public class EmployeesListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            Locale locale = LocalizationUtil.getLocale(req);
+            req.setAttribute("locale", locale);
+
             Integer pageSize = ServletUtil.getParamInt(req, ConstantParamAndAttribute.PAGE_SIZE);
             Integer pageNumber = ServletUtil.getParamInt(req, ConstantParamAndAttribute.PAGE_NUMBER);
             Boolean isFired = ServletUtil.getParamBoolean(req, ConstantParamAndAttribute.IS_FIRED);

@@ -5,7 +5,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Отделы</title>
+    <% Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+    <title><%=LocalizationUtil.getMessage("departments", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -19,14 +20,14 @@
             List<DepartmentDTO> departments = pageInfo.getItems();
             Boolean isActual = (Boolean) request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL);%>
 
-        <h2>Структура организации</h2>
+        <h2><%=LocalizationUtil.getMessage("structure", locale)%></h2>
         <table>
             <thead>
             <tr>
-                <th>Наименование</th>
-                <th>Описание отдела</th>
-                <th>Количество должностей</th>
-                <th colspan="3">Действие</th>
+                <th><%=LocalizationUtil.getMessage("item_name", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("description", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("positions_count", locale)%></th>
+                <th colspan="3"><%=LocalizationUtil.getMessage("action", locale)%></th>
             </tr>
             </thead>
             <tbody>
@@ -56,7 +57,7 @@
                         <button class="button-show"
                                 name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
                                 value="<%=isActual%>">
-                            Просмотр
+                            <%=LocalizationUtil.getMessage("show_button", locale)%>
                         </button>
                     </form>
                 </td>
@@ -70,7 +71,7 @@
                         <button class="button-delete"
                                 name="<%= ConstantParamAndAttribute.IS_ACTUAL %>"
                                 value="<%= isActual%>">
-                            Удалить
+                            <%=LocalizationUtil.getMessage("delete_button", locale)%>
                         </button>
                     </form>
                 </td>
@@ -85,7 +86,7 @@
                         <button class="button-reduce"
                                 name="<%= ConstantParamAndAttribute.IS_ACTUAL %>"
                                 value="<%= true %>">
-                            Сократить
+                            <%=LocalizationUtil.getMessage("reduce_button", locale)%>
                         </button>
                     </form>
                     <% } else { %>
@@ -98,7 +99,7 @@
                         <button class="button-restore"
                                 name="<%= ConstantParamAndAttribute.IS_ACTUAL %>"
                                 value="<%= false %>">
-                            Восстановить
+                            <%=LocalizationUtil.getMessage("restore_button", locale)%>
                         </button>
                     </form>
                     <% } %>
@@ -121,7 +122,7 @@
         <form name="add_department"
               method="get"
               action="<%= ConstantAction.ADD_DEPARTMENT %>">
-            <button class="button-add">Добавить новый отдел</button>
+            <button class="button-add"><%=LocalizationUtil.getMessage("add_department", locale)%></button>
         </form>
         <% } %>
     </div>

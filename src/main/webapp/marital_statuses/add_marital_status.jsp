@@ -3,7 +3,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Обновить семейное положение</title>
+    <% Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+    <title><%=LocalizationUtil.getMessage("update_marital_status", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -13,7 +14,7 @@
 <main>
     <%@include file="../menu.jsp" %>
     <div class="form-group">
-        <h2>Заполните информацию о семейном положении:</h2>
+        <h2><%=LocalizationUtil.getMessage("filling_marital_form_message", locale)%></h2>
         <div class="filling-form">
             <form id="save"
                   action="<%= ConstantAction.ADD_MARITAL_STATUS %>"
@@ -24,18 +25,18 @@
                        required/>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Семейное положение</legend>
+                        <legend><%=LocalizationUtil.getMessage("marital_status", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.STATUS %>"
-                                   placeholder="Введите семейное положение"
+                                   placeholder=<%=LocalizationUtil.getMessage("marital_status_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Дата регистрации</legend>
+                        <legend><%=LocalizationUtil.getMessage("registration_date", locale)%></legend>
                         <label>
                             <input type="date"
                                    name="<%= ConstantParamAndAttribute.REGISTRATION_DATE %>"
@@ -45,11 +46,11 @@
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Подтверждающий документ</legend>
+                        <legend><%=LocalizationUtil.getMessage("document", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%= ConstantParamAndAttribute.DOCUMENT %>"
-                                   placeholder="Введите название и реквизиты документа"
+                                   placeholder=<%=LocalizationUtil.getMessage("document_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
@@ -62,12 +63,12 @@
             <button class="footer-button, button-add" form="save"
                     name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
                     value="<%=request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
-                Сохранить
+                <%=LocalizationUtil.getMessage("save_button", locale)%>
             </button>
             <button class="footer-button"
                     name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
                     value="<%=request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
-                Вернуться к просмотру семейного положения
+                <%=LocalizationUtil.getMessage("back_to_marital_status", locale)%>
             </button>
         </form>
     </div>

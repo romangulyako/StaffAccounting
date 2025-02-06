@@ -9,6 +9,7 @@
     DepartmentDTO department = (DepartmentDTO) request.getAttribute(ConstantParamAndAttribute.DEPARTMENT);
     PageInfo<PositionDTO> pageInfo = (PageInfo<PositionDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
     List<PositionDTO> positions = pageInfo.getItems();
+    Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE);
 %>
 <head>
     <title><%=department.getName()%>
@@ -23,7 +24,7 @@
     <%@include file="../menu.jsp" %>
     <div>
         <div class="header-with-button">
-            <h2>Информация об отделе</h2>
+            <h2><%=LocalizationUtil.getMessage("department_info", locale)%></h2>
             <%if (isActual) { %>
             <form name="update_department"
                   action="<%=ConstantAction.UPDATE_DEPARTMENT%>"
@@ -34,22 +35,22 @@
                 <button class="button-edit"
                         name="<%= ConstantParamAndAttribute.ID %>"
                         value="<%= department.getId() %>">
-                    Изменить
+                    <%=LocalizationUtil.getMessage("edit_button", locale)%>
                 </button>
             </form>
             <% } %>
         </div>
         <div class="information-block">
             <div class="information-item">
-                <label>Наименование:</label>
+                <label><%=LocalizationUtil.getMessage("item_name", locale)%></label>
                 <span><%=department.getName()%></span>
             </div>
             <div class="information-item">
-                <label>Наименование в родительном падеже:</label>
+                <label><%=LocalizationUtil.getMessage("department_genitive_name", locale)%></label>
                 <span><%=department.getGenitiveCaseName()%></span>
             </div>
             <div class="information-item">
-                <label>Описание:</label>
+                <label><%=LocalizationUtil.getMessage("description", locale)%></label>
                 <span>
                 <%if (department.getDescription() != null) { %>
                 <%=department.getDescription()%>
@@ -57,19 +58,19 @@
                 </span>
             </div>
         </div>
-        <h2>Должности отдела</h2>
+        <h2><%=LocalizationUtil.getMessage("positions_of_department", locale)%></h2>
         <%if (positions == null || positions.isEmpty()) { %>
         <div class="form-group">
-            <h3>Должностей нет</h3>
+            <h3><%=LocalizationUtil.getMessage("positions_absent", locale)%></h3>
         </div>
         <% } else { %>
         <table>
             <thead>
             <tr>
-                <th>Наименование должности</th>
-                <th>Необходимый уровень образования</th>
-                <th>Оклад по должности</th>
-                <th colspan="4">Действие</th>
+                <th><%=LocalizationUtil.getMessage("item_name", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("necessary_education_level", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("salary", locale)%></th>
+                <th colspan="4"><%=LocalizationUtil.getMessage("action", locale)%></th>
             </tr>
             </thead>
             <tbody>
@@ -91,7 +92,7 @@
                         <button class="button-edit"
                                 name="<%= ConstantParamAndAttribute.ID %>"
                                 value="<%= position.getId() %>">
-                            Изменить
+                            <%=LocalizationUtil.getMessage("edit_button", locale)%>
                         </button>
                     </form>
                 </td>
@@ -108,7 +109,7 @@
                         <button class="button-delete"
                                 name="<%= ConstantParamAndAttribute.ID %>"
                                 value="<%= position.getId() %>">
-                            Удалить
+                            <%=LocalizationUtil.getMessage("delete_button", locale)%>
                         </button>
                     </form>
                 </td>
@@ -125,7 +126,7 @@
                         <button class="button-show"
                                 name="<%= ConstantParamAndAttribute.POSITION_ID %>"
                                 value="<%= position.getId() %>">
-                            Посмотреть историю
+                            <%=LocalizationUtil.getMessage("show_history_button", locale)%>
                         </button>
                     </form>
                 </td>
@@ -143,7 +144,7 @@
                         <button class="button-reduce"
                                 name="<%= ConstantParamAndAttribute.POSITION_ID %>"
                                 value="<%= position.getId() %>">
-                            Сократить
+                            <%=LocalizationUtil.getMessage("reduce_button", locale)%>
                         </button>
                     </form>
                     <% } else { %>
@@ -159,7 +160,7 @@
                         <button class="button-reduce"
                                 name="<%= ConstantParamAndAttribute.POSITION_ID %>"
                                 value="<%= position.getId() %>">
-                            Восстановить
+                            <%=LocalizationUtil.getMessage("restore_button", locale)%>
                         </button>
                     </form>
                     <% } %>
@@ -191,7 +192,7 @@
                         type="submit"
                         name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
                         value="<%=department.getId()%>">
-                    Добавить новую должность
+                    <%=LocalizationUtil.getMessage("add_position", locale)%>
                 </button>
             </form>
             <% } %>
@@ -202,7 +203,7 @@
                        name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"
                        value="<%=isActual%>"/>
                 <button class="footer-button">
-                    Вернуться к списку отделов
+                    <%=LocalizationUtil.getMessage("back_to_departments_list", locale)%>
                 </button>
             </form>
         </div>

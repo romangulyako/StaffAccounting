@@ -2,10 +2,14 @@
 <%@ page import="by.itacademy.jd2.dto.PositionHistoryDTO" %>
 <%@ page import="by.itacademy.jd2.constant.ConstantParamAndAttribute" %>
 <%@ page import="by.itacademy.jd2.service.PageInfo" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="by.itacademy.jd2.utils.LocalizationUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>История должности</title>
+    <%Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+
+    <title><%=LocalizationUtil.getMessage("history", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -15,20 +19,20 @@
 <main>
     <%@include file="../menu.jsp" %>
     <div>
-        <h2>История должности:</h2>
+        <h2><%=LocalizationUtil.getMessage("history", locale)%></h2>
         <% PageInfo<PositionHistoryDTO> pageInfo = (PageInfo<PositionHistoryDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
             List<PositionHistoryDTO> history = pageInfo.getItems();
             if (history == null || history.isEmpty()) { %>
         <div class="form-group">
-            <h3>История этой должности отсутствует</h3>
+            <h3><%=LocalizationUtil.getMessage("history_absent", locale)%></h3>
         </div>
         <% } else { %>
         <table>
             <thead>
             <tr>
-                <th>С какого числа</th>
-                <th>По какое число</th>
-                <th>ФИО сотрудника</th>
+                <th><%=LocalizationUtil.getMessage("from_what_date", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("on_what_date", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("employee_name", locale)%></th>
             </tr>
             </thead>
             <tbody>
@@ -40,7 +44,7 @@
                     <%if (historyItem.getDateOfLiberation() != null) { %>
                     <%=historyItem.getDateOfLiberation()%>
                     <% } else { %>
-                    н.вр.
+                    <%=LocalizationUtil.getMessage("today", locale)%>
                     <% } %>
                 </td>
                 <td><%=historyItem.getEmployeeSurname() + " "
@@ -77,7 +81,7 @@
             <button class="footer-button"
                     name="<%= ConstantParamAndAttribute.DEPARTMENT_ID%>"
                     value="<%= request.getAttribute(ConstantParamAndAttribute.DEPARTMENT_ID)%>">
-                Вернуться к просмотру отдела
+                <%=LocalizationUtil.getMessage("back_to_department", locale)%>
             </button>
         </form>
     </div>

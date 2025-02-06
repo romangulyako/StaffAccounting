@@ -6,7 +6,8 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>Образование</title>
+    <% Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+    <title><%=LocalizationUtil.getMessage("education", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -16,24 +17,24 @@
 <main>
     <%@include file="../menu.jsp" %>
     <div>
-        <h2>Образование сотрудника</h2>
+        <h2><%=LocalizationUtil.getMessage("education_of_employee", locale)%></h2>
         <% PageInfo<EducationDTO> pageInfo = (PageInfo<EducationDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
             List<EducationDTO> education = pageInfo.getItems();
             if (education == null || education.isEmpty()) { %>
         <div class="form-group">
-            <h3>Информация об образовании отсутствует</h3>
+            <h3><%=LocalizationUtil.getMessage("education_absent", locale)%></h3>
         </div>
         <% } else { %>
         <table>
             <thead>
             <tr>
-                <th>Уровень образования</th>
-                <th>Учреждение образования</th>
-                <th>Факультет</th>
-                <th>Специальность</th>
-                <th>Дата начала обучения</th>
-                <th>Дата окончания обучения</th>
-                <th colspan="2">Действие</th>
+                <th><%=LocalizationUtil.getMessage("education_level", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("institution", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("faculty", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("specialization", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("study_start", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("study_end", locale)%></th>
+                <th colspan="2"><%=LocalizationUtil.getMessage("action", locale)%></th>
             </tr>
             </thead>
             <tbody>
@@ -64,7 +65,7 @@
                         <button class="button-edit"
                                 name="<%= ConstantParamAndAttribute.ID %>"
                                 value="<%= dto.getId() %>">
-                            Изменить
+                            <%=LocalizationUtil.getMessage("edit_button", locale)%>
                         </button>
                         <input type="hidden"
                                name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
@@ -78,7 +79,7 @@
                         <button class="button-delete"
                                 name="<%= ConstantParamAndAttribute.ID %>"
                                 value="<%= dto.getId() %>">
-                            Удалить
+                            <%=LocalizationUtil.getMessage("delete_button", locale)%>
                         </button>
                         <input type="hidden"
                                name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
@@ -107,7 +108,7 @@
                 <button class="footer-button, button-add"
                         name="<%= ConstantParamAndAttribute.EMPLOYEE_ID%>"
                         value="<%= request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
-                    Добавить образование
+                    <%=LocalizationUtil.getMessage("add_education", locale)%>
                 </button>
             </form>
             <form name="employee"
@@ -116,7 +117,7 @@
                 <button class="footer-button"
                         name="<%= ConstantParamAndAttribute.ID%>"
                         value="<%= request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
-                    Вернуться к просмотру сотрудника
+                    <%=LocalizationUtil.getMessage("back_to_employee", locale)%>
                 </button>
             </form>
         </div>

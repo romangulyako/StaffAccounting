@@ -3,7 +3,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Изменить должность</title>
+    <% Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+    <title><%=LocalizationUtil.getMessage("edit_position", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -14,7 +15,7 @@
     <%@include file="../menu.jsp" %>
     <div class="form-group">
         <% PositionDTO position = (PositionDTO) request.getAttribute(ConstantParamAndAttribute.POSITION);%>
-        <h2>Введите новые данные о должности:</h2>
+        <h2><%=LocalizationUtil.getMessage("enter_positions_data", locale)%></h2>
         <div class="filling-form">
             <form id="save"
                   action="<%=ConstantAction.UPDATE_POSITION%>"
@@ -30,36 +31,36 @@
                        value="<%=request.getAttribute(ConstantParamAndAttribute.IS_ACTUAL)%>"/>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Наименование</legend>
+                        <legend><%=LocalizationUtil.getMessage("item_menu", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.NAME%>"
                                    value="<%=position.getName()%>"
-                                   placeholder="Введите наименование должности"
+                                   placeholder=<%=LocalizationUtil.getMessage("position_name_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Необходимый уровень образования</legend>
+                        <legend><%=LocalizationUtil.getMessage("necessary_education_level", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.EDUCATION_LEVEL%>"
                                    value="<%=position.getEducationLevel()%>"
-                                   placeholder="Введите необходимый уровень образования"
+                                   placeholder=<%=LocalizationUtil.getMessage("necessary_education_level_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
                     <fieldset>
-                        <legend>Денежный оклад</legend>
+                        <legend><%=LocalizationUtil.getMessage("salary", locale)%></legend>
                         <label>
                             <input type="text"
                                    name="<%=ConstantParamAndAttribute.SALARY%>"
                                    value="<%=position.getSalary()%>"
-                                   placeholder="Введите денежный оклад"
+                                   placeholder=<%=LocalizationUtil.getMessage("salary_placeholder", locale)%>
                                    required/>
                         </label>
                     </fieldset>
@@ -71,12 +72,12 @@
               method="get">
             <button class="footer-button, button-add"
                     form="save">
-                Сохранить
+                <%=LocalizationUtil.getMessage("save_button", locale)%>
             </button>
             <button class="footer-button"
                     name="<%=ConstantParamAndAttribute.DEPARTMENT_ID%>"
                     value="<%=position.getDepartmentId()%>">
-                Вернуться к просмотру информации об отделе
+                <%=LocalizationUtil.getMessage("back_to_department", locale)%>
             </button>
             <input type="hidden"
                    name="<%=ConstantParamAndAttribute.IS_ACTUAL%>"

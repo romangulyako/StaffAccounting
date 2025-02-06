@@ -15,6 +15,12 @@ header {
     text-align: center;
 }
 
+header > div > div > form > select {
+    background-color: #333333;
+    margin-right: 10px;
+    color: #dcdcdc;
+}
+
 header h1, span {
     color: #dcdcdc;
 }

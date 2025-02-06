@@ -7,6 +7,7 @@ import by.itacademy.jd2.dto.RelativeDTO;
 import by.itacademy.jd2.service.api.RelativeService;
 import by.itacademy.jd2.service.impl.RelativeServiceImpl;
 import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
+import by.itacademy.jd2.utils.LocalizationUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @WebServlet(name = "relativeUpdateServlet", value = "/update_relative")
 public class RelativeUpdateServlet extends HttpServlet {
@@ -26,6 +28,9 @@ public class RelativeUpdateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            Locale locale = LocalizationUtil.getLocale(req);
+            req.setAttribute(ConstantParamAndAttribute.LOCALE, locale);
+
             final RelativeDTO relative =
                     relativeService.getRelative(ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID));
             req.setAttribute(ConstantParamAndAttribute.RELATIVE, relative);

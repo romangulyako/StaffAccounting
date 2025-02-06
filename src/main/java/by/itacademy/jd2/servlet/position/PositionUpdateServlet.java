@@ -9,6 +9,7 @@ import by.itacademy.jd2.service.api.PositionService;
 import by.itacademy.jd2.service.impl.DepartmentServiceImpl;
 import by.itacademy.jd2.service.impl.PositionServiceImpl;
 import by.itacademy.jd2.servlet.converter.HttpRequestConverter;
+import by.itacademy.jd2.utils.LocalizationUtil;
 import by.itacademy.jd2.utils.ServletUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @WebServlet(name = "positionUpdateServlet", value = "/update_position")
 public class PositionUpdateServlet extends HttpServlet {
@@ -29,6 +31,9 @@ public class PositionUpdateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            Locale locale = LocalizationUtil.getLocale(req);
+            req.setAttribute(ConstantParamAndAttribute.LOCALE, locale);
+
             final PositionDTO position = positionService.getPosition(
                     ServletUtil.getParamLong(req, ConstantParamAndAttribute.ID));
             req.setAttribute(ConstantParamAndAttribute.IS_ACTUAL,

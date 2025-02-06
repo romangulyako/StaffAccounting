@@ -6,7 +6,8 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>Семейное положение</title>
+    <% Locale locale = (Locale) request.getAttribute(ConstantParamAndAttribute.LOCALE); %>
+    <title><%=LocalizationUtil.getMessage("marital_status", locale)%></title>
     <style>
         <%@include file="../resources/css/styles.css"%>
     </style>
@@ -16,19 +17,19 @@
 <main>
     <%@include file="../menu.jsp" %>
     <div>
-        <h2>Информация о семейном положении сотрудника</h2>
+        <h2><%=LocalizationUtil.getMessage("marital_info", locale)%></h2>
         <% PageInfo<MaritalStatusDTO> pageInfo = (PageInfo<MaritalStatusDTO>) request.getAttribute(ConstantParamAndAttribute.PAGE_INFO);
             List<MaritalStatusDTO> maritalStatuses = pageInfo.getItems();
             if (maritalStatuses == null || maritalStatuses.isEmpty()) { %>
-        <h3>Нет информации о семейном положении сотрудника</h3>
+        <h3><%=LocalizationUtil.getMessage("marital_info_absent", locale)%></h3>
         <% } else { %>
         <table>
             <thead>
             <tr>
-                <th>Семейное положение</th>
-                <th>Дата регистрации</th>
-                <th>Подтверждающий документ</th>
-                <th colspan="2">Действие</th>
+                <th><%=LocalizationUtil.getMessage("marital_status", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("registration_date", locale)%></th>
+                <th><%=LocalizationUtil.getMessage("document", locale)%></th>
+                <th colspan="2"><%=LocalizationUtil.getMessage("action", locale)%></th>
             </tr>
             </thead>
             <tbody>
@@ -47,7 +48,7 @@
                         <button class="button-edit"
                                 name="<%= ConstantParamAndAttribute.ID %>"
                                 value="<%= maritalStatus.getId() %>">
-                            Изменить
+                            <%=LocalizationUtil.getMessage("edit_button", locale)%>
                         </button>
                         <input type="hidden"
                                name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
@@ -61,7 +62,7 @@
                         <button class="button-delete"
                                 name="<%= ConstantParamAndAttribute.ID %>"
                                 value="<%= maritalStatus.getId() %>">
-                            Удалить
+                            <%=LocalizationUtil.getMessage("delete_button", locale)%>
                         </button>
                         <input type="hidden"
                                name="<%=ConstantParamAndAttribute.EMPLOYEE_ID%>"
@@ -90,7 +91,7 @@
                 <button class="footer-button, button-add"
                         name="<%= ConstantParamAndAttribute.EMPLOYEE_ID%>"
                         value="<%= request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID) %>">
-                    Обновить семейное положение
+                    <%=LocalizationUtil.getMessage("update_marital_status", locale)%>
                 </button>
             </form>
             <form name="employee"
@@ -99,7 +100,7 @@
                 <button class="footer-button"
                         name="<%= ConstantParamAndAttribute.ID%>"
                         value="<%= request.getAttribute(ConstantParamAndAttribute.EMPLOYEE_ID)%>">
-                    Вернуться к просмотру сотрудника
+                    <%=LocalizationUtil.getMessage("back_to_employee", locale)%>
                 </button>
             </form>
         </div>
