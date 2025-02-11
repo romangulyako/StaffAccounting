@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title th:text="#{employees}"></title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{/header :: header}"></div>
+<main>
+    <div th:replace="~{/menu :: menu}"></div>
+    <div>
+        <h2 th:text="#{all_employees}"></h2>
+        <div class="filter-container">
+            <div class="filter-form">
+                <form id="filter" th:action="@{/employees}" method="get">
+                    <div class="filter-inputs">
+                        <fieldset>
+                            <legend th:text="#{surname}"></legend>
+                            <input type="text"
+                                   name="surname"
+                                   th:value="${filterData.surname != null ? filterData.surname : ''}"
+                                   th:placeholder="#{surname_placeholder}"/>
+                        </fieldset>
+                        <fieldset>
+                            <legend th:text="#{name}"></legend>
+                            <input type="text"
+                                   name="name"
+                                   th:value="${filterData.name != null ? filterData.name : ''}"
+                                   th:placeholder="#{name_placeholder}"/>
+                        </fieldset>
+                        <fieldset>
+                            <legend th:text="#{patronymic}"></legend>
+                            <input type="text"
+                                   name="patronymic"
+                                   th:value="${filterData.patronymic != null ? filterData.patronymic : ''}"
+                                   th:placeholder="#{patronymic_placeholder}"/>
+                        </fieldset>
+                        <fieldset>
+                            <legend th:text="#{min_age}"></legend>
+                            <input type="number"
+                                   name="age"
+                                   th:value="${filterData.age != null ? filterData.age : ''}"
+                                   th:placeholder="#{min_age_placeholder}"/>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Отдел</legend>
+                            <input type="number"
+                                   name="departmentId"
+                                   th:value="${filterData != null and filterData.departmentId != null} ? ${filterData.departmentId} : ''"/>
+                        </fieldset>
+                    </div>
+                </form>
+                <div class="apply-filter-buttons">
+                    <button class="apply-filter-button"
+                            type="submit" form="filter"
+                            th:text="#{apply_button}"></button>
+                    <form id="clear" th:action="@{/employees/clear-filter}" method="post">
+                        <input type="hidden"
+                               name="isFired"
+                               th:value="${isFired}"/>
+                        <button class="clear-filter-button" type="submit" form="clear"
+                                th:text="#{clear_button}"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th th:text="#{short_name}"></th>
+                <th th:text="#{birthday}"></th>
+                <th th:text="#{position}"></th>
+                <th colspan="2" th:text="#{action}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="employee : ${employees}">
+                <td th:text="${employee.personData.surname + ' ' + employee.personData.name + ' ' + (employee.personData.patronymic != null ? ' ' + employee.personData.patronymic : '')}"/>
+                <td th:text="${employee.personData.birthday}"></td>
+                <td th:text="${employee.positionName != null ? employee.positionName : ''}"></td>
+                <td>
+                    <form name="employee" method="get" th:action="@{/employee/info/{id}(id=${employee.id})}">
+                        <button class="button-show"
+                                th:text="#{show_button}"></button>
+                    </form>
+                </td>
+                <td>
+                    <form name="delete_employee" method="post"
+                          th:action="@{/employee/delete/{id}(id=${employee.id})}">
+                        <button class="button-delete"
+                                th:text="#{delete_button}"></button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <form th:action="@{/employees}" method="get">
+            <input type="hidden" name="isFired" th:value="${isFired}"/>
+            <input type="hidden" th:if="${filterData.surname != null}" name="surname" th:value="${filterData.surname}"/>
+            <input type="hidden" th:if="${filterData.name != null}" name="name" th:value="${filterData.name}"/>
+            <input type="hidden" th:if="${filterData.patronymic != null}" name="patronymic"
+                   th:value="${filterData.patronymic}"/>
+            <input type="hidden" th:if="${filterData.age != null}" name="age" th:value="${filterData.age}"/>
+            <input type="hidden" th:if="${filterData.departmentId != null}" th:name="departmentId"
+                   th:value="${filterData.departmentId}"/>
+            <div th:replace="~{/page-panel :: page-panel}"></div>
+        </form>
+        <div th:if="${isFired == null || !isFired}">
+            <form name="add_employee" method="get" th:action="@{/employee/add}">
+                <button class="button-add" th:text="#{add_employee}"></button>
+            </form>
+        </div>
+    </div>
+</main>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

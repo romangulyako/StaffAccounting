@@ -1,0 +1,44 @@
+<aside th:fragment="menu">
+    <nav class="menu-panel">
+        <ul class="menu-list">
+            <li>
+                <form th:action="@{/employees}" method="get">
+                    <button class="menu-item" name="isFired" value="false"
+                            th:text="#{current_employees}">
+                    </button>
+                </form>
+            </li>
+            <li>
+                <form th:action="@{/departments}" method="get">
+                    <button class="menu-item" name="isActual" value="true"
+                            th:text="#{structure}">
+                    </button>
+                </form>
+            </li>
+            <li>
+                <form th:action="@{/appointment}" method="get">
+                    <button class="menu-item" th:text="#{appointment}"></button>
+                </form>
+            </li>
+            <li>
+                <form th:action="@{/dismiss}" method="get">
+                    <button class="menu-item" th:text="#{dismiss}"></button>
+                </form>
+            </li>
+            <li>
+                <form th:action="@{/employees}" method="get">
+                    <button class="menu-item" name="isFired" value="true"
+                            th:text="#{view_dismissed}">
+                    </button>
+                </form>
+            </li>
+            <li>
+                <form th:action="@{/departments}" method="get">
+                    <button class="menu-item" name="isActual" value="false"
+                            th:text="#{view_abbreviated}">
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</aside>

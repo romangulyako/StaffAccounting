@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title th:text="${employee.personData.surname + ' '
+    + employee.personData.name + ' '
+    + (employee.personData.patronymic != null ? employee.personData.patronymic : '')}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<div th:replace="~{/header :: header}"></div>
+<main>
+    <div th:replace="~{/menu :: menu}"></div>
+    <div>
+        <div class="header-with-button">
+            <h2 th:text="#{employees_information}"/>
+            <form th:action="@{/employee/edit/{id}(id=${employee.id})}"
+                  method="get">
+                <button class="button-edit"
+                        th:text="#{edit_button}"></button>
+            </form>
+        </div>
+        <div class="information-block">
+            <div class="information-item">
+                <label th:text="#{surname}"/>
+                <span th:text="${employee.personData.surname}"/>
+            </div>
+            <div class="information-item">
+                <label th:text="#{name}"/>
+                <span th:text="${employee.personData.name}"/>
+            </div>
+            <div class="information-item">
+                <label th:text="#{patronymic}"/>
+                <span th:text="${employee.personData.patronymic != null ? employee.personData.patronymic : ''}"/>
+            </div>
+            <div class="information-item">
+                <label th:text="#{birthday}"/>
+                <span th:text="${employee.personData.birthday}"/>
+            </div>
+            <div class="information-item">
+                <label th:text="#{home_address}"/>
+                <span th:text="${employee.homeAddress.city + ', '
+                } + #{street} + ${employee.homeAddress.street + ', '}
+                + #{house} + ${employee.homeAddress.house}"/>
+                <span th:if="${employee.homeAddress.apartment != null}"
+                      th:text="', ' + #{apartment} + ${employee.homeAddress.apartment}"/>
+            </div>
+            <div class="information-item">
+                <label th:text="#{phone}"/>
+                <span th:text="${employee.phone != null ? employee.phone : ''}"/>
+            </div>
+        </div>
+        <div class="footer-buttons-block">
+            <form th:action="@{/passport/info}"
+                  method="get">
+                <button class="footer-button"
+                        name="id"
+                        th:value="${employee.id}"
+                        th:text="#{passport}"/>
+            </form>
+            <form th:action="@{/relatives}"
+                  method="get">
+                <button class="footer-button"
+                        name="employeeId"
+                        th:value="${employee.id}"
+                        th:text="#{relatives}"/>
+            </form>
+            <form th:action="@{/marital}"
+                  method="get">
+                <button class="footer-button"
+                        name="employeeId"
+                        th:value="${employee.id}"
+                        th:text="#{marital_status}"/>
+            </form>
+            <form th:action="@{/education}"
+                  method="get">
+                <button class="footer-button"
+                        name="employeeId"
+                        th:value="${employee.id}"
+                        th:text="#{education}"/>
+            </form>
+            <form th:action="@{/career}"
+                  method="get">
+                <button class="footer-button"
+                        name="employeeId"
+                        th:value="${employee.id}"
+                        th:text="#{career}"/>
+            </form>
+        </div>
+        <div class="footer-buttons-block">
+            <form th:action="@{/employees}" method="get">
+                <button class="footer-button"
+                        th:text="#{back_to_employees}"/>
+            </form>
+        </div>
+    </div>
+</main>
+<div th:replace="~{/footer :: footer}"></div>
+</body>
+</html>
