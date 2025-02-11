@@ -6,10 +6,24 @@
 *.class
 *.iml
 .idea
+*.iws
+*.ipr
 out
 target
 .mvn
 *.config
+
+# Spring Boot
+mvnw*
+HELP.md
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+.gitattributes
 
 # Log file
 *.log
