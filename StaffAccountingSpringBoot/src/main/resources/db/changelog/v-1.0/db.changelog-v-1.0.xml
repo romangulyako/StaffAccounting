@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <include file="2024-12-27-01-create-employees-table.xml"
+             relativeToChangelogFile="true"/>
+    <include file="2024-12-29-02-create-passport-table.xml"
+             relativeToChangelogFile="true"/>
+    <include file="2025-01-01-03-create-relatives-table.xml"
+             relativeToChangelogFile="true"/>
+    <include file="2025-01-02-04-create-marital_status-table.xml"
+             relativeToChangelogFile="true"/>
+    <include file="2025-01-03-05-create-education-table.xml"
+             relativeToChangelogFile="true"/>
+    <include file="2025-01-05-06-create-department-table.xml"
+             relativeToChangelogFile="true"/>
+    <include file="2025-01-05-07-create-positions-table.xml"
+             relativeToChangelogFile="true"/>
+    <include file="2025-01-06-08-create-career-table.xml"
+             relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

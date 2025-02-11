@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="create-career-table" author="Roman Gulyako">
+        <createTable tableName="career">
+            <column name="employee_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="position_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_appointment" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_number" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_current" type="BIT" defaultValue="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="DATETIME(6)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="update_date" type="DATETIME(6)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-pk" author="Roman Gulyako">
+        <addPrimaryKey  tableName="career"
+                        columnNames="employee_id, position_id, date_of_appointment"
+                        constraintName="career_pk"/>
+    </changeSet>
+
+    <changeSet id="create-fk" author="Roman Gulyako">
+        <addForeignKeyConstraint baseTableName="career"
+                                 baseColumnNames="employee_id"
+                                 constraintName="FK_employee_career"
+                                 referencedTableName="employees"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="career"
+                                 baseColumnNames="position_id"
+                                 constraintName="FK_position_career"
+                                 referencedTableName="positions"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
