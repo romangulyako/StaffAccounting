@@ -50,11 +50,9 @@
             </div>
         </div>
         <div class="footer-buttons-block">
-            <form th:action="@{/passport/info}"
+            <form th:action="@{/employee/{employeeId}/passport/info(employeeId=${employee.id})}"
                   method="get">
                 <button class="footer-button"
-                        name="id"
-                        th:value="${employee.id}"
                         th:text="#{passport}"/>
             </form>
             <form th:action="@{/relatives}"

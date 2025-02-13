@@ -13,12 +13,13 @@
         <div class="filling-form">
             <form id="save"
                   th:action="@{/employee/add}"
+                  th:object="${newEmployee}"
                   method="post">
                 <div class="input-wrapper">
                     <fieldset>
                         <legend th:text="#{surname}"/>
                         <input type="text"
-                        name="personData.surname"
+                        th:field="*{personData.surname}"
                         th:placeholder="#{surname_placeholder}"
                         required/>
                     </fieldset>
@@ -27,7 +28,7 @@
                     <fieldset>
                         <legend th:text="#{name}"/>
                         <input type="text"
-                               name="personData.name"
+                               th:field="*{personData.name}"
                                th:placeholder="#{name_placeholder}"
                                required/>
                     </fieldset>
@@ -36,7 +37,7 @@
                     <fieldset>
                         <legend th:text="#{patronymic}"/>
                         <input type="text"
-                               name="personData.patronymic"
+                               th:field="*{personData.patronymic}"
                                th:placeholder="#{patronymic_placeholder}"/>
                     </fieldset>
                 </div>
@@ -44,7 +45,7 @@
                     <fieldset>
                         <legend th:text="#{birthday}"/>
                         <input type="date"
-                               name="personData.birthday"
+                               th:field="*{personData.birthday}"
                                required/>
                     </fieldset>
                 </div>
@@ -52,7 +53,7 @@
                     <fieldset>
                         <legend th:text="#{living_city}"/>
                         <input type="text"
-                               name="homeAddress.city"
+                               th:field="*{homeAddress.city}"
                                th:placeholder="#{living_city_placeholder}"
                                required/>
                     </fieldset>
@@ -61,7 +62,7 @@
                     <fieldset>
                         <legend th:text="#{living_street}"/>
                         <input type="text"
-                               name="homeAddress.street"
+                               th:field="*{homeAddress.street}"
                                th:placeholder="#{living_street_placeholder}"
                                required/>
                     </fieldset>
@@ -70,7 +71,7 @@
                     <fieldset>
                         <legend th:text="#{living_house}"/>
                         <input type="text"
-                               name="homeAddress.house"
+                               th:field="*{homeAddress.house}"
                                th:placeholder="#{living_house_placeholder}"
                                required/>
                     </fieldset>
@@ -79,7 +80,7 @@
                     <fieldset>
                         <legend th:text="#{living_apartment}"/>
                         <input type="number"
-                               name="homeAddress.apartment"
+                               th:field="*{homeAddress.apartment}"
                                th:placeholder="#{living_apartment_placeholder}"/>
                     </fieldset>
                 </div>
@@ -87,7 +88,7 @@
                     <fieldset>
                         <legend th:text="#{phone}"/>
                         <input type="text"
-                               name="phone"
+                               th:field="*{phone}"
                                th:placeholder="#{phone_placeholder}"/>
                     </fieldset>
                 </div>
