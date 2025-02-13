@@ -19,8 +19,5 @@ public interface EmployeeService {
                                    Boolean isFired,
                                    Pageable pageable);
     List<EmployeeItemDTO> getAllEmployeeItems(boolean isCurrentOnly);
-    void addPassport(PassportDTO passportDTO);
-    void updatePassport(PassportDTO passportDTO);
-    void deletePassport(Long id);
-    PassportDTO getPassport(Long id);
+
 }

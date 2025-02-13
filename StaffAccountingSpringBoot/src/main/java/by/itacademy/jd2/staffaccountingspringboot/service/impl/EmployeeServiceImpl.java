@@ -2,11 +2,9 @@ package by.itacademy.jd2.staffaccountingspringboot.service.impl;
 
 import by.itacademy.jd2.staffaccountingspringboot.converter.Converter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
-import by.itacademy.jd2.staffaccountingspringboot.entity.PassportEntity;
 import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeDTO;
 import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeFilterData;
 import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeItemDTO;
-import by.itacademy.jd2.staffaccountingspringboot.model.PassportDTO;
 import by.itacademy.jd2.staffaccountingspringboot.repository.EmployeeRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -93,55 +91,5 @@ public class EmployeeServiceImpl implements EmployeeService {
         return entities.stream()
                 .map(entity -> Converter.toDto(entity, EmployeeItemDTO.class))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public void addPassport(PassportDTO passportDTO) {
-        Optional<EmployeeEntity> employeeEntity = employeeRepository.findById(passportDTO.getId());
-        PassportEntity passportEntity = Converter.toEntity(passportDTO, PassportEntity.class);
-        if (employeeEntity.isPresent()) {
-            employeeEntity.get().setPassport(passportEntity);
-            passportEntity.setEmployee(employeeEntity.get());
-            employeeRepository.save(employeeEntity.get());
-            LOGGER.info("Added passport with id={}", passportEntity.getId());
-        }
-    }
-
-    @Override
-    public void updatePassport(PassportDTO passportDTO) {
-        PassportEntity passportEntity = Converter.toEntity(passportDTO, PassportEntity.class);
-        Optional<EmployeeEntity> employeeEntity = employeeRepository.findById(passportEntity.getId());
-        if (employeeEntity.isPresent()) {
-            employeeEntity.get().setPassport(passportEntity);
-            passportEntity.setEmployee(employeeEntity.get());
-            employeeRepository.save(employeeEntity.get());
-            LOGGER.info("Updated passport with id={}", passportEntity.getId());
-        }
-    }
-
-    @Override
-    public void deletePassport(Long id) {
-        Optional<EmployeeEntity> employeeEntity = employeeRepository.findById(id);
-        if (employeeEntity.isPresent()) {
-            employeeEntity.get().setPassport(null);
-            employeeRepository.save(employeeEntity.get());
-
-            LOGGER.info("Deleted passport with id={}", id);
-        }
-    }
-
-    @Override
-    public PassportDTO getPassport(Long id) {
-        Optional<EmployeeEntity> employeeEntity = employeeRepository.findById(id);
-        if (employeeEntity.isPresent()) {
-            PassportDTO passport =  Converter.toDto(employeeEntity.get().getPassport(), PassportDTO.class);
-            if (passport != null) {
-                LOGGER.info("Found passport with id={}", id);
-            }
-
-            return passport;
-        }
-
-        return null;
     }
 }
