@@ -2,18 +2,18 @@
     <div class="header-container">
         <div class="header-left">
             <img th:src="@{/logo.png}" alt="Логотип" class="logo">
-            <h1 th:text="#{app_header}">Заголовок приложения</h1>
+            <h1 th:text="#{app_header}">...</h1>
         </div>
         <div class="header-right">
-            <form action="set_language" method="post">
+            <form id="languageForm" method="post"
+                  th:action="@{/changeLanguage}">
                 <select name="language" onchange="this.form.submit()">
-                    <option th:text="#{select_language}">Выберите язык</option>
-                    <option value="ru" th:text="#{russian}">Русский</option>
-                    <option value="en" th:text="#{english}">Английский</option>
+                    <option value="ru" th:selected="${#locale.language == 'ru'}" th:text="#{russian}">...</option>
+                    <option value="en" th:selected="${#locale.language == 'en'}" th:text="#{english}">...</option>
                 </select>
             </form>
             <span class="user-name">Администратор</span>
-            <button class="logout-button" th:text="#{logout}">Выйти</button>
+            <button class="logout-button" th:text="#{logout}">...</button>
         </div>
     </div>
 </header>
