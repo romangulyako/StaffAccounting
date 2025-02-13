@@ -24,7 +24,6 @@ public class EmployeeConverter
                     .personData(entity.getPersonData())
                     .homeAddress(entity.getHomeAddress())
                     .phone(entity.getPhone())
-                    .passport(new PassportConverter().toDto(entity.getPassport()))
                     .positionName(position)
                     .build();
         }
@@ -40,7 +39,6 @@ public class EmployeeConverter
                     .personData(dto.getPersonData())
                     .homeAddress(dto.getHomeAddress())
                     .phone(dto.getPhone())
-                    .passport(new PassportConverter().toEntity(dto.getPassport()))
                     .build();
         }
 

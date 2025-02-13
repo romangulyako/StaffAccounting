@@ -21,4 +21,5 @@ public class PassportDTO {
     private Date dateIssue;
     private Date dateEndAction;
     private String publisher;
+    private Long employeeId;
 }

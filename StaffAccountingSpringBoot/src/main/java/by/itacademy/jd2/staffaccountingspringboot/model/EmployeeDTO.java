@@ -16,6 +16,5 @@ public class EmployeeDTO {
     private PersonData personData;
     private Address homeAddress;
     private String phone;
-    private PassportDTO passport;
     private String positionName;
 }

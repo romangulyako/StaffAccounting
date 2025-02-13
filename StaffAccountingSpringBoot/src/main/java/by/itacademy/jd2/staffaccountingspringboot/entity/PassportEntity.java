@@ -8,7 +8,6 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -56,8 +55,7 @@ public class PassportEntity extends CommonSuperEntity {
     @Column
     private String publisher;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @MapsId
-    @JoinColumn(name="EMPLOYEE_ID")
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="employee_id", nullable = false, unique = true)
     private EmployeeEntity employee;
 }

@@ -53,8 +53,7 @@ public class EmployeeEntity extends CommonSuperEntity {
 
     @OneToOne(mappedBy = "employee",
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            orphanRemoval = true)
+            fetch = FetchType.EAGER)
     private PassportEntity passport;
 
     @OneToMany(mappedBy = "employee",

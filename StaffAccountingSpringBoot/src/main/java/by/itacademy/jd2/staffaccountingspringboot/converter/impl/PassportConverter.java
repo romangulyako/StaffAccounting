@@ -19,6 +19,7 @@ public class PassportConverter implements
                     .publisher(entity.getPublisher())
                     .dateIssue(entity.getDateIssue())
                     .dateEndAction(entity.getDateEndAction())
+                    .employeeId(entity.getEmployee().getId())
                     .build();
         }
 
