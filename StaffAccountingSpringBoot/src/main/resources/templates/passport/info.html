@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title th:text="#{passport}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{/header :: header}"></div>
+<main>
+    <div th:replace="~{/menu :: menu}"></div>
+    <div>
+        <div th:if="${passport != null}"
+             th:class="header-with-button">
+            <div class="form-group">
+                <h2 th:text="#{employees_passport}"/>
+            </div>
+            <form th:if="${passport != null}"
+                  th:action="@{/employee/{employeeId}/passport/edit(employeeId=${employeeId})}"
+                  method="get">
+                <button class="tab, button-edit"
+                        th:text="#{edit_button}"/>
+            </form>
+        </div>
+        <div th:if="${passport == null}"
+             class="form-group">
+            <h2 th:text="#{passport_absent}"/>
+            <form class="footer-buttons-block"
+                  method="get"
+                  th:action="@{/employee/{employeeId}/passport/add(employeeId=${employeeId})}">
+                <button class="footer-button, button-add"
+                        th:text="#{add_passport}"/>
+            </form>
+        </div>
+        <div th:if="${passport != null}" class="information-block">
+            <div class="information-item">
+                <label th:text="#{series}"/>
+                <span th:text="${passport.series}"/>
+            </div>
+            <div class="information-item">
+                <label th:text="#{number}"/>
+                <span th:text="${passport.number}"/>
+            </div>
+            <div class="information-item">
+                <label th:text="#{identification}"/>
+                <span th:text="${passport.identificationNumber}"/>
+            </div>
+            <div class="information-item">
+                <label th:text="#{registration_address}"/>
+                <span th:text="${passport.registrationAddress.city} + ', ' + #{street}
+                                + ${passport.registrationAddress.street} + ', ' + #{house}
+                                + ${passport.registrationAddress.house}"/>
+                <span th:if="${passport.registrationAddress.apartment != null}"
+                      th:text="', '+ #{apartment} + ${passport.registrationAddress.apartment}"/>
+            </div>
+            <div class="information-item">
+                <label th:text="#{date_issue}"/>
+                <span th:text="${passport.dateIssue}"/>
+            </div>
+            <div class="information-item">
+                <label th:text="#{date_end_action}"/>
+                <span th:text="${passport.dateEndAction}"/>
+            </div>
+            <div class="information-item">
+                <label th:text="#{publisher}"/>
+                <span th:text="${passport.publisher}"/>
+            </div>
+        </div>
+        <div class="footer-buttons-block">
+            <form th:if="${passport != null}"
+                  th:action="@{/employee/passport/delete/{employeeId}(employeeId=${employeeId})}"
+                  method="post">
+                <button class="footer-button, button-delete"
+                        th:text="#{delete_button}"/>
+            </form>
+            <form th:action="@{/employee/info/{id}(id=${employeeId})}"
+                  method="get">
+                <button class="footer-button"
+                        th:text="#{back_to_employee}"/>
+            </form>
+        </div>
+    </div>
+</main>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

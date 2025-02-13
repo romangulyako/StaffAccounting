@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title th:text="#{add_passport}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{/header :: header}"></div>
+<main>
+    <div th:replace="~{/menu :: menu}"></div>
+    <div class="form-group">
+        <h2 th:text="#{enter_passport_data}"/>
+        <div class="filling-form">
+            <form id="save"
+                  th:action="@{/employee/{employeeId}/passport/add(employeeId=${employeeId})}"
+                  th:object="${newPassport}"
+                  method="post">
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{series}"/>
+                        <input type="text"
+                               th:field="*{series}"
+                               minlength="2"
+                               maxlength="2"
+                               th:placeholder="#{series_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{number}"/>
+                        <input type="text"
+                               th:field="*{number}"
+                               th:placeholder="#{number_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{identification}"/>
+                        <input type="text"
+                               th:field="*{identificationNumber}"
+                               minlength="14"
+                               maxlength="14"
+                               th:placeholder="#{identification_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{register_city}"/>
+                        <input type="text"
+                               th:field="*{registrationAddress.city}"
+                               th:placeholder="#{register_city_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{register_street}"/>
+                        <input type="text"
+                               th:field="*{registrationAddress.street}"
+                               th:placeholder="#{register_street_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{register_house}"/>
+                        <input type="text"
+                               th:field="*{registrationAddress.house}"
+                               th:placeholder="#{register_house_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{register_apartment}"/>
+                        <input type="text"
+                               th:field="*{registrationAddress.apartment}"
+                               th:placeholder="#{register_apartment_placeholder}"/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{date_issue}"/>
+                        <input type="date"
+                               th:field="*{dateIssue}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{date_end_action}"/>
+                        <input type="date"
+                               th:field="*{dateEndAction}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{publisher}"/>
+                        <input type="text"
+                               th:field="*{publisher}"
+                               th:placeholder="#{publisher_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+        <form class="footer-buttons-block"
+              th:action="@{/employee/info/{id}(id=${employeeId})}"
+              method="get">
+            <button class="footer-button, button-add"
+                    form="save"
+                    th:field="*{employeeId}"
+                    th:value="${employeeId}"
+                    th:text="#{save_button}"/>
+            <button class="footer-button"
+                    th:text="#{back_to_employee}"/>
+        </form>
+    </div>
+</main>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title th:text="#{edit_passport}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{/header :: header}"></div>
+<main>
+    <div th:replace="~{/menu :: menu}"></div>
+    <div class="form-group">
+        <h2 th:text="#{enter_passport_data}"/>
+        <div class="filling-form">
+            <form id="save"
+                  th:action="@{/employee/{employeeId}/passport/edit(employeeId=${employeeId})}"
+                  th:object="${passport}"
+                  method="post">
+                <input type="hidden"
+                       th:field="*{id}"
+                       th:value="${passport.id}">
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{series}"/>
+                        <input type="text"
+                               th:field="*{series}"
+                               th:value="${passport.series}"
+                               minlength="2"
+                               maxlength="2"
+                               th:placeholder="#{series_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{number}"/>
+                        <input type="text"
+                               th:field="*{number}"
+                               th:value="${passport.number}"
+                               th:placeholder="#{number_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{identification}"/>
+                        <input type="text"
+                               th:field="*{identificationNumber}"
+                               th:value="${passport.identificationNumber}"
+                               minlength="14"
+                               maxlength="14"
+                               th:placeholder="#{identification_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{register_city}"/>
+                        <input type="text"
+                               th:field="*{registrationAddress.city}"
+                               th:value="${passport.registrationAddress.city}"
+                               th:placeholder="#{register_city_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{register_street}"/>
+                        <input type="text"
+                               th:field="*{registrationAddress.street}"
+                               th:value="${passport.registrationAddress.street}"
+                               th:placeholder="#{register_street_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{register_house}"/>
+                        <input type="text"
+                               th:field="*{registrationAddress.house}"
+                               th:value="${passport.registrationAddress.house}"
+                               th:placeholder="#{register_house_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{register_apartment}"/>
+                        <input type="text"
+                               th:field="*{registrationAddress.apartment}"
+                               th:value="${passport.registrationAddress.apartment != null ? passport.registrationAddress.apartment : ''}"
+                               th:placeholder="#{register_apartment_placeholder}"/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{date_issue}"/>
+                        <input type="date"
+                               th:field="*{dateIssue}"
+                               th:value="${passport.dateIssue}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{date_end_action}"/>
+                        <input type="date"
+                               th:field="*{dateEndAction}"
+                               th:value="${passport.dateEndAction}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{publisher}"/>
+                        <input type="text"
+                               th:field="*{publisher}"
+                               th:value="${passport.publisher}"
+                               th:placeholder="#{publisher_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+        <form class="footer-buttons-block"
+              th:action="@{/employee/{id}/passport/info(id=${passport.employeeId})}"
+              method="get">
+            <button class="footer-button, button-add"
+                    form="save"
+                    th:field="*{employeeId}"
+                    th:value="${passport.employeeId}"
+                    th:text="#{save_button}"/>
+            <button class="footer-button"
+                    th:text="#{back_to_passport}"/>
+        </form>
+    </div>
+</main>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>
