@@ -16,7 +16,7 @@ public class MaritalStatusConverter implements
                     .status(entity.getStatus())
                     .registrationDate(entity.getRegistrationDate())
                     .document(entity.getDocument())
-                    .isCurrent(entity.isCurrent())
+                    .isCurrent(entity.getIsCurrent())
                     .employeeId(entity.getEmployee().getId())
                     .build();
         }
@@ -31,7 +31,7 @@ public class MaritalStatusConverter implements
                     .status(dto.getStatus())
                     .registrationDate(dto.getRegistrationDate())
                     .document(dto.getDocument())
-                    .isCurrent(dto.isCurrent())
+                    .isCurrent(dto.getIsCurrent())
                     .build();
         }
 

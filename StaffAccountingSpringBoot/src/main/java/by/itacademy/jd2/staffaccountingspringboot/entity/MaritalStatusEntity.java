@@ -7,6 +7,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -34,7 +35,8 @@ public class MaritalStatusEntity extends CommonSuperEntity {
     private String document;
 
     @Column(name = "is_current")
-    private boolean isCurrent;
+    @Builder.Default
+    private Boolean isCurrent = true;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
