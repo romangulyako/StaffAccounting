@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title th:text="#{relatives}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{/header :: header}"></div>
+<main>
+    <div th:replace="~{/menu :: menu}"></div>
+    <div>
+        <h2 th:text="#{relatives_info}"/>
+        <h3 class="form-group" th:if="${relatives.isEmpty()}" th:text="#{relatives_info_absent}"/>
+        <table th:if="${!relatives.isEmpty()}">
+            <thead>
+            <tr>
+                <th th:text="#{surname}"/>
+                <th th:text="#{name}"/>
+                <th th:text="#{patronymic}"/>
+                <th th:text="#{birthday}"/>
+                <th th:text="#{type_kinship}"/>
+                <th colspan="2" th:text="#{action}"/>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="relative : ${relatives}">
+                <td th:text="${relative.personData.surname}"/>
+                <td th:text="${relative.personData.name}"/>
+                <td th:text="${relative.personData.patronymic != null ? relative.personData.patronymic : ''}"/>
+                <td th:text="${relative.personData.birthday}"/>
+                <td th:text="${relative.typeKinship}"/>
+                <td>
+                    <form method="get"
+                          th:action="@{/employee/{employeeId}/relatives/edit/{id}(employeeId=${relative.employeeId}, id=${relative.id})}">
+                        <button class="button-edit"
+                                th:text="#{edit_button}"/>
+                    </form>
+                </td>
+                <td>
+                    <form method="post"
+                          th:action="@{/employee/{employeeId}/relatives/delete/{id}(employeeId=${relative.employeeId}, id=${relative.id})}">
+                        <button class="button-delete"
+                                th:text="#{delete_button}"/>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <form th:if="${!relatives.isEmpty()}"
+              th:action="@{/employee/{employeeId}/relatives(employeeId=${employeeId})}"
+              method="get">
+            <div th:replace="~{/page-panel :: page-panel}"></div>
+        </form>
+        <div class="footer-buttons-block">
+            <form method="get"
+                  th:action="@{/employee/{employeeId}/relatives/add(employeeId=${employeeId})}">
+                <button class="footer-button, button-add"
+                        th:text="#{add_relative}"/>
+            </form>
+            <form method="get"
+                  th:action="@{/employee/info/{id}(id=${employeeId})}">
+                <button class="footer-button"
+                        th:text="#{back_to_employee}"/>
+            </form>
+        </div>
+    </div>
+</main>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

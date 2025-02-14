@@ -290,12 +290,6 @@ button {
     color: #333;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .input-wrapper {
     padding: 10px;
 }
@@ -319,7 +313,7 @@ input, select {
     padding: 5px 0;
     width: 100%;
     box-sizing: border-box;
-    font-size: 16px; /* Важно, чтобы padding не увеличивал ширину */
+    font-size: 16px;
 }
 
 textarea {

@@ -25,7 +25,7 @@ public class EmployeeController {
                                @RequestParam(defaultValue = "false") Boolean isFired,
                                EmployeeFilterData filterData,
                                Model model) {
-        Page<EmployeeDTO> employeesPage = employeeService.getEmployees(filterData, isFired, PageRequest.of(page,size));
+        Page<EmployeeDTO> employeesPage = employeeService.getEmployees(filterData, isFired, PageRequest.of(page, size));
         model.addAttribute("employees", employeesPage.getContent());
         model.addAttribute("isFired", isFired);
         model.addAttribute("filterData", filterData);

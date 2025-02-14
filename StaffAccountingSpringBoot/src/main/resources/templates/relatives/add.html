@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title th:text="#{add_relative}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{/header :: header}"></div>
+<main>
+    <div th:replace="~{/menu :: menu}"></div>
+    <div class="form-group">
+        <h2 th:text="#{enter_relative_data}"/>
+        <div class="filling-form">
+            <form id="save"
+                  th:action="@{/employee/{employeeId}/relatives/add(employeeId=${employeeId})}"
+                  th:object="${newRelative}"
+                  method="post">
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{surname}"/>
+                        <input type="text"
+                               th:field="*{personData.surname}"
+                               th:placeholder="#{surname_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{name}"/>
+                        <input type="text"
+                               th:field="*{personData.name}"
+                               th:placeholder="#{name_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{patronymic}"/>
+                        <input type="text"
+                               th:field="*{personData.patronymic}"
+                               th:placeholder="#{patronymic_placeholder}"/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{birthday}"/>
+                        <input type="date"
+                               th:field="*{personData.birthday}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{type_kinship}"/>
+                        <input type="text"
+                               th:field="*{typeKinship}"
+                               th:placeholder="#{type_kinship_placeholder}"/>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+        <form class="footer-buttons-block"
+              th:action="@{/employee/{employeeId}/relatives(employeeId=${employeeId})}"
+              method="get">
+            <button class="footer-button, button-add"
+                    form="save"
+                    th:field="*{employeeId}"
+                    th:value="${employeeId}"
+                    th:text="#{save_button}"/>
+            <button class="footer-button"
+                    th:text="#{back_to_relatives}"/>
+        </form>
+    </div>
+</main>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

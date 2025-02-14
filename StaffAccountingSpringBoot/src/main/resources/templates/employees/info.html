@@ -55,11 +55,9 @@
                 <button class="footer-button"
                         th:text="#{passport}"/>
             </form>
-            <form th:action="@{/relatives}"
+            <form th:action="@{/employee/{id}/relatives(id=${employee.id})}"
                   method="get">
                 <button class="footer-button"
-                        name="employeeId"
-                        th:value="${employee.id}"
                         th:text="#{relatives}"/>
             </form>
             <form th:action="@{/marital}"
