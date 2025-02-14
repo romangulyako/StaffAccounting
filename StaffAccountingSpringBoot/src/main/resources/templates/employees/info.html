@@ -60,25 +60,19 @@
                 <button class="footer-button"
                         th:text="#{relatives}"/>
             </form>
-            <form th:action="@{/marital}"
+            <form th:action="@{/employee/{id}/marital-status(id=${employee.id})}"
                   method="get">
                 <button class="footer-button"
-                        name="employeeId"
-                        th:value="${employee.id}"
                         th:text="#{marital_status}"/>
             </form>
-            <form th:action="@{/education}"
+            <form th:action="@{/employee/{id}/education(id=${employee.id})}"
                   method="get">
                 <button class="footer-button"
-                        name="employeeId"
-                        th:value="${employee.id}"
                         th:text="#{education}"/>
             </form>
-            <form th:action="@{/career}"
+            <form th:action="@{/employee/{id}/career(id=${employee.id})}"
                   method="get">
                 <button class="footer-button"
-                        name="employeeId"
-                        th:value="${employee.id}"
                         th:text="#{career}"/>
             </form>
         </div>

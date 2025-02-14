@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title th:text="#{update_marital_status}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{/header :: header}"></div>
+<main>
+    <div th:replace="~{/menu :: menu}"></div>
+    <div class="form-group">
+        <h2 th:text="#{filling_marital_form_message}"/>
+        <div class="filling-form">
+            <form id="save"
+                  th:action="@{/employee/{employeeId}/marital-status/add(employeeId=${employeeId})}"
+                  th:object="${newMaritalStatus}"
+                  method="post">
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{marital_status}"/>
+                        <input type="text"
+                               th:field="*{status}"
+                               th:placeholder="#{marital_status_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{registration_date}"/>
+                        <input type="date"
+                               th:field="*{registrationDate}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{document}"/>
+                        <input type="text"
+                               th:field="*{document}"
+                               th:placeholder="#{document_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+        <form class="footer-buttons-block"
+              th:action="@{/employee/{employeeId}/marital-status(employeeId=${employeeId})}"
+              method="get">
+            <button class="footer-button, button-add"
+                    form="save"
+                    th:text="#{save_button}"/>
+            <button class="footer-button"
+                    th:text="#{back_to_marital_status}"/>
+        </form>
+    </div>
+</main>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>
