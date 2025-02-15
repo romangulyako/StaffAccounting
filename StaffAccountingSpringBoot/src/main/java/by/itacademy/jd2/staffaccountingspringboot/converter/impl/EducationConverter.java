@@ -3,6 +3,7 @@ package by.itacademy.jd2.staffaccountingspringboot.converter.impl;
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToDtoConverter;
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToEntityConverter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EducationEntity;
+import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
 import by.itacademy.jd2.staffaccountingspringboot.model.EducationDTO;
 
 public class EducationConverter
@@ -36,6 +37,9 @@ public class EducationConverter
                     .specialization(dto.getSpecialization())
                     .dateStart(dto.getDateStart())
                     .dateEnd(dto.getDateEnd())
+                    .employee(EmployeeEntity.builder()
+                            .id(dto.getEmployeeId())
+                            .build())
                     .build();
         }
 
