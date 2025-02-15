@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title th:text="#{education}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{/header :: header}"></div>
+<main>
+    <div th:replace="~{/menu :: menu}"></div>
+    <div>
+        <h2 th:text="#{education_of_employee}"/>
+        <h3 class="form-group" th:if="${educations.isEmpty()}" th:text="#{education_absent}"/>
+        <table th:if="${!educations.isEmpty()}">
+            <thead>
+            <tr>
+                <th th:text="#{education_level}"/>
+                <th th:text="#{institution}"/>
+                <th th:text="#{faculty}"/>
+                <th th:text="#{specialization}"/>
+                <th th:text="#{study_start}"/>
+                <th th:text="#{study_end}"/>
+                <th colspan="2" th:text="#{action}"/>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="education : ${educations}">
+                <td th:text="${education.educationLevel}"/>
+                <td th:text="${education.institution}"/>
+                <td th:text="${education.faculty != null ? education.faculty : ''}"/>
+                <td th:text="${education.specialization != null ? education.specialization : ''}"/>
+                <td th:text="${education.dateStart}"/>
+                <td th:text="${education.dateEnd}"/>
+                <td>
+                    <form th:action="@{/employee/{employeeId}/education/edit/{id}(employeeId=${employeeId}, id=${education.id})}"
+                          method="get">
+                        <button class="button-edit"
+                                th:text="#{edit_button}"/>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/employee/{employeeId}/education/delete/{id}(employeeId=${employeeId}, id=${education.id})}"
+                          method="post">
+                        <button class="button-delete"
+                                th:text="#{delete_button}"/>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <form th:if="${!educations.isEmpty()}"
+              th:action="@{/employee/{employeeId}/education(employeeId=${employeeId})}"
+              method="get">
+            <div th:replace="~{/page-panel :: page-panel}"></div>
+        </form>
+        <div class="footer-buttons-block">
+            <form th:action="@{/employee/{employeeId}/education/add(employeeId=${employeeId})}"
+                  method="get">
+                <button class="footer-button, button-add"
+                        th:text="#{add_education}"/>
+            </form>
+            <form th:action="@{/employee/info/{id}(id=${employeeId})}"
+                  method="get">
+                <button class="footer-button"
+                        th:text="#{back_to_employee}"/>
+            </form>
+        </div>
+    </div>
+</main>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>
