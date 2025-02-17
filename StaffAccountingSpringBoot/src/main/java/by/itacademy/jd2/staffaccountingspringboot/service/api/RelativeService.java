@@ -5,8 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface RelativeService {
-    void addRelative(RelativeDTO relativeDTO);
-    void updateRelative(RelativeDTO relativeDTO);
+    void saveOrUpdateRelative(RelativeDTO relativeDTO);
     void deleteRelative(Long id);
     RelativeDTO getRelative(Long id);
     Page<RelativeDTO> getRelatives(Long employeeId, Pageable pageable);

@@ -2,6 +2,7 @@ package by.itacademy.jd2.staffaccountingspringboot.converter.impl;
 
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToDtoConverter;
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToEntityConverter;
+import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.RelativeEntity;
 import by.itacademy.jd2.staffaccountingspringboot.model.RelativeDTO;
 
@@ -28,6 +29,9 @@ public class RelativeConverter implements
                     .id(dto.getId())
                     .personData(dto.getPersonData())
                     .typeKinship(dto.getTypeKinship())
+                    .employee(EmployeeEntity.builder()
+                            .id(dto.getEmployeeId())
+                            .build())
                     .build();
         }
 
