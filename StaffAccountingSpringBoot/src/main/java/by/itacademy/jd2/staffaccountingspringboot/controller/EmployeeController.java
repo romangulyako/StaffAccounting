@@ -28,7 +28,7 @@ public class EmployeeController {
                                @RequestParam(defaultValue = "false") Boolean isFired,
                                EmployeeFilterData filterData,
                                Model model) {
-        LOGGER.info("Received request to get employees (isFired = {} )", isFired);
+        LOGGER.info("Received request to get employees (isFired = {})", isFired);
         try {
             Page<EmployeeDTO> employeesPage = employeeService.getEmployees(filterData, isFired, PageRequest.of(page, size));
             model.addAttribute("employees", employeesPage.getContent());
@@ -56,7 +56,7 @@ public class EmployeeController {
     public String addEmployee(@ModelAttribute("newEmployee") EmployeeDTO employee, Model model) {
         LOGGER.info("Received request to add new employee");
         try {
-            employeeService.addEmployee(employee);
+            employeeService.saveOrUpdateEmployee(employee);
             return "redirect:/employees";
         } catch (Exception e) {
             LOGGER.error("Error adding new employee", e);
@@ -67,15 +67,22 @@ public class EmployeeController {
 
     @GetMapping("/employee/edit/{id}")
     public String editEmployeePage(@PathVariable Long id, Model model) {
-        model.addAttribute("employee", employeeService.getEmployee(id));
-        return "employees/edit";
+        LOGGER.info("Received request to get for edit employee with id {}", id);
+        try {
+            model.addAttribute("employee", employeeService.getEmployee(id));
+            return "employees/edit";
+        } catch (Exception e) {
+            LOGGER.error("Error getting employee with id {}", id, e);
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 
     @PostMapping("/employee/edit")
     public String editEmployee(EmployeeDTO employee, Model model) {
         LOGGER.info("Received request to edit employee with id={}", employee.getId());
         try {
-            employeeService.updateEmployee(employee);
+            employeeService.saveOrUpdateEmployee(employee);
             return "redirect:/employees";
         } catch (Exception e) {
             LOGGER.error("Error updating employee with id={}", employee.getId());

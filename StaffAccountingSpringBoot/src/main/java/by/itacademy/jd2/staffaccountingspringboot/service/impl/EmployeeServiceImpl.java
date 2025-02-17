@@ -27,18 +27,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
 
     @Override
-    public void addEmployee(EmployeeDTO employeeDTO) {
+    public void saveOrUpdateEmployee(EmployeeDTO employeeDTO) {
         EmployeeEntity employeeEntity =
                 Converter.toEntity(employeeDTO, EmployeeEntity.class);
         employeeRepository.save(employeeEntity);
-        LOGGER.info("Employee added successfully. New id={}", employeeEntity.getId());
-    }
-
-    @Override
-    public void updateEmployee(EmployeeDTO employeeDTO) {
-        EmployeeEntity employeeEntity = Converter.toEntity(employeeDTO, EmployeeEntity.class);
-        employeeRepository.save(employeeEntity);
-        LOGGER.info("Employee with id={} updated successfully", employeeEntity.getId());
+        LOGGER.info("Employee saved successfully. ID={}", employeeEntity.getId());
     }
 
     @Override
@@ -54,7 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                     LOGGER.warn("Employee with id={} not found", id);
                     return new EntityNotFoundException("User not found");
                 });
-    LOGGER.info("Successfully fetched employee with id={} from database", id);
+        LOGGER.info("Successfully fetched employee with id={} from database", id);
         return Converter.toDto(entity, EmployeeDTO.class);
     }
 
@@ -68,7 +61,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             LOGGER.warn("No employees found for the provided parameters: page={}, size={}",
                     pageable.getPageNumber(), pageEntities.getSize());
         } else {
-            LOGGER.info("Successfully fetched {} employees from the database", pageEntities.getSize());
+            LOGGER.info("Successfully fetched {} employees from the database", pageEntities.getContent().size());
         }
 
         return pageEntities.map(entity -> Converter.toDto(entity, EmployeeDTO.class));
