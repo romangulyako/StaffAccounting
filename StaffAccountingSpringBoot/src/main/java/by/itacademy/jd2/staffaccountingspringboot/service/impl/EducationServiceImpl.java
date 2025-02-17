@@ -5,6 +5,7 @@ import by.itacademy.jd2.staffaccountingspringboot.entity.EducationEntity;
 import by.itacademy.jd2.staffaccountingspringboot.model.EducationDTO;
 import by.itacademy.jd2.staffaccountingspringboot.repository.EducationRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EducationService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,29 +24,35 @@ public class EducationServiceImpl implements EducationService {
     public void saveOrUpdateEducation(EducationDTO educationDTO) {
         EducationEntity entity = Converter.toEntity(educationDTO, EducationEntity.class);
         educationRepository.save(entity);
-        LOGGER.info("Saved education with id={}", entity.getId());
-
+        LOGGER.info("Education saved successfully. ID={}", entity.getId());
     }
 
     @Override
     public void deleteEducation(Long id) {
         educationRepository.deleteById(id);
-
-        LOGGER.info("Deleted education with id={}", id);
+        LOGGER.info("Education with id={} deleted successfully", id);
     }
 
     @Override
     public EducationDTO getEducation(Long id) {
-        EducationDTO educationDTO = Converter.toDto(educationRepository.findById(id).orElse(null), EducationDTO.class);
-        LOGGER.info("Found education with id={}", id);
-        return  educationDTO;
+        EducationEntity educationEntity = educationRepository.findById(id)
+                .orElseThrow(() -> {
+                    LOGGER.info("Education with id={} not found", id);
+                    return new EntityNotFoundException("Education with id " + id + " not found");
+                });
+        LOGGER.info("Successfully fetched education with id={} from database", id);
+        return  Converter.toDto(educationEntity, EducationDTO.class);
     }
 
     @Override
     public Page<EducationDTO> getEducationsByEmployeeId(Long employeeId, Pageable pageable) {
         Page<EducationEntity> entities = educationRepository.findAllByEmployeeIdOrderByDateEndAsc(employeeId, pageable);
-        LOGGER.info("Found {} from {} educations for employee with id={}",
-                entities.stream().count(), entities.getTotalElements(), employeeId);
+        if (entities.getContent().isEmpty()) {
+            LOGGER.warn("No education found for employee ID={} for the provided parameters: page={}, size={}",
+                    employeeId, pageable.getPageNumber(), pageable.getPageSize());
+        } else {
+            LOGGER.info("Successfully fetched {} education rows from the database", entities.getContent().size());
+        }
 
         return entities.map(entity -> Converter.toDto(entity, EducationDTO.class));
     }
