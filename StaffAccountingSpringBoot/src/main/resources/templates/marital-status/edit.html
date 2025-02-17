@@ -12,15 +12,12 @@
         <h2 th:text="#{filling_marital_form_message}"/>
         <div class="filling-form">
             <form id="save"
-                  th:action="@{/employee/{employeeId}/marital-status/edit/{id}(employeeId=${employeeId}, id=${maritalStatus.id})}"
+                  th:action="@{/employee/{employeeId}/marital-status/edit/{id}(employeeId=${maritalStatus.employeeId}, id=${maritalStatus.id})}"
                   th:object="${maritalStatus}"
                   method="post">
                 <input type="hidden"
                        th:field="*{employeeId}"
                        th:value="${employeeId}"/>
-                <input type="hidden"
-                       th:field="*{isCurrent}"
-                       th:value="${maritalStatus.isCurrent}"/>
                 <div class="input-wrapper">
                     <fieldset>
                         <legend th:text="#{marital_status}"/>
@@ -53,7 +50,7 @@
             </form>
         </div>
         <form class="footer-buttons-block"
-              th:action="@{/employee/{employeeId}/marital-status(employeeId=${employeeId})}"
+              th:action="@{/employee/{employeeId}/marital-status(employeeId=${maritalStatus.employeeId})}"
               method="get">
             <button class="footer-button, button-add"
                     form="save"

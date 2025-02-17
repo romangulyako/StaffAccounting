@@ -26,14 +26,14 @@
                 <td th:text="${status.registrationDate}"/>
                 <td th:text="${status.document}"/>
                 <td>
-                    <form th:action="@{/employee/{employeeId}/marital-status/edit/{id}(employeeId = ${employeeId}, id=${status.id})}"
+                    <form th:action="@{/employee/{employeeId}/marital-status/edit/{id}(employeeId = ${status.employeeId}, id=${status.id})}"
                           method="get">
                         <button class="button-edit"
                                 th:text="#{edit_button}"/>
                     </form>
                 </td>
                 <td>
-                    <form th:action="@{/employee/{employeeId}/marital-status/delete/{id}(employeeId = ${employeeId}, id=${status.id})}"
+                    <form th:action="@{/employee/{employeeId}/marital-status/delete/{id}(employeeId = ${status.employeeId}, id=${status.id})}"
                           method="post">
                         <button class="button-delete"
                                 th:text="#{delete_button}"/>

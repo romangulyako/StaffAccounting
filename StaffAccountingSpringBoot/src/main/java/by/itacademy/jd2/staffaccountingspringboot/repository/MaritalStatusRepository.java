@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MaritalStatusRepository extends JpaRepository<MaritalStatusEntity, Long> {
-    Page<MaritalStatusEntity> findAllByEmployeeId(Long employeeId, Pageable pageable);
+    Page<MaritalStatusEntity> findAllByEmployeeIdOrderByRegistrationDate(Long employeeId, Pageable pageable);
 }

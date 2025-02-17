@@ -5,8 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface MaritalStatusService {
-        void addMaritalStatus(MaritalStatusDTO maritalStatusDTO);
-        void editMaritalStatus(MaritalStatusDTO maritalStatusDTO);
+        void saveOrUpdateMaritalStatus(MaritalStatusDTO maritalStatusDTO);
         void deleteMaritalStatus(Long id);
         MaritalStatusDTO getMaritalStatus(Long id);
         Page<MaritalStatusDTO> getAllMaritalStatuses(Long employeeId, Pageable pageable);

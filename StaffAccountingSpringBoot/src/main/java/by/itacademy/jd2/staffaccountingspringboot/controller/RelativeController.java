@@ -58,7 +58,7 @@ public class RelativeController {
             relativeService.saveOrUpdateRelative(relativeDTO);
             return "redirect:/employee/" + employeeId + "/relatives";
         } catch (Exception e) {
-            LOGGER.error("Error adding relative for employee with id={}", relativeDTO.getEmployeeId(), e);
+            LOGGER.error("Error adding relative for employee with id={}", employeeId, e);
             model.addAttribute("message", e.getMessage());
             return "error";
         }
