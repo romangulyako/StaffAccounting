@@ -34,10 +34,6 @@ public class MaritalStatusEntity extends CommonSuperEntity {
     @Column
     private String document;
 
-    @Column(name = "is_current")
-    @Builder.Default
-    private Boolean isCurrent = true;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private EmployeeEntity employee;

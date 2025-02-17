@@ -2,6 +2,7 @@ package by.itacademy.jd2.staffaccountingspringboot.converter.impl;
 
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToDtoConverter;
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToEntityConverter;
+import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.MaritalStatusEntity;
 import by.itacademy.jd2.staffaccountingspringboot.model.MaritalStatusDTO;
 
@@ -16,7 +17,6 @@ public class MaritalStatusConverter implements
                     .status(entity.getStatus())
                     .registrationDate(entity.getRegistrationDate())
                     .document(entity.getDocument())
-                    .isCurrent(entity.getIsCurrent())
                     .employeeId(entity.getEmployee().getId())
                     .build();
         }
@@ -31,7 +31,9 @@ public class MaritalStatusConverter implements
                     .status(dto.getStatus())
                     .registrationDate(dto.getRegistrationDate())
                     .document(dto.getDocument())
-                    .isCurrent(dto.getIsCurrent())
+                    .employee(EmployeeEntity.builder()
+                            .id(dto.getEmployeeId())
+                            .build())
                     .build();
         }
 

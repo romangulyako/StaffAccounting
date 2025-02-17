@@ -16,6 +16,5 @@ public class MaritalStatusDTO {
     private String status;
     private Date registrationDate;
     private String document;
-    private Boolean isCurrent;
     private Long employeeId;
 }

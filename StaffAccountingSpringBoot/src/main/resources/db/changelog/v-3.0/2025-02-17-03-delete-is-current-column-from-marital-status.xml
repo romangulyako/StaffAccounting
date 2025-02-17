@@ -5,8 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
-    <include file="2025-02-13-01-alter-passport-table.xml" relativeToChangelogFile="true"/>
-    <include file="2025-02-13-02-add-autoincrement-id.xml" relativeToChangelogFile="true"/>
-    <include file="2025-02-17-03-delete-is-current-column-from-marital-status.xml" relativeToChangelogFile="true"/>
-
+    <changeSet id="drop-is-current-column" author="Roman Gulyako">
+        <dropColumn tableName="marital_status" columnName="is_current"/>
+    </changeSet>
 </databaseChangeLog>
