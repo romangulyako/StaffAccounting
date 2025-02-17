@@ -4,6 +4,8 @@ import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeDTO;
 import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeFilterData;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequiredArgsConstructor
 public class EmployeeController {
+    public static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
     private final EmployeeService employeeService;
 
     @GetMapping({"/", "/employees"})
@@ -25,15 +28,22 @@ public class EmployeeController {
                                @RequestParam(defaultValue = "false") Boolean isFired,
                                EmployeeFilterData filterData,
                                Model model) {
-        Page<EmployeeDTO> employeesPage = employeeService.getEmployees(filterData, isFired, PageRequest.of(page, size));
-        model.addAttribute("employees", employeesPage.getContent());
-        model.addAttribute("isFired", isFired);
-        model.addAttribute("filterData", filterData);
-        model.addAttribute("page", page);
-        model.addAttribute("totalPages", employeesPage.getTotalPages());
-        model.addAttribute("size", size);
+        LOGGER.info("Received request to get employees (isFired = {} )", isFired);
+        try {
+            Page<EmployeeDTO> employeesPage = employeeService.getEmployees(filterData, isFired, PageRequest.of(page, size));
+            model.addAttribute("employees", employeesPage.getContent());
+            model.addAttribute("isFired", isFired);
+            model.addAttribute("filterData", filterData);
+            model.addAttribute("page", page);
+            model.addAttribute("totalPages", employeesPage.getTotalPages());
+            model.addAttribute("size", size);
 
-        return "employees/list";
+            return "employees/list";
+        } catch (Exception e) {
+            LOGGER.error("Error getting employees", e);
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 
     @GetMapping("/employee/add")
@@ -43,9 +53,16 @@ public class EmployeeController {
     }
 
     @PostMapping("/employee/add")
-    public String addEmployee(@ModelAttribute("newEmployee") EmployeeDTO employee) {
-        employeeService.addEmployee(employee);
-        return "redirect:/employees";
+    public String addEmployee(@ModelAttribute("newEmployee") EmployeeDTO employee, Model model) {
+        LOGGER.info("Received request to add new employee");
+        try {
+            employeeService.addEmployee(employee);
+            return "redirect:/employees";
+        } catch (Exception e) {
+            LOGGER.error("Error adding new employee", e);
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 
     @GetMapping("/employee/edit/{id}")
@@ -55,21 +72,42 @@ public class EmployeeController {
     }
 
     @PostMapping("/employee/edit")
-    public String editEmployee(EmployeeDTO employee) {
-        employeeService.updateEmployee(employee);
-        return "redirect:/employees";
+    public String editEmployee(EmployeeDTO employee, Model model) {
+        LOGGER.info("Received request to edit employee with id={}", employee.getId());
+        try {
+            employeeService.updateEmployee(employee);
+            return "redirect:/employees";
+        } catch (Exception e) {
+            LOGGER.error("Error updating employee with id={}", employee.getId());
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 
     @GetMapping("/employee/info/{id}")
     public String getEmployee(@PathVariable Long id, Model model) {
-        model.addAttribute("employee", employeeService.getEmployee(id));
-        return "employees/info";
+        LOGGER.info("Received request to get employee with id={}", id);
+        try {
+            model.addAttribute("employee", employeeService.getEmployee(id));
+            return "employees/info";
+        } catch (Exception e) {
+            LOGGER.error("Error getting employee with id={}", id);
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 
     @PostMapping("/employee/delete/{id}")
-    public String deleteEmployee(@PathVariable Long id) {
-        employeeService.deleteEmployee(id);
-        return "redirect:/employees";
+    public String deleteEmployee(@PathVariable Long id, Model model) {
+        LOGGER.info("Received request to delete employee with id={}", id);
+        try {
+            employeeService.deleteEmployee(id);
+            return "redirect:/employees";
+        } catch (Exception e) {
+            LOGGER.error("Error deleting employee with id={}", id);
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 
     @PostMapping("/employees/clear-filter")

@@ -7,6 +7,7 @@ import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeFilterData;
 import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeItemDTO;
 import by.itacademy.jd2.staffaccountingspringboot.repository.EmployeeRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EmployeeService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,41 +31,31 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity employeeEntity =
                 Converter.toEntity(employeeDTO, EmployeeEntity.class);
         employeeRepository.save(employeeEntity);
-
-        LOGGER.info("Added employee with id={}", employeeEntity.getId());
+        LOGGER.info("Employee added successfully. New id={}", employeeEntity.getId());
     }
 
     @Override
     public void updateEmployee(EmployeeDTO employeeDTO) {
-        if (employeeDTO != null) {
-            EmployeeEntity newEmployee = Converter.toEntity(employeeDTO, EmployeeEntity.class);
-            Optional<EmployeeEntity> oldEmployee = employeeRepository.findById(employeeDTO.getId());
-            if (oldEmployee.isPresent()) {
-                newEmployee.setPassport(oldEmployee.get().getPassport());
-                newEmployee.setFired(oldEmployee.get().isFired());
-                employeeRepository.save(newEmployee);
-
-                LOGGER.info("Updated employee with id={}", newEmployee.getId());
-            }
-        }
+        EmployeeEntity employeeEntity = Converter.toEntity(employeeDTO, EmployeeEntity.class);
+        employeeRepository.save(employeeEntity);
+        LOGGER.info("Employee with id={} updated successfully", employeeEntity.getId());
     }
 
     @Override
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
-
-        LOGGER.info("Deleted employee with id={}", id);
+        LOGGER.info("Employee with id={} deleted successfully", id);
     }
 
     @Override
     public EmployeeDTO getEmployee(Long id) {
-        EmployeeEntity entity = employeeRepository.findById(id).orElse(null);
-        EmployeeDTO employeeDTO = Converter.toDto(entity, EmployeeDTO.class);
-        if (employeeDTO != null) {
-            LOGGER.info("Found employee with id={}", id);
-        }
-
-        return employeeDTO;
+        EmployeeEntity entity = employeeRepository.findById(id)
+                .orElseThrow(() -> {
+                    LOGGER.warn("Employee with id={} not found", id);
+                    return new EntityNotFoundException("User not found");
+                });
+    LOGGER.info("Successfully fetched employee with id={} from database", id);
+        return Converter.toDto(entity, EmployeeDTO.class);
     }
 
     @Override
@@ -74,7 +64,12 @@ public class EmployeeServiceImpl implements EmployeeService {
                                           Pageable pageable) {
         Page<EmployeeEntity> pageEntities = employeeRepository.findEmployeesByFilterData(filterData, isFired, pageable);
 
-        LOGGER.info("Found {} from {} employees", pageEntities.stream().count(), pageEntities.getTotalElements());
+        if (pageEntities.getContent().isEmpty()) {
+            LOGGER.warn("No employees found for the provided parameters: page={}, size={}",
+                    pageable.getPageNumber(), pageEntities.getSize());
+        } else {
+            LOGGER.info("Successfully fetched {} employees from the database", pageEntities.getSize());
+        }
 
         return pageEntities.map(entity -> Converter.toDto(entity, EmployeeDTO.class));
     }
