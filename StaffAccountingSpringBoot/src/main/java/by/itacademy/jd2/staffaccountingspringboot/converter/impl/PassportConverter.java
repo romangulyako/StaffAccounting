@@ -2,6 +2,7 @@ package by.itacademy.jd2.staffaccountingspringboot.converter.impl;
 
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToDtoConverter;
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToEntityConverter;
+import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.PassportEntity;
 import by.itacademy.jd2.staffaccountingspringboot.model.PassportDTO;
 
@@ -38,6 +39,9 @@ public class PassportConverter implements
                     .publisher(dto.getPublisher())
                     .dateIssue(dto.getDateIssue())
                     .dateEndAction(dto.getDateEndAction())
+                    .employee(EmployeeEntity.builder()
+                            .id(dto.getEmployeeId())
+                            .build())
                     .build();
         }
 

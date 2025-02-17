@@ -3,6 +3,8 @@ package by.itacademy.jd2.staffaccountingspringboot.controller;
 import by.itacademy.jd2.staffaccountingspringboot.model.PassportDTO;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.PassportService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,13 +15,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @RequiredArgsConstructor
 public class PassportController {
+    public static final Logger LOGGER = LoggerFactory.getLogger(PassportController.class);
     private final PassportService passportService;
 
     @GetMapping("/employee/{employeeId}/passport/info")
     public String getPassport(@PathVariable Long employeeId,  Model model) {
-        model.addAttribute("passport", passportService.getPassport(employeeId));
-        model.addAttribute("employeeId", employeeId);
-        return "passport/info";
+        LOGGER.info("Received request to get passport for employee with id= {}", employeeId);
+        try {
+            model.addAttribute("passport", passportService.getPassport(employeeId));
+            model.addAttribute("employeeId", employeeId);
+            return "passport/info";
+        } catch (Exception e) {
+            LOGGER.error("Error getting passport for employee with id= {}", employeeId, e);
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 
     @GetMapping("/employee/{employeeId}/passport/add")
@@ -30,26 +40,56 @@ public class PassportController {
     }
 
     @PostMapping("/employee/{employeeId}/passport/add")
-    public String addPassport(@PathVariable Long employeeId, @ModelAttribute("newPassport") PassportDTO passportDTO) {
-        passportService.addPassport(passportDTO);
-        return "redirect:/employee/" + employeeId + "/passport/info";
+    public String addPassport(@PathVariable Long employeeId,
+                              @ModelAttribute("newPassport") PassportDTO passportDTO,
+                              Model model) {
+        LOGGER.info("Received request to add passport for employee with id={}", passportDTO.getEmployeeId());
+        try {
+            passportService.saveOrUpdatePassport(passportDTO);
+            return "redirect:/employee/" + employeeId + "/passport/info";
+        } catch (Exception e) {
+            LOGGER.error("Error adding passport for employee with id={}", employeeId, e);
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 
     @GetMapping("/employee/{employeeId}/passport/edit")
     public String editPassportPage(@PathVariable Long employeeId, Model model) {
-        model.addAttribute("passport", passportService.getPassport(employeeId));
-        return "passport/edit";
+        LOGGER.info("Received request to get for edit passport of employee with id={}", employeeId);
+        try {
+            model.addAttribute("passport", passportService.getPassport(employeeId));
+            return "passport/edit";
+        } catch (Exception e) {
+            LOGGER.error("Error getting passport of employee with id={}", employeeId, e);
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 
     @PostMapping("/employee/{employeeId}/passport/edit")
-    public String editPassport(@PathVariable Long employeeId, @ModelAttribute("passport") PassportDTO passportDTO) {
-        passportService.updatePassport(passportDTO);
-        return "redirect:/employee/" + employeeId + "/passport/info";
+    public String editPassport(@ModelAttribute("passport") PassportDTO passportDTO, Model model) {
+        LOGGER.info("Received request to edit passport with id={}", passportDTO.getId());
+        try {
+            passportService.saveOrUpdatePassport(passportDTO);
+            return "redirect:/employee/" + passportDTO.getEmployeeId() + "/passport/info";
+        } catch (Exception e) {
+            LOGGER.error("Error editing passport with id={}", passportDTO.getId(), e);
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 
     @PostMapping("/employee/passport/delete/{employeeId}")
-    public String deletePassport(@PathVariable Long employeeId) {
-        passportService.deletePassport(employeeId);
-        return "redirect:/employee/info/" + employeeId;
+    public String deletePassport(@PathVariable Long employeeId, Model model) {
+        LOGGER.info("Received request to delete passport of employee with id={}", employeeId);
+        try {
+            passportService.deletePassport(employeeId);
+            return "redirect:/employee/info/" + employeeId;
+        } catch (Exception e) {
+            LOGGER.error("Error deleting passport of employee with id={}", employeeId, e);
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 }

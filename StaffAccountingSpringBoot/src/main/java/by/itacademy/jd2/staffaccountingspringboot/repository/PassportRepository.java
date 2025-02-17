@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface PassportRepository extends JpaRepository<PassportEntity, Long> {
     Optional<PassportEntity> findByEmployeeId(Long employeeId);
+    void deleteByEmployeeId(Long employeeId);
 }
