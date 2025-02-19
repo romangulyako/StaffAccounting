@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title th:text="#{departments}"></title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{/header :: header}"></div>
+<main>
+    <div th:replace="~{/menu :: menu}"></div>
+    <div>
+        <h2 th:text="#{structure}"/>
+        <table>
+            <thead>
+            <tr>
+                <th th:text="#{item_name}"/>
+                <th th:text="#{description}"/>
+                <th th:text="#{positions_count}"/>
+                <th colspan="3" th:text="#{action}"/>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="department : ${departments}">
+                <td th:text="${department.name}"/>
+                <td th:text="${department.description != null ? department.description : ''}"/>
+                <td th:text="${isActual ? department.actualPositionsCount : department.reducedPositionsCount}"/>
+                <td>
+                    <form th:action="@{/departments/info/{id}(id=${department.id})}"
+                          method="get">
+                        <button class="button-show"
+                                name="isActual"
+                                th:value="${isActual}"
+                                th:text="#{show_button}"/>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/departments/delete/{id}(id=${department.id})}"
+                          method="post">
+                        <button class="button-delete"
+                                name="isActual"
+                                th:value="${isActual}"
+                                th:text="#{delete_button}"/>
+                    </form>
+                </td>
+                <td th:if="${isActual}">
+                    <form th:action="@{/departments/reduce/{id}(id=${department.id})}"
+                          method="post">
+                        <button class="button-reduce"
+                                name="isActual"
+                                th:value="${isActual}"
+                                th:text="#{reduce_button}"/>
+                    </form>
+                </td>
+                <td th:if="${!isActual}">
+                    <form th:action="@{/departments/restore/{id}(id=${department.id})}"
+                          method="post">
+                        <button class="button-restore"
+                                name="isActual"
+                                th:value="${isActual}"
+                                th:text="#{restore_button}"/>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <form th:action="@{/departments}"
+              method="get">
+            <input type="hidden" name="isActual" th:value="${isActual}">
+            <div th:replace="~{/page-panel :: page-panel}"></div>
+        </form>
+        <form th:if="${isActual}"
+              th:action="@{/departments/add}"
+              method="get">
+            <button class="button-add"
+                    th:text="#{add_department}"/>
+        </form>
+    </div>
+</main>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

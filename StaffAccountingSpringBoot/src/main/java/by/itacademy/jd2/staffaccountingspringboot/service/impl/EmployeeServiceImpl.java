@@ -45,7 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity entity = employeeRepository.findById(id)
                 .orElseThrow(() -> {
                     LOGGER.warn("Employee with id={} not found", id);
-                    return new EntityNotFoundException("User not found");
+                    return new EntityNotFoundException("User with id=" + id + " not found");
                 });
         LOGGER.info("Successfully fetched employee with id={} from database", id);
         return Converter.toDto(entity, EmployeeDTO.class);

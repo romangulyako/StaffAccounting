@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title th:text="${department.name}"></title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{/header :: header}"></div>
+<main>
+    <div th:replace="~{/menu :: menu}"></div>
+    <div>
+        <div class="header-with-button">
+            <h2 th:text="#{department_info}"/>
+            <form th:if="${isActual}"
+                  th:action="@{/departments/edit/{id}(id=${department.id})}"
+                  method="get">
+                <button class="button-edit"
+                        th:text="#{edit_button}"/>
+            </form>
+        </div>
+        <div class="information-block">
+            <div class="information-item">
+                <label th:text="#{item_name}"/>
+                <span th:text="${department.name}"/>
+            </div>
+            <div class="information-item">
+                <label th:text="#{department_genitive_name}"/>
+                <span th:text="${department.genitiveCaseName}"/>
+            </div>
+            <div class="information-item">
+                <label th:text="#{description}"/>
+                <span th:text="${department.description != null ? department.description : ''}"/>
+            </div>
+        </div>
+        <h2 th:text="#{positions_of_department}"/>
+        <h3 class="form-group"
+            th:if="${positions.isEmpty()}"
+            th:text="#{positions_absent}"/>
+        <table th:if="${!positions.isEmpty()}">
+            <thead>
+            <tr>
+                <th th:text="#{item_name}"/>
+                <th th:text="#{necessary_education_level}"/>
+                <th th:text="#{salary}"/>
+                <th colspan="4" th:text="#{action}"/>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="position : ${positions}">
+                <td th:text="${position.name}"/>
+                <td th:text="${position.educationLevel}"/>
+                <td th:text="${position.salary}"/>
+                <td>
+                    <form th:action="@{/positions/edit{id}(id=${position.id})}"
+                          method="get">
+                        <button class="button-edit"
+                                th:text="#{edit_button}"/>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/positions/delete/{id}(id=${position.id})}"
+                          method="post">
+                        <button class="button-delete"
+                                name="isActual"
+                                th:value="${isActual}"
+                                th:text="#{delete_button}"/>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/positions/history/{id}(id=${position.id})}"
+                          method="get">
+                        <button class="button-show"
+                                th:text="#{show_history_button}"/>
+                    </form>
+                </td>
+                <td>
+                    <form th:if="${isActual}"
+                          th:action="@{/positions/reduce/{id}(id=${position.id})}"
+                          method="post">
+                        <button class="button-reduce"
+                                name="isActual"
+                                th:value="${isActual}"
+                                th:text="#{reduce_button}"/>
+                    </form>
+                </td>
+                <td>
+                    <form th:if="${!isActual}"
+                          th:action="@{/positions/restore/{id}(id=${position.id})}"
+                          method="post">
+                        <button class="button-restore"
+                                name="isActual"
+                                th:value="${isActual}"
+                                th:text="#{restore_button}"/>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <form th:if="${!positions.isEmpty()}" th:action="@{/departments}"
+              method="get">
+            <input type="hidden" name="isActual" th:value="${isActual}">
+            <div th:replace="~{/page-panel :: page-panel}"></div>
+        </form>
+        <div class="footer-buttons-block">
+            <form th:if="${isActual}"
+                  th:action="@{/positions/add}"
+                  method="get">
+                <button class="footer-button, button-add"
+                        th:text="#{add_position}"/>
+            </form>
+            <form th:action="@{/departments}"
+                  method="get">
+                <button class="footer-button"
+                        name="isActual"
+                        th:value="${isActual}"
+                        th:text="#{back_to_departments_list}"/>
+            </form>
+        </div>
+    </div>
+</main>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

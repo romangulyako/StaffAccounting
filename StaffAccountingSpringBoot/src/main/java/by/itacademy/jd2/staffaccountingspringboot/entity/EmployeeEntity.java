@@ -49,7 +49,8 @@ public class EmployeeEntity extends CommonSuperEntity {
     private String phone;
 
     @Column(name = "is_fired")
-    private boolean isFired;
+    @Builder.Default
+    private Boolean isFired = false;
 
     @OneToOne(mappedBy = "employee",
             cascade = CascadeType.ALL,
