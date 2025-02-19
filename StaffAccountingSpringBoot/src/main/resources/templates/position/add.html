@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title th:text="#{add_position}"></title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{/header :: header}"></div>
+<main>
+    <div th:replace="~{/menu :: menu}"></div>
+    <div class="form-group">
+        <h2 th:text="#{enter_positions_data}"/>
+        <div class="filling-form">
+            <form id="save"
+                  th:action="@{/positions/add}"
+                  method="post"
+                  th:object="${newPosition}">
+                <input type="hidden"
+                       th:value="${departmentId}"
+                       name="departmentId"/>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{item_name}"/>
+                        <input type="text"
+                               th:field="*{name}"
+                               th:placeholder="#{position_name_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{necessary_education_level}"/>
+                        <input type="text"
+                               th:field="*{educationLevel}"
+                               th:placeholder="#{necessary_education_level_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{salary}"/>
+                        <input type="text"
+                               th:field="*{salary}"
+                               th:placeholder="#{salary_placeholder}"
+                               required/>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+        <form class="footer-buttons-block"
+              th:action="@{/departments/info/{id}(id=${departmentId})}"
+              method="get">
+            <button class="footer-button, button-add"
+                    form="save"
+                    th:text="#{save_button}"/>
+            <button class="footer-button"
+                    th:text="#{back_to_department}"/>
+        </form>
+    </div>
+</main>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

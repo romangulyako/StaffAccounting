@@ -2,6 +2,7 @@ package by.itacademy.jd2.staffaccountingspringboot.converter.impl;
 
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToDtoConverter;
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToEntityConverter;
+import by.itacademy.jd2.staffaccountingspringboot.entity.DepartmentEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.PositionEntity;
 import by.itacademy.jd2.staffaccountingspringboot.model.PositionDTO;
 
@@ -30,6 +31,9 @@ public class PositionConverter implements
                     .name(dto.getName())
                     .educationLevel(dto.getEducationLevel())
                     .salary(dto.getSalary())
+                    .department(DepartmentEntity.builder()
+                            .id(dto.getDepartmentId())
+                            .build())
                     .build();
         }
 

@@ -52,7 +52,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentInfoDTO getDepartmentInfo(Long id, Boolean isActual, int page, int size) {
         DepartmentEntity departmentEntity = this.findDepartmentById(id);
         Page<PositionEntity> positionsPage =
-                positionRepository.findAllByIsActualAndDepartmentId(isActual, id, PageRequest.of(page, size));
+                positionRepository.findAllByDepartmentIdAndIsActual(id, isActual, PageRequest.of(page, size));
         LOGGER.info("Successfully fetched department's info with id={}", id);
 
         return DepartmentInfoDTO.builder()

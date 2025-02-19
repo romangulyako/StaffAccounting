@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title th:text="#{history}"></title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{/header :: header}"></div>
+<main>
+    <div th:replace="~{/menu :: menu}"></div>
+    <div>
+        <h2 th:text="#{history}"/>
+        <h3 class="form-group" th:if="${history.isEmpty()}" th:text="#{history_absent}"/>
+        <table th:if="${!history.isEmpty()}">
+            <thead>
+            <tr>
+                <th th:text="#{from_what_date}"/>
+                <th th:text="#{on_what_date}"/>
+                <th th:text="#{employee_name}"/>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="row : ${history}">
+                <td th:text="${row.dateOfAppointment}"/>
+                <td th:text="${row.dateOfLiberation != null ? row.dateOfLiberation : #{today}}"/>
+                <td th:text="${row.employeeSurname} + ' ' + ${row.employeeName} + ${row.employeePatronymic != null ? (' ' + row.employeePatronymic) : ''}"/>
+            </tr>
+            </tbody>
+        </table>
+        <form th:if="${!history.isEmpty()}"
+              th:action="@{/positions/history/{id}(id=${positionId})}"
+              method="get">
+            <input type="hidden" name="isActual" th:value="${isActual}">
+            <div th:replace="~{/page-panel :: page-panel}"></div>
+        </form>
+        <form class="footer-buttons-block"
+              th:action="@{/departments/info/{id}(id=${departmentId})}"
+              method="get">
+            <button class="footer-button"
+                    name="isActual"
+                    th:value="${isActual}"
+                    th:text="#{back_to_department}"/>
+        </form>
+    </div>
+</main>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>
