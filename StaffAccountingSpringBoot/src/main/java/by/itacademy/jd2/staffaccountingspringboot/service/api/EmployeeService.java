@@ -15,5 +15,6 @@ public interface EmployeeService {
     Page<EmployeeDTO> getEmployees(EmployeeFilterData filterData,
                                    Boolean isFired,
                                    Pageable pageable);
-    List<EmployeeItemDTO> getAllEmployeeItems(boolean isCurrentOnly);
+    void returnToCurrent(Long id);
+    List<EmployeeItemDTO> getCurrentEmployeeItems();
 }

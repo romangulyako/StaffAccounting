@@ -70,7 +70,7 @@
                 <button class="footer-button"
                         th:text="#{education}"/>
             </form>
-            <form th:action="@{/employee/{id}/career(id=${employee.id})}"
+            <form th:action="@{/employees/career/{id}(id=${employee.id})}"
                   method="get">
                 <button class="footer-button"
                         th:text="#{career}"/>

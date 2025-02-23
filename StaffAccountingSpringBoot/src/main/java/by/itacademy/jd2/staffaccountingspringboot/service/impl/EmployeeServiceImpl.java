@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -68,16 +67,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeItemDTO> getAllEmployeeItems(boolean isCurrentOnly) {
-        List<EmployeeEntity> entities;
-        if (isCurrentOnly) {
-            entities = employeeRepository.findAllByIsFired(false);
-        } else {
-            entities = employeeRepository.findAll();
-        }
+    public void returnToCurrent(Long id) {
+        EmployeeEntity employee = employeeRepository.findById(id)
+                .orElseThrow(() -> {
+                    LOGGER.warn("Employee with id={} not found", id);
+                    return new EntityNotFoundException("User with id=" + id + " not found");
+                });
+        employee.setIsFired(false);
+        employeeRepository.save(employee);
+        LOGGER.info("Employee with id={} returned to current successfully", id);
+    }
 
-        return entities.stream()
-                .map(entity -> Converter.toDto(entity, EmployeeItemDTO.class))
-                .collect(Collectors.toList());
+    @Override
+    public List<EmployeeItemDTO> getCurrentEmployeeItems() {
+        return employeeRepository.findAllByIsFiredFalse()
+                .stream().map(entity -> Converter.toDto(entity, EmployeeItemDTO.class))
+                .toList();
     }
 }

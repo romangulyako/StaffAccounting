@@ -22,7 +22,7 @@
             <tbody>
             <tr th:each="row : ${history}">
                 <td th:text="${row.dateOfAppointment}"/>
-                <td th:text="${row.dateOfLiberation != null ? row.dateOfLiberation : #{today}}"/>
+                <td th:text="${row.dateOfLiberation != null ? row.dateOfLiberation : ''}"/> <!-- TODO: Сделать TODAY-->
                 <td th:text="${row.employeeSurname} + ' ' + ${row.employeeName} + ${row.employeePatronymic != null ? (' ' + row.employeePatronymic) : ''}"/>
             </tr>
             </tbody>

@@ -91,7 +91,7 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/employee/info/{id}")
+    @GetMapping("/employees/info/{id}")
     public String getEmployee(@PathVariable Long id, Model model) {
         LOGGER.info("Received request to get employee with id={}", id);
         try {
@@ -121,5 +121,18 @@ public class EmployeeController {
     public String clearFilter(Model model) {
         model.addAttribute("filterData", new EmployeeFilterData());
         return "redirect:/employees";
+    }
+
+    @PostMapping("/employees/return/{id}")
+    public String returnToCurrent(@PathVariable Long id, Model model) {
+        LOGGER.info("Received request to return employee with id={}", id);
+        try {
+            employeeService.returnToCurrent(id);
+            return "redirect:/employees";
+        } catch (Exception e) {
+            LOGGER.error("Error returning employee with id={}", id);
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
     }
 }

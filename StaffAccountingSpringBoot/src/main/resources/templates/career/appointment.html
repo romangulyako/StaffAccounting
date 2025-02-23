@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<head>
+    <title th:text="#{appointment}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{/header :: header}"></div>
+<main>
+    <div th:replace="~{/menu :: menu}"></div>
+    <div class="form-group">
+        <h2 th:text="#{filling_appointment_form_message}"/>
+        <div class="filling-form">
+            <form id="save"
+                  th:action="@{/appointment}"
+                  th:object="${careerStep}"
+                  method="post">
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{employee_legend}"/>
+                        <select th:field="*{employeeId}" required>
+                            <option value="" th:text="#{select_employee}" selected></option>
+                            <option th:if="${!employees.isEmpty()}"
+                                    th:each="employee : ${employees}"
+                                    th:value="${employee.id}"
+                                    th:text="${employee.surname} + ' ' + ${employee.name} + ${employee.patronymic != null ? (' ' + employee.patronymic) : ''}"/>
+                        </select>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{position}"/>
+                        <select th:field="*{positionId}" required>
+                            <option value="" th:text="#{select_position}" selected></option>
+                            <option th:if="${!positions.isEmpty()}"
+                                    th:each="position : ${positions}"
+                                    th:value="${position.id}"
+                                    th:text="${position.positionName} + ' ' + ${position.departmentGenitiveCaseName}"/>
+                        </select>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{appointment_date_legend}"/>
+                        <input type="date"
+                        th:field="*{dateOfAppointment}"
+                        required/>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{appointment_order}"/>
+                        <input type="text"
+                        th:field="*{orderAppointment}"
+                        th:placeholder="#{order_placeholder}"
+                        required/>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+        <form class="footer-buttons-block">
+            <button class="footer-button, button-add"
+                    form="save"
+                    type="submit"
+                    th:text="#{appoint_button}"/>
+        </form>
+    </div>
+</main>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

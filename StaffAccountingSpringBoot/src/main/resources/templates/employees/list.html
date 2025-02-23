@@ -68,10 +68,11 @@
         <table>
             <thead>
             <tr>
-                <th th:text="#{short_name}"></th>
-                <th th:text="#{birthday}"></th>
-                <th th:text="#{position}"></th>
-                <th colspan="2" th:text="#{action}"></th>
+                <th th:text="#{short_name}"/>
+                <th th:text="#{birthday}"/>
+                <th th:text="#{position}"/>
+                <th th:if="${!isFired}" colspan="2" th:text="#{action}"/>
+                <th th:if="${isFired}" colspan="3" th:text="#{action}"/>
             </tr>
             </thead>
             <tbody>
@@ -80,16 +81,24 @@
                 <td th:text="${employee.personData.birthday}"></td>
                 <td th:text="${employee.positionName != null ? employee.positionName : ''}"></td>
                 <td>
-                    <form name="employee" method="get" th:action="@{/employee/info/{id}(id=${employee.id})}">
+                    <form th:action="@{/employees/info/{id}(id=${employee.id})}"
+                          method="get">
                         <button class="button-show"
                                 th:text="#{show_button}"></button>
                     </form>
                 </td>
                 <td>
-                    <form name="delete_employee" method="post"
-                          th:action="@{/employee/delete/{id}(id=${employee.id})}">
+                    <form th:action="@{/employee/delete/{id}(id=${employee.id})}"
+                          method="post">
                         <button class="button-delete"
                                 th:text="#{delete_button}"></button>
+                    </form>
+                </td>
+                <td th:if="${isFired}">
+                    <form th:action="@{employees/return/{id}(id=${employee.id})}"
+                          method="post">
+                        <button class="button-restore"
+                                th:text="#{return}"/>
                     </form>
                 </td>
             </tr>
