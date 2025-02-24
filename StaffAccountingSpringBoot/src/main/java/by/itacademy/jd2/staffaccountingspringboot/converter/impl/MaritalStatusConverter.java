@@ -4,7 +4,7 @@ import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToDtoConverter;
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToEntityConverter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.MaritalStatusEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.MaritalStatusDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.MaritalStatusDTO;
 
 public class MaritalStatusConverter implements
         ToDtoConverter<MaritalStatusEntity, MaritalStatusDTO>,

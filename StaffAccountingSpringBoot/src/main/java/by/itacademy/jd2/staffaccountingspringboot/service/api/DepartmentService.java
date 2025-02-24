@@ -1,7 +1,7 @@
 package by.itacademy.jd2.staffaccountingspringboot.service.api;
 
-import by.itacademy.jd2.staffaccountingspringboot.model.DepartmentDTO;
-import by.itacademy.jd2.staffaccountingspringboot.model.DepartmentInfoDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.DepartmentDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.DepartmentInfoDTO;
 import org.springframework.data.domain.Page;
 
 public interface DepartmentService {

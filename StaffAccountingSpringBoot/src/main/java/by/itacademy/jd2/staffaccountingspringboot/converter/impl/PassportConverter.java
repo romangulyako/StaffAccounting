@@ -4,7 +4,7 @@ import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToDtoConverter;
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToEntityConverter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.PassportEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.PassportDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.PassportDTO;
 
 public class PassportConverter implements
         ToDtoConverter<PassportEntity, PassportDTO>, ToEntityConverter<PassportEntity, PassportDTO> {

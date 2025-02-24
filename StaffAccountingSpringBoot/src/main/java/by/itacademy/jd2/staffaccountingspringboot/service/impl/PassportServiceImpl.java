@@ -2,7 +2,7 @@ package by.itacademy.jd2.staffaccountingspringboot.service.impl;
 
 import by.itacademy.jd2.staffaccountingspringboot.converter.Converter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.PassportEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.PassportDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.PassportDTO;
 import by.itacademy.jd2.staffaccountingspringboot.repository.PassportRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.PassportService;
 import lombok.RequiredArgsConstructor;

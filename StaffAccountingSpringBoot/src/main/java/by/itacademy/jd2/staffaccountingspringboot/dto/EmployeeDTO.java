@@ -1,5 +1,6 @@
-package by.itacademy.jd2.staffaccountingspringboot.model;
+package by.itacademy.jd2.staffaccountingspringboot.dto;
 
+import by.itacademy.jd2.staffaccountingspringboot.entity.embedded.Address;
 import by.itacademy.jd2.staffaccountingspringboot.entity.embedded.PersonData;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,10 +11,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RelativeDTO {
+public class EmployeeDTO {
     private Long id;
     private PersonData personData;
-    private String typeKinship;
-
-    private Long employeeId;
+    private Address homeAddress;
+    private String phone;
+    private String positionName;
 }

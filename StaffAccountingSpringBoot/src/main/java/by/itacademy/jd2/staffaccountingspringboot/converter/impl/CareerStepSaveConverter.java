@@ -4,7 +4,7 @@ import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToEntityConverte
 import by.itacademy.jd2.staffaccountingspringboot.entity.CareerStepEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.PositionEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.CareerStepSaveDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.CareerStepSaveDTO;
 
 public class CareerStepSaveConverter
         implements ToEntityConverter<CareerStepEntity, CareerStepSaveDTO> {

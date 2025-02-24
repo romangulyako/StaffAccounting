@@ -4,7 +4,7 @@ import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToDtoConverter;
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToEntityConverter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.DepartmentEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.PositionEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.PositionDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.PositionDTO;
 
 public class PositionConverter implements
         ToDtoConverter<PositionEntity, PositionDTO>, ToEntityConverter<PositionEntity, PositionDTO> {

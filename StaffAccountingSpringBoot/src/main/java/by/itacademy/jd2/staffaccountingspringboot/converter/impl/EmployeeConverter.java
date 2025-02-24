@@ -4,7 +4,7 @@ import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToDtoConverter;
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToEntityConverter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.CareerStepEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeDTO;
 
 import java.util.Comparator;
 

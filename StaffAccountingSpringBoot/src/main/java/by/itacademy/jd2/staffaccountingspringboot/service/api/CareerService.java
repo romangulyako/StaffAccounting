@@ -1,10 +1,10 @@
 package by.itacademy.jd2.staffaccountingspringboot.service.api;
 
-import by.itacademy.jd2.staffaccountingspringboot.model.AppointmentInfoDTO;
-import by.itacademy.jd2.staffaccountingspringboot.model.CareerStepGetDTO;
-import by.itacademy.jd2.staffaccountingspringboot.model.CareerStepSaveDTO;
-import by.itacademy.jd2.staffaccountingspringboot.model.DismissDTO;
-import by.itacademy.jd2.staffaccountingspringboot.model.EditCareerDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.AppointmentInfoDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.CareerStepGetDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.CareerStepSaveDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.DismissDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EditCareerDTO;
 import org.springframework.data.domain.Page;
 
 public interface CareerService {

@@ -1,6 +1,6 @@
 package by.itacademy.jd2.staffaccountingspringboot.controller;
 
-import by.itacademy.jd2.staffaccountingspringboot.model.MaritalStatusDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.MaritalStatusDTO;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.MaritalStatusService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

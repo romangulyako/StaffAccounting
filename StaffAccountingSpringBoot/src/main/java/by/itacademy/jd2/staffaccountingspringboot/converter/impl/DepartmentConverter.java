@@ -3,7 +3,7 @@ package by.itacademy.jd2.staffaccountingspringboot.converter.impl;
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToDtoConverter;
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToEntityConverter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.DepartmentEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.DepartmentDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.DepartmentDTO;
 import by.itacademy.jd2.staffaccountingspringboot.entity.PositionEntity;
 
 

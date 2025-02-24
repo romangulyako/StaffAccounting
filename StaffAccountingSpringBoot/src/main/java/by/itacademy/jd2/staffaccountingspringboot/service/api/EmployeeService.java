@@ -1,8 +1,8 @@
 package by.itacademy.jd2.staffaccountingspringboot.service.api;
 
-import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeDTO;
-import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeFilterData;
-import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeItemDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeFilterData;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeItemDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

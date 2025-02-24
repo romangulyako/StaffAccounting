@@ -1,4 +1,4 @@
-package by.itacademy.jd2.staffaccountingspringboot.model;
+package by.itacademy.jd2.staffaccountingspringboot.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

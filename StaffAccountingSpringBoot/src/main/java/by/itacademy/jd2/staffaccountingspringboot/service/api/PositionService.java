@@ -1,7 +1,7 @@
 package by.itacademy.jd2.staffaccountingspringboot.service.api;
 
-import by.itacademy.jd2.staffaccountingspringboot.model.PositionDTO;
-import by.itacademy.jd2.staffaccountingspringboot.model.PositionHistoryDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.PositionDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.PositionHistoryDTO;
 import org.springframework.data.domain.Page;
 
 public interface PositionService {

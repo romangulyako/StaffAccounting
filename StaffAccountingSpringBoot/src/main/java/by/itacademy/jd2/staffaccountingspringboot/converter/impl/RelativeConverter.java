@@ -4,7 +4,7 @@ import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToDtoConverter;
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToEntityConverter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.RelativeEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.RelativeDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.RelativeDTO;
 
 public class RelativeConverter implements
         ToDtoConverter<RelativeEntity, RelativeDTO>, ToEntityConverter<RelativeEntity, RelativeDTO> {

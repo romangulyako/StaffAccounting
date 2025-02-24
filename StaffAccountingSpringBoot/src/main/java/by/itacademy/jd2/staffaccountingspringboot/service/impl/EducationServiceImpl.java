@@ -2,7 +2,7 @@ package by.itacademy.jd2.staffaccountingspringboot.service.impl;
 
 import by.itacademy.jd2.staffaccountingspringboot.converter.Converter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EducationEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.EducationDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EducationDTO;
 import by.itacademy.jd2.staffaccountingspringboot.repository.EducationRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EducationService;
 import jakarta.persistence.EntityNotFoundException;

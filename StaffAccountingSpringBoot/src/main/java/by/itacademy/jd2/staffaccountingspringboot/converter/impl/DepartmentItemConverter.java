@@ -2,7 +2,7 @@ package by.itacademy.jd2.staffaccountingspringboot.converter.impl;
 
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToDtoConverter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.DepartmentEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.DepartmentItemDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.DepartmentItemDTO;
 
 public class DepartmentItemConverter implements ToDtoConverter<DepartmentEntity, DepartmentItemDTO> {
     @Override

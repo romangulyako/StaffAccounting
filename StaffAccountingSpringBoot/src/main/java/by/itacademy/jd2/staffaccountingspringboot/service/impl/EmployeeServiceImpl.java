@@ -2,9 +2,9 @@ package by.itacademy.jd2.staffaccountingspringboot.service.impl;
 
 import by.itacademy.jd2.staffaccountingspringboot.converter.Converter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeDTO;
-import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeFilterData;
-import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeItemDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeFilterData;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeItemDTO;
 import by.itacademy.jd2.staffaccountingspringboot.repository.EmployeeRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EmployeeService;
 import jakarta.persistence.EntityNotFoundException;

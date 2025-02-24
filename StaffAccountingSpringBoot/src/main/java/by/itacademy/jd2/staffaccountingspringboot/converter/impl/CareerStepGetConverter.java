@@ -2,7 +2,7 @@ package by.itacademy.jd2.staffaccountingspringboot.converter.impl;
 
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToDtoConverter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.CareerStepEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.CareerStepGetDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.CareerStepGetDTO;
 
 public class CareerStepGetConverter implements ToDtoConverter<CareerStepEntity, CareerStepGetDTO> {
     @Override

@@ -1,4 +1,4 @@
-package by.itacademy.jd2.staffaccountingspringboot.model;
+package by.itacademy.jd2.staffaccountingspringboot.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PositionItemDTO {
+public class DepartmentItemDTO {
     private Long id;
-    private String positionName;
-    private String departmentGenitiveCaseName;
+    private String name;
 }

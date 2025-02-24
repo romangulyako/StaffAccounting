@@ -2,7 +2,7 @@ package by.itacademy.jd2.staffaccountingspringboot.converter.impl;
 
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToDtoConverter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeItemDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeItemDTO;
 
 public class EmployeeItemConverter implements ToDtoConverter<EmployeeEntity, EmployeeItemDTO> {
     @Override

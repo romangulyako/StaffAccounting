@@ -1,7 +1,7 @@
 package by.itacademy.jd2.staffaccountingspringboot.repository.custom;
 
 import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeFilterData;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeFilterData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

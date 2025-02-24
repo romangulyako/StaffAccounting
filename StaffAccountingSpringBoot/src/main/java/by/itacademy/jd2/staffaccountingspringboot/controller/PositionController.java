@@ -1,7 +1,7 @@
 package by.itacademy.jd2.staffaccountingspringboot.controller;
 
-import by.itacademy.jd2.staffaccountingspringboot.model.PositionDTO;
-import by.itacademy.jd2.staffaccountingspringboot.model.PositionHistoryDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.PositionDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.PositionHistoryDTO;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.PositionService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

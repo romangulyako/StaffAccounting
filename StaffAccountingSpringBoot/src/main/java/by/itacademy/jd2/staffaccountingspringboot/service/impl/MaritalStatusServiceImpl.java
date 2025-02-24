@@ -2,7 +2,7 @@ package by.itacademy.jd2.staffaccountingspringboot.service.impl;
 
 import by.itacademy.jd2.staffaccountingspringboot.converter.Converter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.MaritalStatusEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.MaritalStatusDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.MaritalStatusDTO;
 import by.itacademy.jd2.staffaccountingspringboot.repository.MaritalStatusRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.MaritalStatusService;
 import jakarta.persistence.EntityNotFoundException;

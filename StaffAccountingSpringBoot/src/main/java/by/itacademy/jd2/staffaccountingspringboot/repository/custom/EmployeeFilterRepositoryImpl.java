@@ -5,7 +5,7 @@ import by.itacademy.jd2.staffaccountingspringboot.entity.DepartmentEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.PositionEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.embedded.PersonData;
-import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeFilterData;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeFilterData;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;

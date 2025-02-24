@@ -1,6 +1,6 @@
 package by.itacademy.jd2.staffaccountingspringboot.service.api;
 
-import by.itacademy.jd2.staffaccountingspringboot.model.EducationDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EducationDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

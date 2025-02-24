@@ -1,6 +1,6 @@
 package by.itacademy.jd2.staffaccountingspringboot.controller;
 
-import by.itacademy.jd2.staffaccountingspringboot.model.RelativeDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.RelativeDTO;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.RelativeService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

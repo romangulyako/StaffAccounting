@@ -1,4 +1,4 @@
-package by.itacademy.jd2.staffaccountingspringboot.model;
+package by.itacademy.jd2.staffaccountingspringboot.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,12 +11,12 @@ import java.sql.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CareerStepSaveDTO {
-    private Long id;
-    private Long employeeId;
-    private Long positionId;
+public class PositionHistoryDTO {
     private Date dateOfAppointment;
     private String orderAppointment;
     private Date dateOfLiberation;
     private String orderLiberation;
+    private String employeeSurname;
+    private String employeeName;
+    private String employeePatronymic;
 }

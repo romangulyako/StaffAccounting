@@ -4,7 +4,7 @@ import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToDtoConverter;
 import by.itacademy.jd2.staffaccountingspringboot.converter.api.ToEntityConverter;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EducationEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
-import by.itacademy.jd2.staffaccountingspringboot.model.EducationDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EducationDTO;
 
 public class EducationConverter
         implements ToDtoConverter<EducationEntity, EducationDTO>, ToEntityConverter<EducationEntity, EducationDTO> {

@@ -1,7 +1,7 @@
 package by.itacademy.jd2.staffaccountingspringboot.controller;
 
-import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeDTO;
-import by.itacademy.jd2.staffaccountingspringboot.model.EmployeeFilterData;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeFilterData;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
