@@ -20,7 +20,7 @@ public class MaritalStatusController {
     public static final Logger LOGGER = LoggerFactory.getLogger(MaritalStatusController.class);
     private final MaritalStatusService maritalStatusService;
 
-    @GetMapping("/employee/{employeeId}/marital-status")
+    @GetMapping("/employees/{employeeId}/marital-status")
     public String getMaritalStatus(@PathVariable Long employeeId,
                                    @RequestParam(defaultValue = "0") int page,
                                    @RequestParam(defaultValue = "2") int size,
@@ -42,21 +42,21 @@ public class MaritalStatusController {
         }
     }
 
-    @GetMapping("/employee/{employeeId}/marital-status/add")
+    @GetMapping("/employees/{employeeId}/marital-status/add")
     public String saveMaritalStatusPage(@PathVariable Long employeeId, Model model) {
         model.addAttribute("employeeId", employeeId);
         model.addAttribute("newMaritalStatus", new MaritalStatusDTO());
         return "marital-status/add";
     }
 
-    @PostMapping("/employee/{employeeId}/marital-status/add")
+    @PostMapping("/employees/{employeeId}/marital-status/add")
     public String saveMaritalStatus(@PathVariable Long employeeId,
                                     MaritalStatusDTO maritalStatusDTO,
                                     Model model) {
         LOGGER.info("Received request to add relative for employee with id={}", maritalStatusDTO.getEmployeeId());
         try {
             maritalStatusService.saveOrUpdateMaritalStatus(maritalStatusDTO);
-            return "redirect:/employee/" + employeeId + "/marital-status";
+            return "redirect:/employees/" + employeeId + "/marital-status";
         } catch (Exception e) {
             LOGGER.error("Error adding marital status for employee with id={}", employeeId, e);
             model.addAttribute("message", e.getMessage());
@@ -64,7 +64,7 @@ public class MaritalStatusController {
         }
     }
 
-    @GetMapping("/employee/{employeeId}/marital-status/edit/{id}")
+    @GetMapping("/employees/{employeeId}/marital-status/edit/{id}")
     public String editMaritalStatusPage(@PathVariable Long id,
                                         Model model) {
         LOGGER.info("Received request to get for edit marital status with id={}", id);
@@ -78,12 +78,12 @@ public class MaritalStatusController {
         }
     }
 
-    @PostMapping("/employee/{employeeId}/marital-status/edit/{id}")
+    @PostMapping("/employees/{employeeId}/marital-status/edit/{id}")
     public String editMaritalStatus(MaritalStatusDTO maritalStatusDTO, Model model) {
         LOGGER.info("Received request to edit marital status with id={}", maritalStatusDTO.getId());
         try {
             maritalStatusService.saveOrUpdateMaritalStatus(maritalStatusDTO);
-            return "redirect:/employee/" + maritalStatusDTO.getEmployeeId() + "/marital-status";
+            return "redirect:/employees/" + maritalStatusDTO.getEmployeeId() + "/marital-status";
         } catch (Exception e) {
             LOGGER.error("Error editing marital status with id={}", maritalStatusDTO.getId(), e);
             model.addAttribute("message", e.getMessage());
@@ -91,14 +91,14 @@ public class MaritalStatusController {
         }
     }
 
-    @PostMapping("/employee/{employeeId}/marital-status/delete/{id}")
+    @PostMapping("/employees/{employeeId}/marital-status/delete/{id}")
     public String deleteMaritalStatus(@PathVariable Long employeeId,
                                       @PathVariable Long id,
                                       Model model) {
         LOGGER.info("Received request to delete marital status with id={}", id);
         try {
             maritalStatusService.deleteMaritalStatus(id);
-            return "redirect:/employee/" + employeeId + "/marital-status";
+            return "redirect:/employees/" + employeeId + "/marital-status";
         } catch (Exception e) {
             LOGGER.error("Error deleting marital status with id={}", id, e);
             model.addAttribute("message", e.getMessage());

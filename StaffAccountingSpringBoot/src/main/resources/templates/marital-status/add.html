@@ -12,7 +12,7 @@
         <h2 th:text="#{filling_marital_form_message}"/>
         <div class="filling-form">
             <form id="save"
-                  th:action="@{/employee/{employeeId}/marital-status/add(employeeId=${employeeId})}"
+                  th:action="@{/employees/{employeeId}/marital-status/add(employeeId=${employeeId})}"
                   th:object="${newMaritalStatus}"
                   method="post">
                 <div class="input-wrapper">
@@ -44,7 +44,7 @@
             </form>
         </div>
         <form class="footer-buttons-block"
-              th:action="@{/employee/{employeeId}/marital-status(employeeId=${employeeId})}"
+              th:action="@{/employees/{employeeId}/marital-status(employeeId=${employeeId})}"
               method="get">
             <button class="footer-button, button-add"
                     form="save"

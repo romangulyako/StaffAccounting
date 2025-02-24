@@ -12,7 +12,7 @@
         <h2 th:text="#{enter_relative_data}"/>
         <div class="filling-form">
             <form id="save"
-                  th:action="@{/employee/{employeeId}/relatives/add(employeeId=${employeeId})}"
+                  th:action="@{/employees/{employeeId}/relatives/add(employeeId=${employeeId})}"
                   th:object="${newRelative}"
                   method="post">
                 <div class="input-wrapper">
@@ -60,7 +60,7 @@
             </form>
         </div>
         <form class="footer-buttons-block"
-              th:action="@{/employee/{employeeId}/relatives(employeeId=${employeeId})}"
+              th:action="@{/employees/{employeeId}/relatives(employeeId=${employeeId})}"
               method="get">
             <button class="footer-button, button-add"
                     form="save"

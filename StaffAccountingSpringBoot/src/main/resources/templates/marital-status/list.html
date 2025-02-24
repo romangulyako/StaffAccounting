@@ -26,14 +26,14 @@
                 <td th:text="${status.registrationDate}"/>
                 <td th:text="${status.document}"/>
                 <td>
-                    <form th:action="@{/employee/{employeeId}/marital-status/edit/{id}(employeeId = ${status.employeeId}, id=${status.id})}"
+                    <form th:action="@{/employees/{employeeId}/marital-status/edit/{id}(employeeId = ${status.employeeId}, id=${status.id})}"
                           method="get">
                         <button class="button-edit"
                                 th:text="#{edit_button}"/>
                     </form>
                 </td>
                 <td>
-                    <form th:action="@{/employee/{employeeId}/marital-status/delete/{id}(employeeId = ${status.employeeId}, id=${status.id})}"
+                    <form th:action="@{/employees/{employeeId}/marital-status/delete/{id}(employeeId = ${status.employeeId}, id=${status.id})}"
                           method="post">
                         <button class="button-delete"
                                 th:text="#{delete_button}"/>
@@ -43,17 +43,17 @@
             </tbody>
         </table>
         <form th:if="${!maritalStatuses.isEmpty()}"
-              th:action="@{/employee/{employeeId}/marital-status(employeeId=${employeeId})}"
+              th:action="@{/employees/{employeeId}/marital-status(employeeId=${employeeId})}"
               method="get">
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>
         <div class="footer-buttons-block">
-            <form th:action="@{/employee/{employeeId}/marital-status/add(employeeId=${employeeId})}"
+            <form th:action="@{/employees/{employeeId}/marital-status/add(employeeId=${employeeId})}"
                   method="get">
                 <button class="footer-button, button-add"
                         th:text="#{update_marital_status}"/>
             </form>
-            <form th:action="@{/employee/info/{id}(id=${employeeId})}"
+            <form th:action="@{/employees/{id}(id=${employeeId})}"
                   method="get">
                 <button class="footer-button"
                         th:text="#{back_to_employee}"/>

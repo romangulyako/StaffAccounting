@@ -25,7 +25,7 @@
                 <td th:text="${department.description != null ? department.description : ''}"/>
                 <td th:text="${isActual ? department.actualPositionsCount : department.reducedPositionsCount}"/>
                 <td>
-                    <form th:action="@{/departments/info/{id}(id=${department.id})}"
+                    <form th:action="@{/departments/{id}(id=${department.id})}"
                           method="get">
                         <button class="button-show"
                                 name="isActual"
@@ -34,7 +34,7 @@
                     </form>
                 </td>
                 <td>
-                    <form th:action="@{/departments/delete/{id}(id=${department.id})}"
+                    <form th:action="@{/departments/{id}/delete(id=${department.id})}"
                           method="post">
                         <button class="button-delete"
                                 name="isActual"
@@ -43,7 +43,7 @@
                     </form>
                 </td>
                 <td th:if="${isActual}">
-                    <form th:action="@{/departments/reduce/{id}(id=${department.id})}"
+                    <form th:action="@{/departments/{id}/reduce(id=${department.id})}"
                           method="post">
                         <button class="button-reduce"
                                 name="isActual"
@@ -52,7 +52,7 @@
                     </form>
                 </td>
                 <td th:if="${!isActual}">
-                    <form th:action="@{/departments/restore/{id}(id=${department.id})}"
+                    <form th:action="@{/departments/{id}/restore(id=${department.id})}"
                           method="post">
                         <button class="button-restore"
                                 name="isActual"

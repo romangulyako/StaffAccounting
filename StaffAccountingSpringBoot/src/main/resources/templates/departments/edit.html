@@ -12,7 +12,7 @@
         <h2 th:text="#{filling_department_form_message}"/>
         <div class="filling-form">
             <form id="save"
-                  th:action="@{/departments/edit/{id}(id=${department.id})}"
+                  th:action="@{/departments/{id}/edit(id=${department.id})}"
                   th:object="${department}"
                   method="post">
                 <div class="input-wrapper">
@@ -48,7 +48,7 @@
             </form>
         </div>
         <form class="footer-buttons-block"
-              th:action="@{/departments/info/{id}(id=${department.id})}"
+              th:action="@{/departments/{id}(id=${department.id})}"
               method="get">
             <button class="footer-button, button-add"
                     form="save"

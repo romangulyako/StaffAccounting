@@ -12,9 +12,12 @@
         <h2 th:text="#{filling_education_form_message}"/>
         <div class="filling-form">
             <form id="save"
-                  th:action="@{/employee/{employeeId}/education/edit/{id}(employeeId=${education.employeeId}, id=${education.id})}"
+                  th:action="@{/employees/{employeeId}/education/edit/{id}(employeeId=${education.employeeId}, id=${education.id})}"
                   th:object="${education}"
                   method="post">
+                <input type="hidden"
+                       th:field="*{employeeId}"
+                       th:value="${education.employeeId}"/>
                 <div class="input-wrapper">
                     <fieldset>
                         <legend th:text="#{education_level}"/>
@@ -74,12 +77,10 @@
             </form>
         </div>
         <form class="footer-buttons-block"
-              th:action="@{/employee/{employeeId}/education(employeeId=${education.employeeId})}"
+              th:action="@{/employees/{employeeId}/education(employeeId=${education.employeeId})}"
               method="get">
             <button class="footer-button, button-add"
                     form="save"
-                    th:field="*{employeeId}"
-                    th:value="${education.employeeId}"
                     th:text="#{save_button}"/>
             <button class="footer-button"
                     th:text="#{back_to_education}"/>

@@ -28,7 +28,7 @@
                 <td th:text="${careerStep.dateOfLiberation != null ? careerStep.dateOfLiberation : ''}"/> <!-- TODO: Сделать today -->
                 <td th:text="${careerStep.positionName} + ' ' + ${careerStep.departmentGenitiveCaseName}"/>
                 <td>
-                    <form th:action="@{/employees/career/edit/{id}(id=${careerStep.id})}"
+                    <form th:action="@{/employees/{employeeId}/career/edit/{id}(employeeId=${employeeId}, id=${careerStep.id})}"
                     method="get">
                         <button class="button-edit"
                                 th:text="#{edit_button}"/>
@@ -45,12 +45,12 @@
             </tbody>
         </table>
         <form th:if="${!career.isEmpty()}"
-              th:action="@{/employees/career/{id}(id=${employeeId})}"
+              th:action="@{/employees/{id}/career(id=${employeeId})}"
               method="get">
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>
         <form class="footer-buttons-block"
-        th:action="@{/employees/info/{id}(id=${employeeId})}"
+        th:action="@{/employees/{id}(id=${employeeId})}"
         method="get">
             <button class="footer-button"
                     th:text="#{back_to_employee}"/>

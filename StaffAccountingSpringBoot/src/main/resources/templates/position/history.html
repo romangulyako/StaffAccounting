@@ -34,7 +34,7 @@
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>
         <form class="footer-buttons-block"
-              th:action="@{/departments/info/{id}(id=${departmentId})}"
+              th:action="@{/departments/{id}(id=${departmentId})}"
               method="get">
             <button class="footer-button"
                     name="isActual"

@@ -13,7 +13,7 @@
     <div>
         <div class="header-with-button">
             <h2 th:text="#{employees_information}"/>
-            <form th:action="@{/employee/edit/{id}(id=${employee.id})}"
+            <form th:action="@{/employees/{id}/edit(id=${employee.id})}"
                   method="get">
                 <button class="button-edit"
                         th:text="#{edit_button}"></button>
@@ -50,27 +50,27 @@
             </div>
         </div>
         <div class="footer-buttons-block">
-            <form th:action="@{/employee/{employeeId}/passport/info(employeeId=${employee.id})}"
+            <form th:action="@{/employees/{employeeId}/passport(employeeId=${employee.id})}"
                   method="get">
                 <button class="footer-button"
                         th:text="#{passport}"/>
             </form>
-            <form th:action="@{/employee/{id}/relatives(id=${employee.id})}"
+            <form th:action="@{/employees/{id}/relatives(id=${employee.id})}"
                   method="get">
                 <button class="footer-button"
                         th:text="#{relatives}"/>
             </form>
-            <form th:action="@{/employee/{id}/marital-status(id=${employee.id})}"
+            <form th:action="@{/employees/{id}/marital-status(id=${employee.id})}"
                   method="get">
                 <button class="footer-button"
                         th:text="#{marital_status}"/>
             </form>
-            <form th:action="@{/employee/{id}/education(id=${employee.id})}"
+            <form th:action="@{/employees/{id}/education(id=${employee.id})}"
                   method="get">
                 <button class="footer-button"
                         th:text="#{education}"/>
             </form>
-            <form th:action="@{/employees/career/{id}(id=${employee.id})}"
+            <form th:action="@{/employees/{id}/career(id=${employee.id})}"
                   method="get">
                 <button class="footer-button"
                         th:text="#{career}"/>

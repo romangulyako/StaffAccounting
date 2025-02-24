@@ -31,14 +31,14 @@
                 <td th:text="${relative.typeKinship}"/>
                 <td>
                     <form method="get"
-                          th:action="@{/employee/{employeeId}/relatives/edit/{id}(employeeId=${relative.employeeId}, id=${relative.id})}">
+                          th:action="@{/employees/{employeeId}/relatives/edit/{id}(employeeId=${relative.employeeId}, id=${relative.id})}">
                         <button class="button-edit"
                                 th:text="#{edit_button}"/>
                     </form>
                 </td>
                 <td>
                     <form method="post"
-                          th:action="@{/employee/{employeeId}/relatives/delete/{id}(employeeId=${relative.employeeId}, id=${relative.id})}">
+                          th:action="@{/employees/{employeeId}/relatives/delete/{id}(employeeId=${relative.employeeId}, id=${relative.id})}">
                         <button class="button-delete"
                                 th:text="#{delete_button}"/>
                     </form>
@@ -47,18 +47,18 @@
             </tbody>
         </table>
         <form th:if="${!relatives.isEmpty()}"
-              th:action="@{/employee/{employeeId}/relatives(employeeId=${employeeId})}"
+              th:action="@{/employees/{employeeId}/relatives(employeeId=${employeeId})}"
               method="get">
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>
         <div class="footer-buttons-block">
             <form method="get"
-                  th:action="@{/employee/{employeeId}/relatives/add(employeeId=${employeeId})}">
+                  th:action="@{/employees/{employeeId}/relatives/add(employeeId=${employeeId})}">
                 <button class="footer-button, button-add"
                         th:text="#{add_relative}"/>
             </form>
             <form method="get"
-                  th:action="@{/employee/info/{id}(id=${employeeId})}">
+                  th:action="@{/employees/{id}(id=${employeeId})}">
                 <button class="footer-button"
                         th:text="#{back_to_employee}"/>
             </form>

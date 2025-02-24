@@ -32,14 +32,14 @@
                 <td th:text="${education.dateStart}"/>
                 <td th:text="${education.dateEnd}"/>
                 <td>
-                    <form th:action="@{/employee/{employeeId}/education/edit/{id}(employeeId=${employeeId}, id=${education.id})}"
+                    <form th:action="@{/employees/{employeeId}/education/edit/{id}(employeeId=${employeeId}, id=${education.id})}"
                           method="get">
                         <button class="button-edit"
                                 th:text="#{edit_button}"/>
                     </form>
                 </td>
                 <td>
-                    <form th:action="@{/employee/{employeeId}/education/delete/{id}(employeeId=${employeeId}, id=${education.id})}"
+                    <form th:action="@{/employees/{employeeId}/education/delete/{id}(employeeId=${employeeId}, id=${education.id})}"
                           method="post">
                         <button class="button-delete"
                                 th:text="#{delete_button}"/>
@@ -49,17 +49,17 @@
             </tbody>
         </table>
         <form th:if="${!educations.isEmpty()}"
-              th:action="@{/employee/{employeeId}/education(employeeId=${employeeId})}"
+              th:action="@{/employees/{employeeId}/education(employeeId=${employeeId})}"
               method="get">
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>
         <div class="footer-buttons-block">
-            <form th:action="@{/employee/{employeeId}/education/add(employeeId=${employeeId})}"
+            <form th:action="@{/employees/{employeeId}/education/add(employeeId=${employeeId})}"
                   method="get">
                 <button class="footer-button, button-add"
                         th:text="#{add_education}"/>
             </form>
-            <form th:action="@{/employee/info/{id}(id=${employeeId})}"
+            <form th:action="@{/employees/{id}(id=${employeeId})}"
                   method="get">
                 <button class="footer-button"
                         th:text="#{back_to_employee}"/>

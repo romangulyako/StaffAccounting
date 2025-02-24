@@ -12,7 +12,9 @@
         <h2 th:text="#{all_employees}"></h2>
         <div class="filter-container">
             <div class="filter-form">
-                <form id="filter" th:action="@{/employees}" method="get">
+                <form id="filter"
+                      th:action="@{/employees}"
+                      method="get">
                     <div class="filter-inputs">
                         <fieldset>
                             <legend th:text="#{surname}"></legend>
@@ -81,21 +83,21 @@
                 <td th:text="${employee.personData.birthday}"></td>
                 <td th:text="${employee.positionName != null ? employee.positionName : ''}"></td>
                 <td>
-                    <form th:action="@{/employees/info/{id}(id=${employee.id})}"
+                    <form th:action="@{/employees/{id}(id=${employee.id})}"
                           method="get">
                         <button class="button-show"
                                 th:text="#{show_button}"></button>
                     </form>
                 </td>
                 <td>
-                    <form th:action="@{/employee/delete/{id}(id=${employee.id})}"
+                    <form th:action="@{/employees/{id}/delete(id=${employee.id})}"
                           method="post">
                         <button class="button-delete"
                                 th:text="#{delete_button}"></button>
                     </form>
                 </td>
                 <td th:if="${isFired}">
-                    <form th:action="@{employees/return/{id}(id=${employee.id})}"
+                    <form th:action="@{employees/{id}/return(id=${employee.id})}"
                           method="post">
                         <button class="button-restore"
                                 th:text="#{return}"/>
@@ -116,7 +118,7 @@
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>
         <div th:if="${isFired == null || !isFired}">
-            <form name="add_employee" method="get" th:action="@{/employee/add}">
+            <form name="add_employee" method="get" th:action="@{/employees/add}">
                 <button class="button-add" th:text="#{add_employee}"></button>
             </form>
         </div>

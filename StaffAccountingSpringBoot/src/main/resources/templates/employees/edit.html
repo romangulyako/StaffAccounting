@@ -12,7 +12,7 @@
         <h2 th:text="#{filling_employee_form_message}"/>
         <div class="filling-form">
             <form id="save"
-                  th:action="@{/employee/edit}"
+                  th:action="@{/employees/edit}"
                   method="post">
                 <input type="hidden"
                        name="id"
@@ -107,7 +107,7 @@
             </form>
         </div>
         <form class="footer-buttons-block"
-              th:action="@{/employee/info/{id}(id=${employee.id})}"
+              th:action="@{/employees/{id}(id=${employee.id})}"
               method="get">
             <button class="footer-button, button-add"
                     form="save"

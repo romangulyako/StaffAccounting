@@ -12,7 +12,7 @@
         <h2 th:text="#{filling_update_info_message}"/>
         <div class="filling-form">
             <form id="save"
-                  th:action="@{/employees/career/edit/{id}(id=${careerStep.id})}"
+                  th:action="@{/employees/{employeeId}/career/edit/{id}(employeeId=${careerStep.employeeId}, id=${careerStep.id})}"
                   th:object="${careerStep}"
                   method="post">
                 <input type="hidden"
@@ -76,7 +76,7 @@
             </form>
         </div>
         <form class="footer-buttons-block"
-              th:action="@{/employees/career/{id}(id=${careerStep.employeeId})}"
+              th:action="@{/employees/{id}/career(id=${careerStep.employeeId})}"
               method="get">
             <button class="footer-button, button-add"
                     form="save"

@@ -15,7 +15,7 @@
                 <h2 th:text="#{employees_passport}"/>
             </div>
             <form th:if="${passport != null}"
-                  th:action="@{/employee/{employeeId}/passport/edit(employeeId=${employeeId})}"
+                  th:action="@{/employees/{employeeId}/passport/edit(employeeId=${employeeId})}"
                   method="get">
                 <button class="tab, button-edit"
                         th:text="#{edit_button}"/>
@@ -26,7 +26,7 @@
             <h2 th:text="#{passport_absent}"/>
             <form class="footer-buttons-block"
                   method="get"
-                  th:action="@{/employee/{employeeId}/passport/add(employeeId=${employeeId})}">
+                  th:action="@{/employees/{employeeId}/passport/add(employeeId=${employeeId})}">
                 <button class="footer-button, button-add"
                         th:text="#{add_passport}"/>
             </form>
@@ -67,12 +67,12 @@
         </div>
         <div class="footer-buttons-block">
             <form th:if="${passport != null}"
-                  th:action="@{/employee/passport/delete/{employeeId}(employeeId=${employeeId})}"
+                  th:action="@{/employees/{employeeId}/passport/delete(employeeId=${employeeId})}"
                   method="post">
                 <button class="footer-button, button-delete"
                         th:text="#{delete_button}"/>
             </form>
-            <form th:action="@{/employee/info/{id}(id=${employeeId})}"
+            <form th:action="@{/employees/{id}(id=${employeeId})}"
                   method="get">
                 <button class="footer-button"
                         th:text="#{back_to_employee}"/>

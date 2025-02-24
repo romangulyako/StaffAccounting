@@ -12,7 +12,7 @@
         <div class="header-with-button">
             <h2 th:text="#{department_info}"/>
             <form th:if="${isActual}"
-                  th:action="@{/departments/edit/{id}(id=${department.id})}"
+                  th:action="@{/departments/{id}/edit(id=${department.id})}"
                   method="get">
                 <button class="button-edit"
                         th:text="#{edit_button}"/>
@@ -51,14 +51,14 @@
                 <td th:text="${position.educationLevel}"/>
                 <td th:text="${position.salary}"/>
                 <td>
-                    <form th:action="@{/positions/edit/{id}(id=${position.id})}"
+                    <form th:action="@{/positions/{id}/edit(id=${position.id})}"
                           method="get">
                         <button class="button-edit"
                                 th:text="#{edit_button}"/>
                     </form>
                 </td>
                 <td>
-                    <form th:action="@{/positions/delete/{id}(id=${position.id})}"
+                    <form th:action="@{/positions/{id}/delete(id=${position.id})}"
                           method="post">
                         <input type="hidden"
                                name="departmentId"
@@ -70,7 +70,7 @@
                     </form>
                 </td>
                 <td>
-                    <form th:action="@{/positions/history/{id}(id=${position.id})}"
+                    <form th:action="@{/positions/{id}/history(id=${position.id})}"
                           method="get">
                         <input type="hidden"
                                name="departmentId"
@@ -83,7 +83,7 @@
                 </td>
                 <td>
                     <form th:if="${isActual}"
-                          th:action="@{/positions/reduce/{id}(id=${position.id})}"
+                          th:action="@{/positions/{id}/reduce(id=${position.id})}"
                           method="post">
                         <input type="hidden"
                                name="departmentId"
@@ -96,7 +96,7 @@
                 </td>
                 <td>
                     <form th:if="${!isActual}"
-                          th:action="@{/positions/restore/{id}(id=${position.id})}"
+                          th:action="@{/positions/{id}/restore(id=${position.id})}"
                           method="post">
                         <input type="hidden"
                                name="departmentId"
@@ -110,7 +110,7 @@
             </tr>
             </tbody>
         </table>
-        <form th:if="${!positions.isEmpty()}" th:action="@{/departments/info/{id}(id=${department.id})}"
+        <form th:if="${!positions.isEmpty()}" th:action="@{/departments/{id}(id=${department.id})}"
               method="get">
             <input type="hidden" name="isActual" th:value="${isActual}">
             <div th:replace="~{/page-panel :: page-panel}"></div>

@@ -46,13 +46,13 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/employee/add")
+    @GetMapping("/employees/add")
     public String addEmployeePage(Model model) {
         model.addAttribute("newEmployee", new EmployeeDTO());
         return "employees/add";
     }
 
-    @PostMapping("/employee/add")
+    @PostMapping("/employees/add")
     public String addEmployee(@ModelAttribute("newEmployee") EmployeeDTO employee, Model model) {
         LOGGER.info("Received request to add new employee");
         try {
@@ -65,7 +65,7 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/employee/edit/{id}")
+    @GetMapping("/employees/{id}/edit")
     public String editEmployeePage(@PathVariable Long id, Model model) {
         LOGGER.info("Received request to get for edit employee with id {}", id);
         try {
@@ -78,12 +78,12 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping("/employee/edit")
+    @PostMapping("/employees/edit")
     public String editEmployee(EmployeeDTO employee, Model model) {
         LOGGER.info("Received request to edit employee with id={}", employee.getId());
         try {
             employeeService.saveOrUpdateEmployee(employee);
-            return "redirect:/employees";
+            return "redirect:/employees/" + employee.getId();
         } catch (Exception e) {
             LOGGER.error("Error updating employee with id={}", employee.getId());
             model.addAttribute("message", e.getMessage());
@@ -91,7 +91,7 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/employees/info/{id}")
+    @GetMapping("/employees/{id}")
     public String getEmployee(@PathVariable Long id, Model model) {
         LOGGER.info("Received request to get employee with id={}", id);
         try {
@@ -104,7 +104,7 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping("/employee/delete/{id}")
+    @PostMapping("/employees/{id}/delete")
     public String deleteEmployee(@PathVariable Long id, Model model) {
         LOGGER.info("Received request to delete employee with id={}", id);
         try {
@@ -123,7 +123,7 @@ public class EmployeeController {
         return "redirect:/employees";
     }
 
-    @PostMapping("/employees/return/{id}")
+    @PostMapping("/employees/{id}/return")
     public String returnToCurrent(@PathVariable Long id, Model model) {
         LOGGER.info("Received request to return employee with id={}", id);
         try {

@@ -12,7 +12,7 @@
         <h2 th:text="#{enter_positions_data}"/>
         <div class="filling-form">
             <form id="save"
-                  th:action="@{/positions/edit/{id}(id=${position.id})}"
+                  th:action="@{/positions/{id}/edit(id=${position.id})}"
                   method="post"
                   th:object="${position}">
                 <input type="hidden"
@@ -51,7 +51,7 @@
             </form>
         </div>
         <form class="footer-buttons-block"
-              th:action="@{/departments/info/{id}(id=${position.departmentId})}"
+              th:action="@{/departments/{id}(id=${position.departmentId})}"
               method="get">
             <button class="footer-button, button-add"
                     form="save"

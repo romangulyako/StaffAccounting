@@ -35,7 +35,7 @@ public class PositionController {
         LOGGER.info("Received request to add position");
         try {
             positionService.saveOrUpdatePosition(positionDTO);
-            return "redirect:/departments/info/" + positionDTO.getDepartmentId();
+            return "redirect:/departments/" + positionDTO.getDepartmentId();
         } catch (Exception e) {
             LOGGER.error("Error saving new position", e);
             model.addAttribute("message", e.getMessage());
@@ -43,7 +43,7 @@ public class PositionController {
         }
     }
 
-    @GetMapping("/positions/edit/{id}")
+    @GetMapping("/positions/{id}/edit")
     public String editPositionPage(@PathVariable Long id, Model model) {
         LOGGER.info("Received request to get for edit position");
         try {
@@ -56,13 +56,13 @@ public class PositionController {
         }
     }
 
-    @PostMapping("positions/edit/{id}")
+    @PostMapping("positions/{id}/edit")
     public String editPosition(@ModelAttribute("position") PositionDTO positionDTO,
                                Model model) {
         LOGGER.info("Received request to edit position");
         try {
             positionService.saveOrUpdatePosition(positionDTO);
-            return "redirect:/departments/info/" + positionDTO.getDepartmentId();
+            return "redirect:/departments/" + positionDTO.getDepartmentId();
         } catch (Exception e) {
             LOGGER.error("Error editing position with id={}",positionDTO.getId(), e);
             model.addAttribute("message", e.getMessage());
@@ -70,7 +70,7 @@ public class PositionController {
         }
     }
 
-    @PostMapping("positions/delete/{id}")
+    @PostMapping("positions/{id}/delete")
     public String deletePosition(@PathVariable Long id,
                                  @RequestParam Long departmentId,
                                  @RequestParam Boolean isActual,
@@ -78,7 +78,7 @@ public class PositionController {
         LOGGER.info("Received request to delete position");
         try {
             positionService.deletePosition(id);
-            return "redirect:/departments/info/" + departmentId + "?isActual=" + isActual;
+            return "redirect:/departments/" + departmentId + "?isActual=" + isActual;
         } catch (Exception e) {
             LOGGER.error("Error deleting position with id={}",id, e);
             model.addAttribute("message", e.getMessage());
@@ -86,7 +86,7 @@ public class PositionController {
         }
     }
 
-    @PostMapping("positions/reduce/{id}")
+    @PostMapping("positions/{id}/reduce")
     public String reducePosition(@PathVariable Long id,
                                  @RequestParam Long departmentId,
                                  @RequestParam Boolean isActual,
@@ -94,7 +94,7 @@ public class PositionController {
         LOGGER.info("Received request to reduce position");
         try {
             positionService.reducePosition(id);
-            return "redirect:/departments/info/" + departmentId + "?isActual=" + isActual;
+            return "redirect:/departments/" + departmentId + "?isActual=" + isActual;
         } catch (Exception e) {
             LOGGER.error("Error reducing position with id={}",id, e);
             model.addAttribute("message", e.getMessage());
@@ -102,7 +102,7 @@ public class PositionController {
         }
     }
 
-    @PostMapping("positions/restore/{id}")
+    @PostMapping("positions/{id}/restore")
     public String restorePosition(@PathVariable Long id,
                                   @RequestParam Long departmentId,
                                   @RequestParam Boolean isActual,
@@ -110,7 +110,7 @@ public class PositionController {
         LOGGER.info("Received request to restore position");
         try {
             positionService.restorePosition(id);
-            return "redirect:/departments/info/" + departmentId + "?isActual=" + isActual;
+            return "redirect:/departments/" + departmentId + "?isActual=" + isActual;
         } catch (Exception e) {
             LOGGER.error("Error restoring position with id={}",id, e);
             model.addAttribute("message", e.getMessage());
@@ -118,7 +118,7 @@ public class PositionController {
         }
     }
 
-    @GetMapping("/positions/history/{id}")
+    @GetMapping("/positions/{id}/history")
     public String getPositionHistory(@PathVariable Long id,
                                      @RequestParam Long departmentId,
                                      @RequestParam Boolean isActual,

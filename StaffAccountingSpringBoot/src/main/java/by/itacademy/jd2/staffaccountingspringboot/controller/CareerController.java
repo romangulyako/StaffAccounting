@@ -56,7 +56,7 @@ public class CareerController {
         return "redirect:/dismiss";
     }
 
-    @GetMapping("employees/career/{id}")
+    @GetMapping("employees/{id}/career")
     public String getCareerByEmployee(@RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "2") int size,
                                       @PathVariable Long id,
@@ -74,10 +74,10 @@ public class CareerController {
     public String deleteCareerStep(@PathVariable Long id,
                                    @PathVariable Long employeeId) {
         careerService.deleteCareerStep(id);
-        return "redirect:/employees/career/" + employeeId;
+        return "redirect:/employees/" + employeeId + "/career";
     }
 
-    @GetMapping("employees/career/edit/{id}")
+    @GetMapping("employees/{employeeId}/career/edit/{id}")
     public String editCareerPage(@PathVariable Long id,
                                  Model model) {
         EditCareerDTO editCareerDTO = careerService.getInfoForEditingCareerStep(id);
@@ -86,9 +86,9 @@ public class CareerController {
         return "career/edit";
     }
 
-    @PostMapping("employees/career/edit/{id}")
+    @PostMapping("employees/{employeeId}/career/edit/{id}")
     public String editCareerStep(@ModelAttribute("careerStep") CareerStepSaveDTO careerStep) {
         careerService.editCareerStep(careerStep);
-        return "redirect:/employees/career/" + careerStep.getEmployeeId();
+        return "redirect:/employees/" + careerStep.getEmployeeId() + "/career";
     }
 }

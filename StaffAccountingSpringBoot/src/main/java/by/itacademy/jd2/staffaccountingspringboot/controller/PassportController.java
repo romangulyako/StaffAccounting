@@ -18,7 +18,7 @@ public class PassportController {
     public static final Logger LOGGER = LoggerFactory.getLogger(PassportController.class);
     private final PassportService passportService;
 
-    @GetMapping("/employee/{employeeId}/passport/info")
+    @GetMapping("/employees/{employeeId}/passport")
     public String getPassport(@PathVariable Long employeeId,  Model model) {
         LOGGER.info("Received request to get passport for employee with id= {}", employeeId);
         try {
@@ -32,21 +32,21 @@ public class PassportController {
         }
     }
 
-    @GetMapping("/employee/{employeeId}/passport/add")
+    @GetMapping("/employees/{employeeId}/passport/add")
     public String addPassportPage(@PathVariable Long employeeId, Model model) {
         model.addAttribute("employeeId", employeeId);
         model.addAttribute("newPassport", new PassportDTO());
         return "passport/add";
     }
 
-    @PostMapping("/employee/{employeeId}/passport/add")
+    @PostMapping("/employees/{employeeId}/passport/add")
     public String addPassport(@PathVariable Long employeeId,
                               @ModelAttribute("newPassport") PassportDTO passportDTO,
                               Model model) {
         LOGGER.info("Received request to add passport for employee with id={}", passportDTO.getEmployeeId());
         try {
             passportService.saveOrUpdatePassport(passportDTO);
-            return "redirect:/employee/" + employeeId + "/passport/info";
+            return "redirect:/employees/" + employeeId + "/passport";
         } catch (Exception e) {
             LOGGER.error("Error adding passport for employee with id={}", employeeId, e);
             model.addAttribute("message", e.getMessage());
@@ -54,7 +54,7 @@ public class PassportController {
         }
     }
 
-    @GetMapping("/employee/{employeeId}/passport/edit")
+    @GetMapping("/employees/{employeeId}/passport/edit")
     public String editPassportPage(@PathVariable Long employeeId, Model model) {
         LOGGER.info("Received request to get for edit passport of employee with id={}", employeeId);
         try {
@@ -67,12 +67,12 @@ public class PassportController {
         }
     }
 
-    @PostMapping("/employee/{employeeId}/passport/edit")
+    @PostMapping("/employees/{employeeId}/passport/edit")
     public String editPassport(@ModelAttribute("passport") PassportDTO passportDTO, Model model) {
         LOGGER.info("Received request to edit passport with id={}", passportDTO.getId());
         try {
             passportService.saveOrUpdatePassport(passportDTO);
-            return "redirect:/employee/" + passportDTO.getEmployeeId() + "/passport/info";
+            return "redirect:/employees/" + passportDTO.getEmployeeId() + "/passport";
         } catch (Exception e) {
             LOGGER.error("Error editing passport with id={}", passportDTO.getId(), e);
             model.addAttribute("message", e.getMessage());
@@ -80,12 +80,12 @@ public class PassportController {
         }
     }
 
-    @PostMapping("/employee/passport/delete/{employeeId}")
+    @PostMapping("/employees/{employeeId}/passport/delete")
     public String deletePassport(@PathVariable Long employeeId, Model model) {
         LOGGER.info("Received request to delete passport of employee with id={}", employeeId);
         try {
             passportService.deletePassport(employeeId);
-            return "redirect:/employee/info/" + employeeId;
+            return "redirect:/employees/" + employeeId;
         } catch (Exception e) {
             LOGGER.error("Error deleting passport of employee with id={}", employeeId, e);
             model.addAttribute("message", e.getMessage());

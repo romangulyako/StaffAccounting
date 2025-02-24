@@ -20,7 +20,7 @@ public class EducationController {
     public static final Logger LOGGER = LoggerFactory.getLogger(EducationController.class);
     private final EducationService educationService;
 
-    @GetMapping("/employee/{employeeId}/education")
+    @GetMapping("/employees/{employeeId}/education")
     public String getEducation(@PathVariable Long employeeId,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "2") int size,
@@ -43,7 +43,7 @@ public class EducationController {
         }
     }
 
-    @GetMapping("/employee/{employeeId}/education/add")
+    @GetMapping("/employees/{employeeId}/education/add")
     public String addEducationPage(@PathVariable Long employeeId,
                                    Model model) {
         model.addAttribute("employeeId", employeeId);
@@ -51,14 +51,14 @@ public class EducationController {
         return "education/add";
     }
 
-    @PostMapping("/employee/{employeeId}/education/add")
+    @PostMapping("/employees/{employeeId}/education/add")
     public String addEducation(@PathVariable Long employeeId,
                                EducationDTO educationDTO,
                                Model model) {
         LOGGER.info("Received request to add education for employee with id={}", employeeId);
         try {
             educationService.saveOrUpdateEducation(educationDTO);
-            return "redirect:/employee/" + employeeId + "/education";
+            return "redirect:/employees/" + employeeId +"/education";
         } catch (Exception e) {
             LOGGER.error("Error adding education for employee with id={}", employeeId, e);
             model.addAttribute("message", e.getMessage());
@@ -66,7 +66,7 @@ public class EducationController {
         }
     }
 
-    @GetMapping("/employee/{employeeId}/education/edit/{id}")
+    @GetMapping("/employees/{employeeId}/education/edit/{id}")
     public String editEducationPage(@PathVariable Long id,
                                     Model model) {
         LOGGER.info("Received request to get for edit education with id={}", id);
@@ -80,12 +80,12 @@ public class EducationController {
         }
     }
 
-    @PostMapping("/employee/{employeeId}/education/edit/{id}")
+    @PostMapping("/employees/{employeeId}/education/edit/{id}")
     public String editEducation(EducationDTO educationDTO, Model model) {
         LOGGER.info("Received request to edit education with id={}", educationDTO.getId());
         try {
             educationService.saveOrUpdateEducation(educationDTO);
-            return "redirect:/employee/" + educationDTO.getEmployeeId() + "/education";
+            return "redirect:/employees/" + educationDTO.getEmployeeId() +"/education";
         } catch (Exception e) {
             LOGGER.error("Error editing education with id={}", educationDTO.getId(), e);
             model.addAttribute("message", e.getMessage());
@@ -93,14 +93,14 @@ public class EducationController {
         }
     }
 
-    @PostMapping("/employee/{employeeId}/education/delete/{id}")
+    @PostMapping("/employees/{employeeId}/education/delete/{id}")
     public String deleteEducation(@PathVariable Long employeeId,
                                   @PathVariable Long id,
                                   Model model) {
         LOGGER.info("Received request to delete education with id={}", id);
         try {
             educationService.deleteEducation(id);
-            return "redirect:/employee/" + employeeId + "/education";
+            return "redirect:/employees/" + employeeId +"/education";
         } catch (Exception e) {
             LOGGER.error("Error deleting education with id={}", id, e);
             model.addAttribute("message", e.getMessage());

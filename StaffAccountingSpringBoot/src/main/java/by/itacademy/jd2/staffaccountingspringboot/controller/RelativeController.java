@@ -20,7 +20,7 @@ public class RelativeController {
     public static final Logger LOGGER = LoggerFactory.getLogger(RelativeController.class);
     private final RelativeService relativeService;
 
-    @GetMapping("/employee/{employeeId}/relatives")
+    @GetMapping("/employees/{employeeId}/relatives")
     public String getRelatives(@PathVariable Long employeeId,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "2") int size,
@@ -42,21 +42,21 @@ public class RelativeController {
         }
     }
 
-    @GetMapping("/employee/{employeeId}/relatives/add")
+    @GetMapping("/employees/{employeeId}/relatives/add")
     public String addRelativePage(@PathVariable Long employeeId, Model model) {
         model.addAttribute("employeeId", employeeId);
         model.addAttribute("newRelative", new RelativeDTO());
         return "relatives/add";
     }
 
-    @PostMapping("/employee/{employeeId}/relatives/add")
+    @PostMapping("/employees/{employeeId}/relatives/add")
     public String addRelative(@PathVariable Long employeeId,
                               RelativeDTO relativeDTO,
                               Model model) {
         LOGGER.info("Received request to add relative for employee with id={}", relativeDTO.getEmployeeId());
         try {
             relativeService.saveOrUpdateRelative(relativeDTO);
-            return "redirect:/employee/" + employeeId + "/relatives";
+            return "redirect:/employees/" + employeeId + "/relatives";
         } catch (Exception e) {
             LOGGER.error("Error adding relative for employee with id={}", employeeId, e);
             model.addAttribute("message", e.getMessage());
@@ -64,7 +64,7 @@ public class RelativeController {
         }
     }
 
-    @GetMapping("/employee/{employeeId}/relatives/edit/{id}")
+    @GetMapping("/employees/{employeeId}/relatives/edit/{id}")
     public String editRelativePage(@PathVariable Long id,
                                    Model model) {
         LOGGER.info("Received request to get for edit relative with id={}", id);
@@ -79,12 +79,12 @@ public class RelativeController {
 
     }
 
-    @PostMapping("/employee/{employeeId}/relatives/edit/{id}")
+    @PostMapping("/employees/{employeeId}/relatives/edit/{id}")
     public String editRelative(RelativeDTO relativeDTO, Model model) {
         LOGGER.info("Received request to edit relative with id={}", relativeDTO.getId());
         try {
             relativeService.saveOrUpdateRelative(relativeDTO);
-            return "redirect:/employee/" + relativeDTO.getEmployeeId() + "/relatives";
+            return "redirect:/employees/" + relativeDTO.getEmployeeId() + "/relatives";
         } catch (Exception e) {
             LOGGER.error("Error editing relative with id={}", relativeDTO.getId(), e);
             model.addAttribute("message", e.getMessage());
@@ -92,14 +92,14 @@ public class RelativeController {
         }
     }
 
-    @PostMapping("/employee/{employeeId}/relatives/delete/{id}")
+    @PostMapping("/employees/{employeeId}/relatives/delete/{id}")
     public String deleteRelative(@PathVariable Long employeeId,
                                  @PathVariable Long id,
                                  Model model) {
         LOGGER.info("Received request to delete relative with id={}", id);
         try {
             relativeService.deleteRelative(id);
-            return "redirect:/employee/" + employeeId + "/relatives";
+            return "redirect:/employees/" + employeeId + "/relatives";
         } catch (Exception e) {
             LOGGER.error("Error deleting relative with id={}", id, e);
             model.addAttribute("message", e.getMessage());

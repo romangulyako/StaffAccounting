@@ -63,7 +63,7 @@ public class DepartmentController {
         }
     }
 
-    @GetMapping("/departments/edit/{id}")
+    @GetMapping("/departments/{id}/edit")
     public String editDepartmentPage(@PathVariable Long id, Model model) {
         LOGGER.info("Received request to get for editing department with id {}", id);
         try {
@@ -76,7 +76,7 @@ public class DepartmentController {
         }
     }
 
-    @PostMapping("/departments/edit/{id}")
+    @PostMapping("/departments/{id}/edit")
     public String editDepartment(@ModelAttribute("department") DepartmentDTO departmentDTO,
                                  Model model) {
         LOGGER.info("Received request to edit department with id {}", departmentDTO.getId());
@@ -90,7 +90,7 @@ public class DepartmentController {
         }
     }
 
-    @GetMapping("/departments/info/{id}")
+    @GetMapping("/departments/{id}")
     public String getDepartment(@RequestParam(defaultValue = "0") int page,
                                 @RequestParam(defaultValue = "2") int size,
                                 @RequestParam(defaultValue = "true") Boolean isActual,
@@ -113,7 +113,7 @@ public class DepartmentController {
         }
     }
 
-    @PostMapping("/departments/delete/{id}")
+    @PostMapping("/departments/{id}/delete")
     public String deleteDepartment(@PathVariable Long id,
                                    @RequestParam Boolean isActual,
                                    Model model) {
@@ -128,7 +128,7 @@ public class DepartmentController {
         }
     }
 
-    @PostMapping("/departments/reduce/{id}")
+    @PostMapping("/departments/{id}/reduce")
     public String reduceDepartment(@PathVariable Long id,
                                    @RequestParam Boolean isActual,
                                    Model model) {
@@ -143,7 +143,7 @@ public class DepartmentController {
         }
     }
 
-    @PostMapping("/departments/restore/{id}")
+    @PostMapping("/departments/{id}/restore")
     public String restoreDepartment(@PathVariable Long id,
                                     @RequestParam Boolean isActual,
                                     Model model) {

@@ -12,7 +12,7 @@
         <h2 th:text="#{enter_passport_data}"/>
         <div class="filling-form">
             <form id="save"
-                  th:action="@{/employee/{employeeId}/passport/add(employeeId=${employeeId})}"
+                  th:action="@{/employees/{employeeId}/passport/add(employeeId=${employeeId})}"
                   th:object="${newPassport}"
                   method="post">
                 <div class="input-wrapper">
@@ -109,7 +109,7 @@
             </form>
         </div>
         <form class="footer-buttons-block"
-              th:action="@{/employee/info/{id}(id=${employeeId})}"
+              th:action="@{/employees/{id}(id=${employeeId})}"
               method="get">
             <button class="footer-button, button-add"
                     form="save"
