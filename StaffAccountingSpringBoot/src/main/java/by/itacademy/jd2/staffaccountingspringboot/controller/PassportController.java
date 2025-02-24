@@ -19,7 +19,7 @@ public class PassportController {
     private final PassportService passportService;
 
     @GetMapping("/employees/{employeeId}/passport")
-    public String getPassport(@PathVariable Long employeeId,  Model model) {
+    public String getPassport(@PathVariable Long employeeId, Model model) {
         LOGGER.info("Received request to get passport for employee with id= {}", employeeId);
         try {
             model.addAttribute("passport", passportService.getPassport(employeeId));

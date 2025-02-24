@@ -8,10 +8,6 @@ public interface PositionService {
     void saveOrUpdatePosition(PositionDTO positionDTO);
     void deletePosition(Long id);
     PositionDTO getPositionById(Long id);
-    Page<PositionDTO> getPositionsByDepartmentAndActual(Long departmentId,
-                                                        Boolean isActual,
-                                                        int page,
-                                                        int size);
     void reducePosition(Long id);
     void restorePosition(Long id);
     Page<PositionHistoryDTO> getPositionHistory(Long id, int page, int size);

@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +26,7 @@ public class RelativeController {
                                Model model) {
         LOGGER.info("Received request to get relatives for employee with id= {}", employeeId);
         try {
-            Page<RelativeDTO> relatives = relativeService.getRelatives(employeeId, PageRequest.of(page, size));
+            Page<RelativeDTO> relatives = relativeService.getRelatives(employeeId, page, size);
             model.addAttribute("relatives", relatives.getContent());
             model.addAttribute("page", page);
             model.addAttribute("size", size);

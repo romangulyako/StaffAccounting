@@ -22,6 +22,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -29,6 +30,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CareerServiceImpl implements CareerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CareerServiceImpl.class);
+    private static final String APPOINT_SUCCESS_LOG =
+            "Employee with ID={} appointed to position with ID={} successfully";
+    private static final String DISMISS_SUCCESS_LOG = "Employee with ID={} dismissed successfully";
+    private static final String EDIT_SUCCESS_LOG = "Career step with ID={} edited successfully";
+    private static final String ID_IS_NULL_LOG = "Career can't be to edit, ID is null";
+    private static final String DELETE_SUCCESS_LOG = "Career step with ID={} deleted successfully";
+    private static final String CAREER_STEP_NOT_FOUND_LOG = "Career step with ID={} not found";
+    private static final String CAREER_STEP_NOT_FOUND_EXCEPTION = "Career step not found. ID=";
+    private static final String NO_CAREER_STEPS_FOUND_LOG =
+            "No career steps found for the provided parameters: page={}, size={}";
+    private static final String SUCCESS_CAREER_FOUND_LOG = "Successfully fetched {} career steps from database";
+    private static final String EMPLOYEE_AND_POSITION_ITEMS_FOUND_LOG =
+            "All current employees and all actual positions fetched successfully";
     private final CareerRepository careerRepository;
     private final EmployeeRepository employeeRepository;
     private final PositionRepository positionRepository;
@@ -36,29 +50,23 @@ public class CareerServiceImpl implements CareerService {
     @Override
     public void appointEmployee(CareerStepSaveDTO careerStepDTO) {
         CareerStepEntity careerStepEntity = Converter.toEntity(careerStepDTO, CareerStepEntity.class);
-        careerRepository.findAllByEmployeeIdAndIsCurrentTrue(careerStepDTO.getEmployeeId())
-                .forEach(careerStep -> {
-                    careerStep.setCurrent(false);
-                    careerStep.setOrderLiberation(careerStepEntity.getOrderAppointment());
-                    careerStep.setDateOfLiberationPosition(careerStepEntity.getDateOfAppointment());
-                });
+        fillingCareerFieldsInOldRows(careerStepDTO.getEmployeeId(),
+                careerStepEntity.getOrderAppointment(),
+                careerStepEntity.getDateOfAppointment());
 
         careerRepository.save(careerStepEntity);
 
-        LOGGER.info("Employee with id={} appointed to position with id={} successfully", careerStepDTO.getEmployeeId(), careerStepDTO.getPositionId());
+        LOGGER.info(APPOINT_SUCCESS_LOG, careerStepDTO.getEmployeeId(), careerStepDTO.getPositionId());
     }
 
     @Override
     public void dismissEmployee(DismissDTO dismissDTO) {
-        careerRepository.findAllByEmployeeIdAndIsCurrentTrue(dismissDTO.getEmployeeId())
-                .forEach(careerStep -> {
-                    careerStep.setCurrent(false);
-                    careerStep.setOrderLiberation(dismissDTO.getOrderDismiss());
-                    careerStep.setDateOfLiberationPosition(dismissDTO.getDateOfDismiss());
-                });
-
+        this.fillingCareerFieldsInOldRows(dismissDTO.getEmployeeId(),
+                dismissDTO.getOrderDismiss(),
+                dismissDTO.getDateOfDismiss());
         employeeRepository.updateIsFired(dismissDTO.getEmployeeId());
-        LOGGER.info("Employee with id={} dismissed successfully", dismissDTO.getEmployeeId());
+
+        LOGGER.info(DISMISS_SUCCESS_LOG, dismissDTO.getEmployeeId());
     }
 
     @Override
@@ -66,22 +74,24 @@ public class CareerServiceImpl implements CareerService {
         CareerStepEntity entity = Converter.toEntity(careerStepDTO, CareerStepEntity.class);
         if (entity.getId() != null) {
             careerRepository.save(entity);
-            LOGGER.info("Career step with id={} edited successfully", entity.getId());
+            LOGGER.info(EDIT_SUCCESS_LOG, entity.getId());
+        } else {
+            LOGGER.warn(ID_IS_NULL_LOG);
         }
     }
 
     @Override
     public void deleteCareerStep(Long id) {
         careerRepository.deleteById(id);
-        LOGGER.info("Career Step with id={} deleted successfully", id);
+        LOGGER.info(DELETE_SUCCESS_LOG, id);
     }
 
     @Override
     public EditCareerDTO getInfoForEditingCareerStep(Long id) {
         CareerStepEntity careerStep = careerRepository.findById(id)
                 .orElseThrow(() -> {
-                    LOGGER.error("Career Step with id={} not found", id);
-                    return new EntityNotFoundException("Career Step with id=" + id + "not found");
+                    LOGGER.error(CAREER_STEP_NOT_FOUND_LOG, id);
+                    return new EntityNotFoundException(CAREER_STEP_NOT_FOUND_EXCEPTION + id);
                 });
 
 
@@ -99,9 +109,9 @@ public class CareerServiceImpl implements CareerService {
         Page<CareerStepEntity> career =
                 careerRepository.findAllByEmployeeIdOrderByDateOfAppointment(employeeId, PageRequest.of(page, size));
         if (career.getContent().isEmpty()) {
-            LOGGER.warn("No career steps found for the provided parameters: page={}, size={}", page, size);
+            LOGGER.warn(NO_CAREER_STEPS_FOUND_LOG, page, size);
         } else {
-            LOGGER.info("Successfully fetched {} career steps from database", career.getContent().size());
+            LOGGER.info(SUCCESS_CAREER_FOUND_LOG, career.getContent().size());
         }
 
         return career.map(entity -> Converter.toDto(entity, CareerStepGetDTO.class));
@@ -116,11 +126,20 @@ public class CareerServiceImpl implements CareerService {
                 .map(entity -> Converter.toDto(entity, PositionItemDTO.class))
                 .toList();
 
-        LOGGER.info("All current employees and all actual positions fetched successfully");
+        LOGGER.info(EMPLOYEE_AND_POSITION_ITEMS_FOUND_LOG);
 
         return AppointmentInfoDTO.builder()
                 .employees(employees)
                 .positions(positions)
                 .build();
+    }
+
+    private void fillingCareerFieldsInOldRows(Long employeeId, String orderLiberation, Date dateLiberation) {
+        careerRepository.findAllByEmployeeIdAndIsCurrentTrue(employeeId)
+                .forEach(careerStep -> {
+                    careerStep.setCurrent(false);
+                    careerStep.setOrderLiberation(orderLiberation);
+                    careerStep.setDateOfLiberationPosition(dateLiberation);
+                });
     }
 }

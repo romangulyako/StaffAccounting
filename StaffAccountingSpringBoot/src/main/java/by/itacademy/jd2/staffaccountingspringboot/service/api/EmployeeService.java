@@ -4,7 +4,6 @@ import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeFilterData;
 import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeItemDTO;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -14,7 +13,8 @@ public interface EmployeeService {
     EmployeeDTO getEmployee(Long id);
     Page<EmployeeDTO> getEmployees(EmployeeFilterData filterData,
                                    Boolean isFired,
-                                   Pageable pageable);
+                                   int page,
+                                   int size);
     void returnToCurrent(Long id);
     List<EmployeeItemDTO> getCurrentEmployeeItems();
 }

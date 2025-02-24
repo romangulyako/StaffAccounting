@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +29,7 @@ public class EmployeeController {
                                Model model) {
         LOGGER.info("Received request to get employees (isFired = {})", isFired);
         try {
-            Page<EmployeeDTO> employeesPage = employeeService.getEmployees(filterData, isFired, PageRequest.of(page, size));
+            Page<EmployeeDTO> employeesPage = employeeService.getEmployees(filterData, isFired, page, size);
             model.addAttribute("employees", employeesPage.getContent());
             model.addAttribute("isFired", isFired);
             model.addAttribute("filterData", filterData);

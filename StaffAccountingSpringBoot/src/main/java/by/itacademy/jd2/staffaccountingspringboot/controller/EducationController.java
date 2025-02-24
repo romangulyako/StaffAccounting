@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +27,7 @@ public class EducationController {
         LOGGER.info("Received request to get education for employee with id= {}", employeeId);
         try {
             Page<EducationDTO> educations =
-                    educationService.getEducationsByEmployeeId(employeeId, PageRequest.of(page, size));
+                    educationService.getEducationsByEmployeeId(employeeId, page, size);
             model.addAttribute("educations", educations.getContent());
             model.addAttribute("page", page);
             model.addAttribute("size", size);

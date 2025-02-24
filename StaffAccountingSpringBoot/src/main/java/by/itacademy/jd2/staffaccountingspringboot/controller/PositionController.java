@@ -64,7 +64,7 @@ public class PositionController {
             positionService.saveOrUpdatePosition(positionDTO);
             return "redirect:/departments/" + positionDTO.getDepartmentId();
         } catch (Exception e) {
-            LOGGER.error("Error editing position with id={}",positionDTO.getId(), e);
+            LOGGER.error("Error editing position with id={}", positionDTO.getId(), e);
             model.addAttribute("message", e.getMessage());
             return "error";
         }
@@ -80,7 +80,7 @@ public class PositionController {
             positionService.deletePosition(id);
             return "redirect:/departments/" + departmentId + "?isActual=" + isActual;
         } catch (Exception e) {
-            LOGGER.error("Error deleting position with id={}",id, e);
+            LOGGER.error("Error deleting position with id={}", id, e);
             model.addAttribute("message", e.getMessage());
             return "error";
         }
@@ -96,7 +96,7 @@ public class PositionController {
             positionService.reducePosition(id);
             return "redirect:/departments/" + departmentId + "?isActual=" + isActual;
         } catch (Exception e) {
-            LOGGER.error("Error reducing position with id={}",id, e);
+            LOGGER.error("Error reducing position with id={}", id, e);
             model.addAttribute("message", e.getMessage());
             return "error";
         }
@@ -112,7 +112,7 @@ public class PositionController {
             positionService.restorePosition(id);
             return "redirect:/departments/" + departmentId + "?isActual=" + isActual;
         } catch (Exception e) {
-            LOGGER.error("Error restoring position with id={}",id, e);
+            LOGGER.error("Error restoring position with id={}", id, e);
             model.addAttribute("message", e.getMessage());
             return "error";
         }
@@ -137,7 +137,7 @@ public class PositionController {
             model.addAttribute("isActual", isActual);
             return "position/history";
         } catch (Exception e) {
-            LOGGER.error("Error getting history for position with id={}",id, e);
+            LOGGER.error("Error getting history for position with id={}", id, e);
             model.addAttribute("message", e.getMessage());
             return "error";
         }
