@@ -1,11 +1,16 @@
 package by.itacademy.jd2.staffaccountingspringboot.repository.custom;
 
 import by.itacademy.jd2.staffaccountingspringboot.entity.CareerStepEntity;
+import by.itacademy.jd2.staffaccountingspringboot.entity.CareerStepEntity_;
 import by.itacademy.jd2.staffaccountingspringboot.entity.DepartmentEntity;
+import by.itacademy.jd2.staffaccountingspringboot.entity.DepartmentEntity_;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
+import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity_;
 import by.itacademy.jd2.staffaccountingspringboot.entity.PositionEntity;
+import by.itacademy.jd2.staffaccountingspringboot.entity.PositionEntity_;
 import by.itacademy.jd2.staffaccountingspringboot.entity.embedded.PersonData;
 import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeFilterData;
+import by.itacademy.jd2.staffaccountingspringboot.entity.embedded.PersonData_;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -29,6 +34,7 @@ import java.util.List;
 @Repository
 public class EmployeeFilterRepositoryImpl implements EmployeeFilterRepository {
 
+    private static final String PERCENT = "%";
     @PersistenceContext
     private EntityManager em;
 
@@ -62,33 +68,33 @@ public class EmployeeFilterRepositoryImpl implements EmployeeFilterRepository {
                                       EmployeeFilterData filterData,
                                       Boolean isFired) {
         List<Predicate> predicates = new ArrayList<>();
-        predicates.add(cb.equal(root.get("isFired"), isFired));
+        predicates.add(cb.equal(root.get(EmployeeEntity_.isFired), isFired));
 
         Join<EmployeeEntity, PersonData> personDataJoin =
-                root.join("personData", JoinType.INNER);
+                root.join(EmployeeEntity_.personData, JoinType.INNER);
 
-        addPredicateForStringValue(predicates, cb, personDataJoin.get("surname"), filterData.getSurname());
-        addPredicateForStringValue(predicates, cb, personDataJoin.get("name"), filterData.getName());
-        addPredicateForStringValue(predicates, cb, personDataJoin.get("patronymic"), filterData.getPatronymic());
+        addPredicateForStringValue(predicates, cb, personDataJoin.get(PersonData_.surname), filterData.getSurname());
+        addPredicateForStringValue(predicates, cb, personDataJoin.get(PersonData_.name), filterData.getName());
+        addPredicateForStringValue(predicates, cb, personDataJoin.get(PersonData_.patronymic), filterData.getPatronymic());
 
         if (filterData.getAge() != null) {
             LocalDate today = LocalDate.now();
             Date minBirthDay = Date.valueOf(today.minusYears(filterData.getAge()));
-            predicates.add(cb.lessThanOrEqualTo(personDataJoin.get("birthday"), minBirthDay));
+            predicates.add(cb.lessThanOrEqualTo(personDataJoin.get(PersonData_.birthday), minBirthDay));
         }
 
         if (filterData.getDepartmentId() != null) {
             Join<EmployeeEntity, CareerStepEntity> careerStepEntityJoin =
-                    root.join("career", JoinType.INNER);
+                    root.join(EmployeeEntity_.career, JoinType.INNER);
 
             Join<CareerStepEntity, PositionEntity> positionEntityJoin =
-                    careerStepEntityJoin.join("position", JoinType.INNER);
+                    careerStepEntityJoin.join(CareerStepEntity_.position, JoinType.INNER);
 
             Join<PositionEntity, DepartmentEntity> departmentEntityJoin =
-                    positionEntityJoin.join("department", JoinType.INNER);
-            predicates.add(cb.and(cb.equal(departmentEntityJoin.get("id"),
+                    positionEntityJoin.join(PositionEntity_.department, JoinType.INNER);
+            predicates.add(cb.and(cb.equal(departmentEntityJoin.get(DepartmentEntity_.id),
                             filterData.getDepartmentId()),
-                    cb.isTrue(careerStepEntityJoin.get("isCurrent"))));
+                    cb.isTrue(careerStepEntityJoin.get(CareerStepEntity_.isCurrent))));
         }
         return cb.and(predicates.toArray(Predicate[]::new));
     }
@@ -96,7 +102,7 @@ public class EmployeeFilterRepositoryImpl implements EmployeeFilterRepository {
     private void addPredicateForStringValue(List<Predicate> predicates, CriteriaBuilder cb,
                                             Expression<String> expression, String value) {
         if (StringUtils.isNotBlank(value)) {
-            predicates.add(cb.like(cb.lower(expression), "%" + value.toLowerCase() + "%"));
+            predicates.add(cb.like(cb.lower(expression), PERCENT + value.toLowerCase() + PERCENT));
         }
     }
 }
