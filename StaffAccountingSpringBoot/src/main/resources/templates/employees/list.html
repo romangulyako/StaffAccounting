@@ -14,41 +14,51 @@
             <div class="filter-form">
                 <form id="filter"
                       th:action="@{/employees}"
+                      th:object="${filterData}"
                       method="get">
+                    <input type="hidden" name="page" th:value="${page}"/>
+                    <input type="hidden" name="size" th:value="${size}"/>
                     <div class="filter-inputs">
                         <fieldset>
                             <legend th:text="#{surname}"></legend>
                             <input type="text"
-                                   name="surname"
+                                   th:field="*{surname}"
                                    th:value="${filterData.surname != null ? filterData.surname : ''}"
                                    th:placeholder="#{surname_placeholder}"/>
                         </fieldset>
                         <fieldset>
                             <legend th:text="#{name}"></legend>
                             <input type="text"
-                                   name="name"
+                                   th:field="*{name}"
                                    th:value="${filterData.name != null ? filterData.name : ''}"
                                    th:placeholder="#{name_placeholder}"/>
                         </fieldset>
                         <fieldset>
                             <legend th:text="#{patronymic}"></legend>
                             <input type="text"
-                                   name="patronymic"
+                                   th:field="*{patronymic}"
                                    th:value="${filterData.patronymic != null ? filterData.patronymic : ''}"
                                    th:placeholder="#{patronymic_placeholder}"/>
                         </fieldset>
                         <fieldset>
                             <legend th:text="#{min_age}"></legend>
                             <input type="number"
-                                   name="age"
+                                   th:field="*{age}"
                                    th:value="${filterData.age != null ? filterData.age : ''}"
                                    th:placeholder="#{min_age_placeholder}"/>
                         </fieldset>
                         <fieldset>
                             <legend>Отдел</legend>
-                            <input type="number"
-                                   name="departmentId"
-                                   th:value="${filterData != null and filterData.departmentId != null} ? ${filterData.departmentId} : ''"/>
+                            <select th:field="*{departmentId}">
+                                <option th:value="${null}"
+                                        th:text="#{select_department}"
+                                        selected/>
+                                <option th:each="department : ${departments}"
+                                        th:value="${department.id}"
+                                        th:text="${department.name}"
+                                        th:selected="${filterData.departmentId != null && filterData.departmentId == department.id}"/>
+
+                            </select>
                         </fieldset>
                     </div>
                 </form>
@@ -60,6 +70,8 @@
                         <input type="hidden"
                                name="isFired"
                                th:value="${isFired}"/>
+                        <input type="hidden" name="page" th:value="${page}"/>
+                        <input type="hidden" name="size" th:value="${size}"/>
                         <button class="clear-filter-button" type="submit" form="clear"
                                 th:text="#{clear_button}"></button>
                     </form>
@@ -106,14 +118,16 @@
             </tr>
             </tbody>
         </table>
-        <form th:action="@{/employees}" method="get">
+        <form th:action="@{/employees}"
+              method="get"
+        th:object="${filterData}">
             <input type="hidden" name="isFired" th:value="${isFired}"/>
-            <input type="hidden" th:if="${filterData.surname != null}" name="surname" th:value="${filterData.surname}"/>
-            <input type="hidden" th:if="${filterData.name != null}" name="name" th:value="${filterData.name}"/>
-            <input type="hidden" th:if="${filterData.patronymic != null}" name="patronymic"
+            <input type="hidden" th:if="${filterData.surname != null}" th:field="*{surname}" th:value="${filterData.surname}"/>
+            <input type="hidden" th:if="${filterData.name != null}" th:field="*{name}" th:value="${filterData.name}"/>
+            <input type="hidden" th:if="${filterData.patronymic != null}" th:field="*{patronymic}"
                    th:value="${filterData.patronymic}"/>
-            <input type="hidden" th:if="${filterData.age != null}" name="age" th:value="${filterData.age}"/>
-            <input type="hidden" th:if="${filterData.departmentId != null}" th:name="departmentId"
+            <input type="hidden" th:if="${filterData.age != null}" th:field="*{age}" th:value="${filterData.age}"/>
+            <input type="hidden" th:if="${filterData.departmentId != null}" th:field="*{departmentId}"
                    th:value="${filterData.departmentId}"/>
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>

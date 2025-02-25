@@ -1,10 +1,13 @@
 package by.itacademy.jd2.staffaccountingspringboot.service.impl;
 
 import by.itacademy.jd2.staffaccountingspringboot.converter.Converter;
+import by.itacademy.jd2.staffaccountingspringboot.dto.DepartmentItemDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeesPageDTO;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
 import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeFilterData;
 import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeItemDTO;
+import by.itacademy.jd2.staffaccountingspringboot.repository.DepartmentRepository;
 import by.itacademy.jd2.staffaccountingspringboot.repository.EmployeeRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EmployeeService;
 import jakarta.persistence.EntityNotFoundException;
@@ -32,6 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private static final String NOT_FOUND_LOG = "Employee with ID={} not found";
     private static final String NOT_FOUND_EXCEPTION = "Employee not found. ID=";
     private final EmployeeRepository employeeRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Override
     public void saveOrUpdateEmployee(EmployeeDTO employeeDTO) {
@@ -55,8 +59,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Page<EmployeeDTO> getEmployees(EmployeeFilterData filterData,
-                                          Boolean isFired, int page, int size) {
+    public EmployeesPageDTO getEmployeesPage(EmployeeFilterData filterData,
+                                             Boolean isFired, int page, int size) {
+        List<DepartmentItemDTO> departments = departmentRepository.findAllByIsActualTrue().stream()
+                .map(entity -> Converter.toDto(entity, DepartmentItemDTO.class))
+                .toList();
         Page<EmployeeEntity> pageEntities =
                 employeeRepository.findEmployeesByFilterData(filterData, isFired, PageRequest.of(page, size));
 
@@ -67,7 +74,10 @@ public class EmployeeServiceImpl implements EmployeeService {
             LOGGER.info(FOUND_LIST_SUCCESS_LOG, pageEntities.getContent().size());
         }
 
-        return pageEntities.map(entity -> Converter.toDto(entity, EmployeeDTO.class));
+        return EmployeesPageDTO.builder()
+                .employees(pageEntities.map(entity -> Converter.toDto(entity, EmployeeDTO.class)))
+                .departments(departments)
+                .build();
     }
 
     @Override

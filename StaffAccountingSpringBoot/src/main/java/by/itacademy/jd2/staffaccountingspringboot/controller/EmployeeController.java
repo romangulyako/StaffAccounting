@@ -2,11 +2,11 @@ package by.itacademy.jd2.staffaccountingspringboot.controller;
 
 import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeFilterData;
+import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeesPageDTO;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,12 +29,13 @@ public class EmployeeController {
                                Model model) {
         LOGGER.info("Received request to get employees (isFired = {})", isFired);
         try {
-            Page<EmployeeDTO> employeesPage = employeeService.getEmployees(filterData, isFired, page, size);
-            model.addAttribute("employees", employeesPage.getContent());
+            EmployeesPageDTO employeesPage = employeeService.getEmployeesPage(filterData, isFired, page, size);
+            model.addAttribute("employees", employeesPage.getEmployees().getContent());
             model.addAttribute("isFired", isFired);
             model.addAttribute("filterData", filterData);
             model.addAttribute("page", page);
-            model.addAttribute("totalPages", employeesPage.getTotalPages());
+            model.addAttribute("totalPages", employeesPage.getEmployees().getTotalPages());
+            model.addAttribute("departments", employeesPage.getDepartments());
             model.addAttribute("size", size);
 
             return "employees/list";
@@ -117,9 +118,11 @@ public class EmployeeController {
     }
 
     @PostMapping("/employees/clear-filter")
-    public String clearFilter(Model model) {
+    public String clearFilter(@RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "2") int size,
+                              Model model) {
         model.addAttribute("filterData", new EmployeeFilterData());
-        return "redirect:/employees";
+        return "redirect:/employees?page=" + page + "&size=" + size;
     }
 
     @PostMapping("/employees/{id}/return")

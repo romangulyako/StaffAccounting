@@ -8,10 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface DepartmentRepository extends JpaRepository<DepartmentEntity, Long> {
     @Query("SELECT DISTINCT d FROM DepartmentEntity d " +
             "LEFT JOIN d.positions p ON d.id = p.department.id " +
             "WHERE d.isActual = :isActual OR  p.isActual = :isActual")
     Page<DepartmentEntity> findAllByIsActual(Pageable pageable, @Param("isActual") Boolean isActual);
+    List<DepartmentEntity> findAllByIsActualTrue();
 }
