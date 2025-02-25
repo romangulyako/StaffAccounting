@@ -28,93 +28,62 @@ public class EmployeeController {
                                EmployeeFilterData filterData,
                                Model model) {
         LOGGER.info("Received request to get employees (isFired = {})", isFired);
-        try {
-            EmployeesPageDTO employeesPage = employeeService.getEmployeesPage(filterData, isFired, page, size);
-            model.addAttribute("employees", employeesPage.getEmployees().getContent());
-            model.addAttribute("isFired", isFired);
-            model.addAttribute("filterData", filterData);
-            model.addAttribute("page", page);
-            model.addAttribute("totalPages", employeesPage.getEmployees().getTotalPages());
-            model.addAttribute("departments", employeesPage.getDepartments());
-            model.addAttribute("size", size);
+        EmployeesPageDTO employeesPage = employeeService.getEmployeesPage(filterData, isFired, page, size);
+        model.addAttribute("employees", employeesPage.getEmployees().getContent());
+        model.addAttribute("isFired", isFired);
+        model.addAttribute("filterData", filterData);
+        model.addAttribute("page", page);
+        model.addAttribute("totalPages", employeesPage.getEmployees().getTotalPages());
+        model.addAttribute("departments", employeesPage.getDepartments());
+        model.addAttribute("size", size);
 
-            return "employees/list";
-        } catch (Exception e) {
-            LOGGER.error("Error getting employees", e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        return "employees/list";
     }
 
     @GetMapping("/employees/add")
     public String addEmployeePage(Model model) {
         model.addAttribute("newEmployee", new EmployeeDTO());
+
         return "employees/add";
     }
 
     @PostMapping("/employees/add")
-    public String addEmployee(@ModelAttribute("newEmployee") EmployeeDTO employee, Model model) {
-        LOGGER.info("Received request to add new employee");
-        try {
-            employeeService.saveOrUpdateEmployee(employee);
-            return "redirect:/employees";
-        } catch (Exception e) {
-            LOGGER.error("Error adding new employee", e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+    public String addEmployee(@ModelAttribute("newEmployee") EmployeeDTO employee) {
+        employeeService.saveOrUpdateEmployee(employee);
+
+        return "redirect:/employees";
     }
 
     @GetMapping("/employees/{id}/edit")
     public String editEmployeePage(@PathVariable Long id, Model model) {
         LOGGER.info("Received request to get for edit employee with id {}", id);
-        try {
-            model.addAttribute("employee", employeeService.getEmployee(id));
-            return "employees/edit";
-        } catch (Exception e) {
-            LOGGER.error("Error getting employee with id {}", id, e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        model.addAttribute("employee", employeeService.getEmployee(id));
+
+        return "employees/edit";
     }
 
     @PostMapping("/employees/edit")
-    public String editEmployee(EmployeeDTO employee, Model model) {
+    public String editEmployee(EmployeeDTO employee) {
         LOGGER.info("Received request to edit employee with id={}", employee.getId());
-        try {
-            employeeService.saveOrUpdateEmployee(employee);
-            return "redirect:/employees/" + employee.getId();
-        } catch (Exception e) {
-            LOGGER.error("Error updating employee with id={}", employee.getId());
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        employeeService.saveOrUpdateEmployee(employee);
+
+        return "redirect:/employees/" + employee.getId();
     }
 
     @GetMapping("/employees/{id}")
     public String getEmployee(@PathVariable Long id, Model model) {
         LOGGER.info("Received request to get employee with id={}", id);
-        try {
-            model.addAttribute("employee", employeeService.getEmployee(id));
-            return "employees/info";
-        } catch (Exception e) {
-            LOGGER.error("Error getting employee with id={}", id);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        model.addAttribute("employee", employeeService.getEmployee(id));
+
+        return "employees/info";
     }
 
     @PostMapping("/employees/{id}/delete")
-    public String deleteEmployee(@PathVariable Long id, Model model) {
+    public String deleteEmployee(@PathVariable Long id) {
         LOGGER.info("Received request to delete employee with id={}", id);
-        try {
-            employeeService.deleteEmployee(id);
-            return "redirect:/employees";
-        } catch (Exception e) {
-            LOGGER.error("Error deleting employee with id={}", id);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        employeeService.deleteEmployee(id);
+
+        return "redirect:/employees";
     }
 
     @PostMapping("/employees/clear-filter")
@@ -122,19 +91,15 @@ public class EmployeeController {
                               @RequestParam(defaultValue = "2") int size,
                               Model model) {
         model.addAttribute("filterData", new EmployeeFilterData());
+
         return "redirect:/employees?page=" + page + "&size=" + size;
     }
 
     @PostMapping("/employees/{id}/return")
-    public String returnToCurrent(@PathVariable Long id, Model model) {
+    public String returnToCurrent(@PathVariable Long id) {
         LOGGER.info("Received request to return employee with id={}", id);
-        try {
-            employeeService.returnToCurrent(id);
-            return "redirect:/employees";
-        } catch (Exception e) {
-            LOGGER.error("Error returning employee with id={}", id);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        employeeService.returnToCurrent(id);
+
+        return "redirect:/employees";
     }
 }

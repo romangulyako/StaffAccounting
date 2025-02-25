@@ -26,96 +26,62 @@ public class PositionController {
                                   Model model) {
         model.addAttribute("newPosition", new PositionDTO());
         model.addAttribute("departmentId", departmentId);
+
         return "position/add";
     }
 
     @PostMapping("/positions/add")
-    public String addPosition(@ModelAttribute("newPosition") PositionDTO positionDTO,
-                              Model model) {
+    public String addPosition(@ModelAttribute("newPosition") PositionDTO positionDTO) {
         LOGGER.info("Received request to add position");
-        try {
-            positionService.saveOrUpdatePosition(positionDTO);
-            return "redirect:/departments/" + positionDTO.getDepartmentId();
-        } catch (Exception e) {
-            LOGGER.error("Error saving new position", e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        positionService.saveOrUpdatePosition(positionDTO);
+
+        return "redirect:/departments/" + positionDTO.getDepartmentId();
     }
 
     @GetMapping("/positions/{id}/edit")
     public String editPositionPage(@PathVariable Long id, Model model) {
         LOGGER.info("Received request to get for edit position");
-        try {
-            model.addAttribute("position", positionService.getPositionById(id));
-            return "position/edit";
-        } catch (Exception e) {
-            LOGGER.error("Error getting for editing position", e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        model.addAttribute("position", positionService.getPositionById(id));
+
+        return "position/edit";
     }
 
     @PostMapping("positions/{id}/edit")
-    public String editPosition(@ModelAttribute("position") PositionDTO positionDTO,
-                               Model model) {
+    public String editPosition(@ModelAttribute("position") PositionDTO positionDTO) {
         LOGGER.info("Received request to edit position");
-        try {
-            positionService.saveOrUpdatePosition(positionDTO);
-            return "redirect:/departments/" + positionDTO.getDepartmentId();
-        } catch (Exception e) {
-            LOGGER.error("Error editing position with id={}", positionDTO.getId(), e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        positionService.saveOrUpdatePosition(positionDTO);
+
+        return "redirect:/departments/" + positionDTO.getDepartmentId();
     }
 
     @PostMapping("positions/{id}/delete")
     public String deletePosition(@PathVariable Long id,
                                  @RequestParam Long departmentId,
-                                 @RequestParam Boolean isActual,
-                                 Model model) {
+                                 @RequestParam Boolean isActual) {
         LOGGER.info("Received request to delete position");
-        try {
-            positionService.deletePosition(id);
-            return "redirect:/departments/" + departmentId + "?isActual=" + isActual;
-        } catch (Exception e) {
-            LOGGER.error("Error deleting position with id={}", id, e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        positionService.deletePosition(id);
+
+        return "redirect:/departments/" + departmentId + "?isActual=" + isActual;
     }
 
     @PostMapping("positions/{id}/reduce")
     public String reducePosition(@PathVariable Long id,
                                  @RequestParam Long departmentId,
-                                 @RequestParam Boolean isActual,
-                                 Model model) {
+                                 @RequestParam Boolean isActual) {
         LOGGER.info("Received request to reduce position");
-        try {
-            positionService.reducePosition(id);
-            return "redirect:/departments/" + departmentId + "?isActual=" + isActual;
-        } catch (Exception e) {
-            LOGGER.error("Error reducing position with id={}", id, e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        positionService.reducePosition(id);
+
+        return "redirect:/departments/" + departmentId + "?isActual=" + isActual;
     }
 
     @PostMapping("positions/{id}/restore")
     public String restorePosition(@PathVariable Long id,
                                   @RequestParam Long departmentId,
-                                  @RequestParam Boolean isActual,
-                                  Model model) {
+                                  @RequestParam Boolean isActual) {
         LOGGER.info("Received request to restore position");
-        try {
-            positionService.restorePosition(id);
-            return "redirect:/departments/" + departmentId + "?isActual=" + isActual;
-        } catch (Exception e) {
-            LOGGER.error("Error restoring position with id={}", id, e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        positionService.restorePosition(id);
+
+        return "redirect:/departments/" + departmentId + "?isActual=" + isActual;
     }
 
     @GetMapping("/positions/{id}/history")
@@ -126,20 +92,15 @@ public class PositionController {
                                      @RequestParam(defaultValue = "2") int size,
                                      Model model) {
         LOGGER.info("Received request to get history for position");
-        try {
-            Page<PositionHistoryDTO> historyPage = positionService.getPositionHistory(id, page, size);
-            model.addAttribute("history", historyPage.getContent());
-            model.addAttribute("page", page);
-            model.addAttribute("size", size);
-            model.addAttribute("totalPages", historyPage.getTotalPages());
-            model.addAttribute("departmentId", departmentId);
-            model.addAttribute("positionId", id);
-            model.addAttribute("isActual", isActual);
-            return "position/history";
-        } catch (Exception e) {
-            LOGGER.error("Error getting history for position with id={}", id, e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        Page<PositionHistoryDTO> historyPage = positionService.getPositionHistory(id, page, size);
+        model.addAttribute("history", historyPage.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("size", size);
+        model.addAttribute("totalPages", historyPage.getTotalPages());
+        model.addAttribute("departmentId", departmentId);
+        model.addAttribute("positionId", id);
+        model.addAttribute("isActual", isActual);
+
+        return "position/history";
     }
 }

@@ -25,83 +25,57 @@ public class MaritalStatusController {
                                    @RequestParam(defaultValue = "2") int size,
                                    Model model) {
         LOGGER.info("Received request to get marital statuses for employee with id= {}", employeeId);
-        try {
-            Page<MaritalStatusDTO> maritalStatuses =
-                    maritalStatusService.getAllMaritalStatuses(employeeId, page, size);
-            model.addAttribute("maritalStatuses", maritalStatuses.getContent());
-            model.addAttribute("page", page);
-            model.addAttribute("size", size);
-            model.addAttribute("totalPages", maritalStatuses.getTotalPages());
-            model.addAttribute("employeeId", employeeId);
-            return "marital-status/list";
-        } catch (Exception e) {
-            LOGGER.error("Error getting marital statuses for employee with id= {}", employeeId, e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        Page<MaritalStatusDTO> maritalStatuses =
+                maritalStatusService.getAllMaritalStatuses(employeeId, page, size);
+        model.addAttribute("maritalStatuses", maritalStatuses.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("size", size);
+        model.addAttribute("totalPages", maritalStatuses.getTotalPages());
+        model.addAttribute("employeeId", employeeId);
+
+        return "marital-status/list";
     }
 
     @GetMapping("/employees/{employeeId}/marital-status/add")
     public String saveMaritalStatusPage(@PathVariable Long employeeId, Model model) {
         model.addAttribute("employeeId", employeeId);
         model.addAttribute("newMaritalStatus", new MaritalStatusDTO());
+
         return "marital-status/add";
     }
 
     @PostMapping("/employees/{employeeId}/marital-status/add")
     public String saveMaritalStatus(@PathVariable Long employeeId,
-                                    MaritalStatusDTO maritalStatusDTO,
-                                    Model model) {
+                                    MaritalStatusDTO maritalStatusDTO) {
         LOGGER.info("Received request to add relative for employee with id={}", maritalStatusDTO.getEmployeeId());
-        try {
-            maritalStatusService.saveOrUpdateMaritalStatus(maritalStatusDTO);
-            return "redirect:/employees/" + employeeId + "/marital-status";
-        } catch (Exception e) {
-            LOGGER.error("Error adding marital status for employee with id={}", employeeId, e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        maritalStatusService.saveOrUpdateMaritalStatus(maritalStatusDTO);
+
+        return "redirect:/employees/" + employeeId + "/marital-status";
     }
 
     @GetMapping("/employees/{employeeId}/marital-status/edit/{id}")
     public String editMaritalStatusPage(@PathVariable Long id,
                                         Model model) {
         LOGGER.info("Received request to get for edit marital status with id={}", id);
-        try {
-            model.addAttribute("maritalStatus", maritalStatusService.getMaritalStatus(id));
-            return "marital-status/edit";
-        } catch (Exception e) {
-            LOGGER.error("Error getting marital status with id={}", id, e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        model.addAttribute("maritalStatus", maritalStatusService.getMaritalStatus(id));
+
+        return "marital-status/edit";
     }
 
     @PostMapping("/employees/{employeeId}/marital-status/edit/{id}")
-    public String editMaritalStatus(MaritalStatusDTO maritalStatusDTO, Model model) {
+    public String editMaritalStatus(MaritalStatusDTO maritalStatusDTO) {
         LOGGER.info("Received request to edit marital status with id={}", maritalStatusDTO.getId());
-        try {
-            maritalStatusService.saveOrUpdateMaritalStatus(maritalStatusDTO);
-            return "redirect:/employees/" + maritalStatusDTO.getEmployeeId() + "/marital-status";
-        } catch (Exception e) {
-            LOGGER.error("Error editing marital status with id={}", maritalStatusDTO.getId(), e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        maritalStatusService.saveOrUpdateMaritalStatus(maritalStatusDTO);
+
+        return "redirect:/employees/" + maritalStatusDTO.getEmployeeId() + "/marital-status";
     }
 
     @PostMapping("/employees/{employeeId}/marital-status/delete/{id}")
     public String deleteMaritalStatus(@PathVariable Long employeeId,
-                                      @PathVariable Long id,
-                                      Model model) {
+                                      @PathVariable Long id) {
         LOGGER.info("Received request to delete marital status with id={}", id);
-        try {
-            maritalStatusService.deleteMaritalStatus(id);
-            return "redirect:/employees/" + employeeId + "/marital-status";
-        } catch (Exception e) {
-            LOGGER.error("Error deleting marital status with id={}", id, e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        maritalStatusService.deleteMaritalStatus(id);
+
+        return "redirect:/employees/" + employeeId + "/marital-status";
     }
 }

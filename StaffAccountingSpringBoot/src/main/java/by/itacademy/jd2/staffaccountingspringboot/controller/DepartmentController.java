@@ -27,20 +27,15 @@ public class DepartmentController {
                                  @RequestParam(defaultValue = "true") Boolean isActual,
                                  Model model) {
         LOGGER.info("Received request to get all departments (isActual={})", isActual);
-        try {
-            Page<DepartmentDTO> departmentsPage =
-                    departmentService.getDepartments(page, size, isActual);
-            model.addAttribute("departments", departmentsPage.getContent());
-            model.addAttribute("page", page);
-            model.addAttribute("size", size);
-            model.addAttribute("isActual", isActual);
-            model.addAttribute("totalPages", departmentsPage.getTotalPages());
-            return "departments/list";
-        } catch (Exception e) {
-            LOGGER.error("Error getting departments", e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        Page<DepartmentDTO> departmentsPage =
+                departmentService.getDepartments(page, size, isActual);
+        model.addAttribute("departments", departmentsPage.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("size", size);
+        model.addAttribute("isActual", isActual);
+        model.addAttribute("totalPages", departmentsPage.getTotalPages());
+
+        return "departments/list";
     }
 
     @GetMapping("/departments/add")
@@ -50,44 +45,27 @@ public class DepartmentController {
     }
 
     @PostMapping("departments/add")
-    public String addDepartment(@ModelAttribute("newDepartment") DepartmentDTO departmentDTO,
-                                Model model) {
+    public String addDepartment(@ModelAttribute("newDepartment") DepartmentDTO departmentDTO) {
         LOGGER.info("Received request to add new department");
-        try {
-            departmentService.saveOrUpdateDepartment(departmentDTO);
-            return "redirect:/departments";
-        } catch (Exception e) {
-            LOGGER.error("Error saving new department", e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        departmentService.saveOrUpdateDepartment(departmentDTO);
+
+        return "redirect:/departments";
     }
 
     @GetMapping("/departments/{id}/edit")
     public String editDepartmentPage(@PathVariable Long id, Model model) {
         LOGGER.info("Received request to get for editing department with id {}", id);
-        try {
-            model.addAttribute("department", departmentService.getDepartment(id));
-            return "departments/edit";
-        } catch (Exception e) {
-            LOGGER.error("Error getting department with id={}", id, e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        model.addAttribute("department", departmentService.getDepartment(id));
+
+        return "departments/edit";
     }
 
     @PostMapping("/departments/{id}/edit")
-    public String editDepartment(@ModelAttribute("department") DepartmentDTO departmentDTO,
-                                 Model model) {
+    public String editDepartment(@ModelAttribute("department") DepartmentDTO departmentDTO) {
         LOGGER.info("Received request to edit department with id {}", departmentDTO.getId());
-        try {
-            departmentService.saveOrUpdateDepartment(departmentDTO);
-            return "redirect:/departments";
-        } catch (Exception e) {
-            LOGGER.error("Error editing department with id={}", departmentDTO.getId(), e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        departmentService.saveOrUpdateDepartment(departmentDTO);
+
+        return "redirect:/departments";
     }
 
     @GetMapping("/departments/{id}")
@@ -97,64 +75,41 @@ public class DepartmentController {
                                 @PathVariable Long id,
                                 Model model) {
         LOGGER.info("Received request to get for department with id {}", id);
-        try {
-            DepartmentInfoDTO departmentInfo = departmentService.getDepartmentInfo(id, isActual, page, size);
-            model.addAttribute("department", departmentInfo.getDepartment());
-            model.addAttribute("positions", departmentInfo.getPositions());
-            model.addAttribute("isActual", departmentInfo.getIsActual());
-            model.addAttribute("page", page);
-            model.addAttribute("size", size);
-            model.addAttribute("totalPages", departmentInfo.getTotalPages());
-            return "departments/info";
-        } catch (Exception e) {
-            LOGGER.error("Error getting department with id={}", id, e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        DepartmentInfoDTO departmentInfo = departmentService.getDepartmentInfo(id, isActual, page, size);
+        model.addAttribute("department", departmentInfo.getDepartment());
+        model.addAttribute("positions", departmentInfo.getPositions());
+        model.addAttribute("isActual", departmentInfo.getIsActual());
+        model.addAttribute("page", page);
+        model.addAttribute("size", size);
+        model.addAttribute("totalPages", departmentInfo.getTotalPages());
+
+        return "departments/info";
     }
 
     @PostMapping("/departments/{id}/delete")
     public String deleteDepartment(@PathVariable Long id,
-                                   @RequestParam Boolean isActual,
-                                   Model model) {
+                                   @RequestParam Boolean isActual) {
         LOGGER.info("Received request to delete department with id {}", id);
-        try {
-            departmentService.deleteDepartment(id);
-            return "redirect:/departments?isActual=" + isActual;
-        } catch (Exception e) {
-            LOGGER.error("Error deleting department with id={}", id, e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        departmentService.deleteDepartment(id);
+
+        return "redirect:/departments?isActual=" + isActual;
     }
 
     @PostMapping("/departments/{id}/reduce")
     public String reduceDepartment(@PathVariable Long id,
-                                   @RequestParam Boolean isActual,
-                                   Model model) {
+                                   @RequestParam Boolean isActual) {
         LOGGER.info("Received request to reduce department with id {}", id);
-        try {
-            departmentService.reduceDepartment(id);
-            return "redirect:/departments?isActual=" + isActual;
-        } catch (Exception e) {
-            LOGGER.error("Error reducing department with id={}", id, e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        departmentService.reduceDepartment(id);
+
+        return "redirect:/departments?isActual=" + isActual;
     }
 
     @PostMapping("/departments/{id}/restore")
     public String restoreDepartment(@PathVariable Long id,
-                                    @RequestParam Boolean isActual,
-                                    Model model) {
+                                    @RequestParam Boolean isActual) {
         LOGGER.info("Received request to restore department with id {}", id);
-        try {
-            departmentService.restoreDepartment(id);
-            return "redirect:/departments?isActual=" + isActual;
-        } catch (Exception e) {
-            LOGGER.error("Error restoring department with id={}", id, e);
-            model.addAttribute("message", e.getMessage());
-            return "error";
-        }
+        departmentService.restoreDepartment(id);
+
+        return "redirect:/departments?isActual=" + isActual;
     }
 }
