@@ -3,6 +3,7 @@ package by.itacademy.jd2.staffaccountingspringboot.controller;
 import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeFilterData;
 import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeesPageDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.PageFilter;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -22,20 +23,19 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping({"/", "/employees"})
-    public String getEmployees(@RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "2") int size,
+    public String getEmployees(@ModelAttribute("pageFilter") PageFilter pageFilter,
                                @RequestParam(defaultValue = "false") Boolean isFired,
                                EmployeeFilterData filterData,
                                Model model) {
         LOGGER.info("Received request to get employees (isFired = {})", isFired);
-        EmployeesPageDTO employeesPage = employeeService.getEmployeesPage(filterData, isFired, page, size);
+        EmployeesPageDTO employeesPage =
+                employeeService.getEmployeesPage(filterData, isFired, pageFilter.getPage(), pageFilter.getSize());
         model.addAttribute("employees", employeesPage.getEmployees().getContent());
         model.addAttribute("isFired", isFired);
         model.addAttribute("filterData", filterData);
-        model.addAttribute("page", page);
+        model.addAttribute("pageFilter", pageFilter);
         model.addAttribute("totalPages", employeesPage.getEmployees().getTotalPages());
         model.addAttribute("departments", employeesPage.getDepartments());
-        model.addAttribute("size", size);
 
         return "employees/list";
     }
@@ -87,12 +87,11 @@ public class EmployeeController {
     }
 
     @PostMapping("/employees/clear-filter")
-    public String clearFilter(@RequestParam(defaultValue = "0") int page,
-                              @RequestParam(defaultValue = "2") int size,
+    public String clearFilter(@ModelAttribute("pageFilter") PageFilter pageFilter,
                               Model model) {
         model.addAttribute("filterData", new EmployeeFilterData());
 
-        return "redirect:/employees?page=" + page + "&size=" + size;
+        return "redirect:/employees?page=" + pageFilter.getPage() + "&size=" + pageFilter.getSize();
     }
 
     @PostMapping("/employees/{id}/return")

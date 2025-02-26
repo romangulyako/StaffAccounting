@@ -48,7 +48,8 @@
         </table>
         <form th:if="${!relatives.isEmpty()}"
               th:action="@{/employees/{employeeId}/relatives(employeeId=${employeeId})}"
-              method="get">
+              method="get"
+        th:object="${pageFilter}">
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>
         <div class="footer-buttons-block">

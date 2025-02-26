@@ -1,6 +1,7 @@
 package by.itacademy.jd2.staffaccountingspringboot.controller;
 
 import by.itacademy.jd2.staffaccountingspringboot.dto.MaritalStatusDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.PageFilter;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.MaritalStatusService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,15 +23,13 @@ public class MaritalStatusController {
 
     @GetMapping("/employees/{employeeId}/marital-status")
     public String getMaritalStatus(@PathVariable Long employeeId,
-                                   @RequestParam(defaultValue = "0") int page,
-                                   @RequestParam(defaultValue = "2") int size,
+                                   @ModelAttribute("pageFilter") PageFilter pageFilter,
                                    Model model) {
         LOGGER.info("Received request to get marital statuses for employee with id= {}", employeeId);
         Page<MaritalStatusDTO> maritalStatuses =
-                maritalStatusService.getAllMaritalStatuses(employeeId, page, size);
+                maritalStatusService.getAllMaritalStatuses(employeeId, pageFilter.getPage(), pageFilter.getSize());
         model.addAttribute("maritalStatuses", maritalStatuses.getContent());
-        model.addAttribute("page", page);
-        model.addAttribute("size", size);
+        model.addAttribute("pageFilter", pageFilter);
         model.addAttribute("totalPages", maritalStatuses.getTotalPages());
         model.addAttribute("employeeId", employeeId);
 

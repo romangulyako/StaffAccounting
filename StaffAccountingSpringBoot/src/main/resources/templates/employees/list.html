@@ -16,8 +16,8 @@
                       th:action="@{/employees}"
                       th:object="${filterData}"
                       method="get">
-                    <input type="hidden" name="page" th:value="${page}"/>
-                    <input type="hidden" name="size" th:value="${size}"/>
+                    <input type="hidden" name="page" th:value="${pageFilter.page}"/>
+                    <input type="hidden" name="size" th:value="${pageFilter.size}"/>
                     <div class="filter-inputs">
                         <fieldset>
                             <legend th:text="#{surname}"></legend>
@@ -70,8 +70,8 @@
                         <input type="hidden"
                                name="isFired"
                                th:value="${isFired}"/>
-                        <input type="hidden" name="page" th:value="${page}"/>
-                        <input type="hidden" name="size" th:value="${size}"/>
+                        <input type="hidden" name="page" th:value="${pageFilter.page}"/>
+                        <input type="hidden" name="size" th:value="${pageFilter.size}"/>
                         <button class="clear-filter-button" type="submit" form="clear"
                                 th:text="#{clear_button}"></button>
                     </form>
@@ -120,15 +120,13 @@
         </table>
         <form th:action="@{/employees}"
               method="get"
-        th:object="${filterData}">
+        th:object="${pageFilter}">
             <input type="hidden" name="isFired" th:value="${isFired}"/>
-            <input type="hidden" th:if="${filterData.surname != null}" th:field="*{surname}" th:value="${filterData.surname}"/>
-            <input type="hidden" th:if="${filterData.name != null}" th:field="*{name}" th:value="${filterData.name}"/>
-            <input type="hidden" th:if="${filterData.patronymic != null}" th:field="*{patronymic}"
-                   th:value="${filterData.patronymic}"/>
-            <input type="hidden" th:if="${filterData.age != null}" th:field="*{age}" th:value="${filterData.age}"/>
-            <input type="hidden" th:if="${filterData.departmentId != null}" th:field="*{departmentId}"
-                   th:value="${filterData.departmentId}"/>
+            <input type="hidden" th:if="${filterData.surname != null}" name="surname" th:value="${filterData.surname}"/>
+            <input type="hidden" th:if="${filterData.name != null}" name="name" th:value="${filterData.name}"/>
+            <input type="hidden" th:if="${filterData.patronymic != null}" name="patronymic" th:value="${filterData.patronymic}"/>
+            <input type="hidden" th:if="${filterData.age != null}" name="age" th:value="${filterData.age}"/>
+            <input type="hidden" th:if="${filterData.departmentId != null}" name="departmentId" th:value="${filterData.departmentId}"/>
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>
         <div th:if="${isFired == null || !isFired}">

@@ -29,7 +29,8 @@
         </table>
         <form th:if="${!history.isEmpty()}"
               th:action="@{/positions/history/{id}(id=${positionId})}"
-              method="get">
+              method="get"
+        th:object="${pageFilter}">
             <input type="hidden" name="isActual" th:value="${isActual}">
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>

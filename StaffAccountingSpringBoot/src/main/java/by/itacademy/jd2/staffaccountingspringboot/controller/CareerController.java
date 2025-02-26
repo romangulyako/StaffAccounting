@@ -6,6 +6,7 @@ import by.itacademy.jd2.staffaccountingspringboot.dto.CareerStepSaveDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.DismissDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.EditCareerDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeItemDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.PageFilter;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.CareerService;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -67,15 +68,13 @@ public class CareerController {
     }
 
     @GetMapping("employees/{id}/career")
-    public String getCareerByEmployee(@RequestParam(defaultValue = "0") int page,
-                                      @RequestParam(defaultValue = "2") int size,
-                                      @PathVariable Long id,
+    public String getCareerByEmployee(@PathVariable Long id,
+                                      @ModelAttribute("pageFilter") PageFilter pageFilter,
                                       Model model) {
         LOGGER.info("Received request to get career by employee");
-        Page<CareerStepGetDTO> careerPage = careerService.getEmployeesCareer(id, page, size);
+        Page<CareerStepGetDTO> careerPage = careerService.getEmployeesCareer(id, pageFilter.getPage(), pageFilter.getSize());
         model.addAttribute("career", careerPage.getContent());
-        model.addAttribute("page", page);
-        model.addAttribute("size", size);
+        model.addAttribute("pageFilter", pageFilter);
         model.addAttribute("totalPages", careerPage.getTotalPages());
         model.addAttribute("employeeId", id);
 

@@ -46,6 +46,7 @@
         </table>
         <form th:if="${!career.isEmpty()}"
               th:action="@{/employees/{id}/career(id=${employeeId})}"
+              th:object="${pageFilter}"
               method="get">
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>

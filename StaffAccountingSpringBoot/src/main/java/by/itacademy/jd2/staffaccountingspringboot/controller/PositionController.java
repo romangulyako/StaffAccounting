@@ -1,5 +1,6 @@
 package by.itacademy.jd2.staffaccountingspringboot.controller;
 
+import by.itacademy.jd2.staffaccountingspringboot.dto.PageFilter;
 import by.itacademy.jd2.staffaccountingspringboot.dto.PositionDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.PositionHistoryDTO;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.PositionService;
@@ -88,14 +89,13 @@ public class PositionController {
     public String getPositionHistory(@PathVariable Long id,
                                      @RequestParam Long departmentId,
                                      @RequestParam Boolean isActual,
-                                     @RequestParam(defaultValue = "0") int page,
-                                     @RequestParam(defaultValue = "2") int size,
+                                     @ModelAttribute("pageFilter") PageFilter pageFilter,
                                      Model model) {
         LOGGER.info("Received request to get history for position");
-        Page<PositionHistoryDTO> historyPage = positionService.getPositionHistory(id, page, size);
+        Page<PositionHistoryDTO> historyPage =
+                positionService.getPositionHistory(id, pageFilter.getPage(), pageFilter.getSize());
         model.addAttribute("history", historyPage.getContent());
-        model.addAttribute("page", page);
-        model.addAttribute("size", size);
+        model.addAttribute("pageFilter", pageFilter);
         model.addAttribute("totalPages", historyPage.getTotalPages());
         model.addAttribute("departmentId", departmentId);
         model.addAttribute("positionId", id);

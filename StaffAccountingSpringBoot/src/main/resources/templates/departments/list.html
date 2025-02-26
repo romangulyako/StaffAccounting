@@ -64,7 +64,8 @@
             </tbody>
         </table>
         <form th:action="@{/departments}"
-              method="get">
+              method="get"
+        th:object="${pageFilter}">
             <input type="hidden" name="isActual" th:value="${isActual}">
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>

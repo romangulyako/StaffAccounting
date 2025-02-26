@@ -2,30 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="java">
 <div th:fragment="page-panel" class="paginator-panel">
     <div class="paginator-button-block">
-        <div th:if="${page > 0}">
+        <div th:if="${pageFilter.page > 0}">
             <button class="paginator-button"
                     name="page"
-                    th:value="${page - 1}">
+                    th:value="${pageFilter.page - 1}">
                 <<
             </button>
         </div>
-        <div th:if="${page < totalPages - 1}">
+        <div th:if="${pageFilter.page < totalPages - 1}">
             <button class="paginator-button"
                     name="page"
-                    th:value="${page + 1}">
+                    th:value="${pageFilter.page + 1}">
                 >>
             </button>
         </div>
     </div>
     <div class="paginator-page-size-block">
-        <label class="paginator-label" th:text="#{page} + ' ' +  ${(page + 1)} + '/' + ${totalPages}"></label>
+        <label class="paginator-label" th:text="#{page} + ' ' +  ${(pageFilter.page + 1)} + '/' + ${totalPages}"></label>
         <label for="page_size" th:text="#{page_size}"></label>
         <input class="page-size-input"
                id="page_size"
                type="number"
                min="1"
-               name="size"
-               th:value="${size}">
+               th:field="*{size}"
+               th:value="${pageFilter.size}">
         <button class="paginator-button"
                 type="submit"
                 th:text="#{edit_button}">

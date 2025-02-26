@@ -1,6 +1,7 @@
 package by.itacademy.jd2.staffaccountingspringboot.controller;
 
 import by.itacademy.jd2.staffaccountingspringboot.dto.EducationDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.PageFilter;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EducationService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -9,9 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,15 +22,13 @@ public class EducationController {
 
     @GetMapping("/employees/{employeeId}/education")
     public String getEducation(@PathVariable Long employeeId,
-                               @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "2") int size,
+                               @ModelAttribute("pageFilter") PageFilter pageFilter,
                                Model model) {
         LOGGER.info("Received request to get education for employee with id= {}", employeeId);
         Page<EducationDTO> educations =
-                educationService.getEducationsByEmployeeId(employeeId, page, size);
+                educationService.getEducationsByEmployeeId(employeeId, pageFilter.getPage(), pageFilter.getSize());
         model.addAttribute("educations", educations.getContent());
-        model.addAttribute("page", page);
-        model.addAttribute("size", size);
+        model.addAttribute("pageFilter", pageFilter);
         model.addAttribute("totalPages", educations.getTotalPages());
         model.addAttribute("employeeId", employeeId);
 

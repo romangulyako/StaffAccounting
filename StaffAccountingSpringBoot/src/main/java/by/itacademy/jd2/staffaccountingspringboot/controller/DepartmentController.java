@@ -2,6 +2,7 @@ package by.itacademy.jd2.staffaccountingspringboot.controller;
 
 import by.itacademy.jd2.staffaccountingspringboot.dto.DepartmentDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.DepartmentInfoDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.PageFilter;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.DepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -22,16 +23,14 @@ public class DepartmentController {
     private final DepartmentService departmentService;
 
     @GetMapping("/departments")
-    public String getDepartments(@RequestParam(defaultValue = "0") int page,
-                                 @RequestParam(defaultValue = "2") int size,
-                                 @RequestParam(defaultValue = "true") Boolean isActual,
+    public String getDepartments(@RequestParam(defaultValue = "true") Boolean isActual,
+                                 @ModelAttribute("pageFilter") PageFilter pageFilter,
                                  Model model) {
         LOGGER.info("Received request to get all departments (isActual={})", isActual);
         Page<DepartmentDTO> departmentsPage =
-                departmentService.getDepartments(page, size, isActual);
+                departmentService.getDepartments(pageFilter.getPage(), pageFilter.getSize(), isActual);
         model.addAttribute("departments", departmentsPage.getContent());
-        model.addAttribute("page", page);
-        model.addAttribute("size", size);
+        model.addAttribute("pageFilter", pageFilter);
         model.addAttribute("isActual", isActual);
         model.addAttribute("totalPages", departmentsPage.getTotalPages());
 
@@ -69,18 +68,17 @@ public class DepartmentController {
     }
 
     @GetMapping("/departments/{id}")
-    public String getDepartment(@RequestParam(defaultValue = "0") int page,
-                                @RequestParam(defaultValue = "2") int size,
-                                @RequestParam(defaultValue = "true") Boolean isActual,
+    public String getDepartment(@RequestParam(defaultValue = "true") Boolean isActual,
                                 @PathVariable Long id,
+                                @ModelAttribute("pageFilter") PageFilter pageFilter,
                                 Model model) {
         LOGGER.info("Received request to get for department with id {}", id);
-        DepartmentInfoDTO departmentInfo = departmentService.getDepartmentInfo(id, isActual, page, size);
+        DepartmentInfoDTO departmentInfo =
+                departmentService.getDepartmentInfo(id, isActual, pageFilter.getPage(), pageFilter.getSize());
         model.addAttribute("department", departmentInfo.getDepartment());
         model.addAttribute("positions", departmentInfo.getPositions());
         model.addAttribute("isActual", departmentInfo.getIsActual());
-        model.addAttribute("page", page);
-        model.addAttribute("size", size);
+        model.addAttribute("pageFilter", pageFilter);
         model.addAttribute("totalPages", departmentInfo.getTotalPages());
 
         return "departments/info";

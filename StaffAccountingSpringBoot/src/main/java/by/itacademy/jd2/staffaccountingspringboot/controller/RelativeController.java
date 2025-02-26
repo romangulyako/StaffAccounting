@@ -1,5 +1,6 @@
 package by.itacademy.jd2.staffaccountingspringboot.controller;
 
+import by.itacademy.jd2.staffaccountingspringboot.dto.PageFilter;
 import by.itacademy.jd2.staffaccountingspringboot.dto.RelativeDTO;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.RelativeService;
 import lombok.RequiredArgsConstructor;
@@ -9,9 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,14 +22,13 @@ public class RelativeController {
 
     @GetMapping("/employees/{employeeId}/relatives")
     public String getRelatives(@PathVariable Long employeeId,
-                               @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "2") int size,
+                               @ModelAttribute("pageFilter") PageFilter pageFilter,
                                Model model) {
         LOGGER.info("Received request to get relatives for employee with id= {}", employeeId);
-        Page<RelativeDTO> relatives = relativeService.getRelatives(employeeId, page, size);
+        Page<RelativeDTO> relatives =
+                relativeService.getRelatives(employeeId, pageFilter.getPage(), pageFilter.getSize());
         model.addAttribute("relatives", relatives.getContent());
-        model.addAttribute("page", page);
-        model.addAttribute("size", size);
+        model.addAttribute("pageFilter", pageFilter);
         model.addAttribute("totalPages", relatives.getTotalPages());
         model.addAttribute("employeeId", employeeId);
 
