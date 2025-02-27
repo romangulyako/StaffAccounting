@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+   <!-- <meta charset="UTF-8">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <title th:text="#{login}"/>
+    <link th:href="@{/css/login.css}" rel="stylesheet">
+</head>
+<body>
+<main>
+    <div class="login-container">
+        <div class="login-box">
+            <h2 th:text="#{welcome}"/>
+            <p th:text="#{enter_login_data}"/>
+
+            <div th:if="${param.error}" class="error-message">
+                <span th:text="#{login_error}"/>
+            </div>
+
+            <form th:action="@{/login}" method="post">
+                <div class="input-group">
+                    <label for="username" th:text="#{user_name}"/>
+                    <input type="text"
+                           id="username"
+                           name="username"
+                           th:placeholder="#{user_name_placeholder}"
+                           required
+                           autofocus>
+                </div>
+                <div class="input-group">
+                    <label for="password" th:text="#{password}"/>
+                    <input type="password"
+                           id="password"
+                           name="password"
+                           th:placeholder="#{password_placeholder}"
+                           required>
+                </div>
+
+                <button type="submit" class="login-button" th:text="#{sign_in_button}"/>
+            </form>
+
+            <div class="language-select">
+                <form id="languageForm" method="post"
+                      th:action="@{/changeLanguage}">
+                    <select id="language" name="language" onchange="this.form.submit()">
+                        <option value="ru" th:selected="${#locale.language == 'ru'}" th:text="#{russian}">...</option>
+                        <option value="en" th:selected="${#locale.language == 'en'}" th:text="#{english}">...</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

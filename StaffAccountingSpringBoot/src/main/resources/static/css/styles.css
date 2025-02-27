@@ -125,7 +125,6 @@ form {
     margin: 0;
 }
 
-/* Стили для блока пагинации */
 .paginator-panel {
     display: flex;
     justify-content: space-between;
@@ -325,8 +324,7 @@ textarea {
 }
 
 select {
-    background-color: #ffffff; /* стрелочка справа */
-    /*padding-right: 30px; /* освобождаем место для стрелки*/
+    background-color: #ffffff;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -365,17 +363,15 @@ select:hover {
 
 .error-icon {
     font-size: 50px;
-    color: #dc3545; /* Красный цвет */
+    color: #dc3545;
     margin-bottom: 10px;
 }
 
 
 h1 {
-    color: #dc3545; /* Красный цвет для заголовка */
+    color: #dc3545;
     margin-bottom: 10px;
 }
-
-/*-----------------------------------------------------*/
 
 .filter-container {
     margin-bottom: 20px;
@@ -449,4 +445,3 @@ h1 {
 .clear-filter-button:hover {
     background-color: #c1c1c1;
 }
-

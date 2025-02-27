@@ -1,0 +1,142 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f5ebff, #b3b3b3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.login-box h2 {
+    margin-bottom: 10px;
+    font-size: 2rem;
+    color: #333;
+}
+
+.login-box p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #474c6a;
+    outline: none;
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #5a5a5a, #3b3c42);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.login-button:hover {
+    background: linear-gradient(135deg, #44474c, #1f1d22);
+    transform: translateY(-2px);
+}
+
+.login-button:active {
+    transform: translateY(0);
+}
+
+.error-message {
+    margin: 10px 0;
+    color: #ff4d4d;
+    font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.language-select {
+    margin-top: 20px;
+    position: relative;
+}
+
+.language-select select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 1rem;
+    color: #333;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.language-select select:focus {
+    border-color: #b5a3c8;
+    outline: none;
+}
+
+.language-select::after {
+    content: "▼";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.language-select select:hover {
+    border-color: #41445a;
+}
+
+.language-select select:focus {
+    box-shadow: 0 0 5px rgba(134, 145, 214, 0.5);
+}
