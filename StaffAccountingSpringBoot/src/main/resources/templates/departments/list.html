@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<html xmlns:th="http://www.thymeleaf.org" lang="java"
+      xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <title th:text="#{departments}"></title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -33,7 +34,7 @@
                                 th:text="#{show_button}"/>
                     </form>
                 </td>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                     <form th:action="@{/departments/{id}/delete(id=${department.id})}"
                           method="post">
                         <button class="button-delete"
@@ -42,7 +43,8 @@
                                 th:text="#{delete_button}"/>
                     </form>
                 </td>
-                <td th:if="${isActual}">
+                <td sec:authorize="hasAuthority('ADMIN')"
+                    th:if="${isActual}">
                     <form th:action="@{/departments/{id}/reduce(id=${department.id})}"
                           method="post">
                         <button class="button-reduce"
@@ -51,7 +53,8 @@
                                 th:text="#{reduce_button}"/>
                     </form>
                 </td>
-                <td th:if="${!isActual}">
+                <td sec:authorize="hasAuthority('ADMIN')"
+                    th:if="${!isActual}">
                     <form th:action="@{/departments/{id}/restore(id=${department.id})}"
                           method="post">
                         <button class="button-restore"
@@ -69,7 +72,8 @@
             <input type="hidden" name="isActual" th:value="${isActual}">
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>
-        <form th:if="${isActual}"
+        <form sec:authorize="hasAuthority('ADMIN')"
+              th:if="${isActual}"
               th:action="@{/departments/add}"
               method="get">
             <button class="button-add"

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<html xmlns:th="http://www.thymeleaf.org" lang="java"
+      xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <title th:text="#{career}"/>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -18,7 +19,7 @@
                 <th th:text="#{from_what_date}"/>
                 <th th:text="#{on_what_date}"/>
                 <th th:text="#{position}"/>
-                <th colspan="2" th:text="#{action}"/>
+                <th sec:authorize="hasAuthority('ADMIN')" colspan="2" th:text="#{action}"/>
             </tr>
             </thead>
             <tbody>
@@ -27,14 +28,14 @@
                 <td th:text="${careerStep.dateOfAppointment}"/>
                 <td th:text="${careerStep.dateOfLiberation != null ? careerStep.dateOfLiberation : ''}"/> <!-- TODO: Сделать today -->
                 <td th:text="${careerStep.positionName} + ' ' + ${careerStep.departmentGenitiveCaseName}"/>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                     <form th:action="@{/employees/{employeeId}/career/edit/{id}(employeeId=${employeeId}, id=${careerStep.id})}"
                     method="get">
                         <button class="button-edit"
                                 th:text="#{edit_button}"/>
                     </form>
                 </td>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                     <form th:action="@{/employees/{employeeId}/career/delete/{id}(employeeId=${employeeId}, id=${careerStep.id})}"
                           method="post">
                         <button class="button-delete"

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,12 +38,14 @@ public class DepartmentController {
         return "departments/list";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/departments/add")
     public String addDepartmentPage(Model model) {
         model.addAttribute("newDepartment", new DepartmentDTO());
         return "departments/add";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("departments/add")
     public String addDepartment(@ModelAttribute("newDepartment") DepartmentDTO departmentDTO) {
         LOGGER.info("Received request to add new department");
@@ -51,6 +54,7 @@ public class DepartmentController {
         return "redirect:/departments";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/departments/{id}/edit")
     public String editDepartmentPage(@PathVariable Long id, Model model) {
         LOGGER.info("Received request to get for editing department with id {}", id);
@@ -59,6 +63,7 @@ public class DepartmentController {
         return "departments/edit";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/departments/{id}/edit")
     public String editDepartment(@ModelAttribute("department") DepartmentDTO departmentDTO) {
         LOGGER.info("Received request to edit department with id {}", departmentDTO.getId());
@@ -84,6 +89,7 @@ public class DepartmentController {
         return "departments/info";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/departments/{id}/delete")
     public String deleteDepartment(@PathVariable Long id,
                                    @RequestParam Boolean isActual) {
@@ -93,6 +99,7 @@ public class DepartmentController {
         return "redirect:/departments?isActual=" + isActual;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/departments/{id}/reduce")
     public String reduceDepartment(@PathVariable Long id,
                                    @RequestParam Boolean isActual) {
@@ -102,6 +109,7 @@ public class DepartmentController {
         return "redirect:/departments?isActual=" + isActual;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/departments/{id}/restore")
     public String restoreDepartment(@PathVariable Long id,
                                     @RequestParam Boolean isActual) {

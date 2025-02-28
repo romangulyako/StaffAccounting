@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<html xmlns:th="http://www.thymeleaf.org" lang="java"
+      xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <title th:text="#{employees}"></title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -101,14 +102,15 @@
                                 th:text="#{show_button}"></button>
                     </form>
                 </td>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                     <form th:action="@{/employees/{id}/delete(id=${employee.id})}"
                           method="post">
                         <button class="button-delete"
                                 th:text="#{delete_button}"></button>
                     </form>
                 </td>
-                <td th:if="${isFired}">
+                <td sec:authorize="hasAuthority('ADMIN')"
+                    th:if="${isFired}">
                     <form th:action="@{employees/{id}/return(id=${employee.id})}"
                           method="post">
                         <button class="button-restore"
@@ -129,7 +131,8 @@
             <input type="hidden" th:if="${filterData.departmentId != null}" name="departmentId" th:value="${filterData.departmentId}"/>
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>
-        <div th:if="${isFired == null || !isFired}">
+        <div sec:authorize="hasAuthority('ADMIN')"
+             th:if="${isFired == null || !isFired}">
             <form name="add_employee" method="get" th:action="@{/employees/add}">
                 <button class="button-add" th:text="#{add_employee}"></button>
             </form>

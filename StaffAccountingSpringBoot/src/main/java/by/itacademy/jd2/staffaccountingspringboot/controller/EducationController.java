@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class EducationController {
         return "education/list";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/employees/{employeeId}/education/add")
     public String addEducationPage(@PathVariable Long employeeId,
                                    Model model) {
@@ -44,6 +46,7 @@ public class EducationController {
         return "education/add";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/employees/{employeeId}/education/add")
     public String addEducation(@PathVariable Long employeeId,
                                EducationDTO educationDTO) {
@@ -53,6 +56,7 @@ public class EducationController {
         return "redirect:/employees/" + employeeId +"/education";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/employees/{employeeId}/education/edit/{id}")
     public String editEducationPage(@PathVariable Long id,
                                     Model model) {
@@ -62,6 +66,7 @@ public class EducationController {
         return "education/edit";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/employees/{employeeId}/education/edit/{id}")
     public String editEducation(EducationDTO educationDTO, Model model) {
         LOGGER.info("Received request to edit education with id={}", educationDTO.getId());
@@ -70,6 +75,7 @@ public class EducationController {
         return "redirect:/employees/" + educationDTO.getEmployeeId() +"/education";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/employees/{employeeId}/education/delete/{id}")
     public String deleteEducation(@PathVariable Long employeeId,
                                   @PathVariable Long id,

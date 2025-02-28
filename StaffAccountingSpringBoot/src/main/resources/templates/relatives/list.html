@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<html xmlns:th="http://www.thymeleaf.org" lang="java"
+      xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <title th:text="#{relatives}"/>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -19,7 +20,8 @@
                 <th th:text="#{patronymic}"/>
                 <th th:text="#{birthday}"/>
                 <th th:text="#{type_kinship}"/>
-                <th colspan="2" th:text="#{action}"/>
+                <th sec:authorize="hasAuthority('ADMIN')"
+                    colspan="2" th:text="#{action}"/>
             </tr>
             </thead>
             <tbody>
@@ -29,14 +31,14 @@
                 <td th:text="${relative.personData.patronymic != null ? relative.personData.patronymic : ''}"/>
                 <td th:text="${relative.personData.birthday}"/>
                 <td th:text="${relative.typeKinship}"/>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')" >
                     <form method="get"
                           th:action="@{/employees/{employeeId}/relatives/edit/{id}(employeeId=${relative.employeeId}, id=${relative.id})}">
                         <button class="button-edit"
                                 th:text="#{edit_button}"/>
                     </form>
                 </td>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')" >
                     <form method="post"
                           th:action="@{/employees/{employeeId}/relatives/delete/{id}(employeeId=${relative.employeeId}, id=${relative.id})}">
                         <button class="button-delete"
@@ -53,7 +55,8 @@
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>
         <div class="footer-buttons-block">
-            <form method="get"
+            <form sec:authorize="hasAuthority('ADMIN')"
+                  method="get"
                   th:action="@{/employees/{employeeId}/relatives/add(employeeId=${employeeId})}">
                 <button class="footer-button, button-add"
                         th:text="#{add_relative}"/>

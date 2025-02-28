@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<html xmlns:th="http://www.thymeleaf.org" lang="java"
+      xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <title th:text="#{education}"/>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -20,7 +21,8 @@
                 <th th:text="#{specialization}"/>
                 <th th:text="#{study_start}"/>
                 <th th:text="#{study_end}"/>
-                <th colspan="2" th:text="#{action}"/>
+                <th sec:authorize="hasAuthority('ADMIN')"
+                    colspan="2" th:text="#{action}"/>
             </tr>
             </thead>
             <tbody>
@@ -31,14 +33,14 @@
                 <td th:text="${education.specialization != null ? education.specialization : ''}"/>
                 <td th:text="${education.dateStart}"/>
                 <td th:text="${education.dateEnd}"/>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                     <form th:action="@{/employees/{employeeId}/education/edit/{id}(employeeId=${employeeId}, id=${education.id})}"
                           method="get">
                         <button class="button-edit"
                                 th:text="#{edit_button}"/>
                     </form>
                 </td>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                     <form th:action="@{/employees/{employeeId}/education/delete/{id}(employeeId=${employeeId}, id=${education.id})}"
                           method="post">
                         <button class="button-delete"
@@ -55,7 +57,8 @@
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>
         <div class="footer-buttons-block">
-            <form th:action="@{/employees/{employeeId}/education/add(employeeId=${employeeId})}"
+            <form sec:authorize="hasAuthority('ADMIN')"
+                  th:action="@{/employees/{employeeId}/education/add(employeeId=${employeeId})}"
                   method="get">
                 <button class="footer-button, button-add"
                         th:text="#{add_education}"/>

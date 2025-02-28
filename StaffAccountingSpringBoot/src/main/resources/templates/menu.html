@@ -1,4 +1,4 @@
-<aside th:fragment="menu">
+<aside th:fragment="menu" xmlns:sec="http://www.springframework.org/schema/security">
     <nav class="menu-panel">
         <ul class="menu-list">
             <li>
@@ -15,12 +15,12 @@
                     </button>
                 </form>
             </li>
-            <li>
+            <li sec:authorize="hasAuthority('ADMIN')">
                 <form th:action="@{/appointment}" method="get">
                     <button class="menu-item" th:text="#{appointment}"></button>
                 </form>
             </li>
-            <li>
+            <li sec:authorize="hasAuthority('ADMIN')">
                 <form th:action="@{/dismiss}" method="get">
                     <button class="menu-item" th:text="#{dismiss}"></button>
                 </form>

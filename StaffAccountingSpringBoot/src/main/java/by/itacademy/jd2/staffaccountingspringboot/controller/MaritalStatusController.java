@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class MaritalStatusController {
         return "marital-status/list";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/employees/{employeeId}/marital-status/add")
     public String saveMaritalStatusPage(@PathVariable Long employeeId, Model model) {
         model.addAttribute("employeeId", employeeId);
@@ -44,6 +46,7 @@ public class MaritalStatusController {
         return "marital-status/add";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/employees/{employeeId}/marital-status/add")
     public String saveMaritalStatus(@PathVariable Long employeeId,
                                     MaritalStatusDTO maritalStatusDTO) {
@@ -53,6 +56,7 @@ public class MaritalStatusController {
         return "redirect:/employees/" + employeeId + "/marital-status";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/employees/{employeeId}/marital-status/edit/{id}")
     public String editMaritalStatusPage(@PathVariable Long id,
                                         Model model) {
@@ -62,6 +66,7 @@ public class MaritalStatusController {
         return "marital-status/edit";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/employees/{employeeId}/marital-status/edit/{id}")
     public String editMaritalStatus(MaritalStatusDTO maritalStatusDTO) {
         LOGGER.info("Received request to edit marital status with id={}", maritalStatusDTO.getId());
@@ -70,6 +75,7 @@ public class MaritalStatusController {
         return "redirect:/employees/" + maritalStatusDTO.getEmployeeId() + "/marital-status";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/employees/{employeeId}/marital-status/delete/{id}")
     public String deleteMaritalStatus(@PathVariable Long employeeId,
                                       @PathVariable Long id) {

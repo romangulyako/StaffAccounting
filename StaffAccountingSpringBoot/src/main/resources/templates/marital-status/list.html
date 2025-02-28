@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<html xmlns:th="http://www.thymeleaf.org" lang="java"
+      xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <title th:text="#{marital_status}"/>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -17,7 +18,8 @@
                 <th th:text="#{marital_status}"/>
                 <th th:text="#{registration_date}"/>
                 <th th:text="#{document}"/>
-                <th colspan="2" th:text="#{action}"/>
+                <th sec:authorize="hasAuthority('ADMIN')"
+                    colspan="2" th:text="#{action}"/>
             </tr>
             </thead>
             <tbody>
@@ -25,14 +27,14 @@
                 <td th:text="${status.status}"/>
                 <td th:text="${status.registrationDate}"/>
                 <td th:text="${status.document}"/>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                     <form th:action="@{/employees/{employeeId}/marital-status/edit/{id}(employeeId = ${status.employeeId}, id=${status.id})}"
                           method="get">
                         <button class="button-edit"
                                 th:text="#{edit_button}"/>
                     </form>
                 </td>
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                     <form th:action="@{/employees/{employeeId}/marital-status/delete/{id}(employeeId = ${status.employeeId}, id=${status.id})}"
                           method="post">
                         <button class="button-delete"
@@ -49,7 +51,8 @@
             <div th:replace="~{/page-panel :: page-panel}"></div>
         </form>
         <div class="footer-buttons-block">
-            <form th:action="@{/employees/{employeeId}/marital-status/add(employeeId=${employeeId})}"
+            <form sec:authorize="hasAuthority('ADMIN')"
+                  th:action="@{/employees/{employeeId}/marital-status/add(employeeId=${employeeId})}"
                   method="get">
                 <button class="footer-button, button-add"
                         th:text="#{update_marital_status}"/>

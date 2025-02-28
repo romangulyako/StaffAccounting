@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class RelativeController {
         return "relatives/list";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/employees/{employeeId}/relatives/add")
     public String addRelativePage(@PathVariable Long employeeId, Model model) {
         model.addAttribute("employeeId", employeeId);
@@ -43,6 +45,7 @@ public class RelativeController {
         return "relatives/add";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/employees/{employeeId}/relatives/add")
     public String addRelative(@PathVariable Long employeeId,
                               RelativeDTO relativeDTO) {
@@ -52,6 +55,7 @@ public class RelativeController {
         return "redirect:/employees/" + employeeId + "/relatives";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/employees/{employeeId}/relatives/edit/{id}")
     public String editRelativePage(@PathVariable Long id,
                                    Model model) {
@@ -61,6 +65,7 @@ public class RelativeController {
         return "relatives/edit";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/employees/{employeeId}/relatives/edit/{id}")
     public String editRelative(RelativeDTO relativeDTO) {
         LOGGER.info("Received request to edit relative with id={}", relativeDTO.getId());
@@ -69,6 +74,7 @@ public class RelativeController {
         return "redirect:/employees/" + relativeDTO.getEmployeeId() + "/relatives";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/employees/{employeeId}/relatives/delete/{id}")
     public String deleteRelative(@PathVariable Long employeeId,
                                  @PathVariable Long id) {

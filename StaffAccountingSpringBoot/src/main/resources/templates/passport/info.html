@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="java">
+<html xmlns:th="http://www.thymeleaf.org" lang="java"
+      xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <title th:text="#{passport}"/>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -14,7 +15,8 @@
             <div class="form-group">
                 <h2 th:text="#{employees_passport}"/>
             </div>
-            <form th:if="${passport != null}"
+            <form sec:authorize="hasAuthority('ADMIN')"
+                  th:if="${passport != null}"
                   th:action="@{/employees/{employeeId}/passport/edit(employeeId=${employeeId})}"
                   method="get">
                 <button class="tab, button-edit"
@@ -24,7 +26,8 @@
         <div th:if="${passport == null}"
              class="form-group">
             <h2 th:text="#{passport_absent}"/>
-            <form class="footer-buttons-block"
+            <form sec:authorize="hasAuthority('ADMIN')"
+                  class="footer-buttons-block"
                   method="get"
                   th:action="@{/employees/{employeeId}/passport/add(employeeId=${employeeId})}">
                 <button class="footer-button, button-add"
@@ -66,7 +69,8 @@
             </div>
         </div>
         <div class="footer-buttons-block">
-            <form th:if="${passport != null}"
+            <form sec:authorize="hasAuthority('ADMIN')"
+                  th:if="${passport != null}"
                   th:action="@{/employees/{employeeId}/passport/delete(employeeId=${employeeId})}"
                   method="post">
                 <button class="footer-button, button-delete"
