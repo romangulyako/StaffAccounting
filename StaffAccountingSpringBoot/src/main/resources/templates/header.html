@@ -1,4 +1,4 @@
-<header th:fragment="header">
+<header th:fragment="header" xmlns:sec="http://www.springframework.org/schema/security">
     <div class="header-container">
         <div class="header-left">
             <img th:src="@{/logo.png}" alt="Логотип" class="logo">
@@ -12,7 +12,7 @@
                     <option value="en" th:selected="${#locale.language == 'en'}" th:text="#{english}">...</option>
                 </select>
             </form>
-            <span class="user-name"></span>
+            <span class="user-name" sec:authentication="name"></span>
             <form method="post" th:action="@{/logout}">
                 <button class="logout-button" type="submit" th:text="#{logout}">...</button>
             </form>
