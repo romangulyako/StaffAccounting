@@ -14,26 +14,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
 public class MaritalStatusController {
-    public static final Logger LOGGER = LoggerFactory.getLogger(MaritalStatusController.class);
     private final MaritalStatusService maritalStatusService;
 
     @GetMapping("/employees/{employeeId}/marital-status")
     public String getMaritalStatus(@PathVariable Long employeeId,
                                    @ModelAttribute("pageFilter") PageFilter pageFilter,
                                    Model model) {
-        LOGGER.info("Received request to get marital statuses for employee with id= {}", employeeId);
         Page<MaritalStatusDTO> maritalStatuses =
-                maritalStatusService.getAllMaritalStatuses(employeeId, pageFilter.getPage(), pageFilter.getSize());
+                maritalStatusService.getMaritalStatusesByEmployee(employeeId, pageFilter.getPage(), pageFilter.getSize());
         model.addAttribute("maritalStatuses", maritalStatuses.getContent());
         model.addAttribute("pageFilter", pageFilter);
         model.addAttribute("totalPages", maritalStatuses.getTotalPages());
         model.addAttribute("employeeId", employeeId);
-
         return "marital-status/list";
     }
 
@@ -42,7 +38,6 @@ public class MaritalStatusController {
     public String saveMaritalStatusPage(@PathVariable Long employeeId, Model model) {
         model.addAttribute("employeeId", employeeId);
         model.addAttribute("newMaritalStatus", new MaritalStatusDTO());
-
         return "marital-status/add";
     }
 
@@ -50,9 +45,7 @@ public class MaritalStatusController {
     @PostMapping("/employees/{employeeId}/marital-status/add")
     public String saveMaritalStatus(@PathVariable Long employeeId,
                                     MaritalStatusDTO maritalStatusDTO) {
-        LOGGER.info("Received request to add relative for employee with id={}", maritalStatusDTO.getEmployeeId());
         maritalStatusService.saveOrUpdateMaritalStatus(maritalStatusDTO);
-
         return "redirect:/employees/" + employeeId + "/marital-status";
     }
 
@@ -60,18 +53,14 @@ public class MaritalStatusController {
     @GetMapping("/employees/{employeeId}/marital-status/edit/{id}")
     public String editMaritalStatusPage(@PathVariable Long id,
                                         Model model) {
-        LOGGER.info("Received request to get for edit marital status with id={}", id);
         model.addAttribute("maritalStatus", maritalStatusService.getMaritalStatus(id));
-
         return "marital-status/edit";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/employees/{employeeId}/marital-status/edit/{id}")
     public String editMaritalStatus(MaritalStatusDTO maritalStatusDTO) {
-        LOGGER.info("Received request to edit marital status with id={}", maritalStatusDTO.getId());
         maritalStatusService.saveOrUpdateMaritalStatus(maritalStatusDTO);
-
         return "redirect:/employees/" + maritalStatusDTO.getEmployeeId() + "/marital-status";
     }
 
@@ -79,9 +68,7 @@ public class MaritalStatusController {
     @PostMapping("/employees/{employeeId}/marital-status/delete/{id}")
     public String deleteMaritalStatus(@PathVariable Long employeeId,
                                       @PathVariable Long id) {
-        LOGGER.info("Received request to delete marital status with id={}", id);
         maritalStatusService.deleteMaritalStatus(id);
-
         return "redirect:/employees/" + employeeId + "/marital-status";
     }
 }

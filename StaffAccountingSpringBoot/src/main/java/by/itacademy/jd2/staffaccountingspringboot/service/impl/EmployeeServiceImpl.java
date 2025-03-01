@@ -10,7 +10,8 @@ import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeeItemDTO;
 import by.itacademy.jd2.staffaccountingspringboot.repository.DepartmentRepository;
 import by.itacademy.jd2.staffaccountingspringboot.repository.EmployeeRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EmployeeService;
-import jakarta.persistence.EntityNotFoundException;
+import by.itacademy.jd2.staffaccountingspringboot.utils.Constant;
+import by.itacademy.jd2.staffaccountingspringboot.utils.EmployeeUtils;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,41 +27,41 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeServiceImpl.class);
-    private static final String SAVE_SUCCESS_LOG = "Employee saved successfully. ID={}";
-    private static final String DELETE_SUCCESS_LOG = "Employee with ID={} deleted successfully";
-    private static final String FOUND_SUCCESS_LOG = "Successfully fetched employee with ID={} from database";
-    private static final String NOT_FOUND_LIST_LOG = "No employees found for the provided parameters: page={}, size={}";
-    private static final String FOUND_LIST_SUCCESS_LOG = "Successfully fetched {} employees from the database";
-    private static final String RETURN_TO_CURRENT_SUCCESS_LOG = "Employee with ID={} returned to current successfully";
-    private static final String NOT_FOUND_LOG = "Employee with ID={} not found";
-    private static final String NOT_FOUND_EXCEPTION = "Employee not found. ID=";
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
 
     @Override
     public void saveOrUpdateEmployee(EmployeeDTO employeeDTO) {
+        LOGGER.debug(Constant.ATTEMPT_TO_SAVE_EMPLOYEE,
+                employeeDTO.getPersonData().getName(), employeeDTO.getPersonData().getSurname());
         EmployeeEntity employeeEntity =
                 Converter.toEntity(employeeDTO, EmployeeEntity.class);
         employeeRepository.save(employeeEntity);
-        LOGGER.info(SAVE_SUCCESS_LOG, employeeEntity.getId());
+        LOGGER.info(Constant.SAVE_EMPLOYEE_SUCCESS, employeeEntity.getId());
     }
 
     @Override
     public void deleteEmployee(Long id) {
+        LOGGER.debug(Constant.ATTEMPT_TO_DELETE_EMPLOYEE, id);
         employeeRepository.deleteById(id);
-        LOGGER.info(DELETE_SUCCESS_LOG, id);
+        LOGGER.info(Constant.DELETE_EMPLOYEE_SUCCESS, id);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public EmployeeDTO getEmployee(Long id) {
-        EmployeeEntity entity = this.findById(id);
-        LOGGER.info(FOUND_SUCCESS_LOG, id);
+        LOGGER.debug(Constant.ATTEMPT_TO_FETCH_EMPLOYEE, id);
+        EmployeeEntity entity = EmployeeUtils.findById(id);
+        LOGGER.info(Constant.FETCHED_EMPLOYEE_SUCCESS, id);
+
         return Converter.toDto(entity, EmployeeDTO.class);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public EmployeesPageDTO getEmployeesPage(EmployeeFilterData filterData,
                                              Boolean isFired, int page, int size) {
+        LOGGER.debug(Constant.ATTEMPT_TO_FETCH_EMPLOYEE_LIST);
         List<DepartmentItemDTO> departments = departmentRepository.findAllByIsActualTrue().stream()
                 .map(entity -> Converter.toDto(entity, DepartmentItemDTO.class))
                 .toList();
@@ -68,10 +69,10 @@ public class EmployeeServiceImpl implements EmployeeService {
                 employeeRepository.findEmployeesByFilterData(filterData, isFired, PageRequest.of(page, size));
 
         if (pageEntities.getContent().isEmpty()) {
-            LOGGER.warn(NOT_FOUND_LIST_LOG,
+            LOGGER.warn(Constant.NOT_FOUND_EMPLOYEE_LIST,
                     page, size);
         } else {
-            LOGGER.info(FOUND_LIST_SUCCESS_LOG, pageEntities.getContent().size());
+            LOGGER.info(Constant.FOUND_EMPLOYEE_LIST_SUCCESS, pageEntities.getContent().size());
         }
 
         return EmployeesPageDTO.builder()
@@ -82,10 +83,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void returnToCurrent(Long id) {
-        EmployeeEntity employee = this.findById(id);
+        LOGGER.debug(Constant.ATTEMPT_TO_RETURN_EMPLOYEE, id);
+        EmployeeEntity employee = EmployeeUtils.findById(id);
         employee.setIsFired(false);
         employeeRepository.save(employee);
-        LOGGER.info(RETURN_TO_CURRENT_SUCCESS_LOG, id);
+        LOGGER.info(Constant.RETURN_EMPLOYEE_TO_CURRENT_SUCCESS, id);
     }
 
     @Override
@@ -93,13 +95,5 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findAllByIsFiredFalse()
                 .stream().map(entity -> Converter.toDto(entity, EmployeeItemDTO.class))
                 .toList();
-    }
-
-    private EmployeeEntity findById(Long id) {
-        return employeeRepository.findById(id)
-                .orElseThrow(() -> {
-                    LOGGER.warn(NOT_FOUND_LOG, id);
-                    return new EntityNotFoundException(NOT_FOUND_EXCEPTION + id);
-                });
     }
 }

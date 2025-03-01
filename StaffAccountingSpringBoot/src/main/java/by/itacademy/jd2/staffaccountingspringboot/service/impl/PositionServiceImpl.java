@@ -8,6 +8,7 @@ import by.itacademy.jd2.staffaccountingspringboot.dto.PositionHistoryDTO;
 import by.itacademy.jd2.staffaccountingspringboot.repository.CareerRepository;
 import by.itacademy.jd2.staffaccountingspringboot.repository.PositionRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.PositionService;
+import by.itacademy.jd2.staffaccountingspringboot.utils.Constant;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -25,41 +26,38 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class PositionServiceImpl implements PositionService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionServiceImpl.class);
-    private static final String SAVE_SUCCESS_LOG = "Position saved successfully. ID={}";
-    private static final String DELETE_SUCCESS_LOG = "Position with ID={} deleted successfully";
-    private static final String GET_SUCCESS_LOG = "Successfully fetched position with ID={}";
-    private static final String REDUCE_SUCCESS_LOG = "Successfully reduced position with ID={}";
-    private static final String RESTORE_SUCCESS_LOG = "Successfully restored position with ID={}";
-    private static final String NOT_FOUND_LIST_LOG = "No rows found for the provided parameters: page={}, size={}";
-    private static final String GET_LIST_SUCCESS_LOG = "Successfully fetched {} rows of history from database";
-    private static final String NOT_FOUND_LOG = "Position with ID={} not found";
     private static final String NOT_FOUND_EXCEPTION = "Position not found. ID=";
+
     private final PositionRepository positionRepository;
     private final CareerRepository careerRepository;
 
     @Override
     public void saveOrUpdatePosition(PositionDTO positionDTO) {
+        LOGGER.debug(Constant.ATTEMPT_TO_SAVE_POSITION, positionDTO.getDepartmentId());
         PositionEntity entity = Converter.toEntity(positionDTO, PositionEntity.class);
         positionRepository.save(entity);
-        LOGGER.info(SAVE_SUCCESS_LOG, entity.getId());
+        LOGGER.info(Constant.SAVE_POSITION_SUCCESS, entity.getId());
     }
 
     @Override
     public void deletePosition(Long id) {
+        LOGGER.debug(Constant.ATTEMPT_TO_DELETE_POSITION, id);
         positionRepository.deleteById(id);
-        LOGGER.info(DELETE_SUCCESS_LOG, id);
+        LOGGER.info(Constant.DELETE_POSITION_SUCCESS, id);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public PositionDTO getPositionById(Long id) {
+        LOGGER.debug(Constant.ATTEMPT_TO_FETCH_POSITION, id);
         PositionEntity entity = this.findPositionById(id);
-
-        LOGGER.info(GET_SUCCESS_LOG, id);
+        LOGGER.info(Constant.GET_POSITION_SUCCESS, id);
         return Converter.toDto(entity, PositionDTO.class);
     }
 
     @Override
     public void reducePosition(Long id) {
+        LOGGER.debug(Constant.ATTEMPT_TO_REDUCE_POSITION, id);
         PositionEntity position = this.findPositionById(id);
         position.getHistory().stream()
                 .filter(CareerStepEntity::isCurrent)
@@ -69,25 +67,29 @@ public class PositionServiceImpl implements PositionService {
                 });
         position.setIsActual(false);
         positionRepository.save(position);
-        LOGGER.info(REDUCE_SUCCESS_LOG, id);
+        LOGGER.info(Constant.REDUCE_POSITION_SUCCESS, id);
     }
 
     @Override
     public void restorePosition(Long id) {
+        LOGGER.debug(Constant.ATTEMPT_TO_RESTORE_POSITION, id);
         PositionEntity position = this.findPositionById(id);
         position.setIsActual(true);
         positionRepository.save(position);
-        LOGGER.info(RESTORE_SUCCESS_LOG, id);
+        LOGGER.info(Constant.RESTORE_POSITION_SUCCESS, id);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Page<PositionHistoryDTO> getPositionHistory(Long id, int page, int size) {
+        LOGGER.debug(Constant.ATTEMPT_TO_GET_HISTORY_OF_POSITION, id);
+        this.findPositionById(id);
         Page<CareerStepEntity> history =
                 careerRepository.findAllByPositionIdOrderByDateOfAppointment(id, PageRequest.of(page, size));
         if (history.getContent().isEmpty()) {
-            LOGGER.warn(NOT_FOUND_LIST_LOG, page, size);
+            LOGGER.warn(Constant.NOT_FOUND_POSITION_HISTORY, page, size);
         } else {
-            LOGGER.info(GET_LIST_SUCCESS_LOG, history.getContent().size());
+            LOGGER.info(Constant.GET_POSITION_HISTORY_SUCCESS, history.getContent().size());
         }
 
         return history.map(entity -> Converter.toDto(entity, PositionHistoryDTO.class));
@@ -96,7 +98,7 @@ public class PositionServiceImpl implements PositionService {
     private PositionEntity findPositionById(Long id) {
         return positionRepository.findById(id)
                 .orElseThrow(() -> {
-                    LOGGER.error(NOT_FOUND_LOG, id);
+                    LOGGER.error(Constant.POSITION_NOT_FOUND, id);
                     return new EntityNotFoundException(NOT_FOUND_EXCEPTION + id);
                 });
     }

@@ -13,6 +13,8 @@ import by.itacademy.jd2.staffaccountingspringboot.repository.CareerRepository;
 import by.itacademy.jd2.staffaccountingspringboot.repository.EmployeeRepository;
 import by.itacademy.jd2.staffaccountingspringboot.repository.PositionRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.CareerService;
+import by.itacademy.jd2.staffaccountingspringboot.utils.Constant;
+import by.itacademy.jd2.staffaccountingspringboot.utils.EmployeeUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -30,103 +32,98 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CareerServiceImpl implements CareerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CareerServiceImpl.class);
-    private static final String APPOINT_SUCCESS_LOG =
-            "Employee with ID={} appointed to position with ID={} successfully";
-    private static final String DISMISS_SUCCESS_LOG = "Employee with ID={} dismissed successfully";
-    private static final String EDIT_SUCCESS_LOG = "Career step with ID={} edited successfully";
-    private static final String ID_IS_NULL_LOG = "Career can't be to edit, ID is null";
-    private static final String DELETE_SUCCESS_LOG = "Career step with ID={} deleted successfully";
-    private static final String CAREER_STEP_NOT_FOUND_LOG = "Career step with ID={} not found";
     private static final String CAREER_STEP_NOT_FOUND_EXCEPTION = "Career step not found. ID=";
-    private static final String NO_CAREER_STEPS_FOUND_LOG =
-            "No career steps found for the provided parameters: page={}, size={}";
-    private static final String SUCCESS_CAREER_FOUND_LOG = "Successfully fetched {} career steps from database";
-    private static final String EMPLOYEE_AND_POSITION_ITEMS_FOUND_LOG =
-            "All current employees and all actual positions fetched successfully";
     private final CareerRepository careerRepository;
     private final EmployeeRepository employeeRepository;
     private final PositionRepository positionRepository;
 
     @Override
     public void appointEmployee(CareerStepSaveDTO careerStepDTO) {
+        LOGGER.debug(Constant.ATTEMPT_TO_APPOINT_EMPLOYEE, careerStepDTO.getEmployeeId(), careerStepDTO.getPositionId());
         CareerStepEntity careerStepEntity = Converter.toEntity(careerStepDTO, CareerStepEntity.class);
-        fillingCareerFieldsInOldRows(careerStepDTO.getEmployeeId(),
+        this.updatePreviousCareerSteps(careerStepDTO.getEmployeeId(),
                 careerStepEntity.getOrderAppointment(),
                 careerStepEntity.getDateOfAppointment());
 
         careerRepository.save(careerStepEntity);
-
-        LOGGER.info(APPOINT_SUCCESS_LOG, careerStepDTO.getEmployeeId(), careerStepDTO.getPositionId());
+        LOGGER.info(Constant.APPOINT_EMPLOYEE_SUCCESS, careerStepDTO.getEmployeeId(), careerStepDTO.getPositionId());
     }
 
     @Override
     public void dismissEmployee(DismissDTO dismissDTO) {
-        this.fillingCareerFieldsInOldRows(dismissDTO.getEmployeeId(),
+        LOGGER.debug(Constant.ATTEMPT_TO_DISMISS_EMPLOYEE, dismissDTO.getEmployeeId());
+        this.updatePreviousCareerSteps(dismissDTO.getEmployeeId(),
                 dismissDTO.getOrderDismiss(),
                 dismissDTO.getDateOfDismiss());
         employeeRepository.updateIsFired(dismissDTO.getEmployeeId());
 
-        LOGGER.info(DISMISS_SUCCESS_LOG, dismissDTO.getEmployeeId());
+        LOGGER.info(Constant.DISMISS_EMPLOYEE_SUCCESS, dismissDTO.getEmployeeId());
     }
 
     @Override
     public void editCareerStep(CareerStepSaveDTO careerStepDTO) {
+        LOGGER.debug(Constant.ATTEMPT_TO_EDIT_CAREER_STEP, careerStepDTO.getId());
         CareerStepEntity entity = Converter.toEntity(careerStepDTO, CareerStepEntity.class);
         if (entity.getId() != null) {
             careerRepository.save(entity);
-            LOGGER.info(EDIT_SUCCESS_LOG, entity.getId());
+            LOGGER.info(Constant.EDIT_CAREER_STEP_SUCCESS, entity.getId());
         } else {
-            LOGGER.warn(ID_IS_NULL_LOG);
+            LOGGER.warn(Constant.ID_IS_NULL_LOG);
         }
     }
 
     @Override
     public void deleteCareerStep(Long id) {
+        LOGGER.debug(Constant.ATTEMPT_TO_DELETE_CAREER_STEP, id);
         careerRepository.deleteById(id);
-        LOGGER.info(DELETE_SUCCESS_LOG, id);
+        LOGGER.info(Constant.DELETE_CAREER_STEP_SUCCESS, id);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public EditCareerDTO getInfoForEditingCareerStep(Long id) {
+        LOGGER.debug(Constant.ATTEMPT_TO_GET_INFO_FOR_EDITING_CAREER_STEP, id);
         CareerStepEntity careerStep = careerRepository.findById(id)
                 .orElseThrow(() -> {
-                    LOGGER.error(CAREER_STEP_NOT_FOUND_LOG, id);
+                    LOGGER.error(Constant.CAREER_STEP_NOT_FOUND, id);
                     return new EntityNotFoundException(CAREER_STEP_NOT_FOUND_EXCEPTION + id);
                 });
+        List<PositionItemDTO> positions = this.getActualPositionItems();
 
-
+        LOGGER.info(Constant.INFO_FOR_EDITING_CAREER_STEP_FETCHED_SUCCESS, id);
 
         return EditCareerDTO.builder()
                 .careerStep(Converter.toDto(careerStep, CareerStepGetDTO.class))
-                .positions(positionRepository.findAllByIsActualTrue().stream()
-                        .map(entity -> Converter.toDto(entity, PositionItemDTO.class))
-                        .toList())
+                .positions(positions)
                 .build();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Page<CareerStepGetDTO> getEmployeesCareer(Long employeeId, int page, int size) {
+        LOGGER.debug(Constant.ATTEMPT_TO_GET_CAREER_OF_EMPLOYEE, employeeId);
+        EmployeeUtils.findById(employeeId);
         Page<CareerStepEntity> career =
                 careerRepository.findAllByEmployeeIdOrderByDateOfAppointment(employeeId, PageRequest.of(page, size));
         if (career.getContent().isEmpty()) {
-            LOGGER.warn(NO_CAREER_STEPS_FOUND_LOG, page, size);
+            LOGGER.warn(Constant.NO_CAREER_STEPS_FOUND, page, size);
         } else {
-            LOGGER.info(SUCCESS_CAREER_FOUND_LOG, career.getContent().size());
+            LOGGER.info(Constant.SUCCESS_CAREER_FOUND, career.getContent().size());
         }
 
         return career.map(entity -> Converter.toDto(entity, CareerStepGetDTO.class));
     }
 
+    @Transactional(readOnly = true)
     @Override
     public AppointmentInfoDTO getAppointmentInfo() {
+        LOGGER.debug(Constant.ATTEMPT_TO_GET_INFO_FOR_APPOINTMENT);
         List<EmployeeItemDTO> employees = employeeRepository.findAllByIsFiredFalse().stream()
                 .map(entity -> Converter.toDto(entity, EmployeeItemDTO.class))
                 .toList();
-        List<PositionItemDTO> positions = positionRepository.findAllByIsActualTrue().stream()
-                .map(entity -> Converter.toDto(entity, PositionItemDTO.class))
-                .toList();
+        List<PositionItemDTO> positions = this.getActualPositionItems();
 
-        LOGGER.info(EMPLOYEE_AND_POSITION_ITEMS_FOUND_LOG);
+        LOGGER.info(Constant.EMPLOYEE_AND_POSITION_ITEMS_FOUND_LOG);
 
         return AppointmentInfoDTO.builder()
                 .employees(employees)
@@ -134,12 +131,18 @@ public class CareerServiceImpl implements CareerService {
                 .build();
     }
 
-    private void fillingCareerFieldsInOldRows(Long employeeId, String orderLiberation, Date dateLiberation) {
+    private void updatePreviousCareerSteps(Long employeeId, String orderLiberation, Date dateLiberation) {
         careerRepository.findAllByEmployeeIdAndIsCurrentTrue(employeeId)
                 .forEach(careerStep -> {
                     careerStep.setCurrent(false);
                     careerStep.setOrderLiberation(orderLiberation);
                     careerStep.setDateOfLiberationPosition(dateLiberation);
                 });
+    }
+
+    private List<PositionItemDTO> getActualPositionItems() {
+        return positionRepository.findAllByIsActualTrue().stream()
+                .map(entity -> Converter.toDto(entity, PositionItemDTO.class))
+                .toList();
     }
 }

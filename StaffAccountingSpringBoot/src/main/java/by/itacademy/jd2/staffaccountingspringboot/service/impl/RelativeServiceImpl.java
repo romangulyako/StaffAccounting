@@ -5,6 +5,8 @@ import by.itacademy.jd2.staffaccountingspringboot.entity.RelativeEntity;
 import by.itacademy.jd2.staffaccountingspringboot.dto.RelativeDTO;
 import by.itacademy.jd2.staffaccountingspringboot.repository.RelativeRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.RelativeService;
+import by.itacademy.jd2.staffaccountingspringboot.utils.Constant;
+import by.itacademy.jd2.staffaccountingspringboot.utils.EmployeeUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -19,48 +21,49 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class RelativeServiceImpl implements RelativeService {
     private static final Logger LOGGER = LoggerFactory.getLogger(RelativeServiceImpl.class);
-    private static final String SAVE_SUCCESS_LOG = "Relative saved successfully. ID={}";
-    private static final String DELETE_SUCCESS_LOG = "Relative with id={} deleted successfully";
-    private static final String NOT_FOUND_LOG = "Relative with id={} not found";
     private static final String NOT_FOUND_EXCEPTION = "Relative not found. ID=";
-    private static final String GET_SUCCESS_LOG = "Successfully fetched relative with id={} from database";
-    private static final String NOT_FOUND_LIST_LOG =
-            "No relatives found for employee ID={} for the provided parameters: page={}, size={}";
-    private static final String GET_LIST_SUCCESS_LOG = "Successfully fetched {} relatives from the database";
     private final RelativeRepository relativeRepository;
 
     @Override
     public void saveOrUpdateRelative(RelativeDTO relativeDTO) {
+        LOGGER.debug(Constant.ATTEMPT_TO_SAVE_RELATIVE,
+                relativeDTO.getPersonData().getName(), relativeDTO.getPersonData().getSurname());
         RelativeEntity relativeEntity = Converter.toEntity(relativeDTO, RelativeEntity.class);
         relativeRepository.save(relativeEntity);
-        LOGGER.info(SAVE_SUCCESS_LOG, relativeEntity.getId());
+        LOGGER.info(Constant.SAVE_RELATIVE_SUCCESS, relativeEntity.getId());
     }
 
     @Override
     public void deleteRelative(Long id) {
+        LOGGER.debug(Constant.ATTEMPT_TO_DELETE_RELATIVE, id);
         relativeRepository.deleteById(id);
-        LOGGER.info(DELETE_SUCCESS_LOG, id);
+        LOGGER.info(Constant.DELETE_RELATIVE_SUCCESS, id);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public RelativeDTO getRelative(Long id) {
+        LOGGER.debug(Constant.ATTEMPT_TO_FETCH_RELATIVE, id);
         RelativeEntity relativeEntity = relativeRepository.findById(id)
                 .orElseThrow(() -> {
-                    LOGGER.info(NOT_FOUND_LOG, id);
+                    LOGGER.info(Constant.RELATIVE_NOT_FOUND, id);
                     return new EntityNotFoundException(NOT_FOUND_EXCEPTION + id);
                 });
 
-        LOGGER.info(GET_SUCCESS_LOG, id);
+        LOGGER.info(Constant.GET_RELATIVE_SUCCESS, id);
         return Converter.toDto(relativeEntity, RelativeDTO.class);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Page<RelativeDTO> getRelatives(Long employeeId, int page, int size) {
+        LOGGER.debug(Constant.ATTEMPT_TO_GET_RELATIVE_LIST, employeeId);
+        EmployeeUtils.findById(employeeId);
         Page<RelativeEntity> entities = relativeRepository.findAllByEmployeeId(employeeId, PageRequest.of(page, size));
         if (entities.getContent().isEmpty()) {
-            LOGGER.warn(NOT_FOUND_LIST_LOG, employeeId, page, size);
+            LOGGER.warn(Constant.NOT_FOUND_RELATIVE_LIST, employeeId, page, size);
         } else {
-            LOGGER.info(GET_LIST_SUCCESS_LOG, entities.getContent().size());
+            LOGGER.info(Constant.GET_RELATIVE_LIST_SUCCESS, entities.getContent().size());
         }
 
         return entities.map(entity -> Converter.toDto(entity, RelativeDTO.class));

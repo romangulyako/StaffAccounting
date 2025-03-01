@@ -5,6 +5,8 @@ import by.itacademy.jd2.staffaccountingspringboot.entity.EducationEntity;
 import by.itacademy.jd2.staffaccountingspringboot.dto.EducationDTO;
 import by.itacademy.jd2.staffaccountingspringboot.repository.EducationRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EducationService;
+import by.itacademy.jd2.staffaccountingspringboot.utils.Constant;
+import by.itacademy.jd2.staffaccountingspringboot.utils.EmployeeUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -19,49 +21,48 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class EducationServiceImpl implements EducationService {
     private static final Logger LOGGER = LoggerFactory.getLogger(EducationServiceImpl.class);
-    private static final String SAVE_SUCCESS_LOG = "Education saved successfully. ID={}";
-    private static final String DELETE_SUCCESS_LOG = "Education with ID={} deleted successfully";
-    private static final String NOT_FOUND_LOG = "Education with ID={} not found";
-    private static final String NOT_FOUND_EXCEPTION = "Education not found. ID=";
-    private static final String FOUND_SUCCESS_LOG = "Successfully fetched education with ID={} from database";
-    private static final String NOT_FOUND_LIST_LOG =
-            "No education found for employee ID={} for the provided parameters: page={}, size={}";
-    private static final String FOUND_LIST_SUCCESS_LOG = "Successfully fetched {} education rows from the database";
     private final EducationRepository educationRepository;
 
     @Override
     public void saveOrUpdateEducation(EducationDTO educationDTO) {
+        LOGGER.debug(Constant.ATTEMPT_TO_SAVE_EDUCATION);
         EducationEntity entity = Converter.toEntity(educationDTO, EducationEntity.class);
         educationRepository.save(entity);
-        LOGGER.info(SAVE_SUCCESS_LOG, entity.getId());
+        LOGGER.info(Constant.SAVE_EDUCATION_SUCCESS, entity.getId());
     }
 
     @Override
     public void deleteEducation(Long id) {
+        LOGGER.debug(Constant.ATTEMPT_TO_DELETE_EDUCATION, id);
         educationRepository.deleteById(id);
-        LOGGER.info(DELETE_SUCCESS_LOG, id);
+        LOGGER.info(Constant.DELETE_SUCCESS_LOG, id);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public EducationDTO getEducation(Long id) {
+        LOGGER.debug(Constant.ATTEMPT_TO_FETCH_EDUCATION, id);
         EducationEntity educationEntity = educationRepository.findById(id)
                 .orElseThrow(() -> {
-                    LOGGER.info(NOT_FOUND_LOG, id);
-                    return new EntityNotFoundException(NOT_FOUND_EXCEPTION + id);
+                    LOGGER.info(Constant.EDUCATION_NOT_FOUND, id);
+                    return new EntityNotFoundException(Constant.NOT_FOUND_EXCEPTION + id);
                 });
 
-        LOGGER.info(FOUND_SUCCESS_LOG, id);
+        LOGGER.info(Constant.EDUCATION_FOUND_SUCCESS, id);
         return Converter.toDto(educationEntity, EducationDTO.class);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Page<EducationDTO> getEducationsByEmployeeId(Long employeeId, int page, int size) {
+        LOGGER.debug(Constant.ATTEMPT_TO_GET_EDUCATION_FOR_EMPLOYEE, employeeId);
+        EmployeeUtils.findById(employeeId);
         Page<EducationEntity> entities =
                 educationRepository.findAllByEmployeeIdOrderByDateEndAsc(employeeId, PageRequest.of(page, size));
         if (entities.getContent().isEmpty()) {
-            LOGGER.warn(NOT_FOUND_LIST_LOG, employeeId, page, size);
+            LOGGER.warn(Constant.NOT_FOUND_EDUCATION_LIST, employeeId, page, size);
         } else {
-            LOGGER.info(FOUND_LIST_SUCCESS_LOG, entities.getContent().size());
+            LOGGER.info(Constant.FOUND_EDUCATION_LIST_SUCCESS, entities.getContent().size());
         }
 
         return entities.map(entity -> Converter.toDto(entity, EducationDTO.class));

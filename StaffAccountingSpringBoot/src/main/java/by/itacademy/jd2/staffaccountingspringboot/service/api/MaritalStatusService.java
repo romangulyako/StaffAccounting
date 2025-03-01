@@ -7,5 +7,5 @@ public interface MaritalStatusService {
         void saveOrUpdateMaritalStatus(MaritalStatusDTO maritalStatusDTO);
         void deleteMaritalStatus(Long id);
         MaritalStatusDTO getMaritalStatus(Long id);
-        Page<MaritalStatusDTO> getAllMaritalStatuses(Long employeeId, int page, int size);
+        Page<MaritalStatusDTO> getMaritalStatusesByEmployee(Long employeeId, int page, int size);
 }

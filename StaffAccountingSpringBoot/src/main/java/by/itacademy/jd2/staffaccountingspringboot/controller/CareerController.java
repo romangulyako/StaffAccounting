@@ -10,8 +10,6 @@ import by.itacademy.jd2.staffaccountingspringboot.dto.PageFilter;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.CareerService;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EmployeeService;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -26,14 +24,12 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class CareerController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CareerController.class);
     private final CareerService careerService;
     private final EmployeeService employeeService;
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/appointment")
     public String appointmentPage(Model model) {
-        LOGGER.info("Received request to get appointment info");
         AppointmentInfoDTO appointmentInfo = careerService.getAppointmentInfo();
         model.addAttribute("employees", appointmentInfo.getEmployees());
         model.addAttribute("positions", appointmentInfo.getPositions());
@@ -45,7 +41,6 @@ public class CareerController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/appointment")
     public String appointEmployee(@ModelAttribute("careerStep") CareerStepSaveDTO careerStep) {
-        LOGGER.info("Received request to appoint employee");
         careerService.appointEmployee(careerStep);
 
         return "redirect:/appointment";
@@ -54,7 +49,6 @@ public class CareerController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/dismiss")
     public String dismissPage(Model model) {
-        LOGGER.info("Received request to get employees for dismiss");
         List<EmployeeItemDTO> employees = employeeService.getCurrentEmployeeItems();
         model.addAttribute("employees", employees);
         model.addAttribute("dismissDTO", new DismissDTO());
@@ -65,7 +59,6 @@ public class CareerController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/dismiss")
     public String dismissEmployee(@ModelAttribute("dismissDTO") DismissDTO dismissDTO) {
-        LOGGER.info("Received request to dismiss employee");
         careerService.dismissEmployee(dismissDTO);
 
         return "redirect:/dismiss";
@@ -75,7 +68,6 @@ public class CareerController {
     public String getCareerByEmployee(@PathVariable Long id,
                                       @ModelAttribute("pageFilter") PageFilter pageFilter,
                                       Model model) {
-        LOGGER.info("Received request to get career by employee");
         Page<CareerStepGetDTO> careerPage = careerService.getEmployeesCareer(id, pageFilter.getPage(), pageFilter.getSize());
         model.addAttribute("career", careerPage.getContent());
         model.addAttribute("pageFilter", pageFilter);
@@ -89,7 +81,6 @@ public class CareerController {
     @PostMapping("/employees/{employeeId}/career/delete/{id}")
     public String deleteCareerStep(@PathVariable Long id,
                                    @PathVariable Long employeeId) {
-        LOGGER.info("Received request to delete career step");
         careerService.deleteCareerStep(id);
 
         return "redirect:/employees/" + employeeId + "/career";
@@ -98,8 +89,7 @@ public class CareerController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("employees/{employeeId}/career/edit/{id}")
     public String editCareerPage(@PathVariable Long id,
-                                 Model model) {
-        LOGGER.info("Received request to get info for edit career step");
+                                 Model model) {;
         EditCareerDTO editCareerDTO = careerService.getInfoForEditingCareerStep(id);
         model.addAttribute("careerStep", editCareerDTO.getCareerStep());
         model.addAttribute("positions", editCareerDTO.getPositions());
@@ -110,7 +100,6 @@ public class CareerController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("employees/{employeeId}/career/edit/{id}")
     public String editCareerStep(@ModelAttribute("careerStep") CareerStepSaveDTO careerStep) {
-        LOGGER.info("Received request to edit career step");
         careerService.editCareerStep(careerStep);
 
         return "redirect:/employees/" + careerStep.getEmployeeId() + "/career";

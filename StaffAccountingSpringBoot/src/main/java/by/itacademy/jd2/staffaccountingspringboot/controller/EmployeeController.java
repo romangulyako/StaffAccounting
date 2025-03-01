@@ -6,8 +6,6 @@ import by.itacademy.jd2.staffaccountingspringboot.dto.EmployeesPageDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.PageFilter;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EmployeeService;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequiredArgsConstructor
 public class EmployeeController {
-    public static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
     private final EmployeeService employeeService;
 
     @GetMapping({"/", "/employees"})
@@ -28,7 +25,6 @@ public class EmployeeController {
                                @RequestParam(defaultValue = "false") Boolean isFired,
                                EmployeeFilterData filterData,
                                Model model) {
-        LOGGER.info("Received request to get employees (isFired = {})", isFired);
         EmployeesPageDTO employeesPage =
                 employeeService.getEmployeesPage(filterData, isFired, pageFilter.getPage(), pageFilter.getSize());
         model.addAttribute("employees", employeesPage.getEmployees().getContent());
@@ -60,7 +56,6 @@ public class EmployeeController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/employees/{id}/edit")
     public String editEmployeePage(@PathVariable Long id, Model model) {
-        LOGGER.info("Received request to get for edit employee with id {}", id);
         model.addAttribute("employee", employeeService.getEmployee(id));
 
         return "employees/edit";
@@ -69,7 +64,6 @@ public class EmployeeController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/employees/edit")
     public String editEmployee(EmployeeDTO employee) {
-        LOGGER.info("Received request to edit employee with id={}", employee.getId());
         employeeService.saveOrUpdateEmployee(employee);
 
         return "redirect:/employees/" + employee.getId();
@@ -77,7 +71,6 @@ public class EmployeeController {
 
     @GetMapping("/employees/{id}")
     public String getEmployee(@PathVariable Long id, Model model) {
-        LOGGER.info("Received request to get employee with id={}", id);
         model.addAttribute("employee", employeeService.getEmployee(id));
 
         return "employees/info";
@@ -86,7 +79,6 @@ public class EmployeeController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/employees/{id}/delete")
     public String deleteEmployee(@PathVariable Long id) {
-        LOGGER.info("Received request to delete employee with id={}", id);
         employeeService.deleteEmployee(id);
 
         return "redirect:/employees";
@@ -103,7 +95,6 @@ public class EmployeeController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/employees/{id}/return")
     public String returnToCurrent(@PathVariable Long id) {
-        LOGGER.info("Received request to return employee with id={}", id);
         employeeService.returnToCurrent(id);
 
         return "redirect:/employees";

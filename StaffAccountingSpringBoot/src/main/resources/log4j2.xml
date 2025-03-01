@@ -24,9 +24,9 @@
             <AppenderRef ref="CONSOLE"/>
             <AppenderRef ref="RollingFile"/>
         </Logger>
-        <Logger name="by.itacademy.jd2.staffaccountingspringboot.service.impl" level="INFO" additivity="false">
-            <AppenderRef ref="CONSOLE"/>
-            <AppenderRef ref="RollingFile"/>
+        <Logger name="by.itacademy.jd2.staffaccountingspringboot.service.impl" level="DEBUG" additivity="false">
+            <AppenderRef ref="CONSOLE" level="DEBUG"/>
+            <AppenderRef ref="RollingFile" level="INFO"/>
         </Logger>
         <Logger name="by.itacademy.jd2.staffaccountingspringboot.controller" level="INFO" additivity="false">
             <AppenderRef ref="RollingFile"/>

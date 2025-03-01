@@ -5,6 +5,8 @@ import by.itacademy.jd2.staffaccountingspringboot.entity.MaritalStatusEntity;
 import by.itacademy.jd2.staffaccountingspringboot.dto.MaritalStatusDTO;
 import by.itacademy.jd2.staffaccountingspringboot.repository.MaritalStatusRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.MaritalStatusService;
+import by.itacademy.jd2.staffaccountingspringboot.utils.Constant;
+import by.itacademy.jd2.staffaccountingspringboot.utils.EmployeeUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -19,50 +21,50 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MaritalStatusServiceImpl implements MaritalStatusService {
     private static final Logger LOGGER = LoggerFactory.getLogger(MaritalStatusServiceImpl.class);
-    private static final String SAVE_SUCCESS_LOG = "Marital status saved successfully. ID: {}";
-    private static final String DELETE_SUCCESS_LOG = "Marital status with ID={} deleted successfully";
-    private static final String NOT_FOUND_LOG = "Marital status with ID={} not found";
     private static final String NOT_FOUND_EXCEPTION = "Marital status not found. ID=";
-    private static final String FOUND_SUCCESS_LOG = "Successfully fetched marital status with ID={} from database";
-    private static final String NOT_FOUND_LIST_LOG =
-            "No marital statuses found for employee ID={} for the provided parameters: page={}, size={}";
-    private static final String FOUND_LIST_SUCCESS_LOG = "Successfully fetched {} marital statuses from the database";
     private final MaritalStatusRepository maritalStatusRepository;
 
     @Override
     public void saveOrUpdateMaritalStatus(MaritalStatusDTO maritalStatusDTO) {
+        LOGGER.debug(Constant.ATTEMPT_TO_SAVE_MARITAL_STATUS, maritalStatusDTO.getEmployeeId());
         MaritalStatusEntity maritalStatusEntity = Converter.toEntity(maritalStatusDTO, MaritalStatusEntity.class);
         maritalStatusRepository.save(maritalStatusEntity);
-        LOGGER.info(SAVE_SUCCESS_LOG, maritalStatusEntity.getId());
+        LOGGER.info(Constant.SAVE_MARITAL_STATUS_SUCCESS, maritalStatusEntity.getId());
     }
 
     @Override
     public void deleteMaritalStatus(Long id) {
+        LOGGER.debug(Constant.ATTEMPT_TO_DELETE_MARITAL_STATUS, id);
         maritalStatusRepository.deleteById(id);
-        LOGGER.info(DELETE_SUCCESS_LOG, id);
+        LOGGER.info(Constant.DELETE_MARITAL_STATUS_SUCCESS, id);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public MaritalStatusDTO getMaritalStatus(Long id) {
+        LOGGER.debug(Constant.ATTEMPT_TO_GET_MARITAL_STATUS, id);
         MaritalStatusEntity maritalStatus = maritalStatusRepository.findById(id)
                 .orElseThrow(() -> {
-                    LOGGER.info(NOT_FOUND_LOG, id);
+                    LOGGER.info(Constant.NOT_FOUND_MARITAL_STATUS, id);
                     return new EntityNotFoundException(NOT_FOUND_EXCEPTION + id);
                 });
 
-        LOGGER.info(FOUND_SUCCESS_LOG, id);
+        LOGGER.info(Constant.FOUND_MARITAL_STATUS_SUCCESS, id);
         return Converter.toDto(maritalStatus, MaritalStatusDTO.class);
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public Page<MaritalStatusDTO> getAllMaritalStatuses(Long employeeId, int page, int size) {
+    public Page<MaritalStatusDTO> getMaritalStatusesByEmployee(Long employeeId, int page, int size) {
+        LOGGER.debug(Constant.ATTEMPT_TO_GET_MARITAL_STATUSES_BY_EMPLOYEE, employeeId);
+        EmployeeUtils.findById(employeeId);
         Page<MaritalStatusEntity> maritalStatuses =
                 maritalStatusRepository.findAllByEmployeeIdOrderByRegistrationDate(employeeId,
                         PageRequest.of(page, size));
         if (maritalStatuses.isEmpty()) {
-            LOGGER.warn(NOT_FOUND_LIST_LOG, employeeId, page, size);
+            LOGGER.warn(Constant.NOT_FOUND_MARITAL_STATUS_LIST, employeeId, page, size);
         } else {
-            LOGGER.info(FOUND_LIST_SUCCESS_LOG, maritalStatuses.getContent().size());
+            LOGGER.info(Constant.FOUND_MARITAL_STATUS_LIST_SUCCESS, maritalStatuses.getContent().size());
         }
 
         return maritalStatuses.map(entity -> Converter.toDto(entity, MaritalStatusDTO.class));
