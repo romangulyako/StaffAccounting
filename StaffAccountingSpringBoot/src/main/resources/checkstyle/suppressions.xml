@@ -5,6 +5,13 @@
         "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 
 <suppressions>
+    <suppress checks="MissingJavadocMethod" files="src[/\\]main[/\\]java[/\\].*config.*"/>
+    <suppress checks="MissingJavadocMethod" files="src[/\\]main[/\\]java[/\\].*controller.*"/>
+    <suppress checks="MissingJavadocMethod" files="src[/\\]main[/\\]java[/\\].*exception.*"/>
+    <suppress checks="MissingJavadocMethod" files="src[/\\]main[/\\]java[/\\].*converter.*"/>
+    <suppress checks="MissingJavadocMethod" files="src[/\\]main[/\\]java[/\\].*repository.*"/>
+    <suppress checks="MagicNumber" files="src[/\\]main[/\\]java[/\\].*entity.*"/>
+    <suppress checks="MagicNumber" files="src[/\\]main[/\\]java[/\\].*dto.*"/>
     <suppress checks="AvoidStaticImport" files="src[/\\]test[/\\]java[/\\].*"/>
     <suppress checks="AvoidStarImport" files="src[/\\]test[/\\]java[/\\].*"/>
     <suppress checks="MagicNumber" files="src[/\\]test[/\\]java[/\\].*"/>

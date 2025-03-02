@@ -9,13 +9,16 @@ public class Constant {
     public static final String ATTEMPT_TO_FETCH_EMPLOYEE = "Attempt to fetch employee with ID={}";
     public static final String FETCHED_EMPLOYEE_SUCCESS = "Successfully fetched employee with ID={} from database";
     public static final String ATTEMPT_TO_FETCH_EMPLOYEE_LIST = "Attempt to fetch employee's list";
-    public static final String NOT_FOUND_EMPLOYEE_LIST = "No employees found for the provided parameters: page={}, size={}";
+    public static final String NOT_FOUND_EMPLOYEE_LIST =
+            "No employees found for the provided parameters: page={}, size={}";
     public static final String FOUND_EMPLOYEE_LIST_SUCCESS = "Successfully fetched {} employees from the database";
     public static final String ATTEMPT_TO_RETURN_EMPLOYEE = "Attempt to return employee with ID={} to current";
-    public static final String RETURN_EMPLOYEE_TO_CURRENT_SUCCESS = "Employee with ID={} returned to current successfully";
+    public static final String RETURN_EMPLOYEE_TO_CURRENT_SUCCESS =
+            "Employee with ID={} returned to current successfully";
     public static final String EMPLOYEE_NOT_FOUND = "Employee with ID={} not found";
     public static final String ATTEMPT_TO_APPOINT_EMPLOYEE = "Attempt to appoint employee ID={} to position ID={}";
-    public static final String APPOINT_EMPLOYEE_SUCCESS = "Employee with ID={} appointed to position with ID={} successfully";
+    public static final String APPOINT_EMPLOYEE_SUCCESS =
+            "Employee with ID={} appointed to position with ID={} successfully";
     public static final String ATTEMPT_TO_DISMISS_EMPLOYEE = "Attempt to dismiss employee with ID={}";
     public static final String DISMISS_EMPLOYEE_SUCCESS = "Employee with ID={} dismissed successfully";
     public static final String ATTEMPT_TO_EDIT_CAREER_STEP = "Attempt to edit career step with ID={}";
@@ -23,14 +26,18 @@ public class Constant {
     public static final String ID_IS_NULL_LOG = "Career can't be to edit, ID is null";
     public static final String ATTEMPT_TO_DELETE_CAREER_STEP = "Attempt to delete career step with ID={}";
     public static final String DELETE_CAREER_STEP_SUCCESS = "Career step with ID={} deleted successfully";
-    public static final String ATTEMPT_TO_GET_INFO_FOR_EDITING_CAREER_STEP = "Attempt to get info for editing career step with ID={}";
-    public static final String INFO_FOR_EDITING_CAREER_STEP_FETCHED_SUCCESS = "Info for editing career step with ID={} fetched success";
+    public static final String ATTEMPT_TO_GET_INFO_FOR_EDITING_CAREER_STEP =
+            "Attempt to get info for editing career step with ID={}";
+    public static final String INFO_FOR_EDITING_CAREER_STEP_FETCHED_SUCCESS =
+            "Info for editing career step with ID={} fetched success";
     public static final String CAREER_STEP_NOT_FOUND = "Career step with ID={} not found";
-    public static final String NO_CAREER_STEPS_FOUND = "No career steps found for the provided parameters: page={}, size={}";
+    public static final String NO_CAREER_STEPS_FOUND =
+            "No career steps found for the provided parameters: page={}, size={}";
     public static final String ATTEMPT_TO_GET_CAREER_OF_EMPLOYEE = "Attempt to get career of employee with ID={}";
     public static final String SUCCESS_CAREER_FOUND = "Successfully fetched {} career steps from database";
     public static final String ATTEMPT_TO_GET_INFO_FOR_APPOINTMENT = "Attempt to get info for appointment employees";
-    public static final String EMPLOYEE_AND_POSITION_ITEMS_FOUND_LOG = "Info for appointment employees fetched successfully";
+    public static final String EMPLOYEE_AND_POSITION_ITEMS_FOUND_LOG =
+            "Info for appointment employees fetched successfully";
     public static final String ATTEMPT_TO_SAVE_DEPARTMENT = "Attempt to save department with name={}";
     public static final String SAVE_DEPARTMENT_SUCCESS = "Department saved successfully. ID={}";
     public static final String ATTEMPT_TO_DELETE_DEPARTMENT = "Attempt to delete department with ID={}";
@@ -40,7 +47,8 @@ public class Constant {
     public static final String ATTEMPT_TO_FETCH_INFO_OF_DEPARTMENT = "Attempt to fetch info of department with ID={}";
     public static final String FETCHED_DEPARTMENT_INFO_SUCCESS = "Successfully fetched department's info with ID={}";
     public static final String ATTEMPT_TO_FETCH_DEPARTMENTS_LIST = "Attempt to fetch department's list";
-    public static final String NO_DEPARTMENTS_FOUND = "No departments found for the provided parameters: page={}, size={}";
+    public static final String NO_DEPARTMENTS_FOUND =
+            "No departments found for the provided parameters: page={}, size={}";
     public static final String DEPARTMENTS_LIST_FOUND_SUCCESS = "Successfully fetched {} departments from database";
     public static final String ATTEMPT_TO_REDUCE_DEPARTMENT = "Attempt to reduce department with ID={}";
     public static final String REDUCE_DEPARTMENT_SUCCESS = "Successfully reduced department with ID={}";
@@ -55,19 +63,27 @@ public class Constant {
     public static final String EDUCATION_NOT_FOUND = "Education with ID={} not found";
     public static final String NOT_FOUND_EXCEPTION = "Education not found. ID=";
     public static final String EDUCATION_FOUND_SUCCESS = "Successfully fetched education with ID={} from database";
-    public static final String ATTEMPT_TO_GET_EDUCATION_FOR_EMPLOYEE = "Attempt to get education for employee with ID={}";
-    public static final String NOT_FOUND_EDUCATION_LIST = "No education found for employee ID={} for the provided parameters: page={}, size={}";
-    public static final String FOUND_EDUCATION_LIST_SUCCESS = "Successfully fetched {} education rows from the database";
-    public static final String ATTEMPT_TO_SAVE_MARITAL_STATUS = "Attempt to save marital status for employee with ID={}";
+    public static final String ATTEMPT_TO_GET_EDUCATION_FOR_EMPLOYEE =
+            "Attempt to get education for employee with ID={}";
+    public static final String NOT_FOUND_EDUCATION_LIST =
+            "No education found for employee ID={} for the provided parameters: page={}, size={}";
+    public static final String FOUND_EDUCATION_LIST_SUCCESS =
+            "Successfully fetched {} education rows from the database";
+    public static final String ATTEMPT_TO_SAVE_MARITAL_STATUS =
+            "Attempt to save marital status for employee with ID={}";
     public static final String SAVE_MARITAL_STATUS_SUCCESS = "Marital status saved successfully. ID: {}";
     public static final String ATTEMPT_TO_DELETE_MARITAL_STATUS = "Attempt to delete marital status with ID={}";
     public static final String DELETE_MARITAL_STATUS_SUCCESS = "Marital status with ID={} deleted successfully";
     public static final String ATTEMPT_TO_GET_MARITAL_STATUS = "Attempt to get marital status with ID={}";
     public static final String NOT_FOUND_MARITAL_STATUS = "Marital status with ID={} not found";
-    public static final String FOUND_MARITAL_STATUS_SUCCESS = "Successfully fetched marital status with ID={} from database";
-    public static final String ATTEMPT_TO_GET_MARITAL_STATUSES_BY_EMPLOYEE = "Attempt to get marital statuses by employee with ID={}";
-    public static final String NOT_FOUND_MARITAL_STATUS_LIST = "No marital statuses found for employee ID={} for the provided parameters: page={}, size={}";
-    public static final String FOUND_MARITAL_STATUS_LIST_SUCCESS = "Successfully fetched {} marital statuses from the database";
+    public static final String FOUND_MARITAL_STATUS_SUCCESS =
+            "Successfully fetched marital status with ID={} from database";
+    public static final String ATTEMPT_TO_GET_MARITAL_STATUSES_BY_EMPLOYEE =
+            "Attempt to get marital statuses by employee with ID={}";
+    public static final String NOT_FOUND_MARITAL_STATUS_LIST =
+            "No marital statuses found for employee ID={} for the provided parameters: page={}, size={}";
+    public static final String FOUND_MARITAL_STATUS_LIST_SUCCESS =
+            "Successfully fetched {} marital statuses from the database";
     public static final String ATTEMPT_TO_SAVE_POSITION = "Attempt to save position for department with ID={}";
     public static final String SAVE_POSITION_SUCCESS = "Position saved successfully. ID={}";
     public static final String ATTEMPT_TO_DELETE_POSITION = "Attempt to delete position with ID={}";
@@ -79,7 +95,8 @@ public class Constant {
     public static final String ATTEMPT_TO_RESTORE_POSITION = "Attempt to restore position with ID-{}";
     public static final String RESTORE_POSITION_SUCCESS = "Successfully restored position with ID={}";
     public static final String ATTEMPT_TO_GET_HISTORY_OF_POSITION = "Attempt to get history of position with ID={}";
-    public static final String NOT_FOUND_POSITION_HISTORY = "No rows found for the provided parameters: page={}, size={}";
+    public static final String NOT_FOUND_POSITION_HISTORY =
+            "No rows found for the provided parameters: page={}, size={}";
     public static final String GET_POSITION_HISTORY_SUCCESS = "Successfully fetched {} rows of history from database";
     public static final String POSITION_NOT_FOUND = "Position with ID={} not found";
     public static final String ATTEMPT_TO_SAVE_PASSPORT = "Attempt to save passport by employee with ID={}";
@@ -97,7 +114,8 @@ public class Constant {
     public static final String RELATIVE_NOT_FOUND = "Relative with ID={} not found";
     public static final String GET_RELATIVE_SUCCESS = "Successfully fetched relative with ID={} from database";
     public static final String ATTEMPT_TO_GET_RELATIVE_LIST = "Attempt to get relatives by employee with ID={}";
-    public static final String NOT_FOUND_RELATIVE_LIST = "No relatives found for employee ID={} for the provided parameters: page={}, size={}";
+    public static final String NOT_FOUND_RELATIVE_LIST =
+            "No relatives found for employee ID={} for the provided parameters: page={}, size={}";
     public static final String GET_RELATIVE_LIST_SUCCESS = "Successfully fetched {} relatives from the database";
 
     private Constant() {}

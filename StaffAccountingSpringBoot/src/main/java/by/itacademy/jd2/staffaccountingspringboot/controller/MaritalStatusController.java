@@ -4,8 +4,6 @@ import by.itacademy.jd2.staffaccountingspringboot.dto.MaritalStatusDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.PageFilter;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.MaritalStatusService;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -24,8 +22,8 @@ public class MaritalStatusController {
     public String getMaritalStatus(@PathVariable Long employeeId,
                                    @ModelAttribute("pageFilter") PageFilter pageFilter,
                                    Model model) {
-        Page<MaritalStatusDTO> maritalStatuses =
-                maritalStatusService.getMaritalStatusesByEmployee(employeeId, pageFilter.getPage(), pageFilter.getSize());
+        Page<MaritalStatusDTO> maritalStatuses = maritalStatusService.getMaritalStatusesByEmployee(employeeId,
+                pageFilter.getPage(), pageFilter.getSize());
         model.addAttribute("maritalStatuses", maritalStatuses.getContent());
         model.addAttribute("pageFilter", pageFilter);
         model.addAttribute("totalPages", maritalStatuses.getTotalPages());

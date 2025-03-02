@@ -19,6 +19,11 @@ public class EmployeeUtils {
         EmployeeUtils.employeeRepository = employeeRepository;
     }
 
+    /**
+     * Получает из БД сотрудника по его ID или выбрасывает исключение EntityNotFoundException
+     * @param id идентификатор сотрудника
+     * @return объект Entity для сотрудника
+     */
     public static EmployeeEntity findById(final Long id) {
         return employeeRepository.findById(id)
                 .orElseThrow(() -> {

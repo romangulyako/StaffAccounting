@@ -68,7 +68,8 @@ public class CareerController {
     public String getCareerByEmployee(@PathVariable Long id,
                                       @ModelAttribute("pageFilter") PageFilter pageFilter,
                                       Model model) {
-        Page<CareerStepGetDTO> careerPage = careerService.getEmployeesCareer(id, pageFilter.getPage(), pageFilter.getSize());
+        Page<CareerStepGetDTO> careerPage =
+                careerService.getEmployeesCareer(id, pageFilter.getPage(), pageFilter.getSize());
         model.addAttribute("career", careerPage.getContent());
         model.addAttribute("pageFilter", pageFilter);
         model.addAttribute("totalPages", careerPage.getTotalPages());
@@ -88,8 +89,7 @@ public class CareerController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("employees/{employeeId}/career/edit/{id}")
-    public String editCareerPage(@PathVariable Long id,
-                                 Model model) {;
+    public String editCareerPage(@PathVariable Long id, Model model) {
         EditCareerDTO editCareerDTO = careerService.getInfoForEditingCareerStep(id);
         model.addAttribute("careerStep", editCareerDTO.getCareerStep());
         model.addAttribute("positions", editCareerDTO.getPositions());

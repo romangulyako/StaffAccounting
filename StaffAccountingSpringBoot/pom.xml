@@ -14,7 +14,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>StaffAccountingSpringBoot</name>
     <description>StaffAccountingSpringBoot</description>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <url/>
     <licenses>
@@ -149,6 +149,19 @@
                             <version>${hibernate.version}</version>
                         </path>
                     </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>by.itacademy.jd2.staffaccountingspringboot.StaffAccountingSpringBootApplication</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
 

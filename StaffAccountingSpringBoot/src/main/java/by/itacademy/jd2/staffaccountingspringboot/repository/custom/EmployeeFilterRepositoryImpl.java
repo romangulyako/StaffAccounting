@@ -75,7 +75,8 @@ public class EmployeeFilterRepositoryImpl implements EmployeeFilterRepository {
 
         addPredicateForStringValue(predicates, cb, personDataJoin.get(PersonData_.surname), filterData.getSurname());
         addPredicateForStringValue(predicates, cb, personDataJoin.get(PersonData_.name), filterData.getName());
-        addPredicateForStringValue(predicates, cb, personDataJoin.get(PersonData_.patronymic), filterData.getPatronymic());
+        addPredicateForStringValue(predicates, cb, personDataJoin.get(PersonData_.patronymic),
+                filterData.getPatronymic());
 
         if (filterData.getAge() != null) {
             LocalDate today = LocalDate.now();
