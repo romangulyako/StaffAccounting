@@ -6,9 +6,9 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<div th:replace="~{/header :: header}"></div>
+<div th:replace="~{header :: header}"></div>
 <main>
-    <div th:replace="~{/menu :: menu}"></div>
+    <div th:replace="~{menu :: menu}"></div>
     <div>
         <h2 th:text="#{relatives_info}"/>
         <h3 class="form-group" th:if="${relatives.isEmpty()}" th:text="#{relatives_info_absent}"/>
@@ -52,7 +52,7 @@
               th:action="@{/employees/{employeeId}/relatives(employeeId=${employeeId})}"
               method="get"
         th:object="${pageFilter}">
-            <div th:replace="~{/page-panel :: page-panel}"></div>
+            <div th:replace="~{page-panel :: page-panel}"></div>
         </form>
         <div class="footer-buttons-block">
             <form sec:authorize="hasAuthority('ADMIN')"

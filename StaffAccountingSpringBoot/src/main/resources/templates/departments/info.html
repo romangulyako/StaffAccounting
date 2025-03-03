@@ -6,9 +6,9 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<div th:replace="~{/header :: header}"></div>
+<div th:replace="~{header :: header}"></div>
 <main>
-    <div th:replace="~{/menu :: menu}"></div>
+    <div th:replace="~{menu :: menu}"></div>
     <div>
         <div class="header-with-button">
             <h2 th:text="#{department_info}"/>
@@ -116,7 +116,7 @@
               method="get"
         th:object="${pageFilter}">
             <input type="hidden" name="isActual" th:value="${isActual}">
-            <div th:replace="~{/page-panel :: page-panel}"></div>
+            <div th:replace="~{page-panel :: page-panel}"></div>
         </form>
         <div class="footer-buttons-block">
             <form sec:authorize="hasAuthority('ADMIN')"

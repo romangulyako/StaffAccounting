@@ -6,9 +6,9 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<div th:replace="~{/header :: header}"></div>
+<div th:replace="~{header :: header}"></div>
 <main>
-    <div th:replace="~{/menu :: menu}"></div>
+    <div th:replace="~{menu :: menu}"></div>
     <div>
         <div th:if="${passport != null}"
              th:class="header-with-button">
