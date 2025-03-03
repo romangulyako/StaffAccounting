@@ -32,11 +32,12 @@ public class PositionServiceImpl implements PositionService {
     private final CareerRepository careerRepository;
 
     @Override
-    public void saveOrUpdatePosition(PositionDTO positionDTO) {
+    public PositionDTO saveOrUpdatePosition(PositionDTO positionDTO) {
         LOGGER.debug(Constant.ATTEMPT_TO_SAVE_POSITION, positionDTO.getDepartmentId());
-        PositionEntity entity = Converter.toEntity(positionDTO, PositionEntity.class);
-        positionRepository.save(entity);
+        PositionEntity entity = positionRepository.save(Converter.toEntity(positionDTO, PositionEntity.class));
         LOGGER.info(Constant.SAVE_POSITION_SUCCESS, entity.getId());
+
+        return Converter.toDto(entity, PositionDTO.class);
     }
 
     @Override

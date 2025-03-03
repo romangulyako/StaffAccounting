@@ -10,17 +10,22 @@ import java.util.List;
 public interface EmployeeService {
     /**
      * Добавляет нового сотрудника или обновляет информацию об уже существующем
+     *
      * @param employeeDTO объект DTO с информацией о сотруднике
+     * @return сохраненный объект DTO сотрудника
      */
-    void saveOrUpdateEmployee(EmployeeDTO employeeDTO);
+    EmployeeDTO saveOrUpdateEmployee(EmployeeDTO employeeDTO);
+
     /**
      * Удаляет сотрудника по его id
+     *
      * @param id идентификатор сотрудника
      */
     void deleteEmployee(Long id);
 
     /**
      * Получает сотрудника по его id
+     *
      * @param id идентификатор сотрудника
      * @return объект DTO с информацией о сотруднике
      */
@@ -28,10 +33,11 @@ public interface EmployeeService {
 
     /**
      * Получает страницу со списком сотрудников
+     *
      * @param filterData данные для фильтрации
-     * @param isFired флаг, указывающий, действующие сотрудники или уволенные
-     * @param page номер страницы
-     * @param size размер страницы
+     * @param isFired    флаг, указывающий, действующие сотрудники или уволенные
+     * @param page       номер страницы
+     * @param size       размер страницы
      * @return страница с сотрудниками
      */
     EmployeesPageDTO getEmployeesPage(EmployeeFilterData filterData,
@@ -41,12 +47,14 @@ public interface EmployeeService {
 
     /**
      * Возвращает сотрудника из уволенных в действующие
+     *
      * @param id идентификатор сотрудника
      */
     void returnToCurrent(Long id);
 
     /**
      * Получает список всех действующих сотрудников
+     *
      * @return список объектов DTO с действующими сотрудниками, содержащий только id и ФИО
      */
     List<EmployeeItemDTO> getCurrentEmployeeItems();

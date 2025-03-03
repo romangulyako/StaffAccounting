@@ -24,12 +24,13 @@ public class RelativeServiceImpl implements RelativeService {
     private final RelativeRepository relativeRepository;
 
     @Override
-    public void saveOrUpdateRelative(RelativeDTO relativeDTO) {
+    public RelativeDTO saveOrUpdateRelative(RelativeDTO relativeDTO) {
         LOGGER.debug(Constant.ATTEMPT_TO_SAVE_RELATIVE,
                 relativeDTO.getPersonData().getName(), relativeDTO.getPersonData().getSurname());
-        RelativeEntity relativeEntity = Converter.toEntity(relativeDTO, RelativeEntity.class);
-        relativeRepository.save(relativeEntity);
+        RelativeEntity relativeEntity = relativeRepository.save(Converter.toEntity(relativeDTO, RelativeEntity.class));
         LOGGER.info(Constant.SAVE_RELATIVE_SUCCESS, relativeEntity.getId());
+
+        return Converter.toDto(relativeEntity, RelativeDTO.class);
     }
 
     @Override

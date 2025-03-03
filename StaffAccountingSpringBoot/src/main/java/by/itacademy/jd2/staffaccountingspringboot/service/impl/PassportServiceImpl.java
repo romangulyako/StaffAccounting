@@ -21,11 +21,12 @@ public class PassportServiceImpl implements PassportService {
     private final PassportRepository passportRepository;
 
     @Override
-    public void saveOrUpdatePassport(PassportDTO passportDTO) {
+    public PassportDTO saveOrUpdatePassport(PassportDTO passportDTO) {
         LOGGER.debug(Constant.ATTEMPT_TO_SAVE_PASSPORT, passportDTO.getEmployeeId());
-        PassportEntity passportEntity = Converter.toEntity(passportDTO, PassportEntity.class);
-        passportRepository.save(passportEntity);
+        PassportEntity passportEntity = passportRepository.save(Converter.toEntity(passportDTO, PassportEntity.class));
         LOGGER.info(Constant.SAVE_SUCCESS_LOG, passportEntity.getId());
+
+        return Converter.toDto(passportEntity, PassportDTO.class);
     }
 
     @Override

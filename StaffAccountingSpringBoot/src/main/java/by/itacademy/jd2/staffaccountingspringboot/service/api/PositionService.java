@@ -8,8 +8,9 @@ public interface PositionService {
     /**
      * Добавляет новую должность или обновляет информацию об уже существующей
      * @param positionDTO объект DTO с информацией о должности
+     * @return объект DTO сохраненной должности
      */
-    void saveOrUpdatePosition(PositionDTO positionDTO);
+    PositionDTO saveOrUpdatePosition(PositionDTO positionDTO);
 
     /**
      * Удаляет должность по ее id

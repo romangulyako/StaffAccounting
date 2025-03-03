@@ -8,8 +8,9 @@ public interface RelativeService {
      * Добавляет новую запись о родственнике сотрудника
      * или обновляет уже существующую
      * @param relativeDTO объект с информацией о родственнике сотрудника
+     * @return объект DTO сохраненного родственника
      */
-    void saveOrUpdateRelative(RelativeDTO relativeDTO);
+    RelativeDTO saveOrUpdateRelative(RelativeDTO relativeDTO);
     /**
      * Удаляет запись о родственнике сотрудника по ее id
      * @param id идентификатор записи о родственнике сотрудника

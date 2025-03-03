@@ -8,8 +8,9 @@ public interface DepartmentService {
     /**
      * Добавляет новый отдел или обновляет уже существующий
      * @param departmentDTO объект с информацией об отделе
+     * @return объект DTO сохраненного отдела
      */
-    void saveOrUpdateDepartment(DepartmentDTO departmentDTO);
+    DepartmentDTO saveOrUpdateDepartment(DepartmentDTO departmentDTO);
 
     /**
      * Удаляет отдел по его id

@@ -31,11 +31,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final PositionRepository positionRepository;
 
     @Override
-    public void saveOrUpdateDepartment(DepartmentDTO departmentDTO) {
+    public DepartmentDTO saveOrUpdateDepartment(DepartmentDTO departmentDTO) {
         LOGGER.debug(Constant.ATTEMPT_TO_SAVE_DEPARTMENT, departmentDTO.getName());
-        DepartmentEntity departmentEntity = Converter.toEntity(departmentDTO, DepartmentEntity.class);
-        departmentRepository.save(departmentEntity);
+        DepartmentEntity departmentEntity =
+                departmentRepository.save(Converter.toEntity(departmentDTO, DepartmentEntity.class));
         LOGGER.info(Constant.SAVE_DEPARTMENT_SUCCESS, departmentEntity.getId());
+
+        return Converter.toDto(departmentEntity, DepartmentDTO.class);
     }
 
     @Override

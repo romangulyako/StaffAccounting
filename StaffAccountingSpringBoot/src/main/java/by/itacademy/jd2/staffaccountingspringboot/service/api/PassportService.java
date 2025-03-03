@@ -6,8 +6,9 @@ public interface PassportService {
     /**
      * Добавляет паспорт или обновляет уже существующий
      * @param passportDTO объект DTO с информацией о паспорте сотрудника
+     * @return объект DTO сохраненного паспорта
      */
-    void saveOrUpdatePassport(PassportDTO passportDTO);
+    PassportDTO saveOrUpdatePassport(PassportDTO passportDTO);
 
     /**
      * Удаляет паспорт по employeeId сотрудника этого паспорта

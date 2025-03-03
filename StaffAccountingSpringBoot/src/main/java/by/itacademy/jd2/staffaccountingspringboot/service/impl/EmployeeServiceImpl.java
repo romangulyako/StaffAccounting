@@ -31,13 +31,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final DepartmentRepository departmentRepository;
 
     @Override
-    public void saveOrUpdateEmployee(EmployeeDTO employeeDTO) {
+    public EmployeeDTO saveOrUpdateEmployee(EmployeeDTO employeeDTO) {
         LOGGER.debug(Constant.ATTEMPT_TO_SAVE_EMPLOYEE,
                 employeeDTO.getPersonData().getName(), employeeDTO.getPersonData().getSurname());
-        EmployeeEntity employeeEntity =
-                Converter.toEntity(employeeDTO, EmployeeEntity.class);
-        employeeRepository.save(employeeEntity);
+        EmployeeEntity employeeEntity = employeeRepository.save(Converter.toEntity(employeeDTO, EmployeeEntity.class));
         LOGGER.info(Constant.SAVE_EMPLOYEE_SUCCESS, employeeEntity.getId());
+
+        return Converter.toDto(employeeEntity, EmployeeDTO.class);
     }
 
     @Override

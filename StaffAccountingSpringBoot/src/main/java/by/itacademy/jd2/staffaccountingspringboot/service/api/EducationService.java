@@ -8,8 +8,9 @@ public interface EducationService {
      * Добавляет новую запись об образовании сотрудника
      * или обновляет уже существующую
      * @param educationDTO объект с информацией об образовании
+     * @return объект DTO сохраненного образования
      */
-    void saveOrUpdateEducation(EducationDTO educationDTO);
+    EducationDTO saveOrUpdateEducation(EducationDTO educationDTO);
 
     /**
      * Удаляет запись об образовании по ее id

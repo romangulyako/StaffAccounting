@@ -8,8 +8,9 @@ public interface MaritalStatusService {
          * Добавляет новую запись о семейном положении сотрудника
          * или обновляет уже существующую
          * @param maritalStatusDTO объект с информацией о семейном положении
+         * @return объект DTO сохраненного семейного положения
          */
-        void saveOrUpdateMaritalStatus(MaritalStatusDTO maritalStatusDTO);
+        MaritalStatusDTO saveOrUpdateMaritalStatus(MaritalStatusDTO maritalStatusDTO);
         /**
          * Удаляет запись о семейном положении по ее id
          * @param id идентификатор записи о семейном положении

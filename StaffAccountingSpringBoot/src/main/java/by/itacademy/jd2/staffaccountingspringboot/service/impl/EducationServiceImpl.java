@@ -25,11 +25,12 @@ public class EducationServiceImpl implements EducationService {
     private final EducationRepository educationRepository;
 
     @Override
-    public void saveOrUpdateEducation(EducationDTO educationDTO) {
+    public EducationDTO saveOrUpdateEducation(EducationDTO educationDTO) {
         LOGGER.debug(Constant.ATTEMPT_TO_SAVE_EDUCATION);
-        EducationEntity entity = Converter.toEntity(educationDTO, EducationEntity.class);
-        educationRepository.save(entity);
+        EducationEntity entity = educationRepository.save(Converter.toEntity(educationDTO, EducationEntity.class));
         LOGGER.info(Constant.SAVE_EDUCATION_SUCCESS, entity.getId());
+
+        return Converter.toDto(entity, EducationDTO.class);
     }
 
     @Override
