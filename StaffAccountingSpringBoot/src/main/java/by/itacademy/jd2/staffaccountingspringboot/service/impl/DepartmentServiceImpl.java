@@ -10,6 +10,7 @@ import by.itacademy.jd2.staffaccountingspringboot.repository.DepartmentRepositor
 import by.itacademy.jd2.staffaccountingspringboot.repository.PositionRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.DepartmentService;
 import by.itacademy.jd2.staffaccountingspringboot.utils.Constant;
+import by.itacademy.jd2.staffaccountingspringboot.utils.LocaleUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -26,7 +27,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
     private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentServiceImpl.class);
-    private static final String NOT_FOUND_EXCEPTION = "Department not found. ID=";
     private final DepartmentRepository departmentRepository;
     private final PositionRepository positionRepository;
 
@@ -116,7 +116,8 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentRepository.findById(id)
                 .orElseThrow(() -> {
                     LOGGER.error(Constant.DEPARTMENT_NOT_FOUND, id);
-                    return new EntityNotFoundException(NOT_FOUND_EXCEPTION + id);
+                    return new EntityNotFoundException(LocaleUtils
+                            .getMessage(Constant.DEPARTMENT_NOT_FOUND_EXCEPTION_MESSAGE_KEY) + id);
                 });
     }
 }

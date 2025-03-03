@@ -7,6 +7,7 @@ import by.itacademy.jd2.staffaccountingspringboot.repository.EducationRepository
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EducationService;
 import by.itacademy.jd2.staffaccountingspringboot.utils.Constant;
 import by.itacademy.jd2.staffaccountingspringboot.utils.EmployeeUtils;
+import by.itacademy.jd2.staffaccountingspringboot.utils.LocaleUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -45,7 +46,8 @@ public class EducationServiceImpl implements EducationService {
         EducationEntity educationEntity = educationRepository.findById(id)
                 .orElseThrow(() -> {
                     LOGGER.info(Constant.EDUCATION_NOT_FOUND, id);
-                    return new EntityNotFoundException(Constant.NOT_FOUND_EXCEPTION + id);
+                    return new EntityNotFoundException(LocaleUtils
+                            .getMessage(Constant.EDUCATION_NOT_FOUND_EXCEPTION_MESSAGE_KEY) + id);
                 });
 
         LOGGER.info(Constant.EDUCATION_FOUND_SUCCESS, id);

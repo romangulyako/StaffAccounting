@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class RelativeServiceImpl implements RelativeService {
     private static final Logger LOGGER = LoggerFactory.getLogger(RelativeServiceImpl.class);
-    private static final String NOT_FOUND_EXCEPTION = "Relative not found. ID=";
     private final RelativeRepository relativeRepository;
 
     @Override
@@ -47,7 +46,7 @@ public class RelativeServiceImpl implements RelativeService {
         RelativeEntity relativeEntity = relativeRepository.findById(id)
                 .orElseThrow(() -> {
                     LOGGER.info(Constant.RELATIVE_NOT_FOUND, id);
-                    return new EntityNotFoundException(NOT_FOUND_EXCEPTION + id);
+                    return new EntityNotFoundException(Constant.RELATIVE_NOT_FOUND_EXCEPTION_MESSAGE_KEY + id);
                 });
 
         LOGGER.info(Constant.GET_RELATIVE_SUCCESS, id);

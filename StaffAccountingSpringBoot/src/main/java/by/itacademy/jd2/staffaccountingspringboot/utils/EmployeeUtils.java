@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeUtils.class);
-    private static final String EMPLOYEE_NOT_FOUND_EXCEPTION = "Employee not found. ID=";
     private static EmployeeRepository employeeRepository;
 
     @Autowired
@@ -21,6 +20,7 @@ public class EmployeeUtils {
 
     /**
      * Получает из БД сотрудника по его ID или выбрасывает исключение EntityNotFoundException
+     *
      * @param id идентификатор сотрудника
      * @return объект Entity для сотрудника
      */
@@ -28,7 +28,8 @@ public class EmployeeUtils {
         return employeeRepository.findById(id)
                 .orElseThrow(() -> {
                     LOGGER.warn(Constant.EMPLOYEE_NOT_FOUND, id);
-                    return new EntityNotFoundException(EMPLOYEE_NOT_FOUND_EXCEPTION + id);
+                    return new EntityNotFoundException(LocaleUtils
+                            .getMessage(Constant.EMPLOYEE_NOT_FOUND_EXCEPTION_MESSAGE_KEY) + id);
                 });
     }
 }

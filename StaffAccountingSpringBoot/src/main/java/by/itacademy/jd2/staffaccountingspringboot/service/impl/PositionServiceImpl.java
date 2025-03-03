@@ -9,6 +9,7 @@ import by.itacademy.jd2.staffaccountingspringboot.repository.CareerRepository;
 import by.itacademy.jd2.staffaccountingspringboot.repository.PositionRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.PositionService;
 import by.itacademy.jd2.staffaccountingspringboot.utils.Constant;
+import by.itacademy.jd2.staffaccountingspringboot.utils.LocaleUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -26,7 +27,6 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class PositionServiceImpl implements PositionService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionServiceImpl.class);
-    private static final String NOT_FOUND_EXCEPTION = "Position not found. ID=";
 
     private final PositionRepository positionRepository;
     private final CareerRepository careerRepository;
@@ -99,7 +99,8 @@ public class PositionServiceImpl implements PositionService {
         return positionRepository.findById(id)
                 .orElseThrow(() -> {
                     LOGGER.error(Constant.POSITION_NOT_FOUND, id);
-                    return new EntityNotFoundException(NOT_FOUND_EXCEPTION + id);
+                    return new EntityNotFoundException(LocaleUtils
+                            .getMessage(Constant.POSITION_NOT_FOUND_EXCEPTION_MESSAGE_KEY));
                 });
     }
 }

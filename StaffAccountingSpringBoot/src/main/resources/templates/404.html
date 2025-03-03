@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>404</title>
+    <link th:href="@{/css/404.css}" rel="stylesheet">
+</head>
+<body>
+<div class="error-container">
+    <h1>404</h1>
+    <h2 th:text="#{page_not_found}"/>
+    <p th:text="#{page_not_found_message}"/>
+    <a th:href="@{/employees}" th:text="#{back_to_employees}"/>
+</div>
+</body>
+</html>

@@ -7,6 +7,7 @@ import by.itacademy.jd2.staffaccountingspringboot.repository.MaritalStatusReposi
 import by.itacademy.jd2.staffaccountingspringboot.service.api.MaritalStatusService;
 import by.itacademy.jd2.staffaccountingspringboot.utils.Constant;
 import by.itacademy.jd2.staffaccountingspringboot.utils.EmployeeUtils;
+import by.itacademy.jd2.staffaccountingspringboot.utils.LocaleUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -21,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MaritalStatusServiceImpl implements MaritalStatusService {
     private static final Logger LOGGER = LoggerFactory.getLogger(MaritalStatusServiceImpl.class);
-    private static final String NOT_FOUND_EXCEPTION = "Marital status not found. ID=";
     private final MaritalStatusRepository maritalStatusRepository;
 
     @Override
@@ -46,7 +46,8 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
         MaritalStatusEntity maritalStatus = maritalStatusRepository.findById(id)
                 .orElseThrow(() -> {
                     LOGGER.info(Constant.NOT_FOUND_MARITAL_STATUS, id);
-                    return new EntityNotFoundException(NOT_FOUND_EXCEPTION + id);
+                    return new EntityNotFoundException(LocaleUtils
+                            .getMessage(Constant.MARITAL_NOT_FOUND_EXCEPTION_MESSAGE_KEY)+ id);
                 });
 
         LOGGER.info(Constant.FOUND_MARITAL_STATUS_SUCCESS, id);

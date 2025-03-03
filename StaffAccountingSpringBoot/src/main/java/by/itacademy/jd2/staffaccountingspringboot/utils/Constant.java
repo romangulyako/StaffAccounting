@@ -61,7 +61,6 @@ public class Constant {
     public static final String DELETE_SUCCESS_LOG = "Education with ID={} deleted successfully";
     public static final String ATTEMPT_TO_FETCH_EDUCATION = "Attempt to fetch for editing education with ID={}";
     public static final String EDUCATION_NOT_FOUND = "Education with ID={} not found";
-    public static final String NOT_FOUND_EXCEPTION = "Education not found. ID=";
     public static final String EDUCATION_FOUND_SUCCESS = "Successfully fetched education with ID={} from database";
     public static final String ATTEMPT_TO_GET_EDUCATION_FOR_EMPLOYEE =
             "Attempt to get education for employee with ID={}";
@@ -117,6 +116,18 @@ public class Constant {
     public static final String NOT_FOUND_RELATIVE_LIST =
             "No relatives found for employee ID={} for the provided parameters: page={}, size={}";
     public static final String GET_RELATIVE_LIST_SUCCESS = "Successfully fetched {} relatives from the database";
+
+    /*** Exception's message keys ***/
+    public static final String APPOINTED_EXCEPTION_UNIQUE_MESSAGE_KEY = "employee_already_appointed";
+    public static final String CAREER_STEP_NOT_FOUND_EXCEPTION_MESSAGE_KEY = "career_step_not_found";
+    public static final String DEPARTMENT_NOT_FOUND_EXCEPTION_MESSAGE_KEY = "department_not_found";
+    public static final String EDUCATION_NOT_FOUND_EXCEPTION_MESSAGE_KEY = "education_not_found";
+    public static final String EMPLOYEE_NOT_FOUND_EXCEPTION_MESSAGE_KEY = "employee_not_found";
+    public static final String MARITAL_NOT_FOUND_EXCEPTION_MESSAGE_KEY = "marital_not_found";
+    public static final String POSITION_NOT_FOUND_EXCEPTION_MESSAGE_KEY = "position_not_found";
+    public static final String RELATIVE_NOT_FOUND_EXCEPTION_MESSAGE_KEY = "relative_not_found";
+    public static final String URL_PARAMETER_EXCEPTION_MESSAGE_KEY = "url_parameter_wrong";
+    public static final String ACCESS_DENIED_EXCEPTION_MESSAGE_KEY = "access_denied";
 
     private Constant() {}
 }
