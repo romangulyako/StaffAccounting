@@ -445,3 +445,9 @@ h1 {
 .clear-filter-button:hover {
     background-color: #c1c1c1;
 }
+
+.error-message {
+    padding: 5px;
+    margin-bottom: 5px;
+    color: red;
+}

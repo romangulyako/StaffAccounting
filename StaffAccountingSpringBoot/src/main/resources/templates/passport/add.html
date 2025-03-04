@@ -15,35 +15,38 @@
                   th:action="@{/employees/{employeeId}/passport/add(employeeId=${employeeId})}"
                   th:object="${newPassport}"
                   method="post">
+
                 <div class="input-wrapper">
+                    <div th:if="${#fields.hasErrors('series')}">
+                        <span class="error-message" th:errors="*{series}"></span>
+                    </div>
                     <fieldset>
                         <legend th:text="#{series}"/>
                         <input type="text"
                                th:field="*{series}"
-                               minlength="2"
-                               maxlength="2"
-                               th:placeholder="#{series_placeholder}"
-                               required/>
+                               th:placeholder="#{series_placeholder}"/>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
+                    <div th:if="${#fields.hasErrors('number')}">
+                        <span class="error-message" th:errors="*{number}"></span>
+                    </div>
                     <fieldset>
                         <legend th:text="#{number}"/>
                         <input type="text"
                                th:field="*{number}"
-                               th:placeholder="#{number_placeholder}"
-                               required/>
+                               th:placeholder="#{number_placeholder}"/>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">
+                    <div th:if="${#fields.hasErrors('identificationNumber')}">
+                        <span class="error-message" th:errors="*{identificationNumber}"></span>
+                    </div>
                     <fieldset>
                         <legend th:text="#{identification}"/>
                         <input type="text"
                                th:field="*{identificationNumber}"
-                               minlength="14"
-                               maxlength="14"
-                               th:placeholder="#{identification_placeholder}"
-                               required/>
+                               th:placeholder="#{identification_placeholder}"/>
                     </fieldset>
                 </div>
                 <div class="input-wrapper">

@@ -2,10 +2,12 @@ package by.itacademy.jd2.staffaccountingspringboot.controller;
 
 import by.itacademy.jd2.staffaccountingspringboot.dto.PassportDTO;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.PassportService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,9 +36,14 @@ public class PassportController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/employees/{employeeId}/passport/add")
     public String addPassport(@PathVariable Long employeeId,
-                              @ModelAttribute("newPassport") PassportDTO passportDTO) {
-        passportService.saveOrUpdatePassport(passportDTO);
-        return "redirect:/employees/" + employeeId + "/passport";
+                              @Valid @ModelAttribute("newPassport") PassportDTO passportDTO,
+                              BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
+            passportService.saveOrUpdatePassport(passportDTO);
+            return "redirect:/employees/" + employeeId + "/passport";
+        }
+
+        return "passport/add";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
