@@ -27,7 +27,8 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
     @Override
     public MaritalStatusDTO saveOrUpdateMaritalStatus(MaritalStatusDTO maritalStatusDTO) {
         LOGGER.debug(Constant.ATTEMPT_TO_SAVE_MARITAL_STATUS, maritalStatusDTO.getEmployeeId());
-        MaritalStatusEntity maritalStatusEntity = maritalStatusRepository.save(Converter.toEntity(maritalStatusDTO, MaritalStatusEntity.class));
+        MaritalStatusEntity maritalStatusEntity = maritalStatusRepository
+                .save(Converter.toEntity(maritalStatusDTO, MaritalStatusEntity.class));
         LOGGER.info(Constant.SAVE_MARITAL_STATUS_SUCCESS, maritalStatusEntity.getId());
 
         return Converter.toDto(maritalStatusEntity, MaritalStatusDTO.class);

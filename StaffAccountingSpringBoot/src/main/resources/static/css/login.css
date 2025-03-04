@@ -86,7 +86,7 @@ body {
     font-size: 0.9rem;
 }
 
-@keyframes fadeIn {
+/*@keyframes fadeIn {
     from {
         opacity: 0;
         transform: translateY(-10px);
@@ -95,7 +95,7 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
-}
+}*/
 
 .language-select {
     margin-top: 20px;
