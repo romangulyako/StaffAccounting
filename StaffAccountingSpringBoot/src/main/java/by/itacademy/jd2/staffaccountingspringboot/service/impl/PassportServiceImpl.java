@@ -40,7 +40,7 @@ public class PassportServiceImpl implements PassportService {
     @Override
     public PassportDTO getPassport(Long employeeId) {
         LOGGER.debug(Constant.ATTEMPT_TO_FETCH_PASSPORT, employeeId);
-        EmployeeUtils.findById(employeeId);
+        EmployeeUtils.checkExistEmployee(employeeId);
         PassportEntity passportEntity = passportRepository.findByEmployeeId(employeeId).orElse(null);
 
         if (passportEntity == null) {

@@ -112,7 +112,7 @@ public class CareerServiceImpl implements CareerService {
     @Override
     public Page<CareerStepGetDTO> getEmployeesCareer(Long employeeId, int page, int size) {
         LOGGER.debug(Constant.ATTEMPT_TO_GET_CAREER_OF_EMPLOYEE, employeeId);
-        EmployeeUtils.findById(employeeId);
+        EmployeeUtils.checkExistEmployee(employeeId);
         Page<CareerStepEntity> career =
                 careerRepository.findAllByEmployeeIdOrderByDateOfAppointment(employeeId, PageRequest.of(page, size));
         if (career.getContent().isEmpty()) {

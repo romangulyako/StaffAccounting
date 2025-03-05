@@ -1,6 +1,5 @@
 package by.itacademy.jd2.staffaccountingspringboot.utils;
 
-import by.itacademy.jd2.staffaccountingspringboot.entity.EmployeeEntity;
 import by.itacademy.jd2.staffaccountingspringboot.repository.EmployeeRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
@@ -19,17 +18,14 @@ public class EmployeeUtils {
     }
 
     /**
-     * Получает из БД сотрудника по его ID или выбрасывает исключение EntityNotFoundException
-     *
+     * Проверяет наличие сотрудника в БД по его ID и если не находит, то пробрасывает {@code EntityNotFoundException}
      * @param id идентификатор сотрудника
-     * @return объект Entity для сотрудника
      */
-    public static EmployeeEntity findById(final Long id) {
-        return employeeRepository.findById(id)
-                .orElseThrow(() -> {
-                    LOGGER.warn(Constant.EMPLOYEE_NOT_FOUND, id);
-                    return new EntityNotFoundException(LocaleUtils
-                            .getMessage(Constant.EMPLOYEE_NOT_FOUND_EXCEPTION_MESSAGE_KEY) + id);
-                });
+    public static void checkExistEmployee(final Long id) {
+        if (!employeeRepository.existsById(id)) {
+            LOGGER.warn(Constant.EMPLOYEE_NOT_FOUND, id);
+            throw new EntityNotFoundException(LocaleUtils
+                    .getMessage(Constant.EMPLOYEE_NOT_FOUND_EXCEPTION_MESSAGE_KEY) + id);
+        }
     }
 }

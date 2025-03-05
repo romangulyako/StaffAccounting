@@ -59,7 +59,7 @@ public class EducationServiceImpl implements EducationService {
     @Override
     public Page<EducationDTO> getEducationsByEmployeeId(Long employeeId, int page, int size) {
         LOGGER.debug(Constant.ATTEMPT_TO_GET_EDUCATION_FOR_EMPLOYEE, employeeId);
-        EmployeeUtils.findById(employeeId);
+        EmployeeUtils.checkExistEmployee(employeeId);
         Page<EducationEntity> entities =
                 educationRepository.findAllByEmployeeIdOrderByDateEndAsc(employeeId, PageRequest.of(page, size));
         if (entities.getContent().isEmpty()) {

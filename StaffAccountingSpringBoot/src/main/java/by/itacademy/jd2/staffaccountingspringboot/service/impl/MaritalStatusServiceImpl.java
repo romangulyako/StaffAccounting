@@ -60,7 +60,7 @@ public class MaritalStatusServiceImpl implements MaritalStatusService {
     @Override
     public Page<MaritalStatusDTO> getMaritalStatusesByEmployee(Long employeeId, int page, int size) {
         LOGGER.debug(Constant.ATTEMPT_TO_GET_MARITAL_STATUSES_BY_EMPLOYEE, employeeId);
-        EmployeeUtils.findById(employeeId);
+        EmployeeUtils.checkExistEmployee(employeeId);
         Page<MaritalStatusEntity> maritalStatuses =
                 maritalStatusRepository.findAllByEmployeeIdOrderByRegistrationDate(employeeId,
                         PageRequest.of(page, size));

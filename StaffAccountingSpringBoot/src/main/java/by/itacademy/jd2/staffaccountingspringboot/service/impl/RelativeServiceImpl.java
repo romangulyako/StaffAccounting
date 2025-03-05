@@ -58,7 +58,7 @@ public class RelativeServiceImpl implements RelativeService {
     @Override
     public Page<RelativeDTO> getRelatives(Long employeeId, int page, int size) {
         LOGGER.debug(Constant.ATTEMPT_TO_GET_RELATIVE_LIST, employeeId);
-        EmployeeUtils.findById(employeeId);
+        EmployeeUtils.checkExistEmployee(employeeId);
         Page<RelativeEntity> entities = relativeRepository.findAllByEmployeeId(employeeId, PageRequest.of(page, size));
         if (entities.getContent().isEmpty()) {
             LOGGER.warn(Constant.NOT_FOUND_RELATIVE_LIST, employeeId, page, size);

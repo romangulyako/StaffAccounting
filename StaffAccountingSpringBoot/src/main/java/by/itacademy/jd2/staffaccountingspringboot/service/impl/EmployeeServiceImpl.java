@@ -11,7 +11,8 @@ import by.itacademy.jd2.staffaccountingspringboot.repository.DepartmentRepositor
 import by.itacademy.jd2.staffaccountingspringboot.repository.EmployeeRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.EmployeeService;
 import by.itacademy.jd2.staffaccountingspringboot.utils.Constant;
-import by.itacademy.jd2.staffaccountingspringboot.utils.EmployeeUtils;
+import by.itacademy.jd2.staffaccountingspringboot.utils.LocaleUtils;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDTO getEmployee(Long id) {
         LOGGER.debug(Constant.ATTEMPT_TO_FETCH_EMPLOYEE, id);
-        EmployeeEntity entity = EmployeeUtils.findById(id);
+        EmployeeEntity entity = this.findById(id);
         LOGGER.info(Constant.FETCHED_EMPLOYEE_SUCCESS, id);
 
         return Converter.toDto(entity, EmployeeDTO.class);
@@ -84,7 +85,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void returnToCurrent(Long id) {
         LOGGER.debug(Constant.ATTEMPT_TO_RETURN_EMPLOYEE, id);
-        EmployeeEntity employee = EmployeeUtils.findById(id);
+        EmployeeEntity employee = this.findById(id);
         employee.setIsFired(false);
         employeeRepository.save(employee);
         LOGGER.info(Constant.RETURN_EMPLOYEE_TO_CURRENT_SUCCESS, id);
@@ -95,5 +96,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findAllByIsFiredFalse()
                 .stream().map(entity -> Converter.toDto(entity, EmployeeItemDTO.class))
                 .toList();
+    }
+
+    private EmployeeEntity findById(final Long id) {
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> {
+                    LOGGER.warn(Constant.EMPLOYEE_NOT_FOUND, id);
+                    return new EntityNotFoundException(LocaleUtils
+                            .getMessage(Constant.EMPLOYEE_NOT_FOUND_EXCEPTION_MESSAGE_KEY) + id);
+                });
     }
 }
