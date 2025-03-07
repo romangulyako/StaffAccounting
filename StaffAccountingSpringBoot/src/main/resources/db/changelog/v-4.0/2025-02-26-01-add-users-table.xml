@@ -16,6 +16,8 @@
             <column type="varchar(255)" name="password">
                 <constraints nullable="false"/>
             </column>
+            <column name="create_date" type="DATETIME(6)"/>
+            <column name="update_date" type="DATETIME(6)"/>
         </createTable>
     </changeSet>
 

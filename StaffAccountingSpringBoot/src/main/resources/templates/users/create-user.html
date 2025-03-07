@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title th:text="#{create_user}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:replace="~{header :: header}"></div>
+<main>
+    <div th:replace="~{menu :: menu}"></div>
+    <div class="form-group">
+        <h2 th:text="#{create_user}"/>
+        <div class="filling-form">
+            <form id="save"
+                  th:action="@{/users/create}"
+                  th:object="${user}"
+                  method="post">
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{user_name}"/>
+                        <input type="text"
+                               th:field="*{username}"
+                               th:placeholder="#{user_name_placeholder}"
+                               required>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset>
+                        <legend th:text="#{password}"/>
+                        <input type="password"
+                               th:field="*{password}"
+                               th:placeholder="#{password_placeholder}"
+                               required>
+                    </fieldset>
+                </div>
+                <div class="input-wrapper">
+                    <fieldset class="role-list-container">
+                        <legend th:text="#{privileges}"/>
+                        <ul class="role-list" th:each="role : ${roles}">
+                            <li>
+                                <input type="checkbox"
+                                       th:value="${role.name}"
+                                       th:field="*{authorities}"
+                                       th:text="${role.name}">
+                            </li>
+                        </ul>
+                    </fieldset>
+                </div>
+            </form>
+            <div class="footer-buttons-block">
+                <button form="save"
+                        class="footer-button, button-add"
+                        th:text="#{save_button}"/>
+            </div>
+        </div>
+    </div>
+</main>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

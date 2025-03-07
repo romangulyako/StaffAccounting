@@ -11,25 +11,24 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Set;
 
-@Builder
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "roles")
-public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Long id;
+public class RoleEntity extends CommonSuperEntity implements GrantedAuthority {
+    @Column(name = "name")
+    private String authority;
 
-    @Column
-    private String name;
-
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
-    private Set<User> users;
+    @ManyToMany(mappedBy = "authorities", fetch = FetchType.EAGER)
+    private Set<UserEntity> users;
 }

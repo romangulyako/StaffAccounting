@@ -128,6 +128,7 @@ public class Constant {
     public static final String RELATIVE_NOT_FOUND_EXCEPTION_MESSAGE_KEY = "relative_not_found";
     public static final String URL_PARAMETER_EXCEPTION_MESSAGE_KEY = "url_parameter_wrong";
     public static final String ACCESS_DENIED_EXCEPTION_MESSAGE_KEY = "access_denied";
+    public static final String USER_NOT_FOUND_EXCEPTION_MESSAGE_KEY = "user_not_found";
 
     private Constant() {}
 }

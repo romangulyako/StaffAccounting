@@ -4,9 +4,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -20,27 +17,25 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Builder
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Long id;
-
+public class UserEntity extends CommonSuperEntity implements UserDetails {
     @NotBlank(message = "Can't be empty")
     @Size(min = 3, max = 15, message = "Длина username должна быть от 3 до 16 символов")
-    @Pattern(regexp = "[a-zA-Z]*]", message = "Только латинские буквы")
+    //@Pattern(regexp = "[a-zA-Z]*]", message = "Только латинские буквы")
     @Column(name = "user_name")
-    private String userName;
+    private String username;
 
     @Size(min = 5, message = "Min length can be 5 symbols")
     @Column
@@ -48,10 +43,11 @@ public class User {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
     fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    @Builder.Default
+    private Set<RoleEntity> authorities = new HashSet<>();
 }
