@@ -51,6 +51,11 @@
                 <button form="save"
                         class="footer-button, button-add"
                         th:text="#{save_button}"/>
+                <form th:action="@{/users}"
+                      method="get">
+                    <button class="footer-button"
+                            th:text="#{back_to_users}"/>
+                </form>
             </div>
         </div>
     </div>

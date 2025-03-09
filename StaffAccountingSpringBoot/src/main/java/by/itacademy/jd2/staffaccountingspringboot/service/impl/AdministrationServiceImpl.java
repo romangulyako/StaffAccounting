@@ -33,7 +33,7 @@ public class AdministrationServiceImpl implements AdministrationService, UserDet
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public UserDTO createUser(UserDTO userDTO) {
+    public UserDTO saveOrUpdateUser(UserDTO userDTO) {
         UserEntity user = Converter.toEntity(userDTO, UserEntity.class);
         user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
         for (String authority : userDTO.getAuthorities()) {
@@ -52,9 +52,11 @@ public class AdministrationServiceImpl implements AdministrationService, UserDet
     @Override
     public EditUserDTO getUserById(Long id) {
         UserEntity user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        UserDTO userDTO = Converter.toDto(user, UserDTO.class);
+        userDTO.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         List<RoleDTO> roles = this.getRoles();
         return EditUserDTO.builder()
-                .user(Converter.toDto(user, UserDTO.class))
+                .user(userDTO)
                 .roles(roles)
                 .build();
     }

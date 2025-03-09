@@ -6,6 +6,7 @@ import by.itacademy.jd2.staffaccountingspringboot.dto.UserDTO;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.AdministrationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/users")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class AdminController {
     private final AdministrationService adminService;
 
@@ -29,7 +31,7 @@ public class AdminController {
 
     @PostMapping("/create")
     public String createUser(@ModelAttribute("user") UserDTO userDTO) {
-        adminService.createUser(userDTO);
+        adminService.saveOrUpdateUser(userDTO);
         return "redirect:/users";
     }
 
@@ -57,5 +59,9 @@ public class AdminController {
         return "users/edit-user";
     }
 
-    //TODO: доделать метод POST для редактирования
+    @PostMapping("/edit")
+    public String editUser(@ModelAttribute("user") UserDTO userDTO) {
+        adminService.saveOrUpdateUser(userDTO);
+        return "redirect:/users";
+    }
 }

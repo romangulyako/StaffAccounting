@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface AdministrationService {
-    UserDTO createUser(UserDTO userDTO);
+    UserDTO saveOrUpdateUser(UserDTO userDTO);
     void deleteUser(Long id);
     EditUserDTO getUserById(Long id);
     Page<UserDTO> getAllUsers(int page, int size);

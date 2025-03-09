@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PositionController {
     private final PositionService positionService;
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STRUCTURE')")
     @GetMapping("/positions/add")
     public String addPositionPage(@RequestParam Long departmentId,
                                   Model model) {
@@ -29,28 +29,28 @@ public class PositionController {
         return "position/add";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STRUCTURE')")
     @PostMapping("/positions/add")
     public String addPosition(@ModelAttribute("newPosition") PositionDTO positionDTO) {
         positionService.saveOrUpdatePosition(positionDTO);
         return "redirect:/departments/" + positionDTO.getDepartmentId();
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STRUCTURE')")
     @GetMapping("/positions/{id}/edit")
     public String editPositionPage(@PathVariable Long id, Model model) {
         model.addAttribute("position", positionService.getPositionById(id));
         return "position/edit";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STRUCTURE')")
     @PostMapping("positions/{id}/edit")
     public String editPosition(@ModelAttribute("position") PositionDTO positionDTO) {
         positionService.saveOrUpdatePosition(positionDTO);
         return "redirect:/departments/" + positionDTO.getDepartmentId();
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STRUCTURE')")
     @PostMapping("positions/{id}/delete")
     public String deletePosition(@PathVariable Long id,
                                  @RequestParam Long departmentId,
@@ -59,7 +59,7 @@ public class PositionController {
         return "redirect:/departments/" + departmentId + "?isActual=" + isActual;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STRUCTURE')")
     @PostMapping("positions/{id}/reduce")
     public String reducePosition(@PathVariable Long id,
                                  @RequestParam Long departmentId,
@@ -68,7 +68,7 @@ public class PositionController {
         return "redirect:/departments/" + departmentId + "?isActual=" + isActual;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STRUCTURE')")
     @PostMapping("positions/{id}/restore")
     public String restorePosition(@PathVariable Long id,
                                   @RequestParam Long departmentId,

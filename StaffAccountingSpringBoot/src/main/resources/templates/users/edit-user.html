@@ -12,9 +12,12 @@
         <h2 th:text="#{edit_user}"/>
         <div class="filling-form">
             <form id="save"
-                  th:action="@{/users/edit/{id}(id=${user.id})}"
+                  th:action="@{/users/edit}"
                   th:object="${user}"
                   method="post">
+                <input type="hidden"
+                       th:field="*{id}"
+                       th:value="${user.id}">
                 <div class="input-wrapper">
                     <fieldset>
                         <legend th:text="#{user_name}"/>
@@ -54,6 +57,11 @@
                 <button form="save"
                         class="footer-button, button-add"
                         th:text="#{save_button}"/>
+                <form th:action="@{/users}"
+                      method="get">
+                    <button class="footer-button"
+                            th:text="#{back_to_users}"/>
+                </form>
             </div>
         </div>
     </div>

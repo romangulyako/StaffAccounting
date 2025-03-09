@@ -43,7 +43,7 @@
                                 th:text="#{delete_button}"/>
                     </form>
                 </td>
-                <td sec:authorize="hasAuthority('ADMIN')"
+                <td sec:authorize="hasAnyAuthority('ADMIN', 'STRUCTURE')"
                     th:if="${isActual}">
                     <form th:action="@{/departments/{id}/reduce(id=${department.id})}"
                           method="post">
@@ -53,7 +53,7 @@
                                 th:text="#{reduce_button}"/>
                     </form>
                 </td>
-                <td sec:authorize="hasAuthority('ADMIN')"
+                <td sec:authorize="hasAnyAuthority('ADMIN', 'STRUCTURE')"
                     th:if="${!isActual}">
                     <form th:action="@{/departments/{id}/restore(id=${department.id})}"
                           method="post">
@@ -72,7 +72,7 @@
             <input type="hidden" name="isActual" th:value="${isActual}">
             <div th:replace="~{page-panel :: page-panel}"></div>
         </form>
-        <form sec:authorize="hasAuthority('ADMIN')"
+        <form sec:authorize="hasAnyAuthority('ADMIN', 'STRUCTURE')"
               th:if="${isActual}"
               th:action="@{/departments/add}"
               method="get">

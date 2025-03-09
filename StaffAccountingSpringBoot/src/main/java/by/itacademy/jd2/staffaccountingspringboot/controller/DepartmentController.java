@@ -34,14 +34,14 @@ public class DepartmentController {
         return "departments/list";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STRUCTURE')")
     @GetMapping("/departments/add")
     public String addDepartmentPage(Model model) {
         model.addAttribute("newDepartment", new DepartmentDTO());
         return "departments/add";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STRUCTURE')")
     @PostMapping("departments/add")
     public String addDepartment(@ModelAttribute("newDepartment") DepartmentDTO departmentDTO) {
         departmentService.saveOrUpdateDepartment(departmentDTO);
@@ -49,7 +49,7 @@ public class DepartmentController {
         return "redirect:/departments";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STRUCTURE')")
     @GetMapping("/departments/{id}/edit")
     public String editDepartmentPage(@PathVariable Long id, Model model) {
         model.addAttribute("department", departmentService.getDepartment(id));
@@ -57,7 +57,7 @@ public class DepartmentController {
         return "departments/edit";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STRUCTURE')")
     @PostMapping("/departments/{id}/edit")
     public String editDepartment(@ModelAttribute("department") DepartmentDTO departmentDTO) {
         departmentService.saveOrUpdateDepartment(departmentDTO);
@@ -81,7 +81,7 @@ public class DepartmentController {
         return "departments/info";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STRUCTURE')")
     @PostMapping("/departments/{id}/delete")
     public String deleteDepartment(@PathVariable Long id,
                                    @RequestParam Boolean isActual) {
@@ -90,7 +90,7 @@ public class DepartmentController {
         return "redirect:/departments?isActual=" + isActual;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STRUCTURE')")
     @PostMapping("/departments/{id}/reduce")
     public String reduceDepartment(@PathVariable Long id,
                                    @RequestParam Boolean isActual) {
@@ -99,7 +99,7 @@ public class DepartmentController {
         return "redirect:/departments?isActual=" + isActual;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'STRUCTURE')")
     @PostMapping("/departments/{id}/restore")
     public String restoreDepartment(@PathVariable Long id,
                                     @RequestParam Boolean isActual) {
