@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet id="insert-employees-1" author="Roman Gulyako">
+        <insert tableName="employees">
+            <column name="surname" value="Иванов"/>
+            <column name="name" value="Иван"/>
+            <column name="patronymic" value="Иванович"/>
+            <column name="birthday" valueDate="1991-01-02"/>
+            <column name="residence_city" value="Минск"/>
+            <column name="residence_street" value="Маяковского"/>
+            <column name="residence_house" value="1"/>
+            <column name="phone" value="+375-29-111-11-11"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-employees-2" author="Roman Gulyako">
+        <insert tableName="employees">
+            <column name="surname" value="Петров"/>
+            <column name="name" value="Петр"/>
+            <column name="patronymic" value="Петрович"/>
+            <column name="birthday" valueDate="1992-02-02"/>
+            <column name="residence_city" value="Брест"/>
+            <column name="residence_street" value="Ленина"/>
+            <column name="residence_house" value="2"/>
+            <column name="residence_apartment" value="2"/>
+            <column name="phone" value="+375-29-222-22-22"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-employees-3" author="Roman Gulyako">
+        <insert tableName="employees">
+            <column name="surname" value="Васильев"/>
+            <column name="name" value="Василий"/>
+            <column name="patronymic" value="Васильевич"/>
+            <column name="birthday" valueDate="1992-03-03"/>
+            <column name="residence_city" value="Гродно"/>
+            <column name="residence_street" value="Советская"/>
+            <column name="residence_house" value="3"/>
+            <column name="residence_apartment" value="3"/>
+            <column name="phone" value="+375-33-333-33-33"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-employees-4" author="Roman Gulyako">
+        <insert tableName="employees">
+            <column name="surname" value="Сергеев"/>
+            <column name="name" value="Сергей"/>
+            <column name="patronymic" value="Сергеевич"/>
+            <column name="birthday" valueDate="1994-05-05"/>
+            <column name="residence_city" value="Гомель"/>
+            <column name="residence_street" value="Революционная"/>
+            <column name="residence_house" value="5"/>
+            <column name="residence_apartment" value="5"/>
+            <column name="phone" value="+375-29-555-55-55"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-employees-" author="Roman Gulyako">
+        <insert tableName="employees">
+            <column name="surname" value="Сидоров"/>
+            <column name="name" value="Михаил"/>
+            <column name="patronymic" value="Петрович"/>
+            <column name="birthday" valueDate="2000-05-01"/>
+            <column name="residence_city" value="Париж"/>
+            <column name="residence_street" value="Ленина"/>
+            <column name="residence_house" value="23"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

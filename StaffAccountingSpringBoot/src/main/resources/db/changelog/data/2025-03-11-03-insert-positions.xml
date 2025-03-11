@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet id="insert-positions-1" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Начальник"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="10000"/>
+            <column name="department_id" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-2" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Старший разработчик"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="8000"/>
+            <column name="department_id" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-3" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Frontend разработчик"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="6000"/>
+            <column name="department_id" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-4" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Backend разработчик"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="7000"/>
+            <column name="department_id" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-5" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Начальник"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="8000"/>
+            <column name="department_id" valueNumeric="2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-6" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Инженер по тестированию"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="6000"/>
+            <column name="department_id" valueNumeric="2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-7" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Тестировщик-автоматизатор"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="6000"/>
+            <column name="department_id" valueNumeric="2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-8" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Продуктовый менеджер"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="9000"/>
+            <column name="department_id" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-9" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Аналитик"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="8000"/>
+            <column name="department_id" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-10" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Начальник"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="8000"/>
+            <column name="department_id" valueNumeric="4"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-11" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Маркетолог"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="7000"/>
+            <column name="department_id" valueNumeric="4"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-12" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="SMM специалист"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="7000"/>
+            <column name="department_id" valueNumeric="4"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-13" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Контент-менеджер"/>
+            <column name="necessary_education_level" value="среднее-специальное"/>
+            <column name="salary" valueNumeric="5000"/>
+            <column name="department_id" valueNumeric="4"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-14" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Исполнительный директор"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="15000"/>
+            <column name="department_id" valueNumeric="5"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-15" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Финансовый директор"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="12000"/>
+            <column name="department_id" valueNumeric="5"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-16" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Менеджер по персоналу"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="7000"/>
+            <column name="department_id" valueNumeric="5"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-17" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Офис-менеджер"/>
+            <column name="necessary_education_level" value="среднее-специальное"/>
+            <column name="salary" valueNumeric="6000"/>
+            <column name="department_id" valueNumeric="5"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-positions-18" author="Roman Gulyako">
+        <insert tableName="positions">
+            <column name="name" value="Юрист"/>
+            <column name="necessary_education_level" value="высшее"/>
+            <column name="salary" valueNumeric="8000"/>
+            <column name="department_id" valueNumeric="5"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

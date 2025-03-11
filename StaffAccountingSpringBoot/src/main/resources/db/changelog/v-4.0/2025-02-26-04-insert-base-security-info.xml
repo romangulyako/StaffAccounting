@@ -7,32 +7,43 @@
 
     <changeSet id="insert-users" author="Roman Gulyako">
         <insert tableName="users">
-            <column name="user_name">admin</column>
-            <column name="password">$2y$12$kjBEvSNH8oN9508Vi8gpLOxzxsfc7H/HLRTQatlR4z3JOzrC4YXB6</column>
+            <column name="user_name" value="admin"/>
+            <column name="password" value="$2y$12$kjBEvSNH8oN9508Vi8gpLOxzxsfc7H/HLRTQatlR4z3JOzrC4YXB6"/>
         </insert>
         <insert tableName="users">
-            <column name="user_name">user</column>
-            <column name="password">$2y$12$kjBEvSNH8oN9508Vi8gpLOxzxsfc7H/HLRTQatlR4z3JOzrC4YXB6</column>
+            <column name="user_name" value="user"/>
+            <column name="password" value="$2y$12$kjBEvSNH8oN9508Vi8gpLOxzxsfc7H/HLRTQatlR4z3JOzrC4YXB6"/>
+        </insert>
+        <insert tableName="users">
+            <column name="user_name" value="structure"/>
+            <column name="password" value="$2a$10$h7VQWxCwVP.0Ucb/bRLuHOEDwli8I5foV5DBli0XFiXx3RVk/w0US"/>
         </insert>
     </changeSet>
 
     <changeSet id="insert-roles" author="Roman Gulyako">
         <insert tableName="roles">
-            <column name="name">ADMIN</column>
+            <column name="name" value="ADMIN"/>
         </insert>
         <insert tableName="roles">
-            <column name="name">USER</column>
+            <column name="name" value="USER"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="name" value="STRUCTURE"/>
         </insert>
     </changeSet>
 
     <changeSet id="insert-user-role" author="Roman Gulyako">
         <insert tableName="user_role">
-            <column name="user_id">1</column>
-            <column name="role_id">1</column>
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="1"/>
         </insert>
         <insert tableName="user_role">
-            <column name="user_id">2</column>
-            <column name="role_id">2</column>
+            <column name="user_id" value="2"/>
+            <column name="role_id" value="2"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="user_id" value="3"/>
+            <column name="role_id" value="3"/>
         </insert>
     </changeSet>
 
