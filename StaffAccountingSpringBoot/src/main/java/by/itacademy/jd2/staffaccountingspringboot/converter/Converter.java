@@ -41,7 +41,6 @@ import by.itacademy.jd2.staffaccountingspringboot.entity.PositionEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.RelativeEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.UserEntity;
 
-import javax.management.relation.Role;
 import java.util.HashMap;
 import java.util.Map;
 

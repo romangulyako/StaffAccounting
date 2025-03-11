@@ -13,6 +13,8 @@ import by.itacademy.jd2.staffaccountingspringboot.utils.Constant;
 import by.itacademy.jd2.staffaccountingspringboot.utils.LocaleUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,12 +30,14 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class AdministrationServiceImpl implements AdministrationService, UserDetailsService {
+    private final Logger LOGGER = LoggerFactory.getLogger(AdministrationServiceImpl.class);
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDTO saveOrUpdateUser(UserDTO userDTO) {
+        LOGGER.debug(Constant.ATTEMPT_TO_SAVE_USER, userDTO.getUsername());
         UserEntity user = Converter.toEntity(userDTO, UserEntity.class);
         user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
         for (String authority : userDTO.getAuthorities()) {
@@ -41,20 +45,29 @@ public class AdministrationServiceImpl implements AdministrationService, UserDet
                     .orElseThrow(() -> new RuntimeException("Role not found"));
             user.getAuthorities().add(role);
         }
-        return Converter.toDto(userRepository.save(user), UserDTO.class);
+        UserEntity savedUser = userRepository.save(user);
+        LOGGER.info(Constant.SUCCESSFULLY_SAVED_USER, userDTO.getId());
+
+        return Converter.toDto(savedUser, UserDTO.class);
     }
 
     @Override
     public void deleteUser(Long id) {
+        LOGGER.debug(Constant.ATTEMPT_TO_DELETE_USER, id);
         userRepository.deleteById(id);
+        LOGGER.info(Constant.SUCCESSFULLY_DELETED_USER, id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public EditUserDTO getUserById(Long id) {
-        UserEntity user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        LOGGER.debug(Constant.ATTEMPT_TO_GET_USER, id);
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(LocaleUtils
+                        .getMessage(Constant.USER_BY_ID_NOT_FOUND_EXCEPTION_MESSAGE_KEY) + id));
         UserDTO userDTO = Converter.toDto(user, UserDTO.class);
-        userDTO.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         List<RoleDTO> roles = this.getRoles();
+        LOGGER.info(Constant.SUCCESSFULLY_FETCHED_USER, id);
         return EditUserDTO.builder()
                 .user(userDTO)
                 .roles(roles)
@@ -62,12 +75,22 @@ public class AdministrationServiceImpl implements AdministrationService, UserDet
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<UserDTO> getAllUsers(int page, int size) {
-        return userRepository.findAll(PageRequest.of(page, size))
+        LOGGER.debug(Constant.ATTEMPT_TO_GET_PAGE_WITH_USERS);
+        Page<UserDTO> usersPage = userRepository.findAll(PageRequest.of(page, size))
                 .map(entity -> Converter.toDto(entity, UserDTO.class));
+        if (usersPage.hasContent()) {
+            LOGGER.info(Constant.SUCCESSFULLY_FETCHED_PAGE_WITH_USERS, page, size);
+        } else {
+            LOGGER.warn(Constant.NO_FOUND_USERS, page, size);
+        }
+        
+        return usersPage;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(LocaleUtils
@@ -75,6 +98,7 @@ public class AdministrationServiceImpl implements AdministrationService, UserDet
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<RoleDTO> getAllRoles() {
         return this.getRoles();
     }
