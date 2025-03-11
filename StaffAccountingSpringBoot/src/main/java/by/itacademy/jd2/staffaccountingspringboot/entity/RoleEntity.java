@@ -21,7 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "roles")
-public class RoleEntity extends CommonSuperEntity implements GrantedAuthority {
+public class RoleEntity extends BaseEntity implements GrantedAuthority {
     @Column(name = "name")
     private String authority;
 

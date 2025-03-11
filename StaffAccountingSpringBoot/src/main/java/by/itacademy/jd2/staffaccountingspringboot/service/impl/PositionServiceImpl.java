@@ -5,6 +5,7 @@ import by.itacademy.jd2.staffaccountingspringboot.entity.CareerStepEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.PositionEntity;
 import by.itacademy.jd2.staffaccountingspringboot.dto.PositionDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.PositionHistoryDTO;
+import by.itacademy.jd2.staffaccountingspringboot.exception.PositionOccupiedException;
 import by.itacademy.jd2.staffaccountingspringboot.repository.CareerRepository;
 import by.itacademy.jd2.staffaccountingspringboot.repository.PositionRepository;
 import by.itacademy.jd2.staffaccountingspringboot.service.api.PositionService;
@@ -43,8 +44,13 @@ public class PositionServiceImpl implements PositionService {
     @Override
     public void deletePosition(Long id) {
         LOGGER.debug(Constant.ATTEMPT_TO_DELETE_POSITION, id);
-        positionRepository.deleteById(id);
-        LOGGER.info(Constant.DELETE_POSITION_SUCCESS, id);
+        if (!positionRepository.existsCurrentCareerInHistory(id)) {
+            positionRepository.deleteById(id);
+            LOGGER.info(Constant.DELETE_POSITION_SUCCESS, id);
+        } else {
+            LOGGER.warn(Constant.NO_DELETED_THE_POSITION);
+            throw new PositionOccupiedException();
+        }
     }
 
     @Transactional(readOnly = true)

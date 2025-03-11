@@ -27,7 +27,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "passport")
-public class PassportEntity extends CommonSuperEntity {
+public class PassportEntity extends BaseEntity {
     @Column(length = 2)
     private String series;
 

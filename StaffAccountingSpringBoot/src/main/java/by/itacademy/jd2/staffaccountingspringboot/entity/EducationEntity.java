@@ -23,7 +23,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "education")
-public class EducationEntity extends CommonSuperEntity {
+public class EducationEntity extends BaseEntity {
     @Column(name = "education_level")
     private String educationLevel;
 

@@ -27,7 +27,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "positions")
-public class PositionEntity extends CommonSuperEntity {
+public class PositionEntity extends BaseEntity {
     @Column
     private String name;
 

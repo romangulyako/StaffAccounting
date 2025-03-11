@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Entity
 @Table(name = "relatives")
-public class RelativeEntity extends CommonSuperEntity {
+public class RelativeEntity extends BaseEntity {
     @Embedded
     private PersonData personData;
 

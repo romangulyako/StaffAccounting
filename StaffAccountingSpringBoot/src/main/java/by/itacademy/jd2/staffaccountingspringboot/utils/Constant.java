@@ -126,6 +126,7 @@ public class Constant {
     public static final String SUCCESSFULLY_FETCHED_PAGE_WITH_USERS =
             "Successfully fetched page with users. page={}, size={}";
     public static final String NO_FOUND_USERS = "No found users for page's parameters: page={}, size={}";
+    public static final String NO_DELETED_THE_POSITION = "No deleted the position because it's occupied.";
 
     /*** Exception's message keys ***/
     public static final String APPOINTED_EXCEPTION_UNIQUE_MESSAGE_KEY = "employee_already_appointed";
@@ -140,6 +141,7 @@ public class Constant {
     public static final String ACCESS_DENIED_EXCEPTION_MESSAGE_KEY = "access_denied";
     public static final String USER_NOT_FOUND_EXCEPTION_MESSAGE_KEY = "user_name_not_found";
     public static final String USER_BY_ID_NOT_FOUND_EXCEPTION_MESSAGE_KEY = "user_by_id_not_found";
+    public static final String POSITION_OCCUPIED_EXCEPTION_MESSAGE_KEY = "position_occupied";
 
     private Constant() {}
 }
