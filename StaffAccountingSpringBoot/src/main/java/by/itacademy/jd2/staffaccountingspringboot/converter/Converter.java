@@ -15,6 +15,8 @@ import by.itacademy.jd2.staffaccountingspringboot.converter.impl.PositionConvert
 import by.itacademy.jd2.staffaccountingspringboot.converter.impl.PositionHistoryConverter;
 import by.itacademy.jd2.staffaccountingspringboot.converter.impl.PositionItemConverter;
 import by.itacademy.jd2.staffaccountingspringboot.converter.impl.RelativeConverter;
+import by.itacademy.jd2.staffaccountingspringboot.converter.impl.RoleConverter;
+import by.itacademy.jd2.staffaccountingspringboot.converter.impl.UserConverter;
 import by.itacademy.jd2.staffaccountingspringboot.dto.CareerStepGetDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.DepartmentDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.DepartmentItemDTO;
@@ -27,6 +29,8 @@ import by.itacademy.jd2.staffaccountingspringboot.dto.PositionDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.PositionHistoryDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.PositionItemDTO;
 import by.itacademy.jd2.staffaccountingspringboot.dto.RelativeDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.RoleDTO;
+import by.itacademy.jd2.staffaccountingspringboot.dto.UserDTO;
 import by.itacademy.jd2.staffaccountingspringboot.entity.CareerStepEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.DepartmentEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.EducationEntity;
@@ -35,6 +39,7 @@ import by.itacademy.jd2.staffaccountingspringboot.entity.MaritalStatusEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.PassportEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.PositionEntity;
 import by.itacademy.jd2.staffaccountingspringboot.entity.RelativeEntity;
+import by.itacademy.jd2.staffaccountingspringboot.entity.UserEntity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,6 +61,8 @@ public class Converter {
         TO_DTO_CONVERTERS.put(PositionItemDTO.class, new PositionItemConverter());
         TO_DTO_CONVERTERS.put(RelativeDTO.class, new RelativeConverter());
         TO_DTO_CONVERTERS.put(DepartmentItemDTO.class, new DepartmentItemConverter());
+        TO_DTO_CONVERTERS.put(UserDTO.class, new UserConverter());
+        TO_DTO_CONVERTERS.put(RoleDTO.class, new RoleConverter());
 
         TO_ENTITY_CONVERTERS.put(CareerStepEntity.class, new CareerStepSaveConverter());
         TO_ENTITY_CONVERTERS.put(DepartmentEntity.class, new DepartmentConverter());
@@ -65,6 +72,7 @@ public class Converter {
         TO_ENTITY_CONVERTERS.put(PassportEntity.class, new PassportConverter());
         TO_ENTITY_CONVERTERS.put(PositionEntity.class, new PositionConverter());
         TO_ENTITY_CONVERTERS.put(RelativeEntity.class, new RelativeConverter());
+        TO_ENTITY_CONVERTERS.put(UserEntity.class, new UserConverter());
     }
 
     public static <DTO, ENTITY> DTO toDto(ENTITY entity, Class<DTO> dtoClass) {

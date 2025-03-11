@@ -17,16 +17,16 @@ import java.sql.Date;
 @NoArgsConstructor
 public class PassportDTO {
     private Long id;
-    @NotBlank(message = "Series can't be empty")
-    @Pattern(regexp = "[A-Z]{2}", message = "The series should contain only 2 capital Latin letters")
+    @NotBlank(message = "{series_empty}")
+    @Pattern(regexp = "[A-Z]{2}", message = "{series_pattern}")
     private String series;
-    @NotBlank(message = "Number can't be empty")
-    @Pattern(regexp = "\\d{7}", message = "Number should contain only seven digits")
+    @NotBlank(message = "{number_empty}")
+    @Pattern(regexp = "\\d{7}", message = "{number_pattern}")
     private String number;
     @NotBlank(message = "Identification number can't be empty")
     @Pattern(regexp = "\\d{7}[A-Z]\\d{3}[A-Z]{2}\\d",
-            message = "The identification number does not correspond to the template")
-    @Size(min = 14, max = 14, message = "The length of the identification number should be 14 characters")
+            message = "{identification_pattern}")
+    @Size(min = 14, max = 14, message = "{identification_length}")
     private String identificationNumber;
     private Address registrationAddress;
     private Date dateIssue;

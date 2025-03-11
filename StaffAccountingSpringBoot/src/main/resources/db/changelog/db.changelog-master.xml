@@ -9,5 +9,6 @@
     <include file="v-2.0/db.changelog-v-2.0.xml" relativeToChangelogFile="true"/>
     <include file="v-3.0/db.changelog-v-3.0.xml" relativeToChangelogFile="true"/>
     <include file="v-4.0/db.changelog-v-4.0.xml" relativeToChangelogFile="true"/>
+    <include file="data/db.changelog-data.xml" relativeToChangelogFile="true" context="mysql"/>
 
 </databaseChangeLog>

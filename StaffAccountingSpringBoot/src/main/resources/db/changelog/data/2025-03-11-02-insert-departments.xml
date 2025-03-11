@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet id="insert-departments-1" author="Roman Gulyako">
+        <insert tableName="departments">
+            <column name="name" value="Отдел разработки"/>
+            <column name="genitive_case_name" value="отдела разработки"/>
+            <column name="description" value="Занимается разработкой нового ПО и модернизацией существующего"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-departments-2" author="Roman Gulyako">
+        <insert tableName="departments">
+            <column name="name" value="Отдел тестирования"/>
+            <column name="genitive_case_name" value="отдела тестирования"/>
+            <column name="description" value="Проводят тестирование программного обеспечения, находят и документируют ошибки"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-departments-3" author="Roman Gulyako">
+        <insert tableName="departments">
+            <column name="name" value="Отдел продуктового менеджмента"/>
+            <column name="genitive_case_name" value="отдела продуктового менеджмента"/>
+            <column name="description" value="Определяют видение продукта, разрабатывают стратегию и планы, собирают и анализируют данные, оценивают эффективность продукта"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-departments-4" author="Roman Gulyako">
+        <insert tableName="departments">
+            <column name="name" value="Отдел маркетинга"/>
+            <column name="genitive_case_name" value="отдела маркетинга"/>
+            <column name="description" value="Разрабатывает и реализует маркетинговую стратегию, реализует маркетинговые кампании, проводит анализ рынка, занимается продвижением компании в социальных сетях"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-departments-5" author="Roman Gulyako">
+        <insert tableName="departments">
+            <column name="name" value="Административный отдел"/>
+            <column name="genitive_case_name" value="административного отдела"/>
+            <column name="description" value="Занимается управлением компании, управлением финансовой деятельностью, подбором персонала, решает административные и организационные вопросы"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

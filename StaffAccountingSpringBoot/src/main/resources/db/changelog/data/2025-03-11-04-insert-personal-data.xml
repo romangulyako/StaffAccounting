@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet id="insert-passport-1" author="Roman Gulyako">
+        <insert tableName="passport">
+            <column name="series" value="AA"/>
+            <column name="number" value="1111111"/>
+            <column name="identification_number" value="1111111A111AA1"/>
+            <column name="date_issue" value="2021-01-01"/>
+            <column name="date_end_action" value="2031-01-01"/>
+            <column name="publisher" value="Первомайским РОВД"/>
+            <column name="registration_city" value="Минск"/>
+            <column name="registration_street" value="Ленина"/>
+            <column name="registration_house" value="1"/>
+            <column name="registration_apartment" value="1"/>
+            <column name="employee_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-relative-1" author="Roman Gulyako">
+        <insert tableName="relatives">
+            <column name="surname" value="Иванова"/>
+            <column name="name" value="Мария"/>
+            <column name="patronymic" value="Ивановна"/>
+            <column name="birthday" value="2000-01-01"/>
+            <column name="type_kinship" value="супруга"/>
+            <column name="employee_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-relative-2" author="Roman Gulyako">
+        <insert tableName="relatives">
+            <column name="surname" value="Иванов"/>
+            <column name="name" value="Иван"/>
+            <column name="patronymic" value="Иванович"/>
+            <column name="birthday" value="2021-01-01"/>
+            <column name="type_kinship" value="сын"/>
+            <column name="employee_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-marital-status-1" author="Roman Gulyako">
+        <insert tableName="marital_status">
+            <column name="status" value="женат"/>
+            <column name="registration_date" value="2019-01-01"/>
+            <column name="document" value="Свидетельство о заключении брака №1 от 01.01.2019"/>
+            <column name="employee_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-education-1" author="Roman Gulyako">
+        <insert tableName="education">
+            <column name="education_level" value="среднее общее"/>
+            <column name="institution" value="Средняя школа №1"/>
+            <column name="date_start" value="1997-01-01"/>
+            <column name="date_end" value="2008-05-31"/>
+            <column name="employee_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-education-2" author="Roman Gulyako">
+        <insert tableName="education">
+            <column name="education_level" value="высшее"/>
+            <column name="institution" value="Белорусский государственный университет"/>
+            <column name="faculty" value="прикладной математики"/>
+            <column name="specialization" value="инженер-программист"/>
+            <column name="date_start" value="2008-09-01"/>
+            <column name="date_end" value="2013-05-31"/>
+            <column name="employee_id" value="1"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

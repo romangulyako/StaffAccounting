@@ -116,6 +116,16 @@ public class Constant {
     public static final String NOT_FOUND_RELATIVE_LIST =
             "No relatives found for employee ID={} for the provided parameters: page={}, size={}";
     public static final String GET_RELATIVE_LIST_SUCCESS = "Successfully fetched {} relatives from the database";
+    public static final String ATTEMPT_TO_SAVE_USER = "Attempt to save user with username = {}";
+    public static final String SUCCESSFULLY_SAVED_USER = "Successfully saved user with ID = {}";
+    public static final String ATTEMPT_TO_DELETE_USER = "Attempt to delete user with ID = {}";
+    public static final String SUCCESSFULLY_DELETED_USER = "Successfully deleted user with ID = {}";
+    public static final String ATTEMPT_TO_GET_USER = "Attempt to get user with ID = {}";
+    public static final String SUCCESSFULLY_FETCHED_USER = "Successfully fetched user with ID = {}";
+    public static final String ATTEMPT_TO_GET_PAGE_WITH_USERS = "Attempt to get page with users";
+    public static final String SUCCESSFULLY_FETCHED_PAGE_WITH_USERS =
+            "Successfully fetched page with users. page={}, size={}";
+    public static final String NO_FOUND_USERS = "No found users for page's parameters: page={}, size={}";
 
     /*** Exception's message keys ***/
     public static final String APPOINTED_EXCEPTION_UNIQUE_MESSAGE_KEY = "employee_already_appointed";
@@ -128,6 +138,8 @@ public class Constant {
     public static final String RELATIVE_NOT_FOUND_EXCEPTION_MESSAGE_KEY = "relative_not_found";
     public static final String URL_PARAMETER_EXCEPTION_MESSAGE_KEY = "url_parameter_wrong";
     public static final String ACCESS_DENIED_EXCEPTION_MESSAGE_KEY = "access_denied";
+    public static final String USER_NOT_FOUND_EXCEPTION_MESSAGE_KEY = "user_name_not_found";
+    public static final String USER_BY_ID_NOT_FOUND_EXCEPTION_MESSAGE_KEY = "user_by_id_not_found";
 
     private Constant() {}
 }

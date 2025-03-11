@@ -451,3 +451,31 @@ h1 {
     margin-bottom: 5px;
     color: red;
 }
+
+.role-list-container {
+    height: 120px;
+    border: 1px solid #ccc;
+    overflow-y: auto;
+    position: relative;
+}
+
+.role-list {
+    display: flex;
+}
+
+.role-list li {
+    display: flex;
+}
+
+.role-list li:last-child {
+    border-bottom: none;
+}
+
+.role-list input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.role-span {
+    padding: 5px;
+    color: #070707;
+}

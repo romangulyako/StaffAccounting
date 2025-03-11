@@ -11,6 +11,8 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column type="varchar(45)" name="name"/>
+            <column name="create_date" type="DATETIME(6)"/>
+            <column name="update_date" type="DATETIME(6)"/>
         </createTable>
     </changeSet>
 

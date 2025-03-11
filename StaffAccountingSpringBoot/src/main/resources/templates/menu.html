@@ -1,6 +1,13 @@
 <aside th:fragment="menu" xmlns:sec="http://www.springframework.org/schema/security">
     <nav class="menu-panel">
         <ul class="menu-list">
+            <li sec:authorize="hasAuthority('ADMIN')">
+                <form th:action="@{/users}" method="get">
+                    <button class="menu-item"
+                            th:text="#{users_management}">
+                    </button>
+                </form>
+            </li>
             <li>
                 <form th:action="@{/employees}" method="get">
                     <button class="menu-item" name="isFired" value="false"

@@ -12,7 +12,7 @@
     <div>
         <div class="header-with-button">
             <h2 th:text="#{department_info}"/>
-            <form sec:authorize="hasAuthority('ADMIN')"
+            <form sec:authorize="hasAnyAuthority('ADMIN', 'STRUCTURE')"
                   th:if="${isActual}"
                   th:action="@{/departments/{id}/edit(id=${department.id})}"
                   method="get">
@@ -52,14 +52,14 @@
                 <td th:text="${position.name}"/>
                 <td th:text="${position.educationLevel}"/>
                 <td th:text="${position.salary}"/>
-                <td sec:authorize="hasAuthority('ADMIN')">
+                <td sec:authorize="hasAnyAuthority('ADMIN', 'STRUCTURE')">
                     <form th:action="@{/positions/{id}/edit(id=${position.id})}"
                           method="get">
                         <button class="button-edit"
                                 th:text="#{edit_button}"/>
                     </form>
                 </td>
-                <td sec:authorize="hasAuthority('ADMIN')">
+                <td sec:authorize="hasAnyAuthority('ADMIN', 'STRUCTURE')">
                     <form th:action="@{/positions/{id}/delete(id=${position.id})}"
                           method="post">
                         <input type="hidden"
@@ -83,7 +83,7 @@
                                 th:text="#{show_history_button}"/>
                     </form>
                 </td>
-                <td sec:authorize="hasAuthority('ADMIN')">
+                <td sec:authorize="hasAnyAuthority('ADMIN', 'STRUCTURE')">
                     <form th:if="${isActual}"
                           th:action="@{/positions/{id}/reduce(id=${position.id})}"
                           method="post">
@@ -96,7 +96,7 @@
                                 th:text="#{reduce_button}"/>
                     </form>
                 </td>
-                <td sec:authorize="hasAuthority('ADMIN')">
+                <td sec:authorize="hasAnyAuthority('ADMIN', 'STRUCTURE')">
                     <form th:if="${!isActual}"
                           th:action="@{/positions/{id}/restore(id=${position.id})}"
                           method="post">
@@ -119,7 +119,7 @@
             <div th:replace="~{page-panel :: page-panel}"></div>
         </form>
         <div class="footer-buttons-block">
-            <form sec:authorize="hasAuthority('ADMIN')"
+            <form sec:authorize="hasAnyAuthority('ADMIN', 'STRUCTURE')"
                   th:if="${isActual}"
                   th:action="@{/positions/add}"
                   method="get">
