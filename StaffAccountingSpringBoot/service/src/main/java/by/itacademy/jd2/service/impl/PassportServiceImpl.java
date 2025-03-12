@@ -1,0 +1,54 @@
+package by.itacademy.jd2.service.impl;
+
+import by.itacademy.jd2.converter.Converter;
+import by.itacademy.jd2.entity.PassportEntity;
+import by.itacademy.jd2.dto.PassportDTO;
+import by.itacademy.jd2.repository.PassportRepository;
+import by.itacademy.jd2.service.api.PassportService;
+import by.itacademy.jd2.utils.Constant;
+import by.itacademy.jd2.utils.EmployeeUtils;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class PassportServiceImpl implements PassportService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PassportServiceImpl.class);
+    private final PassportRepository passportRepository;
+
+    @Override
+    public PassportDTO saveOrUpdatePassport(PassportDTO passportDTO) {
+        LOGGER.debug(Constant.ATTEMPT_TO_SAVE_PASSPORT, passportDTO.getEmployeeId());
+        PassportEntity passportEntity = passportRepository.save(Converter.toEntity(passportDTO, PassportEntity.class));
+        LOGGER.info(Constant.SAVE_SUCCESS_LOG, passportEntity.getId());
+
+        return Converter.toDto(passportEntity, PassportDTO.class);
+    }
+
+    @Override
+    public void deletePassport(Long employeeId) {
+        LOGGER.debug(Constant.ATTEMPT_TO_DELETE_PASSPORT, employeeId);
+        passportRepository.deleteByEmployeeId(employeeId);
+        LOGGER.info(Constant.DELETE_PASSPORT_SUCCESS_LOG, employeeId);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public PassportDTO getPassport(Long employeeId) {
+        LOGGER.debug(Constant.ATTEMPT_TO_FETCH_PASSPORT, employeeId);
+        EmployeeUtils.checkExistEmployee(employeeId);
+        PassportEntity passportEntity = passportRepository.findByEmployeeId(employeeId).orElse(null);
+
+        if (passportEntity == null) {
+            LOGGER.info(Constant.PASSPORT_NOT_FOUND, employeeId);
+        } else {
+            LOGGER.info(Constant.PASSPORT_FOUND_SUCCESS, passportEntity.getId());
+        }
+
+        return Converter.toDto(passportEntity, PassportDTO.class);
+    }
+}

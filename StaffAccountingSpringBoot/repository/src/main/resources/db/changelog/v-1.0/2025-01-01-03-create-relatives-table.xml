@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet id="create-relatives-table" author="Roman Gulyako">
+        <createTable tableName="relatives">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="surname" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="patronymic" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="birthday" type="DATE">
+                <constraints nullable="true"/>
+            </column>
+            <column name="type_kinship" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="employee_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="create_date" type="DATETIME(6)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="update_date" type="DATETIME(6)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-fk-relatives-employees" author="Roman Gulyako">
+        <addForeignKeyConstraint baseTableName="relatives"
+                                 baseColumnNames="employee_id"
+                                 constraintName="fk_employee_id"
+                                 referencedTableName="employees"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

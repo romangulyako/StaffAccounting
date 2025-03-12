@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <include file="2025-01-09-01-add-column-date-liberation-position.xml"
+             relativeToChangelogFile="true"/>
+    <include file="2025-01-10-02-alter-table-career.xml"
+             relativeToChangelogFile="true"/>
+    <include file="2025-01-10-03-add-column-to-career.xml"
+             relativeToChangelogFile="true"/>
+    <include file="2025-01-15-04-add-column-is_actual-to-positions-and-departments.xml"
+             relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

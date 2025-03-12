@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+    <changeSet id="drop-career-foreign-keys" author="Roman Gulyako">
+        <dropAllForeignKeyConstraints baseTableName="career"/>
+    </changeSet>
+
+    <changeSet id="delete-old-primary-key-to-career" author="Roman Gulyako">
+        <dropPrimaryKey constraintName="PRIMARY" tableName="career"/>
+    </changeSet>
+
+    <changeSet id="add-id-column-to-career" author="Roman Gulyako">
+        <addColumn tableName="career">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add-unique-fields" author="Roman Gulyako">
+        <addUniqueConstraint
+                columnNames="employee_id, position_id, date_of_appointment"
+                constraintName="career_unique"
+                tableName="career"/>
+    </changeSet>
+
+    <changeSet id="create-career-foreign-keys" author="Roman Gulyako">
+        <addForeignKeyConstraint baseTableName="career"
+                                 baseColumnNames="employee_id"
+                                 constraintName="FK_employee_career"
+                                 referencedTableName="employees"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="career"
+                                 baseColumnNames="position_id"
+                                 constraintName="FK_position_career"
+                                 referencedTableName="positions"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

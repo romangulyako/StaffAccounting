@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet id="rename-id-column" author="Roman Gulyako">
+        <renameColumn tableName="passport"
+                      oldColumnName="EMPLOYEE_ID"
+                      newColumnName="id"
+                      columnDataType="bigint"/>
+    </changeSet>
+
+    <changeSet id="drop-fk" author="Roman Gulyako">
+        <dropForeignKeyConstraint baseTableName="passport"
+                                  constraintName="passport_employees_id_fk"/>
+    </changeSet>
+
+    <changeSet id="add-employee-id-column" author="Roman Gulyako">
+        <addColumn tableName="passport">
+            <column name="employee_id" type="bigint">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add-new-fk-employee-passport" author="Roman Gulyako">
+        <addForeignKeyConstraint baseTableName="passport"
+                                 baseColumnNames="employee_id"
+                                 constraintName="fk_passport_employee"
+                                 referencedTableName="employees"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
